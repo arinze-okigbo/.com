@@ -23,36 +23,36 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "AI Research Platform",
+    title: "Splita",
     description:
-      "An intelligent research assistant leveraging LLMs for automated literature review, hypothesis generation, and experimental design across scientific domains.",
-    tags: ["AI/ML", "Python", "LLMs", "Research"],
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663433635030/kRBXHxgPQPt2KXqRuJwog7/project-ai-3KYyPpJJg96TeD5npt6RHe.webp",
-  },
-  {
-    title: "Security Infrastructure",
-    description:
-      "Enterprise-grade security monitoring and threat detection system with real-time analysis, automated incident response, and compliance reporting.",
-    tags: ["Security", "Infrastructure", "Go", "Real-time"],
-    image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663433635030/kRBXHxgPQPt2KXqRuJwog7/project-security-CiT2jq8XSnARJMX9wTyTrS.webp",
-  },
-  {
-    title: "Fintech Platform",
-    description:
-      "Next-generation payment infrastructure enabling instant cross-border transactions with built-in compliance and fraud detection.",
-    tags: ["Fintech", "Payments", "TypeScript", "APIs"],
+      "A coordination-first fintech product built to remove the friction, awkwardness, and failure points of group payments. Collecting everyone's share upfront and paying the vendor in full.",
+    tags: ["Fintech", "Startup", "Product", "Payments"],
     image:
       "https://d2xsxph8kpxj0f.cloudfront.net/310519663433635030/kRBXHxgPQPt2KXqRuJwog7/project-fintech-cL5maUqM7pGMiHRcUmfD9X.webp",
   },
   {
-    title: "Cloud Infrastructure",
+    title: "arinzeokigbo.com",
     description:
-      "Scalable, self-healing cloud infrastructure platform with automated deployment pipelines, monitoring, and cost optimization.",
-    tags: ["Cloud", "DevOps", "Kubernetes", "Terraform"],
+      "A premium portfolio and digital flagship built with Next.js, TypeScript, Tailwind, and Framer Motion. Designed to present work across AI, security, infrastructure, and startups.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
     image:
-      "https://d2xsxph8kpxj0f.cloudfront.net/310519663433635030/kRBXHxgPQPt2KXqRuJwog7/project-infra-5B472RLPm6TjmPvCNBiFGQ.webp",
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663433635030/kRBXHxgPQPt2KXqRuJwog7/hero-abstract-dvSQRePRaUi3H4D5syQms8.webp",
+  },
+  {
+    title: "Scanner",
+    description:
+      "A technical project reflecting an interest in systems thinking, scanning workflows, and lower-level software structure. Built with discipline and focus on implementation.",
+    tags: ["Systems", "Tooling", "C / Make", "Engineering"],
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663433635030/kRBXHxgPQPt2KXqRuJwog7/project-security-CiT2jq8XSnARJMX9wTyTrS.webp",
+  },
+  {
+    title: "Splita Coming Soon",
+    description:
+      "A public-facing product and waitlist experience for Splita's launch phase. Built to communicate positioning and capture early interest from users.",
+    tags: ["Marketing", "Landing Page", "Startup", "Frontend"],
+    image:
+      "https://d2xsxph8kpxj0f.cloudfront.net/310519663433635030/kRBXHxgPQPt2KXqRuJwog7/project-ai-3KYyPpJJg96TeD5npt6RHe.webp",
   },
 ];
 
@@ -131,9 +131,8 @@ export function Projects() {
 
         <RevealItem>
           <p className="text-body text-foreground/35 max-w-lg mb-16 md:mb-24 text-base">
-            Projects spanning artificial intelligence, cybersecurity,
-            financial technology, and cloud infrastructure — each built with
-            precision and purpose.
+            Projects spanning fintech, AI systems, authentication infrastructure,
+            and technical tooling — each built with precision and purpose.
           </p>
         </RevealItem>
 

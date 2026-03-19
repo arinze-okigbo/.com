@@ -17,7 +17,7 @@ const lastName = "Okigbo";
 
 const heroSubtitle = "Founder. Engineer. Builder.";
 const heroDescription =
-  "Building at the intersection of AI, security, infrastructure, and fintech.";
+  "Co-Founder & CEO of Splita, working across AI systems at Snorkel AI, authentication infrastructure at Queralt Inc., and computer science at Trinity College.";
 
 const letterVariants = {
   hidden: { opacity: 0, y: 40, rotateX: -15 },
@@ -49,6 +49,23 @@ const lineVariants = {
 export function Hero() {
   return (
     <section className="relative h-screen flex items-end overflow-hidden">
+      {/* Profile picture — positioned top right */}
+      <motion.div
+        className="absolute top-0 right-0 w-1/3 h-full hidden md:flex items-center justify-end pr-8 lg:pr-16 z-5"
+        initial={{ opacity: 0, x: 60 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: duration.slow, ease: ease.out, delay: 0.8 }}
+      >
+        <div className="relative w-full max-w-xs aspect-square rounded-lg overflow-hidden border border-white/[0.08]">
+          <img
+            src="https://d2xsxph8kpxj0f.cloudfront.net/310519663433635030/kRBXHxgPQPt2KXqRuJwog7/profile_0c82ad80.webp"
+            alt="Arinze Okigbo"
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+      </motion.div>
+
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <img

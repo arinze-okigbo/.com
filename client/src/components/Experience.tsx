@@ -21,36 +21,36 @@ interface ExperienceEntry {
 
 const experiences: ExperienceEntry[] = [
   {
-    role: "Founder & CEO",
-    company: "Stealth Startup",
-    period: "2024 — Present",
+    role: "Co-Founder & CEO",
+    company: "Splita",
+    period: "2025 — Present",
     description:
-      "Building next-generation infrastructure at the intersection of AI and security. Leading product strategy, engineering, and fundraising.",
-    tags: ["Leadership", "AI", "Security"],
+      "Building a startup focused on simplifying group payments. Leading product direction, positioning, and execution at the intersection of fintech, coordination, and user experience.",
+    tags: ["Founder", "Fintech", "Product"],
   },
   {
-    role: "Software Engineer",
-    company: "Enterprise Tech",
-    period: "2023 — 2024",
+    role: "Software Developer Intern",
+    company: "Queralt Inc.",
+    period: "2025 — Present",
     description:
-      "Designed and shipped high-performance backend systems handling millions of daily transactions. Reduced latency by 40% through architectural improvements.",
-    tags: ["Backend", "Systems", "Scale"],
+      "Working on authentication infrastructure and secure systems. Contributing to identity- and security-oriented engineering efforts across browser-native authentication.",
+    tags: ["Security", "Infrastructure", "Auth"],
   },
   {
-    role: "Research Assistant",
-    company: "University Lab",
-    period: "2022 — 2023",
+    role: "AI",
+    company: "Snorkel AI",
+    period: "2026 — Present",
     description:
-      "Conducted research in machine learning and natural language processing. Published findings on efficient transformer architectures for resource-constrained environments.",
-    tags: ["ML", "NLP", "Research"],
+      "Contributing to AI-related evaluation and workflow tasks. Supporting quality and reliability-oriented work across AI systems at the intersection of structured analysis and applied workflows.",
+    tags: ["AI", "Evaluation", "Systems"],
   },
   {
-    role: "Software Engineering Intern",
-    company: "Fintech Company",
-    period: "2022",
+    role: "B.S. in Computer Science",
+    company: "Trinity College",
+    period: "Expected May 2028",
     description:
-      "Built payment processing features and internal tooling. Contributed to a system processing $2M+ in daily transactions.",
-    tags: ["Fintech", "Payments", "Full-stack"],
+      "Studying computer science with a strong interest in software development, AI, security, and systems. Building projects across startups, engineering, and technical experimentation.",
+    tags: ["Education", "CS", "Technical"],
   },
 ];
 
@@ -79,16 +79,15 @@ function ExperienceCard({ entry, index }: { entry: ExperienceEntry; index: numbe
         <p className="text-mono text-[0.7rem] text-primary/40 mb-3 tracking-[0.1em]">
           {entry.company}
         </p>
-        <p className="text-body text-sm text-foreground/35 leading-relaxed max-w-lg mb-4">
+        <p className="text-body text-sm text-foreground/50 mb-4 leading-relaxed">
           {entry.description}
         </p>
-
         {entry.tags && (
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2">
             {entry.tags.map((tag) => (
               <span
                 key={tag}
-                className="label-caps text-[0.55rem] text-foreground/20"
+                className="label-caps text-[0.6rem] px-2 py-0.5 rounded border border-white/[0.05] text-foreground/30"
               >
                 {tag}
               </span>
@@ -117,16 +116,15 @@ export function Experience() {
         </RevealItem>
 
         <RevealItem>
-          <p className="text-body text-foreground/35 max-w-lg mb-12 md:mb-16 text-base">
-            A track record of building impactful systems across startups,
-            enterprise, and research.
+          <p className="text-body text-foreground/35 max-w-lg mb-16 md:mb-24 text-base">
+            A track record of building impactful products and systems across startups, AI, security, and infrastructure.
           </p>
         </RevealItem>
 
-        {/* Top border for the list */}
-        <div className="border-t border-white/[0.04]">
+        {/* Experience timeline */}
+        <div className="max-w-4xl">
           {experiences.map((entry, i) => (
-            <RevealItem key={entry.role + entry.company}>
+            <RevealItem key={`${entry.company}-${i}`}>
               <ExperienceCard entry={entry} index={i} />
             </RevealItem>
           ))}

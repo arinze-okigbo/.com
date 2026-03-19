@@ -13,10 +13,10 @@ import { useRef } from "react";
 import { SectionReveal, RevealItem } from "./SectionReveal";
 
 const stats = [
-  { value: "4+", label: "Years Building" },
-  { value: "10+", label: "Projects Shipped" },
-  { value: "3", label: "Domains of Expertise" },
-  { value: "1", label: "Mission" },
+  { value: "3+", label: "Current Roles" },
+  { value: "1", label: "Startup Founded" },
+  { value: "4", label: "Domains" },
+  { value: "2028", label: "Graduation" },
 ];
 
 const skills = [
@@ -67,26 +67,19 @@ export function About() {
           <div>
             <RevealItem>
               <p className="text-body text-xl md:text-2xl text-foreground/65 leading-[1.5] mb-8 tracking-[-0.01em]">
-                I'm a computer science student and founder driven by the
-                conviction that the most important problems sit at the
-                intersection of disciplines.
+                I'm a founder, software engineer, and computer science student interested in building ambitious products and technical systems that solve real problems.
               </p>
             </RevealItem>
 
             <RevealItem>
               <p className="text-body text-base text-foreground/35 leading-relaxed mb-6">
-                My work spans artificial intelligence, cybersecurity, cloud
-                infrastructure, and financial technology — not because I chase
-                trends, but because these domains are converging. The future
-                belongs to builders who can think across boundaries.
+                My work sits at the intersection of AI, security, infrastructure, and fintech — from building Splita, a startup simplifying group payments, to contributing to AI systems at Snorkel AI and authentication infrastructure at Queralt Inc.
               </p>
             </RevealItem>
 
             <RevealItem>
               <p className="text-body text-base text-foreground/35 leading-relaxed mb-14">
-                I believe in shipping fast, building with rigor, and solving
-                problems that matter. Every project I take on is an opportunity
-                to create something that didn't exist before.
+                I care deeply about execution, product taste, technical depth, and creating work that feels both useful and differentiated. Every project is an opportunity to build something that didn't exist before.
               </p>
             </RevealItem>
 
@@ -100,7 +93,7 @@ export function About() {
                   {skills.map((skill) => (
                     <span
                       key={skill}
-                      className="text-mono text-[0.7rem] px-3 py-1.5 rounded border border-white/[0.05] text-foreground/30 hover:text-foreground/55 hover:border-white/[0.1] transition-all duration-300"
+                      className="label-caps text-[0.6rem] px-2 py-0.5 rounded border border-white/[0.05] text-foreground/30"
                     >
                       {skill}
                     </span>
@@ -111,16 +104,17 @@ export function About() {
           </div>
 
           {/* Right — stats with parallax */}
-          <motion.div style={{ y: statsY }}>
-            {stats.map((stat) => (
-              <RevealItem key={stat.label}>
-                <div className="py-7 md:py-8 border-b border-white/[0.04] first:border-t first:border-white/[0.04]">
-                  <span className="heading-display text-4xl md:text-5xl lg:text-6xl text-primary/70 block mb-1.5">
+          <motion.div
+            className="flex flex-col justify-center gap-12 md:gap-16"
+            style={{ y: statsY }}
+          >
+            {stats.map((stat, i) => (
+              <RevealItem key={`stat-${i}`}>
+                <div className="border-l border-white/[0.08] pl-6">
+                  <p className="text-primary text-5xl md:text-6xl font-bold leading-none mb-2">
                     {stat.value}
-                  </span>
-                  <span className="label-caps text-[0.6rem] text-foreground/25">
-                    {stat.label}
-                  </span>
+                  </p>
+                  <p className="label-caps text-foreground/40">{stat.label}</p>
                 </div>
               </RevealItem>
             ))}
