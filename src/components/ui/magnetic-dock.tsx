@@ -24,7 +24,7 @@ type DockItem = {
 };
 
 function DockIcon({ icon, href }: DockItem) {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLAnchorElement | null>(null);
   const mouse = useContext(MouseContext);
   const distance = useMotionValue(Infinity);
 
