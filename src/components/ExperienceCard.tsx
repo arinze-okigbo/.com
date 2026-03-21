@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 
@@ -111,9 +112,11 @@ export function ExperienceCard({
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-3">
               {logo ? (
-                <img
+                <Image
                   src={logo}
                   alt={`${company} logo`}
+                  width={44}
+                  height={44}
                   className="h-11 w-11 rounded-xl object-contain ring-1 ring-white/10"
                 />
               ) : (

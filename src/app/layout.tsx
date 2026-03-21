@@ -1,3 +1,23 @@
+import type { Metadata } from "next";
+import { Instrument_Serif, Space_Grotesk } from "next/font/google";
+import "@/app/globals.css";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://arinzeokigbo.com"),
 
@@ -18,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "ArinzeOkigbo.com",
     images: [
       {
-        url: "https://arinzeokigbo.com/profile.jpg", // 🔥 MUST be absolute
+        url: "https://arinzeokigbo.com/profile.jpg",
         width: 1200,
         height: 630,
         alt: "Arinze Okigbo",
@@ -43,3 +63,19 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
   },
 };
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="en">
+      <body className={`${spaceGrotesk.variable} ${instrumentSerif.variable} antialiased`}>
+        <SmoothScrollProvider>
+          <div className="min-h-screen">
+            <SiteHeader />
+            <main>{children}</main>
+            <SiteFooter />
+          </div>
+        </SmoothScrollProvider>
+      </body>
+    </html>
+  );
+}

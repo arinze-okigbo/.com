@@ -13,7 +13,7 @@ import {
   useTransform,
   useSpring,
 } from "framer-motion";
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter, Bookmark } from "lucide-react";
 
 // mouse context
 const MouseContext = createContext({ x: 0, y: 0 });
@@ -96,6 +96,10 @@ export default function MagneticDock() {
           <DockIcon
             href="mailto:arinze@splita.co"
             icon={<Mail size={22} />}
+          />
+          <DockIcon
+            href="https://arinzeokigbo.substack.com/"
+            icon={<Bookmark size={22} />}
           />
         </div>
       </div>

@@ -2,9 +2,8 @@
   "name": "arinzeokigbo-com",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.23.0",
   "engines": {
-    "node": ">=20 <23"
+    "node": ">=20"
   },
   "scripts": {
     "dev": "next dev --turbopack",
