@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    url: "https://arinzeokigbo.com",
+    url: "https://www.arinzeokigbo.com",
     title: "Arinze Okigbo | Founder, Engineer, Builder",
     description:
       "Co-Founder & CEO of Splita. AI DevOps @ Snorkel AI. Engineering @ Queralt Inc. CS @ Trinity College.",
@@ -22,6 +22,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: "Arinze Okigbo",
+        type: "image/jpeg",
       },
     ],
   },
