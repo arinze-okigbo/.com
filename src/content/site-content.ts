@@ -80,14 +80,14 @@ export const featuredProjects = [
     summary:
       "Exploration of certificate-based identity, FIDO2, and enterprise PKI to replace password-based authentication systems.",
     tags: ["Security", "PKI", "Authentication"],
-    href: "https://github.com/arinze-okigbo",
+    href: "www.queraltinc.com",
   },
   {
-    title: "AI Systems Evaluation",
+    title: "SkyView",
     summary:
-      "Evaluated and improved AI-generated outputs in real-world workflows, focusing on reliability, consistency, and production readiness.",
-    tags: ["AI", "LLMs", "Evaluation"],
-    href: "https://github.com/arinze-okigbo",
+      "SkyView is a browser-based 3D globe built with Vite and Cesium. It layers flight traffic, airports, landmarks, optional weather and satellite feeds, and related UI on a Google Photorealistic 3D Tiles globe.",
+    tags: ["REST APIs", "Open-source", "3D Map"],
+    href: "https://github.com/arinze-okigbo/sky-view",
   },
 ];
 
