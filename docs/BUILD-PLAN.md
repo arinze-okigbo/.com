@@ -39,18 +39,74 @@ Real content worth preserving:
 - No `prefers-reduced-motion` handling anywhere in `globals.css`.
 - `featuredProjects[1].href` is `"www.queraltinc.com"` with no protocol. It will resolve as a relative path.
 
-## Open questions blocking Phase 3
+## Decisions (answered 2026-09-10)
 
-The brief contradicts the repo on three facts. Nothing gets invented to paper over this.
+1. School: NYU is current. Trinity College is prior — Arinze transferred. Both appear; NYU as current,
+   Trinity as prior. STILL NEEDED: transfer date.
+2. Snorkel AI: keep as a first-class selected-work entry. Selected work is four entries —
+   Splita, Cyera, Queralt, Snorkel AI.
+3. Writing: build the MDX pipeline, keep the section hidden until two real posts exist. Backend and
+   content agents ship the pipeline; IA treats the section as built-but-unlisted.
+4. Dead Vite app: delete `client/`, `server/`, `shared/`, `patches/`, `vite.config.ts` in Phase 4.
+   Recoverable from git history.
 
-1. School: repo says Trinity College B.S. CS 2024-2028. Brief says NYU. Which, and if it changed, when?
-   Is the other still part of the story (transfer)?
-2. Cyera: absent from the repo entirely. Need exact title, dates, and one sentence on what shipped.
-3. Snorkel AI (AI Contributor, DevOps): in the repo, not in the brief. Keep, demote, or drop?
-4. Resume: is there a PDF to link? Nothing is in the repo.
-5. Writing section: zero posts exist. Recommendation is to build the MDX pipeline but hide the section
-   until there are two real posts. An empty writing section reads worse than no writing section.
-6. Delete `client/`, `server/`, `shared/`, `patches/`, `vite.config.ts`? Recommendation is yes, Phase 4.
+## Direction decisions (answered 2026-09-11, after Phase 1)
+
+5. **Hero density: follow the research.** `docs/01` and `docs/03` independently found that the
+   sparse, heavy-whitespace hero is the *company* pattern (Apple, Stripe: 3-7 text runs above the
+   fold) and that strong personal sites carry 27-56. The first viewport carries evidence: claim,
+   credential sentence, named linked work, contact. Restraint moves to the palette (~14 colors),
+   weights (400/500 only), a 672px column, and ~12px motion distances — not to content density.
+   This overrides the "few elements per viewport" line in the original brief.
+6. **3D goes to screenful three, below the fold.** Not the hero. This satisfies the original
+   below-the-fold requirement, keeps the LCP element a server-rendered text block, and makes the
+   3D a reward for scrolling. Concept per `docs/02`: real ECDSA P-256 keypair via WebCrypto,
+   signs a nonce, signature bytes seed a lattice that resolves from entropy into structure on
+   scroll, live signature printed underneath. ~17 KB via OGL.
+7. **Stack overridden by `docs/02`, on measurements.** OGL (16.9 KB) replaces R3F+drei (245.7 KB).
+   Framer Motion `LazyMotion`+`m` (29.2 KB) replaces GSAP ScrollTrigger (45.1 KB) — on budget,
+   not licensing. Lenis kept. Verified baseline: `/` ships 169 kB First Load JS today, 31 kB headroom.
+
+## Cycle 1 outcome (2026-09-11) — all phases executed
+
+Verified by the orchestrator, not self-reported: Lighthouse mobile **99 / 100 / 96 / 100**
+(the 96 is two localhost-only `/_vercel/` 404s; re-proved 100 without them). CLS **0.000**.
+Real First Load JS **113,269 B** measured from the network waterfall — note Next UNDER-REPORTS
+by ~37.5 kB, so the build table is not the number to trust. axe **0 violations / 16 scans**.
+Tests **112/112**. Production `npm audit` **0 vulnerabilities**, down from 6 including two
+critical unauthenticated RCE advisories in `next@15.2.8`; now on **next@15.5.25**.
+`public/` went **5,176 KB → 92 KB**. Dead Vite app deleted: 89 files, 9,381 lines.
+
+Defects found and fixed: 4 CRITICAL, 5 HIGH (one partial), 27 MEDIUM/LOW. The two criticals
+no single build agent could have caught — both were cross-layer:
+1. Space Grotesk never painted. `next/font`'s variable class sat on `<body>` while `--font-sans`
+   was declared at `:root`, making the property invalid at computed-value time. Every engine fell
+   back to its platform default while preloading and discarding 22 KB of font.
+2. The measure column did not exist. Tailwind's own `.container` utility beat the hand-authored
+   `.container--*` classes. Renamed to **`.col`** — do not restore the old name, `container` is
+   reserved by Tailwind and reusing it silently reintroduces the defect.
+
+Framer Motion was **removed entirely** (−29,525 B): it animated nothing, its only `m` consumer
+was unmounted, and 71.8% of the chunk was unused. Reveals are pure CSS + IntersectionObserver.
+The `defineMotionSpec` machinery that makes reduced-motion a compile-time requirement survives
+and is load-bearing — do not reintroduce Framer.
+
+**The one unmet requirement: LCP 2,003 ms against the 2,000 ms bar.** Three counterfactual builds
+put ~2,005 ms at the React+Next shell floor; 88.8% of initial JS is framework and removing a
+further 6,561 B moved LCP by zero. Clearing it needs an architecture change, not a fix pass.
+Observed LCP on real hardware is 48 ms.
+
+Owner decisions taken this cycle: contact is email-only (endpoint deleted), site is type-only
+(no portrait; `profile.jpg`, `profile-576.jpg`, `og-image.svg` deleted — the first and third
+recoverable from commit `ee55ea6`).
+
+## Still blocking Phase 3
+
+Nothing gets invented to paper over these. Phases 0 through 2 proceed without them.
+
+1. Cyera: absent from the repo entirely. Need exact title, dates, and one sentence on what shipped.
+2. NYU transfer date, and whether Trinity is stated as "prior" or as a transfer with dates.
+3. Resume: is there a PDF to link? Nothing is in the repo.
 
 ## Strategy
 
