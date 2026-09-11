@@ -31,5 +31,5 @@
     "tests/**/*.ts",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "client", "server", "shared"]
+  "exclude": ["node_modules", ".next"]
 }

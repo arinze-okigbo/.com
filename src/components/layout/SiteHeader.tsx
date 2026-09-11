@@ -1,28 +1,53 @@
-import { navItems } from "@/content/site-content";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { Nav, type MobileNavLabels, type NavItem } from "./Nav";
+import { ThemeToggle, type ThemeToggleLabels } from "./ThemeToggle";
 
-export function SiteHeader() {
+export interface SiteHeaderProps {
+  readonly items: readonly NavItem[];
+  readonly resumeHref: string | null;
+  readonly resumeLabel?: string;
+  readonly resumePendingLabel?: string;
+  readonly mobileNavLabels?: MobileNavLabels;
+  readonly themeToggleLabels?: ThemeToggleLabels;
+  readonly wordmark?: string;
+}
+
+/**
+ * docs/04 §8.1 — sticky, `--header-height` (64px), `--color-background` with
+ * `backdrop-filter: blur(8px)` and a `--color-border-subtle` bottom hairline.
+ * The only sticky element on the site (§5.3).
+ *
+ * [03 R5]: contact and résumé affordances are reachable at zero scroll, as
+ * visible links, never hover-revealed.
+ */
+export function SiteHeader({
+  items,
+  resumeHref,
+  resumeLabel,
+  resumePendingLabel,
+  mobileNavLabels,
+  themeToggleLabels,
+  wordmark = "Arinze Okigbo",
+}: SiteHeaderProps) {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/5 bg-black/35 backdrop-blur-xl">
-      <Container className="flex h-16 items-center justify-between gap-4">
-        <a className="text-sm font-semibold tracking-[0.18em] text-foreground/90 uppercase" href="#top">
-          Arinze Okigbo
-        </a>
-        <nav className="hidden items-center gap-6 md:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="link-underline text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-        <Button href="#contact" size="sm" variant="ghost">
-          Connect
-        </Button>
+    <header className="site-header">
+      <Container width="shell">
+        <div className="site-header-inner">
+          <Link href="/" className="wordmark">
+            {wordmark}
+          </Link>
+          <div className="header-actions">
+            <Nav
+              items={items}
+              resumeHref={resumeHref}
+              resumeLabel={resumeLabel}
+              resumePendingLabel={resumePendingLabel}
+              mobileLabels={mobileNavLabels}
+            />
+            <ThemeToggle labels={themeToggleLabels} />
+          </div>
+        </div>
       </Container>
     </header>
   );
