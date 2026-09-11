@@ -1,41 +1,41 @@
-import { ArrowUpRight } from "lucide-react";
+import type { ReactNode } from "react";
+
 import { Reveal } from "@/components/motion/Reveal";
-import { SectionHeading } from "@/components/sections/SectionHeading";
-import { Container } from "@/components/ui/Container";
-import { contactLinks } from "@/content/site-content";
+import { Button } from "@/components/ui/Button";
+import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ContactBlock } from "@/components/sections/primitives/ContactBlock";
+import { CONTACT, contactEmail, contactLinks, contactPrimaryAction } from "@/content/contact";
 
-export function ContactSection() {
+/**
+ * Contact — `docs/05 §3.6`. Screenful 6, the exit point.
+ *
+ * The heading IS the email address, which is what makes [R9] pass on the "how to
+ * reach him" clause: a recruiter who scans only the headings chain and stops
+ * still has the address.
+ */
+export function ContactSection(): ReactNode {
   return (
-    <section id="contact" className="section-shell pb-20 md:pb-28">
-      <Container className="space-y-10">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Contact"
-            title="Building something meaningful? Let us connect."
-            description="Reach out for collaborations, product conversations, engineering opportunities, or founder-to-founder discussion."
-          />
-        </Reveal>
+    // `isLast`: the last section before the footer carries the closing gap
+    // (docs/04 §2.3). It used to come from `.site-footer`'s own
+    // `margin-block-start`, which left `isLast` and `.section--last` dead and
+    // put the gap on the wrong owner. Same rendered value, correct owner.
+    <Section id={CONTACT.id} labelledBy={CONTACT.headingId} isLast>
+      <SectionHeading id={CONTACT.headingId} level={2}>
+        {CONTACT.heading}
+      </SectionHeading>
 
-        <Reveal delay={0.12}>
-          <div className="card divide-y divide-line overflow-hidden">
-            {contactLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto") ? undefined : "noreferrer"}
-                className="group flex items-center justify-between gap-4 px-6 py-5 transition hover:bg-white/[0.03]"
-              >
-                <div>
-                  <p className="text-xs font-semibold tracking-[0.16em] text-accent uppercase">{link.label}</p>
-                  <p className="mt-1 text-sm text-foreground/90 md:text-base">{link.value}</p>
-                </div>
-                <ArrowUpRight className="text-muted transition group-hover:text-foreground" size={18} />
-              </a>
-            ))}
-          </div>
-        </Reveal>
-      </Container>
-    </section>
+      <Reveal className="mt-[var(--rhythm-heading)]">
+        <ContactBlock
+          email={contactEmail}
+          links={contactLinks}
+          primaryAction={
+            <Button as="a" href={contactPrimaryAction.href} variant="primary">
+              {contactPrimaryAction.label}
+            </Button>
+          }
+        />
+      </Reveal>
+    </Section>
   );
 }

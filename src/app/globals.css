@@ -1,114 +1,1438 @@
-@import "tailwindcss";
+/* ============================================================
+   src/app/globals.css — arinzeokigbo.com
+   Source of truth: docs/04-design-system.md
+   Any value here that is not in that document is a defect.
 
-:root {
-  --background: #0a0a0a;
-  --surface: #101010;
-  --surface-strong: #161616;
-  --foreground: #f6f5f2;
-  --muted: #b4b1ab;
-  --line: #232323;
-  --accent: #d1a954;
-  --radius: 18px;
+   Layout of this file:
+     1. Semantic colour            §3.2 §3.3 §3.4 §9.1
+     2. Responsive scalars         §2.3
+     3. @theme (Tailwind surface)  §10
+     4. Non-utility tokens         §2.4 §5 §7
+     5. Base                       §1.1 §9.3
+     6. Focus                      §7.2
+     7. Reveal                     §5.3 §6
+     8. Components                 §8
+     9. Reduced motion             §6  (authored after 7 + 8 so it wins)
+    10. Print                      §9.5
+   ============================================================ */
+
+/* `source(none)` + explicit globs, rather than Tailwind's automatic project
+   scan. The automatic scan walks the whole repository, so it matched class-like
+   strings in PROSE — the markdown under docs/ and the comments in this file —
+   and emitted utilities for them. That shipped `.shadow` (docs/04 §2.6 says
+   is a defect if it exists), `.ring`, `.blur`, `.invert`, `.font-serif`,
+   `.uppercase`, `.italic`, `.h-64`, `.h-72`, `.py-12/14/16/24/36`, `.px-2/4`
+   and `.p-4` — none of which appears on any element — plus three copies of the
+   reserved `.container` utility, scanned out of `--container-prose`.
+
+   Only .ts/.tsx under src/ can legitimately carry a class name, so that is the
+   only thing scanned. Every class authored directly in this file is unaffected;
+   Tailwind does not need to discover those. */
+@import "tailwindcss" source(none);
+@source "../../src/**/*.{ts,tsx}";
+
+/* Tailwind 4 dark variant, driven by the data-theme attribute (§9.1) */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ------------------------------------------------------------
+   1. SEMANTIC COLOUR (§3.2, §3.3)
+
+   There is NO default mode (§9.2). prefers-color-scheme decides;
+   the toggle overrides and persists. `:root` carries the light
+   value set only because the cascade needs a base declaration —
+   both paths below fully override it before first paint.
+
+   Precedence:  [data-theme]  >  @media  >  :root
+   ------------------------------------------------------------ */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --background: #fcfcfc;
+  --surface: #f6f6f6;
+  --surface-raised: #ededed;
+
+  --foreground-strong: #0a0a0a;
+  --foreground: #1a1a1a;
+  --foreground-secondary: #5c5c5c;
+  --foreground-muted: #696969;
+  --foreground-faint: #bdbdbd;
+
+  --border: #0000001f;
+  --border-subtle: #00000014;
+  --border-interactive: #0000006f;
+
+  /* Deep gold — same hue as the brand (41.1deg vs 40.8deg), lightness
+     lowered so it clears 4.5:1 on every light surface. (§3.4) */
+  --accent: #7c5e1d;
+  --accent-hover: #5f4611;
+  --accent-tint: #f7f1df;
+  /* WHITE here, near-black in dark mode. The pair INVERTS (§3.4).
+     Never hard-code this value on an accent fill. */
+  --accent-foreground: #ffffff;
+
+  --shadow-overlay: 0 8px 32px rgb(0 0 0 / 0.16);
 }
 
+/* OS-preference path, and the ONLY path when JS is unavailable. (§9.3)
+   The :not([data-theme="light"]) guard is what lets an explicit light
+   choice beat a dark OS preference — do not remove it.
+   KEEP IN SYNC with the [data-theme="dark"] block below — same values. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --background: #0a0a0a;
+    --surface: #141414;
+    --surface-raised: #1c1c1c;
+    --foreground-strong: #fcfcfc;
+    --foreground: #ededed;
+    --foreground-secondary: #a8a8a8;
+    --foreground-muted: #8a8a8a;
+    --foreground-faint: #4a4a4a;
+    --border: #ffffff1f;
+    --border-subtle: #ffffff14;
+    --border-interactive: #ffffff6f;
+    --accent: #d1a954; /* brand gold, unchanged */
+    --accent-hover: #dbbc7a;
+    --accent-tint: #241c0b;
+    --accent-foreground: #0a0a0a; /* near-black — inverts vs light */
+    --shadow-overlay: 0 8px 32px rgb(0 0 0 / 0.48);
+  }
+}
+
+/* Explicit user choice, written by ThemeScript before first paint.
+   Highest precedence. (§9.3)
+   KEEP IN SYNC with the @media block above — same values. */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --surface: #141414;
+  --surface-raised: #1c1c1c;
+  --foreground-strong: #fcfcfc;
+  --foreground: #ededed;
+  --foreground-secondary: #a8a8a8;
+  --foreground-muted: #8a8a8a;
+  --foreground-faint: #4a4a4a;
+  --border: #ffffff1f;
+  --border-subtle: #ffffff14;
+  --border-interactive: #ffffff6f;
+  --accent: #d1a954; /* brand gold, unchanged */
+  --accent-hover: #dbbc7a;
+  --accent-tint: #241c0b;
+  --accent-foreground: #0a0a0a; /* near-black — inverts vs light */
+  --shadow-overlay: 0 8px 32px rgb(0 0 0 / 0.48);
+}
+
+/* Wide-gamut accent upgrade (§3.4). Hue- and lightness-matched, chroma
+   extended: the sRGB values above remain the basis of every contrast claim. */
+@supports (color: color(display-p3 1 1 1)) {
+  :root,
+  [data-theme="light"] {
+    --accent: color(display-p3 0.47 0.37 0.1);
+    --accent-hover: color(display-p3 0.36 0.27 0.06);
+  }
+  [data-theme="dark"] {
+    --accent: color(display-p3 0.81 0.66 0.3);
+    --accent-hover: color(display-p3 0.85 0.74 0.45);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --accent: color(display-p3 0.81 0.66 0.3);
+      --accent-hover: color(display-p3 0.85 0.74 0.45);
+    }
+  }
+}
+
+/* ------------------------------------------------------------
+   2. RESPONSIVE SCALARS (§2.3)
+   ------------------------------------------------------------ */
+:root {
+  --section-gap: 72px;
+  --gutter: 24px;
+  --header-height: 64px;
+}
+@media (min-width: 48rem) {
+  /* --breakpoint-md */
+  :root {
+    --section-gap: 96px;
+    --gutter: 32px;
+  }
+}
+@media (min-width: 64rem) {
+  /* --breakpoint-lg */
+  :root {
+    --section-gap: 144px;
+    --gutter: 48px;
+  }
+}
+
+/* ------------------------------------------------------------
+   3. @theme — the token surface Tailwind generates utilities from
+   ------------------------------------------------------------ */
 @theme inline {
+  /* --- Colour (§3). `inline` is REQUIRED: it makes utilities emit
+         var(--…) so the runtime theme switch works. --- */
   --color-background: var(--background);
   --color-surface: var(--surface);
-  --color-surface-strong: var(--surface-strong);
+  --color-surface-raised: var(--surface-raised);
+  --color-foreground-strong: var(--foreground-strong);
   --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-faint: var(--foreground-faint);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-interactive: var(--border-interactive);
   --color-accent: var(--accent);
-  --font-sans: var(--font-space-grotesk);
-  --font-serif: var(--font-instrument-serif);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-tint: var(--accent-tint);
+  --color-accent-foreground: var(--accent-foreground);
+
+  /* --- Typography (§1) ---
+         `--font-space-grotesk` is emitted by `next/font` onto <html> (see
+         layout.tsx). It already ends in "Space Grotesk Fallback", so this
+         stack does NOT repeat it. The `var()` fallback is belt-and-braces:
+         if the variable class is ever moved off <html> again, the family
+         degrades to the named face instead of invalidating the whole
+         declaration and silently dropping the type system.
+
+         "Space Grotesk Metric Fallback" (§4b) comes after next/font's own
+         fallback and before the system stack: on a platform with Arial the
+         next/font face matches first and this entry is never reached, and on
+         Android or Linux — where `local("Arial")` does not resolve and the
+         next/font face therefore does not exist — this one carries the same
+         metric overrides instead of falling through unadjusted. */
+  --font-sans:
+    var(--font-space-grotesk, "Space Grotesk", "Space Grotesk Fallback"),
+    "Space Grotesk Metric Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+    sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+
+  --text-caption: 0.8125rem; /* 13px */
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: -0.01em;
+  --text-caption--font-weight: 400;
+
+  --text-label: 0.8125rem; /* 13px, uppercase */
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.12em;
+  --text-label--font-weight: 500;
+
+  --text-mono: 0.8125rem; /* 13px */
+  --text-mono--line-height: 1.5;
+  --text-mono--letter-spacing: 0em;
+  --text-mono--font-weight: 400;
+
+  --text-body: 1rem; /* 16px */
+  --text-body--line-height: 1.55;
+  --text-body--letter-spacing: -0.011em;
+  --text-body--font-weight: 400;
+
+  --text-lead: 1.25rem; /* 20px — zero crossing */
+  --text-lead--line-height: 1.45;
+  --text-lead--letter-spacing: 0em;
+  --text-lead--font-weight: 400;
+
+  --text-h3: 1.5625rem; /* 25px — zero crossing */
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: 0em;
+  --text-h3--font-weight: 500;
+
+  --text-h2: clamp(1.5625rem, 1.5vw + 0.75rem, 1.9375rem); /* 25 → 31px */
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h2--font-weight: 500;
+
+  --text-h1: clamp(1.9375rem, 3vw + 0.5rem, 3.0625rem); /* 31 → 49px */
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 500;
+
+  --text-display: clamp(2.4375rem, 4.5vw + 0.5rem, 4.75rem); /* 39 → 76px */
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.028em;
+  --text-display--font-weight: 500;
+
+  /* --- Spacing (§2.1). `--spacing` generates the whole numeric scale
+         from the 4px base unit: p-4 = 16px, gap-8 = 32px, … --- */
+  --spacing: 0.25rem;
+
+  /* --- Containers and measures (§1.5) --- */
+  --container-prose: 42rem; /* 672px */
+  --container-wide: 48rem; /* 768px */
+  --container-shell: 64rem; /* 1024px */
+
+  /* --- Breakpoints (§2.2). Two, not five: the unused Tailwind
+         defaults are removed so no agent can reach for them. --- */
+  --breakpoint-sm: initial;
+  --breakpoint-md: 48rem; /* 768px */
+  --breakpoint-lg: 64rem; /* 1024px */
+  --breakpoint-xl: initial;
+  --breakpoint-2xl: initial;
+
+  /* --- Radius (§2.5) --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* --- Easing (§4). Three. There is no fourth. --- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-entrance: cubic-bezier(0, 0, 0.2, 1);
+  --ease-glide: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Tailwind's own easing defaults, removed the same way the unused
+     breakpoints are (§2.2). docs/04 §4 forbids `ease-in` "in any form — CSS
+     keyword, bezier, or Framer Motion string", but `--ease-in` shipped in the
+     theme layer and `.ease-in` / `.ease-out` / `.ease-in-out` were emitted as
+     utilities, so the forbidden curve was one class name away. No element
+     used any of them; nulling makes that structural rather than lucky. */
+  --ease-in: initial;
+  --ease-out: initial;
+  --ease-in-out: initial;
+  --ease-linear: initial;
 }
 
-* {
-  border-color: var(--line);
+/* ------------------------------------------------------------
+   4. NON-UTILITY TOKENS (§2.4, §5, §7) — referenced from CSS,
+      not turned into Tailwind utilities.
+   ------------------------------------------------------------ */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-36: 144px;
+  --space-48: 192px;
+
+  --rhythm-heading: 48px;
+  --rhythm-entry: 32px;
+  --rhythm-title: 16px;
+  --rhythm-meta: 8px;
+  --rhythm-paragraph: 16px;
+  --rhythm-inline: 8px;
+
+  --measure-prose: 42rem;
+  --measure-lead: 30ch;
+  --measure-intro: 42ch;
+  --measure-display: 14ch;
+  --measure-h1: 20ch;
+  --measure-h2: 28ch;
+  --measure-h3: 32ch;
+  --measure-caption: 48ch;
+  --measure-mono: 72ch;
+
+  --duration-fast: 150ms;
+  --duration-base: 240ms;
+  --duration-reveal: 280ms;
+  --duration-ceiling: 320ms; /* assertion bound, not a usable value */
+
+  --reveal-distance: 8px;
+  --reveal-distance-lg: 16px;
+  --press-translate: 1px;
+  --press-scale: 0.98;
+  --hover-lift: -2px;
+
+  --stagger-step: 50ms;
+  --stagger-max-items: 5;
+
+  /* Stacking order. docs/04 declares no z-scale, so these are named here in
+     the non-utility layer rather than left as bare integers at the use site.
+     The values are unchanged — only the literals move. The ordering is the
+     point: the skip link must paint above the sticky header.
+     ESCALATE to docs/04 §2 for a canonical three-step scale. */
+  --z-header: 2;
+  --z-skip: 3;
+
+  /* Print pagination minimum. docs/04 §9.5's print block declares no break,
+     orphan or widow control at all, so this value has no token upstream and is
+     named here rather than left as a bare integer inside @media print — the
+     same treatment --z-header got for the same reason (§12.1 C, D12). Three
+     lines is the conventional floor for a paragraph fragment on a sheet.
+     ESCALATE to docs/04 §9.5 for a canonical print scale. */
+  --print-min-lines: 3;
+
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--accent);
+  --focus-ring-style: solid;
 }
 
+/* ------------------------------------------------------------
+   4b. METRIC-MATCHED FALLBACK FOR NON-APPLE PLATFORMS (§1.1)
+
+   `next/font`'s `adjustFontFallback: true` emits exactly one fallback face:
+
+     @font-face { font-family: "Space Grotesk Fallback";
+                  src: local("Arial");
+                  ascent-override: 89.71%; descent-override: 26.62%;
+                  line-gap-override: 0%;  size-adjust: 109.69% }
+
+   `local("Arial")` resolves on Windows, macOS and iOS. It does NOT resolve on
+   Android (Roboto / Noto) or on most Linux. Where it fails the face never
+   matches, the overrides and `size-adjust` do not exist, and `--font-sans`
+   falls through UNADJUSTED to the system stack. Measured at 390px: the lede
+   paragraph is 87px tall with the adjusted face and 58px without it — one whole
+   line fewer — so the swap re-flows the paragraph the moment the webfont
+   arrives. The CLS 0.000 result is therefore an Apple-and-Windows result, not a
+   universal one (docs/08-review-crossbrowser-c2 N5).
+
+   This face is the same metric contract with a source list that resolves on the
+   platforms Arial does not. It is a SEPARATE family name on purpose: two
+   `@font-face` rules with the same family and descriptors do not merge their
+   `src` lists — the later definition replaces the earlier one outright — and
+   `next/font` injects its stylesheet independently of this file, so redeclaring
+   "Space Grotesk Fallback" here would be a cascade-order coin toss. A distinct
+   name makes the two faces two entries in `--font-sans`, tried in order, which
+   is deterministic.
+
+   The override percentages are Arial-derived. Roboto, Helvetica Neue and
+   Liberation Sans are close enough that the residual is far smaller than the
+   un-adjusted fall-through this replaces; that is the honest claim, and it is
+   not the same as claiming CLS 0 on Android, which needs one measurement on
+   real hardware (crossbrowser-c2 S4).
+   ------------------------------------------------------------ */
+@font-face {
+  font-family: "Space Grotesk Metric Fallback";
+  src: local("Roboto"), local("Helvetica Neue"), local("Liberation Sans"), local("Arial");
+  ascent-override: 89.71%;
+  descent-override: 26.62%;
+  line-gap-override: 0%;
+  size-adjust: 109.69%;
+}
+
+/* ------------------------------------------------------------
+   5. BASE (§1.1, §9.3)
+   ------------------------------------------------------------ */
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth is REMOVED — it fights Lenis (docs/00 Defect 5).
+     Native smooth scrolling and a JS scroll library cannot both drive the
+     same scroll position; Lenis is the chosen mechanism (docs/02 §5). */
+  /* Unprefixed FIRST, prefixed second.
+
+     Gecko rejects `-webkit-text-size-adjust` outright, so the authored 100%
+     never reached one of the three target engines
+     (docs/08-review-crossbrowser-c2 N6). Lightning CSS expands the pair below
+     to all three spellings against the browserslist range — the served
+     document carries
+     `html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%}`,
+     verified in the response body — so Gecko's `-moz-` name is covered too
+     without being hand-authored.
+
+     Measured honesty about what this buys: on DESKTOP Firefox 155 and WebKit
+     26.6 `CSS.supports()` returns false for all three spellings, because
+     font inflation is a mobile behaviour and the property is only implemented
+     where inflation exists. The audience is Firefox for Android and iOS
+     Safari. Firefox for Android additionally suppresses inflation on its own
+     when the document declares `width=device-width, initial-scale=1`, which
+     this one does — so this declaration is belt to that braces, which is
+     exactly why N6 is LOW. */
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Lenis' required base rules. The `lenis` class is added to <html> only when
+   an instance is constructed, so under prefers-reduced-motion — where
+   SmoothScrollProvider never constructs one (M12) — none of these match and
+   the browser's native scroll is the whole mechanism. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-space-grotesk), sans-serif;
-  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  /* Referenced by name, not retyped. Tailwind applies these companion
+     properties only through the `text-*` UTILITY; hand-authored CSS that sets
+     `font-size: var(--text-body)` gets no line-height or tracking, so every
+     rule below used to restate the number and would silently not follow an
+     edit to the @theme token. The literal is kept only as a var() fallback. */
+  line-height: var(--text-body--line-height, 1.55);
+  letter-spacing: var(--text-body--letter-spacing, -0.011em);
+  font-weight: var(--font-weight-normal);
+  font-synthesis-weight: none; /* 400/500 only — no faux bold (§1.1) */
+  font-synthesis-style: none;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100svh;
+}
+
+strong,
+b {
+  font-weight: var(--font-weight-medium);
 }
 
 ::selection {
-  background: rgba(209, 169, 84, 0.35);
-  color: #fff;
+  background: var(--color-accent-tint); /* allowlist A6 */
+  color: var(--color-foreground-strong);
 }
 
-.container-shell {
-  margin-inline: auto;
-  width: min(1120px, calc(100% - 2rem));
+/* Scroll offset so the sticky header can never obscure a focus target.
+   WCAG 2.2 SC 2.4.11 Focus Not Obscured (Minimum) — §7.3 */
+:target,
+[id],
+:where(a, button, input, textarea, select, summary, [tabindex]) {
+  scroll-margin-block-start: calc(var(--header-height) + var(--space-4));
 }
 
-.section-shell {
-  position: relative;
-  padding-block: clamp(4rem, 9vw, 7rem);
+/* ------------------------------------------------------------
+   6. FOCUS (§7.2)
+   ------------------------------------------------------------ */
+/* `outline` and `outline-offset` ONLY.
+
+   `border-radius: inherit` used to be declared here and it collapsed every
+   control's corner the moment it was keyboard-focused: the skip link went from
+   a 9999px pill to a rectangle, `.btn--primary` and `.theme-toggle` from 8px to
+   0. The cause is a cascade-LAYER inversion, not specificity — every component
+   radius is authored inside `@layer components`, this rule is unlayered, and
+   unlayered declarations beat all layered ones regardless of specificity. So
+   even `:where()`'s zero specificity still won, and `inherit` resolved to the
+   parent's 0px. It also bought nothing: `outline` already follows the
+   element's own border-box shape at the offset in every current engine. */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
-.section-title {
-  font-family: var(--font-instrument-serif), serif;
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+/* The skip target carries no ring.
+
+   `<main id="main" tabindex="-1">` exists so the skip link can move focus in
+   every engine, not only Chromium. But it is reached by pressing Enter, so
+   `:focus-visible` DOES match it — measured true in Chromium, Firefox and
+   WebKit — and the `[tabindex]` clause above then drew a 2px accent outline
+   around the entire page content. (docs/06-review-accessibility §6 predicted
+   `:focus:not(:focus-visible)` would suppress this; it does not, because the
+   focus is keyboard-initiated.)
+
+   Suppressing it is correct rather than a waiver: WCAG 2.4.7 governs user
+   interface COMPONENTS, and a `tabindex="-1"` reading-position target is not
+   one — it is not in the tab sequence, it cannot be reached except by
+   activating the skip link, and the skip link has its own highly visible
+   focus state. Specificity 0,1,1 beats the zero-specificity `:where()` rule
+   above, and both are unlayered, so this wins without `!important`. */
+main[tabindex="-1"]:focus,
+main[tabindex="-1"]:focus-visible {
+  outline: none;
 }
 
-.eyebrow {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
+/* The same reasoning, and the same narrow scope, for a section reached from
+   the mobile nav sheet.
+
+   `Nav.tsx` sets `tabindex="-1"` on the destination section and focuses it when
+   a sheet link is activated, because closing the sheet applies
+   `visibility: hidden` to the link that held focus and `document.activeElement`
+   would otherwise drop to BODY (SC 2.4.3, accessibility-c2 N2). The section is
+   then a reading-position target reached by pressing Enter, so `:focus-visible`
+   matches it and the `[tabindex]` rule above would draw a 2px accent outline
+   around a whole screenful.
+
+   This is the identical case to `main` above, not a widening of it: a
+   `tabindex="-1"` reading position is not a user interface component, it is not
+   in the tab sequence, and the control that sent focus here — the nav link —
+   has its own visible focus state. The `<section>` element only, not a bare
+   `[tabindex="-1"]`: every real control keeps its ring. */
+section[tabindex="-1"]:focus,
+section[tabindex="-1"]:focus-visible {
+  outline: none;
 }
 
-.card {
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
-  background:
-    linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01)),
-    var(--surface);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    0 12px 40px rgba(0, 0, 0, 0.24);
+/* ------------------------------------------------------------
+   7. REVEAL (§5.3, §6). Scoped to .js so a JS-disabled render
+      never leaves content at opacity: 0 (docs/02 §8.6, R30).
+      Owned by the motion agent at the component layer; the token
+      contract lives here.
+   ------------------------------------------------------------ */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--duration-reveal) var(--ease-entrance),
+    transform var(--duration-reveal) var(--ease-entrance);
+  transition-delay: calc(min(var(--reveal-index, 0), 4) * var(--stagger-step));
+}
+.js [data-reveal="lg"] {
+  transform: translateY(var(--reveal-distance-lg));
+}
+.js [data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+.js [data-reveal][data-reveal-instant] {
+  transition: none;
+  transition-delay: 0s;
 }
 
-.link-underline {
-  position: relative;
+/* DELETED: the `@supports (animation-timeline: view())` scroll-driven block for
+   `[data-reveal="decorative"]`, and the `@keyframes reveal` it was the only
+   consumer of (docs/08-review-crossbrowser-c2 N7).
+
+   `RevealDistance` is `"default" | "lg"` (`Reveal.tsx`). Nothing has ever
+   emitted `data-reveal="decorative"`, in any build, so the block was
+   unreachable — and it was also the ONLY genuine three-way engine split in the
+   codebase: `CSS.supports("animation-timeline", "view()")` is true in Chromium
+   153 and WebKit 26.6 and false in Firefox 155. Harmless while dead, and a
+   silent Firefox-only "no reveal at all" the first time a component used it.
+
+   To bring scroll-driven reveals back, three things must land together: the
+   variant in `RevealDistance`, this block, and a
+   `@supports not (animation-timeline: view())` fallback for Firefox. Restoring
+   the CSS alone reinstates the split. */
+
+/* ------------------------------------------------------------
+   8. COMPONENTS (§7.5, §8)
+      Every value below is a token from docs/04. No literals.
+   ------------------------------------------------------------ */
+@layer components {
+  /* --- Container / Section (§1.5, §2.3) ---
+
+     The base class is `.col`, NOT `.container`. `container` is a reserved
+     Tailwind utility name: Tailwind 4 emits its own `.container` into
+     `@layer utilities`, which is declared AFTER `@layer components`, so a
+     hand-authored `.container--prose { max-inline-size: 768px }` lost to
+     `.container { max-width: 64rem }` at every breakpoint >= 768px and every
+     column on the site rendered at the 1024px shell width. This is a cascade
+     LAYER inversion, not a specificity one — no amount of specificity on the
+     component rule can win. Do not rename these back. --- */
+  .col {
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    inline-size: 100%;
+  }
+  .col--prose {
+    max-inline-size: calc(var(--container-prose) + var(--gutter) * 2);
+  }
+  .col--wide {
+    max-inline-size: calc(var(--container-wide) + var(--gutter) * 2);
+  }
+  .col--shell {
+    max-inline-size: calc(var(--container-shell) + var(--gutter) * 2);
+  }
+
+  /* Gap, not symmetric padding (§2.3 / R14). The last section before the
+     footer adds .section--last for a closing gap. */
+  .section {
+    padding-block-start: var(--section-gap);
+    scroll-margin-block-start: calc(var(--header-height) + var(--space-4));
+  }
+  .section--last {
+    padding-block-end: var(--section-gap);
+  }
+
+  /* --- SectionHeading (§8.2) --- */
+  .section-heading {
+    color: var(--color-foreground-strong);
+    font-weight: var(--font-weight-medium);
+  }
+  .section-heading--2 {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height, 1.2);
+    letter-spacing: var(--text-h2--letter-spacing, -0.01em);
+    max-inline-size: var(--measure-h2);
+  }
+  .section-heading--3 {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height, 1.3);
+    letter-spacing: var(--text-h3--letter-spacing, 0em);
+    max-inline-size: var(--measure-h3);
+  }
+  .section-heading-intro {
+    margin-block-start: var(--rhythm-title);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height, 1.45);
+    letter-spacing: var(--text-lead--letter-spacing, 0em);
+    color: var(--color-foreground-secondary);
+    max-inline-size: var(--measure-intro);
+  }
+  .section-heading-group {
+    margin-block-end: var(--rhythm-heading);
+  }
+
+  /* --- VisuallyHidden (§8.4) — stays focusable and readable by AT --- */
+  .visually-hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* --- MetaLine (§8.2) --- */
+  .meta-line {
+    font-size: var(--text-caption);
+    line-height: var(--text-caption--line-height, 1.4);
+    letter-spacing: var(--text-caption--letter-spacing, -0.01em);
+    color: var(--color-foreground-muted);
+    max-inline-size: var(--measure-caption);
+  }
+  .meta-line-separator {
+    margin-inline: var(--rhythm-inline);
+  }
+
+  /* --- InlineLink (§8.3). Rest: 1px border-interactive underline.
+         Hover/focus: 2px accent bar (A1/A2, R-GOLD-1). --- */
+  .link {
+    position: relative;
+    color: var(--color-foreground); /* never accent — F1 */
+    text-decoration: underline;
+    text-decoration-color: var(--color-border-interactive);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-skip-ink: auto;
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+  .link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: -0.2em;
+    block-size: 2px; /* R-GOLD-1: never 1px */
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+  .link:hover::after,
+  .link:focus-visible::after {
+    transform: scaleX(1);
+  }
+  .link:active {
+    transform: translateY(var(--press-translate));
+  }
+
+  /* --- InlineLink emphasis="proof" (§8.3, allowlist A1) ---
+
+     The hero credential sentence's proof nouns carry the 2px accent bar AT
+     REST, not on hover. docs/04 §3.5 D4 settled the contradiction that produced
+     the shipped behaviour: §3.5's allowlist is normative and §8.3's component
+     table was the restatement that got it wrong. A1 and A2 are one row apart in
+     the same table and only A2 carries the words "on hover/focus" — the split
+     is deliberate, because a hover-gated router routes nothing for a reader who
+     is skimming, which is the [03 AP5] peripheral-vision failure R-GOLD-1 was
+     written against.
+
+     Exactly the two declarations §8.3 specifies. `background` is already
+     `--color-accent` from `.link::after`; it is restated because the amendment
+     names it and because it is what makes this rule legible on its own. The
+     text fill stays `--color-foreground` (F1) and the bar stays 2px (F10).
+     F9 caps the page at one such group per viewport — the hero's three
+     underlines ARE that one group. */
+  .link--proof::after {
+    transform: none;
+    background: var(--color-accent);
+  }
+
+  /* --- StandaloneLink (§8.3) --- */
+  .link-standalone {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--space-6); /* 24px — WCAG 2.5.8 */
+    font-size: var(--text-body);
+    font-weight: var(--font-weight-medium);
+    transition:
+      transform var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+  }
+  .link-standalone:hover {
+    transform: translateY(var(--hover-lift));
+  }
+  .link-standalone:active {
+    transform: translateY(var(--press-translate));
+  }
+  @media (pointer: coarse) {
+    .link-standalone {
+      min-block-size: calc(var(--space-8) + var(--space-3)); /* 44px */
+      /* Inline size too, not only block size. Cycle 1 fixed the 16px block
+         size; the footer "X" link stayed 10.1px WIDE, which SC 2.5.8 permits
+         through the spacing exception (60.6px centre-to-centre against a 24px
+         requirement) but which is still a 10px tap target on a phone
+         (docs/08-review-crossbrowser-c2 N9). `padding-inline` widens the hit
+         area without moving the text, so the 24px `gap` on `.footer-links` and
+         therefore the spacing exception both survive unchanged. */
+      padding-inline: var(--space-2);
+    }
+  }
+
+  /* --- Button (§8.3) --- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-block-size: calc(var(--space-8) + var(--space-3)); /* 44px */
+    padding-inline: var(--space-6);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-size: var(--text-body);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--text-body--line-height, 1.55);
+    letter-spacing: var(--text-body--letter-spacing, -0.011em);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-standard);
+  }
+  .btn--sm {
+    min-block-size: var(--space-8); /* 32px */
+    padding-inline: var(--space-4);
+    font-size: var(--text-caption);
+  }
+
+  /* A4: the only accent fill on the page. The text colour INVERTS
+     between modes — always the variable, never a literal (F11). */
+  .btn--primary {
+    background: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+  .btn--primary:hover {
+    background: var(--color-accent-hover);
+  }
+  .btn--primary:active {
+    transform: scale(var(--press-scale));
+  }
+
+  .btn--secondary {
+    background: transparent;
+    border-color: var(--color-border-interactive);
+    color: var(--color-foreground);
+  }
+  .btn--secondary:hover {
+    background: var(--color-surface);
+  }
+  .btn--secondary:active {
+    background: var(--color-surface-raised);
+    transform: translateY(var(--press-translate));
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-foreground-secondary);
+  }
+  .btn--ghost:hover {
+    background: var(--color-surface);
+    color: var(--color-foreground);
+  }
+  .btn--ghost:active {
+    background: var(--color-surface-raised);
+    transform: translateY(var(--press-translate));
+  }
+
+  .btn[aria-disabled="true"],
+  .btn:disabled {
+    background: var(--color-surface-raised);
+    border-color: transparent;
+    color: var(--color-foreground-faint);
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+  }
+
+  /* --- SkipLink (§7.5) --- */
+  .skip-link {
+    position: absolute;
+    inset-block-start: var(--space-2);
+    inset-inline-start: var(--gutter);
+    z-index: var(--z-skip);
+    display: inline-flex;
+    align-items: center;
+    min-block-size: calc(var(--space-8) + var(--space-3)); /* 44px */
+    padding-inline: var(--space-6);
+    padding-block: var(--space-3);
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    color: var(--color-foreground);
+    font-size: var(--text-body);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transform: translateY(calc(var(--space-16) * -1));
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* `:focus` as well as `:focus-visible`: programmatic focus (a script
+     calling .focus(), or some AT focus modes) does not always satisfy
+     `:focus-visible`, and the link would then be focused, in the
+     accessibility tree, and invisible. */
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* --- SiteHeader / Nav (§8.1) --- */
+  .site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--z-header);
+    /* No `backdrop-filter`. The background is fully opaque
+       (#fcfcfc / #0a0a0a, alpha 1.0), so a backdrop filter had nothing to
+       blur and painted nothing in any engine — and it was unprefixed, which
+       Safari below 18 drops outright. If the frosted effect is ever wanted,
+       give the header a translucent background AND add
+       `-webkit-backdrop-filter` alongside; never one half without the other. */
+    background: var(--color-background);
+    border-block-end: 1px solid var(--color-border-subtle);
+  }
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-block-size: var(--header-height);
+  }
+  .wordmark {
+    font-size: var(--text-body);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-foreground);
+    text-decoration: none;
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-6);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-block-size: calc(var(--space-8) + var(--space-3)); /* 44px */
+    font-size: var(--text-body);
+    color: var(--color-foreground-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-standard);
+  }
+  .nav-link:hover {
+    color: var(--color-foreground);
+  }
+  .nav-link[aria-current="true"] {
+    color: var(--color-foreground);
+    font-weight: var(--font-weight-medium);
+  }
+  /* A5: 2px accent marker (R-GOLD-1 — never 1px) */
+  .nav-link[aria-current="true"]::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: var(--space-2);
+    block-size: 2px;
+    background: var(--color-accent);
+    transition: opacity var(--duration-base) var(--ease-standard);
+  }
+  /* --color-foreground-muted, never --color-foreground-faint: docs/04 §3.2
+     forbids the faint token for information-bearing text, and this slot is the
+     only résumé affordance on the site. Faint measured 1.83:1 / 2.23:1. */
+  .nav-pending {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: calc(var(--space-8) + var(--space-3));
+    font-size: var(--text-body);
+    color: var(--color-foreground-muted);
+  }
+
+  /* Disclosure button and sheet exist only when JS does (§9.3 pattern).
+     Without JS the nav list stays inline and fully usable (R30). */
+  .nav-toggle {
+    display: none;
+  }
+  .theme-toggle {
+    display: none;
+  }
+  .js .theme-toggle {
+    display: inline-flex;
+  }
+  .theme-toggle,
+  .nav-toggle {
+    align-items: center;
+    justify-content: center;
+    inline-size: calc(var(--space-8) + var(--space-3)); /* 44px */
+    block-size: calc(var(--space-8) + var(--space-3));
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--color-foreground-secondary);
+    cursor: pointer;
+    transition:
+      background-color var(--duration-base) var(--ease-standard),
+      color var(--duration-base) var(--ease-standard);
+  }
+  .theme-toggle:hover,
+  .nav-toggle:hover {
+    background: var(--color-surface);
+    color: var(--color-foreground);
+  }
+  .theme-toggle:active,
+  .nav-toggle:active {
+    background: var(--color-surface-raised);
+  }
+  .theme-toggle-icon {
+    inline-size: var(--space-4);
+    block-size: var(--space-4);
+  }
+  /* Icon and accessible name are chosen in CSS, not in JS state, so the
+     control is correct at first paint and cannot mismatch on hydration. */
+  .theme-toggle-dark,
+  [data-theme="dark"] .theme-toggle-light {
+    display: inline-block;
+  }
+  .theme-toggle-light,
+  [data-theme="dark"] .theme-toggle-dark {
+    display: none;
+  }
+
+  /* Mobile disclosure (<768px). The sheet exists only when JS does: without
+     the `.js` class none of these rules match, the nav list stays inline and
+     every link is reachable [03 R30]. The open/closed state is an attribute,
+     not the `hidden` property, so the desktop row is never affected. */
+  @media not all and (min-width: 48rem) {
+    /* below --breakpoint-md */
+    .nav-list {
+      gap: var(--space-4);
+    }
+    .js .nav-toggle {
+      display: inline-flex;
+    }
+    .js .nav-sheet {
+      position: absolute;
+      inset-inline: var(--gutter);
+      inset-block-start: var(--header-height);
+      padding: var(--space-4);
+      border: 1px solid var(--color-border-interactive);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-overlay); /* the only shadow on the site */
+      transition:
+        opacity var(--duration-base) var(--ease-entrance),
+        transform var(--duration-base) var(--ease-entrance),
+        visibility 0s linear 0s;
+    }
+    .js .nav-sheet .nav-list {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-2);
+    }
+    /* Closed: not painted and not focusable. */
+    .js .nav-sheet[data-open="false"] {
+      opacity: 0;
+      transform: translateY(calc(var(--reveal-distance) * -1));
+      visibility: hidden;
+      transition:
+        opacity var(--duration-base) var(--ease-standard),
+        transform var(--duration-base) var(--ease-standard),
+        visibility 0s linear var(--duration-base);
+    }
+  }
+
+  /* --- SiteFooter (§8.1) --- */
+  /* No `margin-block-start` here. docs/04 §2.3 makes the SECTION the owner of
+     the gap, and `.section--last` already supplies it — `ContactSection` now
+     passes `isLast`. Declaring it in both places would double-count it. */
+  .site-footer {
+    padding-block: var(--space-8);
+    border-block-start: 1px solid var(--color-border-subtle);
+    font-size: var(--text-caption);
+    line-height: var(--text-caption--line-height, 1.4);
+    letter-spacing: var(--text-caption--letter-spacing, -0.01em);
+    color: var(--color-foreground-muted);
+  }
+  .site-footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-6);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* --- Prose (§8.2) — MDX and long-form body copy --- */
+  .prose {
+    max-inline-size: var(--measure-prose);
+    color: var(--color-foreground);
+  }
+  .prose > * + * {
+    margin-block-start: var(--rhythm-paragraph);
+  }
+  .prose h2 {
+    margin-block-start: var(--space-12);
+    margin-block-end: var(--rhythm-title);
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height, 1.2);
+    letter-spacing: var(--text-h2--letter-spacing, -0.01em);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-foreground-strong);
+  }
+  .prose h3 {
+    margin-block-start: var(--space-8);
+    margin-block-end: var(--rhythm-title);
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height, 1.3);
+    letter-spacing: var(--text-h3--letter-spacing, 0em);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-foreground-strong);
+  }
+  .prose ul,
+  .prose ol {
+    padding-inline-start: var(--space-6);
+  }
+  .prose li + li {
+    margin-block-start: var(--space-2);
+  }
+  .prose li::marker {
+    color: var(--color-foreground-muted);
+  }
+  .prose blockquote {
+    padding-inline-start: var(--space-6);
+    border-inline-start: 2px solid var(--color-border-interactive);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height, 1.45);
+    letter-spacing: var(--text-lead--letter-spacing, 0em);
+    color: var(--color-foreground-secondary);
+  }
+  .prose code {
+    padding: 0.15em 0.35em; /* optical: sub-4px inline padding on 13px type */
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+  }
+  .prose pre {
+    overflow-x: auto;
+    max-inline-size: var(--measure-mono);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+    line-height: var(--text-mono--line-height, 1.5);
+  }
+  .prose pre code {
+    padding: 0;
+    background: transparent;
+  }
+  .prose hr {
+    margin-block: var(--space-12);
+    border: 0;
+    border-block-start: 1px solid var(--color-border);
+  }
+  .prose table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-caption);
+  }
+  .prose th,
+  .prose td {
+    padding-block: var(--space-2);
+    border-block-end: 1px solid var(--color-border-subtle);
+    text-align: start;
+  }
+  .prose img {
+    max-inline-size: 100%;
+    block-size: auto;
+    border-radius: var(--radius-lg);
+  }
+  .prose-table-scroll {
+    overflow-x: auto;
+  }
+
+  /* --- AttestationPoster ink (§8.4, F4) ---
+
+     This declaration used to live in `POSTER_STYLE`, an inline `style`
+     attribute on the <svg>. That made the `forced-colors: active` override in
+     §11 permanently inert: an inline style beats any stylesheet declaration
+     without `!important`, media query or not, so the rule written to hand the
+     figure back to the system palette had never applied to a single render
+     (docs/08-review-accessibility-c2 N3). Moving the declaration here — the
+     honest fix rather than an `!important` arms race — lets the forced-colours
+     rule win by ordinary cascade.
+
+     NOT accent. The 248 circles inherit this through `fill="currentColor"`,
+     so an accent value here is an 830x466 accent field and an outright F4
+     breach. `runtime/color.ts` reads the same token independently for the live
+     canvas, so the two surfaces cannot diverge. */
+  [data-attestation-poster] {
+    color: var(--color-foreground-secondary);
+  }
 }
 
-.link-underline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -0.2rem;
-  height: 1px;
-  width: 100%;
-  transform: scaleX(0);
-  transform-origin: left;
-  background: var(--accent);
-  transition: transform 260ms ease;
-}
+/* ------------------------------------------------------------
+   9. REDUCED MOTION (§6)
 
-.link-underline:hover::after,
-.link-underline:focus-visible::after {
-  transform: scaleX(1);
-}
+   The blanket block is a SAFETY NET only (§6.2). Every row of the
+   §6.1 table gets a real static end state below it — the completed
+   state, never the starting state. No 0.01ms duration hack (DEV-9).
 
+   Authored after §7 and §8 so it wins the cascade.
+   ------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
+  /* §6.2 safety net — catches anything unaudited. */
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
+    animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* M1 / M2 / M3 — reveals and stagger: final state in the first paint. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    transition-delay: 0s !important;
+    animation: none !important;
+  }
+
+  /* M4 — InlineLink: the underline is permanently present at rest in
+     --color-border-interactive; hover/focus only changes its colour. */
+  .link {
+    text-decoration: none;
+  }
+  .link::after {
+    transform: none;
+    background: var(--color-border-interactive);
+    transition: none;
+  }
+  .link:hover::after,
+  .link:focus-visible::after {
+    background: var(--color-accent);
+  }
+  .link:active {
+    transform: none;
+  }
+
+  /* M5 — Button press: no transform; background swaps instantly. */
+  .btn,
+  .btn:active {
+    transform: none;
+    transition: none;
+  }
+  .btn--primary:active {
+    background: var(--color-accent-hover);
+  }
+  .btn--secondary:active,
+  .btn--ghost:active {
+    background: var(--color-surface-raised);
+  }
+
+  /* M6 — hover lift: no transform; hover reads as surface + border. */
+  .link-standalone,
+  .link-standalone:hover,
+  .link-standalone:active {
+    transform: none;
+    transition: none;
+  }
+
+  /* M7 — nav sheet: appears at its final position and full opacity in one
+     paint. Visibility still flips, so the closed sheet stays out of the tab
+     order; only the travel and the fade are removed. */
+  .js .nav-sheet,
+  .js .nav-sheet[data-open="false"] {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* M8 — theme toggle: instant colour swap. */
+  .theme-toggle,
+  .nav-toggle,
+  .nav-link {
+    transition: none;
+  }
+
+  /* M9 — active-nav marker: appears under the active item instantly. */
+  .nav-link[aria-current="true"]::after {
+    transition: none;
+  }
+
+  /* M10 — focus ring: instant, full opacity, full width. Never suppressed
+     and never delayed; WCAG 2.4.7 applies regardless of motion preference. */
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    transition: none;
+  }
+  .skip-link {
+    transition: none;
+  }
+
+  /* M11 — the OGL chunk is never downloaded (gated in JS, docs/02 §8.2).
+     M12 — Lenis is destroy()ed; native scroll (SmoothScrollProvider).
+     M13 — no scroll-linked progress UI ships; if one is added it renders
+           at 100% progress, not 0%.
+     M14 — the scroll-driven `animation-timeline: view()` block this used to
+           have to out-cascade is now DELETED (§7, crossbrowser-c2 N7). The
+           safety net at the top of this block still neutralises any animation
+           a future edit introduces, so M14 holds without it; if scroll-driven
+           reveals ever return, they must be authored ABOVE this block.
+     M15 — no decorative loop, marquee, cursor effect, tilt or magnet
+           exists anywhere in this system (§8.5). */
+}
+
+/* ------------------------------------------------------------
+   10. PRINT (§9.5) — R29
+   ------------------------------------------------------------ */
+@media print {
+  :root {
+    color-scheme: light;
+  }
+  *,
+  *::before,
+  *::after {
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* The poster is the printable artifact; the canvas rasterises to nothing.
+
+     `runtime/scene.ts` builds the OGL Renderer with the default
+     `preserveDrawingBuffer: false`, so the drawing buffer is undefined after
+     compositing and the print rasteriser's re-snapshot gets an empty frame.
+     Measured, not inferred: `drawImage(canvas)` → `getImageData` returns zero
+     non-transparent pixels in all three engines, and a real Chromium
+     `page.pdf()` of this page came back 77,986 B smaller with WebGL live than
+     with WebGL blocked — the missing bytes are exactly the vector poster
+     (docs/08-review-crossbrowser-c2 N1).
+
+     `!important` is required and is not laziness: `runtime/mount.ts` pins the
+     poster to `opacity: 0` in an INLINE style on the first drawn frame, which
+     no ordinary stylesheet declaration can outrank. `canvas` rather than a
+     narrower selector because there is exactly one on the site and any future
+     one has the same problem. */
+  [data-attestation-poster] {
+    opacity: 1 !important;
+  }
+  canvas {
+    display: none !important;
+  }
+
+  /* URL expansion, made to actually paint.
+
+     `.link::after` is already claimed by the component layer as the 2px accent
+     underline bar: `position: absolute`, `block-size: 2px`,
+     `transform: scaleX(0)`. Replacing only `content` laid the URL out inside a
+     2px-tall box scaled to zero width, so all 16 https anchors carried the
+     right string and painted none of it (crossbrowser-c2 N2). Every geometric
+     property the component layer set has to be given back. */
+  a[href^="https://"]::after,
+  a[href^="mailto:"]::after {
+    content: " (" attr(href) ")";
+    font-size: 11px;
+    position: static;
+    block-size: auto;
+    inset: auto;
+    transform: none;
+    background: none;
+  }
+
+  /* The page's one call to action, still legible as one.
+
+     `.btn` declares `border: 1px solid transparent` and `.btn--primary` carries
+     its whole identity in `background: var(--color-accent)`. The reset above
+     removes the fill and leaves the border transparent, so the CTA printed as
+     undifferentiated body text beside an inert résumé line (crossbrowser-c2
+     N3). `currentColor` rather than a literal: the reset has already forced
+     `color` to black, so this introduces no new value. */
+  .btn--primary {
+    border-color: currentColor !important;
+  }
+
+  /* Pagination. There were zero break, orphan, widow or @page rules anywhere
+     in the compiled stylesheet, so entries split at arbitrary points — a
+     heading could open a sheet with its first paragraph on the previous one,
+     and nothing stopped a sheet break through the middle of the 768x432 figure
+     (crossbrowser-c2 N4). */
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  article,
+  figure,
+  .meta-line {
+    break-inside: avoid;
+  }
+  p {
+    orphans: var(--print-min-lines);
+    widows: var(--print-min-lines);
+  }
+
+  header,
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* ------------------------------------------------------------
+   11. FORCED COLOURS (Windows High Contrast and equivalents)
+
+   Not a WCAG AA requirement — 1.4.3 / 1.4.11 are measured in the default
+   rendering — but the attestation figure is the one surface the UA cannot
+   fix for itself: its colour arrives as an author `color` on an <svg> whose
+   circles are `fill="currentColor"`, so it would paint at the author value
+   against a forced background at an arbitrary contrast. Hand it back to the
+   system palette. The focus ring and `.btn--primary` are already re-coloured
+   correctly by the UA and are deliberately left alone.
+   ------------------------------------------------------------ */
+@media (forced-colors: active) {
+  [data-attestation-poster] {
+    color: CanvasText;
   }
 }
