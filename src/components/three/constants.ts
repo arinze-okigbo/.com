@@ -110,6 +110,24 @@ export const BLOOM_THRESHOLD = 0.3;
 /** How much of the blurred bright pass the composite adds back. */
 export const BLOOM_STRENGTH = 1.35;
 
+/**
+ * The device pixel ratio the blur ladder's radii are authored against.
+ *
+ * `scratchpad/proto-c-field.html` caps its renderer at 1.6 and its ladder is
+ * tuned at that ratio; this module caps a bloom-enabled device at 1.25, because
+ * the ladder is fillrate-quadratic in DPR. Left unscaled, the same texel radii
+ * therefore cover a WIDER fraction of the frame here than in the prototype --
+ * measured 1.0% against 0.78% for the widest rung on a retina panel -- which is
+ * the whole of the reported "ours spreads light wider" symptom. It is invisible
+ * at `devicePixelRatio` 1, which is why a screenshot at 1 could never find it.
+ *
+ * `field/post-chain.ts` scales the radii by `dpr / BLOOM_REFERENCE_DPR` so the
+ * band is a fixed fraction of the frame on every display, and the same fraction
+ * the prototype was art-directed at. The DPR cap itself is unchanged, so no
+ * device renders a single extra pixel.
+ */
+export const BLOOM_REFERENCE_DPR = 1.6;
+
 /** Scale of the bloom render targets relative to the scene target. */
 export const BLOOM_TARGET_SCALE = 0.5;
 

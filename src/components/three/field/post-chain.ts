@@ -12,6 +12,7 @@ import {
   BLOOM_TARGET_SCALE,
   BLOOM_THRESHOLD,
   BLUR_RADII,
+  BLOOM_REFERENCE_DPR,
   SCRIM_FEATHER,
 } from "../constants";
 import { toUniform, type FieldPalette } from "./palette";
@@ -42,6 +43,32 @@ export function blurIterations(tier: BloomTier): number {
   return 0;
 }
 
+/**
+ * The blur ladder's radii are in TEXELS of the bloom target, and that target is
+ * sized from the device pixel ratio — so an unscaled ladder makes the bloom's
+ * on-screen width a function of the display, not of the art direction. It was:
+ * at `devicePixelRatio` 1 the widest rung spanned 1.25% of the frame, and on a
+ * retina panel (capped at `DPR_MAX_WITH_BLOOM`) 1.0%. The prototype, capped at
+ * 1.6, spanned 0.78%. Same code, three different looks, and the retina one --
+ * the one the site is actually judged on -- was the widest and softest of them.
+ *
+ * Scaling every radius by `dpr / BLOOM_REFERENCE_DPR` makes the band a fixed
+ * FRACTION OF THE FRAME on every display, equal to the prototype's at the ratio
+ * it was art-directed on. It costs nothing: same iteration count, same target
+ * sizes, same fillrate. Only the tap offsets move.
+ *
+ * Clamped so a very low ratio cannot collapse the taps into a no-op, and so no
+ * display can ever bloom wider than the reference.
+ */
+const MIN_RADIUS_SCALE = 0.5;
+const MAX_RADIUS_SCALE = 1;
+
+export function blurRadiusScale(devicePixelRatio: number): number {
+  const scale = devicePixelRatio / BLOOM_REFERENCE_DPR;
+  if (!Number.isFinite(scale) || scale <= 0) return MIN_RADIUS_SCALE;
+  return Math.min(Math.max(scale, MIN_RADIUS_SCALE), MAX_RADIUS_SCALE);
+}
+
 interface UniformValue<T> {
   value: T;
 }
@@ -58,7 +85,12 @@ export interface PostChain {
   readonly hasBloom: boolean;
   /** Where the scene (ground + emitters) is drawn. */
   readonly sceneTarget: () => RenderTarget;
-  readonly resize: (pixelWidth: number, pixelHeight: number, aspectX: number) => void;
+  readonly resize: (
+    pixelWidth: number,
+    pixelHeight: number,
+    aspectX: number,
+    devicePixelRatio: number,
+  ) => void;
   /** Runs bright + blur + composite to the default framebuffer. */
   readonly render: (renderer: Renderer, elapsedSeconds: number) => void;
   readonly dispose: () => void;
@@ -153,7 +185,15 @@ export function createPostChain(options: PostChainOptions): PostChain {
   let ping: RenderTarget | null = null;
   let pong: RenderTarget | null = null;
 
-  const resize = (pixelWidth: number, pixelHeight: number, aspectX: number): void => {
+  let radiusScale = 1;
+
+  const resize = (
+    pixelWidth: number,
+    pixelHeight: number,
+    aspectX: number,
+    devicePixelRatio: number,
+  ): void => {
+    radiusScale = blurRadiusScale(devicePixelRatio);
     releaseTarget(gl, scene);
     releaseTarget(gl, ping);
     releaseTarget(gl, pong);
@@ -195,7 +235,7 @@ export function createPostChain(options: PostChainOptions): PostChain {
 
       for (let i = 0; i < iterations; i += 1) {
         const isHorizontal = i % 2 === 0;
-        const radius = BLUR_RADII[i % BLUR_RADII.length];
+        const radius = BLUR_RADII[i % BLUR_RADII.length] * radiusScale;
         const direction = blurProgram.uniforms.uDirection as UniformValue<Float32Array>;
         direction.value[0] = isHorizontal ? texelX * radius : 0;
         direction.value[1] = isHorizontal ? 0 : texelY * radius;

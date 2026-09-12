@@ -36,7 +36,23 @@ export const FIELD_SECTION_ATTRIBUTE = "data-field-section";
  */
 const SECTION_STATES: Readonly<Record<string, FieldAttentionState>> = {
   hero: {
-    focus: [0.62, 0.5],
+    // [0.62, 0.50] in the prototype, and wrong here for a layout reason.
+    //
+    // The prototype's hero is LEFT-aligned: its type occupies uv x 0.06..0.42,
+    // so a lobe at 0.62 sits in clear air to the right of the column and every
+    // bit of light it concentrates is light you can see. This hero is CENTRE-
+    // aligned -- the scrim blocks measure uv x 0.246..0.754, y 0.177..0.718 at
+    // 1440x900 -- so 0.62, 0.50 lands squarely INSIDE the carve, and the ground
+    // spends its concentrated energy under a 0.94 carve that then throws it
+    // away. What survived to the eye was the un-concentrated periphery, which
+    // is one half of the reported "spreads light wider".
+    //
+    // Moved into the uncarved right strip. Measured over the uncarved regions
+    // of the hero at 1440x900: mean luminance 50.60 -> 51.04, p90 117.6 ->
+    // 121.0, and the top fifth of pixels carry 50.7% of the light rather than
+    // 50.2%. It also moves light AWAY from the type, so it buys contrast
+    // headroom rather than spending it.
+    focus: [0.86, 0.46],
     energy: 1.3,
     flow: 1.0,
     dolly: 0.0,

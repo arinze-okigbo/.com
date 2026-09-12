@@ -289,7 +289,7 @@ export function createScene(options: SceneOptions): SceneHandle {
     aspect.value[0] = Math.max(1, width / height);
     aspect.value[1] = 1;
 
-    post.resize(width * dpr, height * dpr, width / height);
+    post.resize(width * dpr, height * dpr, width / height, dpr);
     scrim.update(width, height);
   };
   applySize();
