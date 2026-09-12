@@ -8,8 +8,11 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { ThemeScript } from "@/components/layout/ThemeScript";
+import { LightSourceScript } from "@/components/layout/LightSourceScript";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { AttestationField } from "@/components/three";
 import { ExternalLinkNotice } from "@/components/ui/InlineLink";
+import { ATTESTATION } from "@/content/attestation";
 import {
   FOOTER_YEAR,
   WORDMARK,
@@ -135,6 +138,54 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
               notice stays out of heading text and out of the article names
               computed from those headings. See EXTERNAL_LINK_NOTICE_ID. */}
           <ExternalLinkNotice />
+
+          {/* THE PAGE'S GROUND — docs/04 §2.7, §3.5 A8, docs/15 §2.2.
+              Mounted ONCE, here, before {children}. A second field is a defect
+              (A8.5): it is the substrate, not an element in the composition.
+
+              `.field-backdrop` is the single stacking context the whole
+              composition lives in, which is what makes §2.7's declared order
+              — field -> grid -> content -> header -> skip link — actually
+              render. `--z-field` and `--z-grid` index INSIDE it; `main` is
+              `position: relative` and therefore paints above it. A bare
+              `z-index: 1` fixed grid in the root stacking context would paint
+              above non-positioned in-flow content instead of below it, and
+              the page's own text would end up behind the blueprint.
+
+              Order within it is deliberate: grain, then the field, then the
+              grid. The grain is BELOW the field because §2.8 exempts the field
+              from the CSS grain layer — the field carries its own grain and
+              ordered dither inside its composite pass, and a CSS grain over an
+              additive surface double-dithers. Where the field paints, the
+              grain is covered; where it masks out (all of light mode's #work,
+              #projects, #about and #contact, and every JS-disabled render) the
+              grain textures the page ground exactly as intended.
+
+              There is NO CSS scrim sheet anywhere in here, and adding one is a
+              defect under A8.3: the scrim is carved out of the composite by
+              the `data-scrim` rects, so the pixels a contrast check samples
+              are the pixels actually behind the type. */}
+          {/* NO `aria-hidden` on this wrapper, deliberately. It is a stacking
+              -context device, not a semantics device, and `aria-hidden` here
+              is inherited by everything inside it — which would have silently
+              deleted the poster's `role="img"` + `aria-label`. That name is
+              required by docs/05 §3.10's alt inventory and docs/02 §8.1, and
+              `AttestationFieldProps.alt` is a REQUIRED prop for exactly that
+              reason: the poster is the whole experience for a JS-off,
+              reduced-motion or no-WebGL visitor. A8.5's "the field is
+              aria-hidden" is about the LIVE canvas — which `AttestationField`
+              marks itself — and about the field not counting as an element in
+              F9's per-viewport accent tally. It is not a licence to drop a
+              1.1.1 name from the one surface that has to carry it.
+
+              The grain and the grid ARE hidden: they are empty decorative
+              layers with no name to lose. */}
+          <div className="field-backdrop">
+            <div className="field-grain" aria-hidden="true" />
+            <AttestationField alt={ATTESTATION.posterAlt} />
+            <div className="blueprint-grid" data-lit aria-hidden="true" />
+          </div>
+
           <SkipLink label={SKIP_LINK_LABEL} />
           <SiteHeader
             items={navItems}
@@ -154,7 +205,27 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
             {children}
           </main>
           <SiteFooter contactLinks={footerLinks} year={FOOTER_YEAR} />
+
+          {/* NO `<FieldHud />` HERE, and this is deliberate.
+              The readout (docs/15 §2.11 / M8.2) used to be mounted at this
+              point as a `position: fixed` layer over the whole document, and
+              at 1440x900 it painted on top of section copy at every scroll
+              position — over "Three entries, ordered by how hard the work is
+              to fake" in the hero, over the authenticator status line in
+              `#ceremony`. It is now the hero's closing block, in flow, where
+              it cannot occlude anything. See `three/FieldHud.tsx`.
+
+              It still carries the A7 `verified` glyph, and it is still the
+              only one on the page — `AttestationSection` renders no readout
+              row for exactly that reason. */}
         </SmoothScrollProvider>
+
+        {/* The light source (docs/04 §2.8). An inline script, not a client
+            component: it renders no DOM, owns no state, and the port is
+            budgeted at ±0 First Load JS. Mounted last so it never sits in
+            front of the LCP text — the lamp already has a correct resting
+            position in CSS and only improves on it. */}
+        <LightSourceScript />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -4,6 +4,12 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
 import { StandaloneLink } from "@/components/ui/StandaloneLink";
 import { Hero } from "@/components/sections/primitives/Hero";
+// Imported from its own module, NOT from the `@/components/three` barrel.
+// The barrel also exports `AttestationField`, which pulls `FieldStage`'s
+// "use client" boundary in with it — and importing the barrel here put that
+// boundary into the PAGE chunk as well as the layout's, costing 4 kB of
+// First Load JS for a Server Component that renders four spans of text.
+import { FieldHud } from "@/components/three/FieldHud";
 import { ResumeAffordance } from "@/components/sections/primitives/ResumeAffordance";
 import { RichText } from "@/components/sections/primitives/RichText";
 import {
@@ -50,6 +56,12 @@ export function HeroSection(): ReactNode {
           </Button>
         }
         secondaryAction={<ResumeAffordance />}
+        // The field's live readout, in flow as the hero's closing block.
+        // It used to be `position: fixed` in `layout.tsx` and painted on top
+        // of section copy at every scroll position; `FieldHud.tsx` carries the
+        // measurement and the reasoning. Server-rendered here too, so it is
+        // correct with JavaScript disabled.
+        readout={<FieldHud />}
       />
     </Reveal>
   );

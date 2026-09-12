@@ -48,9 +48,13 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  --background: #fcfcfc;
-  --surface: #f6f6f6;
-  --surface-raised: #ededed;
+  /* Warm ladder (§3.2, DEV-14) — Radix `gold` light steps 1-4. A perfectly
+     neutral greyscale is the enabling half of the "gold reads as highlighter"
+     failure: hue-41 accent on hue-0 ground has nothing to belong to. */
+  --background: #fdfdfc;
+  --surface: #faf9f2;
+  --surface-raised: #f2f0e7;
+  --overlay: #eae6db; /* NOT a body-text surface (§3.2) */
 
   --foreground-strong: #0a0a0a;
   --foreground: #1a1a1a;
@@ -81,21 +85,23 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --background: #0a0a0a;
-    --surface: #141414;
-    --surface-raised: #1c1c1c;
-    --foreground-strong: #fcfcfc;
-    --foreground: #ededed;
-    --foreground-secondary: #a8a8a8;
-    --foreground-muted: #8a8a8a;
-    --foreground-faint: #4a4a4a;
+    /* Warm ladder (§3.3, DEV-14) — hue 41, S 6-8%. */
+    --background: #0c0b0a;
+    --surface: #161513;
+    --surface-raised: #1f1e1c;
+    --overlay: #2a2925; /* NOT a body-text surface (§3.3) */
+    --foreground-strong: #f2efe8;
+    --foreground: #ede9e1;
+    --foreground-secondary: #a8a29a;
+    --foreground-muted: #8c877e;
+    --foreground-faint: #423f38;
     --border: #ffffff1f;
     --border-subtle: #ffffff14;
     --border-interactive: #ffffff6f;
     --accent: #d1a954; /* brand gold, unchanged */
     --accent-hover: #dbbc7a;
     --accent-tint: #241c0b;
-    --accent-foreground: #0a0a0a; /* near-black — inverts vs light */
+    --accent-foreground: #0c0b0a; /* near-black — inverts vs light */
     --shadow-overlay: 0 8px 32px rgb(0 0 0 / 0.48);
   }
 }
@@ -105,21 +111,23 @@
    KEEP IN SYNC with the @media block above — same values. */
 [data-theme="dark"] {
   color-scheme: dark;
-  --background: #0a0a0a;
-  --surface: #141414;
-  --surface-raised: #1c1c1c;
-  --foreground-strong: #fcfcfc;
-  --foreground: #ededed;
-  --foreground-secondary: #a8a8a8;
-  --foreground-muted: #8a8a8a;
-  --foreground-faint: #4a4a4a;
+  /* Warm ladder (§3.3, DEV-14) — hue 41, S 6-8%. */
+  --background: #0c0b0a;
+  --surface: #161513;
+  --surface-raised: #1f1e1c;
+  --overlay: #2a2925; /* NOT a body-text surface (§3.3) */
+  --foreground-strong: #f2efe8;
+  --foreground: #ede9e1;
+  --foreground-secondary: #a8a29a;
+  --foreground-muted: #8c877e;
+  --foreground-faint: #423f38;
   --border: #ffffff1f;
   --border-subtle: #ffffff14;
   --border-interactive: #ffffff6f;
   --accent: #d1a954; /* brand gold, unchanged */
   --accent-hover: #dbbc7a;
   --accent-tint: #241c0b;
-  --accent-foreground: #0a0a0a; /* near-black — inverts vs light */
+  --accent-foreground: #0c0b0a; /* near-black — inverts vs light */
   --shadow-overlay: 0 8px 32px rgb(0 0 0 / 0.48);
 }
 
@@ -175,6 +183,7 @@
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
+  --color-overlay: var(--overlay);
   --color-foreground-strong: var(--foreground-strong);
   --color-foreground: var(--foreground);
   --color-foreground-secondary: var(--foreground-secondary);
@@ -346,13 +355,29 @@
   --stagger-step: 50ms;
   --stagger-max-items: 5;
 
-  /* Stacking order. docs/04 declares no z-scale, so these are named here in
-     the non-utility layer rather than left as bare integers at the use site.
-     The values are unchanged — only the literals move. The ordering is the
-     point: the skip link must paint above the sticky header.
-     ESCALATE to docs/04 §2 for a canonical three-step scale. */
+  /* Stacking order (§2.7). Declared here, NOT in @theme, so no z-* utilities
+     are generated and the token surface above stays exactly as printed.
+     Order: field -> grid -> content (normal flow) -> header -> skip link.
+     The skip link must paint above the sticky header.
+
+     `--z-field` and `--z-grid` index INSIDE `.field-backdrop`, which is the
+     one element that carries them as a stacking context of its own; the
+     backdrop itself sits at `--z-field` in the root context and `main` is
+     `position: relative` so content paints above it. That is what makes the
+     §2.7 order render as written — a bare `z-index: 1` fixed layer in the root
+     context would paint above non-positioned in-flow content, not below it. */
+  --z-field: 0;
+  --z-grid: 1;
   --z-header: 2;
   --z-skip: 3;
+  /* NO `--z-hud` STEP, and this is the fix for a shipped defect rather than an
+     omission. `FieldHud` (docs/15 §2.11 / M8.2) was a fixed element that
+     overlaid the whole document, and the only question anyone asked of it was
+     which step it should take — while at every step it painted ON TOP OF
+     section copy at every scroll position. A z-index cannot separate two
+     layers that occupy the same pixels; only layout can. The readout is now
+     the hero's closing block, in flow, and owns no step in this table.
+     Re-introducing a fixed HUD re-opens that defect, not just this token. */
 
   /* Print pagination minimum. docs/04 §9.5's print block declares no break,
      orphan or widow control at all, so this value has no token upstream and is
@@ -361,6 +386,42 @@
      lines is the conventional floor for a paragraph fragment on a sheet.
      ESCALATE to docs/04 §9.5 for a canonical print scale. */
   --print-min-lines: 3;
+
+  /* The light source (§2.8, DEV-15). ONE origin. Every lit edge on the page
+     is a radial gradient anchored to it; nothing reads a second position.
+     Frozen at these defaults under reduced motion and with JS disabled — the
+     per-element `--lx`/`--ly` written by LightSourceScript FALL BACK to these,
+     so a JS-off page is lit from top-centre rather than lit not at all. */
+  --light-x: 50%;
+  --light-y: -10%;
+  --glow-near: #d1a95433;
+  --glow-mid: #d1a9541f;
+  /* Every gold glow fades to THIS, never to `transparent` — `transparent` is
+     rgba(0,0,0,0) and interpolates through grey (docs/11 §3 move 5). */
+  --glow-far: #d1a95400;
+  --edge-lit: inset 0 1px 0 #ffffff1f;
+  --shadow-panel: 0 40px 100px -50px #000;
+  --grain-opacity: 0.2;
+
+  /* The attestation field (§3.7, DEV-13). DARK IN BOTH THEMES — the field is
+     a stage the light-mode page enters and leaves (A8.2), so these are NOT
+     redeclared per theme. Not in @theme: no field-* utilities are generated
+     and nothing outside the .stage scope can reach them by accident.
+
+     `--accent-dark` is declared once, unconditionally, so `--field-hot` can
+     reference dark `--color-accent` rather than retyping the hex. Retyping
+     #d1a954 into the shader, the poster or a second CSS rule is a defect
+     under A8.6 — it is how the two surfaces drift apart. */
+  --accent-dark: #d1a954;
+  --field-ink: #0a0908;
+  --field-cold: #3a4655;
+  --field-hot: var(--accent-dark, #d1a954); /* = dark --accent (A8.6) */
+  --field-core: #fff3d2;
+  --field-fg: #ede9e1; /* = dark --foreground */
+  --field-fg-secondary: #b9b4a9; /* body copy over the field */
+  --field-fg-muted: #9c978c;
+  --field-rule: #ffffff14;
+  --field-panel: #ffffff05;
 
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
@@ -1072,7 +1133,14 @@ section[tabindex="-1"]:focus-visible {
      the gap, and `.section--last` already supplies it — `ContactSection` now
      passes `isLast`. Declaring it in both places would double-count it. */
   .site-footer {
-    padding-block: var(--space-8);
+    /* Asymmetric. The block-end half was sized as WCAG 2.2 SC 2.4.11 clearance
+       for the fixed `FieldHud`, which sat in the bottom-left gutter and landed
+       on `.footer-links` at the foot of the document. The readout is in flow
+       now (see `three/FieldHud.tsx`) and nothing fixed overlays the footer, so
+       this value is a rhythm choice again — kept as it stands because the page
+       height budget [03 R14] is measured against it and the closing breath at
+       the foot of a one-column document is worth the space. */
+    padding-block: var(--space-8) var(--space-16);
     border-block-start: 1px solid var(--color-border-subtle);
     font-size: var(--text-caption);
     line-height: var(--text-caption--line-height, 1.4);
@@ -1202,9 +1270,456 @@ section[tabindex="-1"]:focus-visible {
      so an accent value here is an 830x466 accent field and an outright F4
      breach. `runtime/color.ts` reads the same token independently for the live
      canvas, so the two surfaces cannot diverge. */
+  /* Amended 2026-09-11 [DEV-13 / A8]. This rule previously read
+     `--color-foreground-secondary`, which is the instruction docs/04 §3.5
+     now WITHDRAWS by name: it is what shipped the lattice at 1.44:1 across
+     both the live canvas and the poster. The correct token for the field is
+     `--field-hot`, which references dark `--color-accent` and therefore
+     cannot drift from it (A8.6). `runtime/color.ts` reads the same token, so
+     poster and canvas stay one artifact on two surfaces.
+     A grey field is a regression, not compliance. */
   [data-attestation-poster] {
-    color: var(--color-foreground-secondary);
+    color: var(--field-hot);
   }
+}
+
+/* ------------------------------------------------------------
+   8b. THE LIGHT SOURCE (§2.8, DEV-15) and the field composition
+       (§2.7, §3.7, docs/15 §2.11, §3).
+
+   docs/11 §3 move 1: the shipped page had NO light source — flat fills,
+   black shadows invisible on a near-black ground, hard edges where masks
+   belong. Everything below is anchored to ONE origin, `--light-x` /
+   `--light-y`, and consumes it through the per-element `--lx` / `--ly`
+   pair that `LightSourceScript` writes.
+
+   THE FALLBACK IS THE CONTRACT. Every consumer reads
+   `var(--lx, var(--light-x))`, so with JavaScript disabled, before the
+   script runs, and under `prefers-reduced-motion` the page is lit from a
+   fixed top-centre lamp rather than not lit at all. There is no render
+   path in which a lit edge disappears.
+
+   Every value here is a docs/04 token. The two locally-named properties
+   `--panel-elevation` and `--panel-ring` are switches, not values: they
+   hold `--edge-lit` / `--shadow-panel` and nothing else, and they exist
+   so §2.6's "the two are a pair and neither ships alone" is structural —
+   there is no selector in this file that can set one without the other.
+   ------------------------------------------------------------ */
+
+/* Content is `position: relative` so it paints ABOVE `.field-backdrop`.
+   Without it the backdrop's `z-index: var(--z-field)` — a POSITIONED layer —
+   would paint above non-positioned in-flow content and the field would cover
+   the page. This one declaration is what makes §2.7's stated order
+   (field -> grid -> content -> header -> skip link) actually render. */
+main,
+.site-footer {
+  position: relative;
+}
+
+/* The one stacking context the field composition lives in. `isolation` keeps
+   `--z-field` / `--z-grid` scoped to its children, so those two steps index
+   inside the backdrop while the backdrop itself sits below `main`.
+   `aria-hidden` and `pointer-events: none` are set on the element (A8.5). */
+.field-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-field);
+  isolation: isolate;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Grain — ped.ro's recipe, verbatim numbers (docs/11 §1.3): fractalNoise,
+   baseFrequency .8, numOctaves 4, stitchTiles stitch, saturate 0, opacity .2
+   under contrast(60%), on its own compositor layer so it never repaints
+   during scroll.
+
+   PLACEMENT, and why it is here rather than over the page. §2.8 exempts the
+   attestation field from the grain layer: a CSS grain over an additive
+   surface double-dithers and the banding it was added to remove comes back.
+   The only placement that guarantees that exemption WITHOUT a second mask is
+   below the field inside this stacking context — where the field paints it
+   is covered, and where the field masks out (all of light mode's #work,
+   #projects, #about and #contact, and every JS-disabled render) it textures
+   the page ground exactly as intended. Flagged to `design-system`. */
+.field-grain {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-field);
+  opacity: var(--grain-opacity);
+  filter: contrast(60%) brightness(100%);
+  transform: translateY(0);
+  background-repeat: repeat;
+  background-size: var(--space-48) var(--space-48);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* The blueprint grid (docs/15 §2.11 / M8.2) — CSS, not GL. 96px hairlines in
+   `--field-rule`, radially masked from the light origin so the grid never
+   ends at a hard edge, plus a column rule inset by `--gutter`. This is the
+   move that frames the lattice as something being MEASURED.
+
+   The "empty" stop of each hairline is `--glow-far` (`#d1a95400`), not the
+   keyword `transparent`: §2.8 rule 1, applied even where the stop is hard. */
+.blueprint-grid {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-grid);
+  background-image:
+    linear-gradient(to right, var(--field-rule) 1px, var(--glow-far) 1px),
+    linear-gradient(to bottom, var(--field-rule) 1px, var(--glow-far) 1px);
+  background-size: var(--space-24) var(--space-24);
+  -webkit-mask-image: radial-gradient(
+    120% 90% at var(--lx, var(--light-x)) var(--ly, var(--light-y)),
+    #000 0%,
+    #0009 38%,
+    #0003 64%,
+    #0000 88%
+  );
+  mask-image: radial-gradient(
+    120% 90% at var(--lx, var(--light-x)) var(--ly, var(--light-y)),
+    #000 0%,
+    #0009 38%,
+    #0003 64%,
+    #0000 88%
+  );
+}
+.blueprint-grid::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline: max(var(--gutter), calc((100% - var(--container-shell)) / 2));
+  border-inline: 1px solid var(--field-rule);
+}
+
+/* ----------------------------------------------------------------
+   THE STAGE SCOPE (§3.7) — and the single highest-consequence
+   implementation detail in the field work.
+
+   `.stage` redeclares the foreground, accent and hairline tokens from
+   `--field-*` FOR ITS WHOLE SUBTREE, IN CSS, UNCONDITIONALLY — never from
+   JavaScript. If any part of this were applied by script, a light-mode
+   visitor with JS disabled would get `#1a1a1a` body copy on `#0a0908`:
+   1.14:1, worse than the 1.44:1 failure DEV-13 exists to correct.
+
+   `--color-border-interactive` is deliberately NOT redeclared: `#ffffff6f`
+   already measures 4.26:1 over `--field-ink` (§3.6) and it is the only token
+   permitted to identify a control over the field. `--field-rule` is 1.16:1
+   and is decorative only.
+   ---------------------------------------------------------------- */
+.stage {
+  /* The raw ladder. Tailwind's `@theme inline` makes every colour utility emit
+     `var(--foreground)` rather than `var(--color-foreground)`, so THIS is the
+     half that re-colours `.text-foreground`, `.text-foreground-muted` and
+     every other utility inside the scope. */
+  --background: var(--field-ink);
+  --surface: var(--field-panel);
+  --surface-raised: var(--field-rule);
+  --overlay: var(--field-rule);
+  --foreground-strong: var(--field-fg);
+  /* Body copy is `--field-fg-secondary`, NOT `--field-fg`. §3.7 assigns the
+     three field foregrounds by role and they are not interchangeable:
+     `--field-fg` is "headings and display type over the field",
+     `--field-fg-secondary` is "body copy over the field — the dimmest string
+     the field must carry", `--field-fg-muted` is "the HUD readout, metadata
+     over the field".
+
+     Mapping `--foreground` to `--field-fg` reads as the safe choice because it
+     is brighter, and it is the wrong one: it collapses display, body and
+     secondary prose onto a single value and the stage loses its type
+     hierarchy — which is the flatness this whole port exists to remove,
+     re-introduced one token at a time. The ladder over the field is
+     16.43 : 9.62 : 6.83 [MEAS §3.7], and all three clear 4.5. */
+  --foreground: var(--field-fg-secondary);
+  --foreground-secondary: var(--field-fg-secondary);
+  --foreground-muted: var(--field-fg-muted);
+  --foreground-faint: var(--field-rule);
+  --border: var(--field-rule);
+  --border-subtle: var(--field-rule);
+  --accent: var(--accent-dark);
+  --accent-hover: #dbbc7a;
+  --accent-tint: #241c0b;
+  --accent-foreground: var(--field-ink);
+
+  /* The `--color-*` aliases, redeclared HERE and not left to inherit. This is
+     not belt-and-braces, it is required: `--color-foreground: var(--foreground)`
+     is declared on `:root`, and a `var()` inside a custom property's value is
+     substituted at computed-value time ON THE ELEMENT THAT DECLARES IT. So
+     `:root`'s alias resolves against `:root`'s ladder once, and every
+     descendant inherits that resolved value — overriding `--foreground` alone
+     would leave every hand-written `color: var(--color-foreground)` (the
+     ceremony's panels, `AttestationReadout`, every inline style in §8) still
+     painting the PAGE's ink on the stage. In light mode that is `#1a1a1a` on
+     `#0a0908`: 1.14:1.
+
+     `--color-border-interactive` is deliberately NOT touched: `#ffffff6f`
+     already measures 4.26:1 over `--field-ink` (§3.6) and it is the only token
+     permitted to identify a control over the field. `--field-rule` is 1.16:1
+     and is decorative only. */
+  --color-background: var(--field-ink);
+  --color-surface: var(--field-panel);
+  --color-surface-raised: var(--field-rule);
+  --color-overlay: var(--field-rule);
+  --color-foreground-strong: var(--field-fg);
+  --color-foreground: var(--field-fg-secondary);
+  --color-foreground-secondary: var(--field-fg-secondary);
+  --color-foreground-muted: var(--field-fg-muted);
+  --color-foreground-faint: var(--field-rule);
+  --color-border: var(--field-rule);
+  --color-border-subtle: var(--field-rule);
+  --color-accent: var(--accent-dark);
+  --color-accent-hover: #dbbc7a;
+  --color-accent-tint: #241c0b;
+  --color-accent-foreground: var(--field-ink);
+
+  /* Text that carries no utility class inherits from `body`, which is coloured
+     from `:root`'s already-resolved alias. Re-stating it here is what pulls
+     unclassed prose into the scope. `body` is coloured from
+     `--color-foreground`, which is body copy, so this tracks the body value
+     rather than the heading one. */
+  color: var(--field-fg-secondary);
+}
+
+/* THE NO-SCRIPT GROUND — a correctness rule, measured, and the whole of it
+   is scoped to `html:not(.js)`.
+
+   `.stage` forces the field ladder (`--field-fg` `#ede9e1` and friends) on the
+   premise that the ground under it is `--field-ink`. `FieldStage` holds the
+   field host at `opacity: 0` in LIGHT mode until `data-field-live`, so with
+   JavaScript disabled the host never paints and that premise is false: the
+   hero, `#attestation` and `#ceremony` render `#ede9e1` on `#fdfdfc`.
+   **Measured 1.07:1** on the shipped build — unreadable, and the 1.14:1
+   failure DEV-13 exists to correct with the operands swapped.
+
+   The ground goes on `.field-backdrop`, NOT on `.stage`. `.stage` on the hero
+   is `Container as="section"` — the 672px reading column — so painting it
+   gives a narrow dark strip down the middle of a light page rather than a
+   stage, and the full-bleed trick that would fix that (`width: 100vw` plus a
+   negative inline margin) buys horizontal overflow and a scrollbar. The
+   backdrop is already full-bleed and already behind everything, so it costs
+   one declaration and no layout. The `.over-field` sections and the footer
+   then paint `--color-background` back over it, which is A8.2's light-mode
+   sectioning done with hard edges — acceptable here precisely because on this
+   path there is no feathered mask to preserve: `field/bleed.ts` needs script
+   to read the section rects.
+
+   `--field-ink` is the same value the host paints, and that is what makes
+   this safe in both directions. Today it substitutes for a hidden host. If
+   `field-three-d` later lets the poster render without script — which
+   `docs/15` §5.4 says it should, "the poster is server-rendered inline SVG in
+   the fixed layer behind it" — the poster simply paints on top of an
+   identical colour and this becomes an invisible under-layer. Neither lane
+   has to move first, and neither can break the other by moving.
+
+   Dark mode is excluded throughout: there the host paints with JS off, the
+   page ladder already equals the field ladder, and cutting `.over-field` back
+   to `--color-background` would section a field that A8.2 says runs the full
+   document height uninterrupted.
+
+   `html:not(.js)` needs no `[data-theme]` half: `.js` and `data-theme` are
+   written by the same blocking `ThemeScript`, so if `.js` is absent the
+   attribute is absent too and `prefers-color-scheme` is the only signal that
+   exists. That is why this is four rules and not twelve. */
+html:not(.js) .field-backdrop {
+  background: var(--field-ink);
+}
+html:not(.js) .over-field,
+html:not(.js) .site-footer {
+  background: var(--color-background);
+}
+@media (prefers-color-scheme: dark) {
+  html:not(.js) .field-backdrop {
+    background: none;
+  }
+  html:not(.js) .over-field,
+  html:not(.js) .site-footer {
+    background: none;
+  }
+}
+
+/* `.over-field` is the CONDITIONAL half of A8.2: these sections sit over the
+   field in dark mode and over `--color-background` in light mode, because in
+   light mode the field masks out behind them. In light mode the switches below
+   stay off and §2.6's DEV-3 rule applies unchanged — no shadow, no ring, no
+   gold edge on a surface that is not over the stage.
+
+   `.stage` is the UNCONDITIONAL half: #hero, #attestation and #ceremony are
+   over the field in both themes, so they take the stage scope and the lit
+   recipes with no media query at all.
+
+   ## What used to be here, and why it is gone
+
+   This block briefly also painted `background: var(--color-background)` on
+   `.over-field` and `.site-footer` in light mode. That was a real fix for a
+   real defect — the field host server-rendered opaque `--field-ink` full-bleed
+   in both themes while A8.2's light-mode sectioning lived only in the
+   composite, so light-mode `#work` measured **2.98:1** from first paint, and
+   permanently with JS disabled.
+
+   `field-three-d` has since fixed it at the source, which is the right place:
+   `field/bleed.ts` masks the host from the live `[data-field-section]` rects,
+   feathered, and `FieldStage` holds the host at `opacity: 0` in light mode
+   until `data-field-live`. So in light mode the ground behind these sections
+   really is `--color-background` in every path — before mount, after mount,
+   and with no script at all.
+
+   Keeping the slab on top of that would be worse than redundant: it is
+   opaque and hard-edged, so it would paint over exactly the feathered bleed
+   `docs/15` §2.11 M8.4 asks for and re-introduce the hard terminus the mask
+   exists to remove. A correctness rule that has been fixed upstream stops
+   being a correctness rule and becomes a bug. Re-adding it needs the 2.98:1
+   to come back first.
+
+   `main` and `.site-footer` keep `position: relative` (§8b head): that is a
+   different problem — a non-positioned in-flow footer is painted UNDER the
+   fixed backdrop outright, in both themes. */
+.over-field {
+  --panel-elevation: none;
+  --panel-ring: 0;
+}
+.stage {
+  --panel-elevation: var(--edge-lit), var(--shadow-panel);
+  --panel-ring: 1;
+}
+[data-theme="dark"] .over-field {
+  --panel-elevation: var(--edge-lit), var(--shadow-panel);
+  --panel-ring: 1;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .over-field {
+    --panel-elevation: var(--edge-lit), var(--shadow-panel);
+    --panel-ring: 1;
+  }
+}
+
+/* ----------------------------------------------------------------
+   ELEVATION AS LIGHT (§2.6 amendment) — a lit top edge (`--edge-lit`),
+   a contact ring (the masked `::before` hairline), and an ambient
+   (`--shadow-panel`). A black drop shadow on `--field-ink` is invisible:
+   it costs a composite layer and buys nothing, which is why the pair is
+   indivisible and why `--panel-elevation` carries both or neither.
+   ---------------------------------------------------------------- */
+.panel {
+  position: relative;
+  border-radius: var(--radius-md);
+  /* Asymmetric, and the inline half is a page-budget decision rather than a
+     rhythm one. On a 390px screen the reading column is ~326px, so 24px of
+     padding on each side removes **15%** of the measure and the text reflows
+     taller — measured at 333px of document height across the three work
+     entries, of which only 144px is the padding itself and the rest is the
+     extra lines the narrower measure forces. `docs/03` AP2 is explicit that
+     when a page is over budget the content is cut and the gap is not, so the
+     gap goes first. 16px still holds the lit ring clear of the type.
+     Restored to 24px at `--breakpoint-md`, where the column is wide enough
+     that the inline padding costs nothing. */
+  /* Block padding is `--space-4`, not `--space-6`, and that is a page-budget
+     decision recorded in `docs/05 §12.1` rather than a rhythm one. At the
+     governing 1440×900 the page measured 5.90 vp against R14's 6.00 cap —
+     1.7% headroom, thin enough that a single added paragraph anywhere could
+     breach it. This is the first lever in the order IA recorded, taken
+     because `docs/03` AP2 puts gap before content: −64px, −0.07 vp, and it
+     doubles the margin to 3.3% while leaving `--section-gap` unspent.
+
+     It does NOT break the §2.6 pair — `--edge-lit` and `--shadow-panel` both
+     still ship, and the lit ring still clears the type. Taking this to 0 was
+     offered and refused: that collapses the panel into its own text. */
+  padding-block: var(--space-4);
+  padding-inline: var(--space-4);
+  /* Surfaces are never a flat fill: a two-stop radial between two adjacent
+     ladder steps, anchored at the light origin and ending past 100% so the
+     gradient has no visible terminus. `--field-panel` is a LIT REGION, not
+     a coloured one (§3.7) — it composites to #0f0e0d, 1.03:1. */
+  background: radial-gradient(
+    100% 100% at var(--lx, var(--light-x)) 0%,
+    var(--field-panel) 0%,
+    var(--glow-far) 150%
+  );
+  box-shadow: var(--panel-elevation, none);
+}
+
+/* The contact ring. A border is not a colour — it is a surface catching a
+   light. A 1px gold radial, masked into a ring by `mask-composite: exclude`,
+   brightest where it faces the lamp and fading to `--glow-far` `#d1a95400`
+   (never `transparent`: §2.8 rule 1). The ramp is exactly
+   `--glow-near` -> `--glow-mid` -> `--glow-far`, which is the only gold
+   glow §2.8 permits, and only here — on the lit edge of a panel over the
+   field, under A8.1. Off the field `--panel-ring` is 0 and F7 is unchanged. */
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  opacity: var(--panel-ring, 0);
+  background:
+    radial-gradient(
+      ellipse 84% 300% at var(--lx, var(--light-x)) var(--ly, var(--light-y)),
+      var(--glow-near) 0%,
+      var(--glow-mid) 40%,
+      var(--glow-far) 78%
+    ),
+    linear-gradient(var(--field-rule) 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@media (min-width: 48rem) {
+  .panel {
+    padding-inline: var(--space-6);
+  }
+}
+
+/* A hairline that is a lit metal edge rather than a line. Same ramp, same
+   origin, same `--glow-far` terminus; masked at both ends so it never stops
+   abruptly. Used as the divider inside #attestation. */
+.lit-rule {
+  block-size: 1px;
+  border: 0;
+  margin: 0;
+  background: radial-gradient(
+    ellipse 44% 600% at var(--lx, var(--light-x)) 50%,
+    var(--glow-near) 0%,
+    var(--glow-mid) 34%,
+    var(--glow-far) 100%
+  );
+  -webkit-mask-image: linear-gradient(90deg, #0000 0, #000 12%, #000 88%, #0000 100%);
+  mask-image: linear-gradient(90deg, #0000 0, #000 12%, #000 88%, #0000 100%);
+}
+
+/* ----------------------------------------------------------------
+   BACKLIT DISPLAY TYPE (docs/15 §3 row 1). The field brightens directly
+   behind the letterforms, so the name reads as BACKLIT rather than
+   painted: gold at three radii plus one offset in `--field-ink` to hold
+   the type off the ground. Scoped to `.stage` — this is emitted light
+   over the field (A8.1), and off the field it does not exist.
+   ---------------------------------------------------------------- */
+.stage .backlit {
+  text-shadow:
+    0 0 var(--space-2) var(--glow-near),
+    0 0 var(--space-6) var(--glow-mid),
+    0 0 var(--space-16) var(--glow-mid),
+    0 2px 0 var(--field-ink);
+}
+
+/* The eyebrow that titles #attestation. F6: eyebrow text is
+   `--color-foreground-muted`, never accent. It contributes no heading, so
+   the R9 headings chain is preserved (docs/15 §3 row 3). */
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height, 1.3);
+  letter-spacing: var(--text-label--letter-spacing, 0.12em);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  color: var(--color-foreground-muted);
 }
 
 /* ------------------------------------------------------------
@@ -1236,6 +1751,16 @@ section[tabindex="-1"]:focus-visible {
     transition: none !important;
     transition-delay: 0s !important;
     animation: none !important;
+  }
+
+  /* M-LIGHT (§2.8 rule 3) — the lamp freezes at its declared origin. The
+     script constructs no rAF loop under `reduce`; this block is the CSS half
+     of the same guarantee, so the static end state is reached even if a
+     `--lx`/`--ly` pair was written before the preference was read. Every lit
+     edge is still lit — the page loses the travel, not the light. */
+  [data-lit] {
+    --lx: var(--light-x) !important;
+    --ly: var(--light-y) !important;
   }
 
   /* M4 — InlineLink: the underline is permanently present at rest in
@@ -1340,6 +1865,15 @@ section[tabindex="-1"]:focus-visible {
     transform: none !important;
   }
 
+  /* The field is now the page's full-bleed GROUND rather than the boxed
+     figure this block was written for (docs/15 §2.2), and a fixed full-bleed
+     decorative layer prints as a lattice behind the first page of text. It is
+     `aria-hidden` decoration; it does not print. The grain and the blueprint
+     grid go with it, for the same reason. */
+  .field-backdrop {
+    display: none !important;
+  }
+
   /* The poster is the printable artifact; the canvas rasterises to nothing.
 
      `runtime/scene.ts` builds the OGL Renderer with the default
@@ -1434,5 +1968,30 @@ section[tabindex="-1"]:focus-visible {
 @media (forced-colors: active) {
   [data-attestation-poster] {
     color: CanvasText;
+  }
+
+  /* The light source is expressed entirely in author colours a forced-colours
+     mode cannot reason about: a masked gold ring, a two-stop radial surface,
+     a grain layer and a hairline grid. Every one of them is decorative and
+     carries no information, so they are removed rather than handed back to
+     the system palette — there is no system colour for "a surface catching a
+     light". The panel's structure survives as its own border, which the UA
+     re-colours correctly. `--color-border-interactive` still identifies every
+     control over the field (§3.6). */
+  .field-grain,
+  .blueprint-grid,
+  .panel::before {
+    display: none;
+  }
+  .panel {
+    background: Canvas;
+    border: 1px solid CanvasText;
+    box-shadow: none;
+  }
+  .lit-rule {
+    background: CanvasText;
+  }
+  .stage .backlit {
+    text-shadow: none;
   }
 }

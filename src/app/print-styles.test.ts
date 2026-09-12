@@ -113,9 +113,16 @@ describe("forced colours (accessibility-c2 N3)", () => {
   it("declares the poster ink in the stylesheet, not in an inline style", () => {
     // While `color` lived in POSTER_STYLE the forced-colours override could
     // never win the cascade, so the fix cycle 1 reported had never applied.
-    expect(GLOBALS_CSS).toMatch(
-      /\[data-attestation-poster\]\s*\{\s*color:\s*var\(--color-foreground-secondary\)/,
-    );
+    // That is what this test is for, and it is unchanged.
+    //
+    // The TOKEN changed, 2026-09-11 [DEV-13 / A8]. It asserted
+    // `--color-foreground-secondary`, which docs/04 §3.5 now withdraws by
+    // name: it is the instruction that shipped the lattice at 1.44:1 on both
+    // the canvas and the poster, because the poster is frame ∞ of the same
+    // shader. The correct token is `--field-hot`, which references dark
+    // `--color-accent` and therefore cannot drift from it (A8.6).
+    // A grey field is a regression, not compliance.
+    expect(GLOBALS_CSS).toMatch(/\[data-attestation-poster\]\s*\{\s*color:\s*var\(--field-hot\)/);
   });
 
   it("still hands the figure back to the system palette under forced colours", () => {

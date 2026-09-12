@@ -16,6 +16,14 @@ export type { ButtonProps, ButtonVariant, ButtonSize, ButtonElement } from "./Bu
 export { Container } from "./Container";
 export type { ContainerProps, ContainerWidth, ContainerElement } from "./Container";
 
+export { fieldAttributes, fieldClass } from "./field";
+export type {
+  FieldCompositeProps,
+  FieldDataAttributes,
+  SectionField,
+  SectionFieldState,
+} from "./field";
+
 export { InlineLink, ExternalLinkNotice, EXTERNAL_LINK_NOTICE_ID } from "./InlineLink";
 export type { InlineLinkProps } from "./InlineLink";
 
