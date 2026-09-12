@@ -4,6 +4,7 @@
 **Inputs:** `docs/00-content-inventory.md`, `docs/01-design-research.md`, `docs/02-tech-research.md`, `docs/03-recruiter-research.md`, `docs/BUILD-PLAN.md`, `src/app/globals.css`.
 **Date:** 2026-09-11.
 **Amended:** 2026-09-11, Phase 5 reconciliation against shipped code (`docs/06-review-*`, `docs/07-fix-report.md`). Every amendment is logged in **§12.1** with the section it changed. Section numbering is unchanged; §2.7 and §12.1 are new and additive.
+**Amended again:** 2026-09-11, the **attestation-field amendment** (`docs/15-field-port-plan.md` §1). Adds **DEV-13** (allowlist row **A8**, the field as an emissive surface), **DEV-14** (the warm neutral ladder), **DEV-15** (the light-source system), logged in **§12.1 F**. Sections changed: §2.6, §2.7, §3.2, §3.3, §3.4, §3.5, §3.6, §8.4, §10, §11, §12, §13. **Section numbering is unchanged. §2.8 and §3.7 are new and additive — they are appended after the last existing subsection of their part, so no existing number moves and no external citation breaks.** Every contrast figure in this amendment was recomputed, not carried over; §3.6 is reprinted in full.
 
 ---
 
@@ -305,16 +306,58 @@ Exactly one shadow token exists, for the one element that floats over content:
 
 Scope: the mobile nav sheet, and nothing else. Any other `box-shadow` **rendered on an element** is a defect. Dead `box-shadow` *rules* that Tailwind emits into the stylesheet but no element carries are a separate, lesser problem with its own fix — see §10's `source(none)` note.
 
+#### Amended 2026-09-11 — panels over the attestation field **[DEV-15]**
+
+Direction C's panels are lit objects, and a lit object needs **both halves** of a light source. One narrow exception is added to the DEV-3 rule, and it is narrow on purpose:
+
+> **Panels composited over the attestation field** (`.panel`, the `FieldHud` readout, and the work entries while the field is behind them) may carry `--shadow-panel` **together with** `--edge-lit` and a `::before` hairline gradient. **The two are a pair and neither ships alone.** A drop shadow with no lit edge is the black-shadow-on-near-black failure `docs/11` §3 move 3 names: on `--field-ink` `#0A0908` a black shadow is invisible, so it costs a composite layer and buys nothing. Panels **not** over the field keep the DEV-3 rule and carry no shadow at all.
+
+| Token | Value | Scope |
+|---|---|---|
+| `--shadow-panel` | `0 40px 100px -50px #000` | `.panel` / `.entry` / the HUD, **only while over the field**. Never on an element on `--color-background` |
+| `--edge-lit` | `inset 0 1px 0 #FFFFFF1F` | the **mandatory** companion to `--shadow-panel`. Composites to `#282726` over `--field-ink`, **1.33:1 [MEAS]** — decorative only, and never a boundary that identifies a control (that is `--color-border-interactive`, **4.26:1** over `--field-ink`, §3.7) |
+
+`--shadow-overlay` is unchanged and remains the only shadow permitted anywhere off the field. A `--shadow-panel` rendered without `--edge-lit` on the same element is a defect; so is either token on an element that is not over the field.
+
 ### 2.7 Stacking order
 
 **Added in the Phase 5 amendment (design-QA D12).** Three steps, declared in the non-utility `:root` block of §10 — **not** in `@theme`, so the Tailwind token surface stays exactly as §10 prints it and no `z-*` utilities are generated.
 
 | Token | Value | Use |
 |---|---:|---|
+| `--z-field` | **0** | `AttestationField` / `FieldStage` — the full-bleed generative surface, `position: fixed`, `pointer-events: none`, `aria-hidden`. It is the page's **ground**, so it takes the lowest declared step **[DEV-13]** |
+| `--z-grid` | **1** | the blueprint grid layer — above the field, below content in document order, and below the header **[DEV-15]** |
 | `--z-header` | **2** | `SiteHeader`, the only `position: sticky` element on the site (§5.3) |
 | `--z-skip` | **3** | `SkipLink` — it must paint **above** the sticky header, or the first focusable element on the page is hidden behind the chrome it exists to skip |
 
+**Added 2026-09-11 (DEV-13 / DEV-15):** `--z-field` and `--z-grid`. **There is deliberately no `--z-content` token.** Content is unstyled, sits in normal flow, and therefore paints above `--z-grid` by document order; adding a token for it would invite a `position` declaration that nothing needs. The ordering the page depends on is exactly: field → grid → content (flow) → header → skip link.
+
 There is no `--z-overlay`. The mobile nav sheet is positioned inside the header and inherits its stacking context; it needs no z-index of its own. If a later phase adds an element that overlays content, it reopens this table rather than typing an integer. A bare numeric `z-index` anywhere in the codebase is a defect.
+
+### 2.8 The light source
+
+**New and additive, 2026-09-11. [DEV-15]** `docs/11` §3 move 1: *give the page a light source, and make it a variable.* The finding this implements is that the shipped page has no light source at all — flat fills, black shadows invisible on a near-black ground, hard edges where masks belong. Every lit edge, glow and specular on the page is anchored to **one** origin, declared once.
+
+| Token | Value | Use |
+|---|---|---|
+| `--light-x` | `50%` | the single light origin, declared on `:root` |
+| `--light-y` | `-10%` | off-canvas above the fold, so the page is lit from above |
+| `--glow-near` | `#D1A95433` | the hot end of a glow ramp. Composites to `#322917` on `--field-ink` — **1.38:1 [MEAS]**, decorative |
+| `--glow-mid` | `#D1A9541F` | the middle stop. Composites to `#221C11` — **1.17:1 [MEAS]**, decorative |
+| `--glow-far` | `#D1A95400` | **the only permitted outer stop of a gold glow.** Composites to `#0A0908` — **1.00:1**, i.e. exactly the stage |
+| `--grain-opacity` | `0.20` | one grain layer, 20%, under 60% contrast, on its own composited layer |
+
+**Three binding rules.**
+
+1. **Every gold glow fades to `--glow-far` `#D1A95400`, never to `transparent`.** `transparent` is `rgba(0,0,0,0)`; interpolating gold → transparent passes through grey and produces the visible dirty band that `docs/11` §3 move 5 measured on every gradient in the current build. A gradient whose outer stop is the keyword `transparent` is a defect, mechanically checkable.
+2. **No shadow without a lit edge.** `--shadow-panel` and `--edge-lit` ship as a pair or not at all (§2.6).
+3. **One light origin.** `--light-x` / `--light-y` live on `:root` and nothing on the page reads a second light position. Under `prefers-reduced-motion: reduce` they freeze at their declared defaults; with JS disabled they resolve to those same defaults, so the page is lit identically in all three cases.
+
+**Grain scope.** The CSS grain layer sits over everything **except** the attestation field. The field carries its own grain and ordered dither inside its composite pass, which is where it belongs — a CSS grain layer over an additive surface double-dithers and the banding it was added to remove comes back.
+
+**These are not `@theme` tokens.** They are declared in the non-utility `:root` block of §10, so Tailwind generates no `glow-*` or `light-*` utilities and the token surface stays exactly as §10 prints it.
+
+**Relationship to F7.** §3.5 **F7** forbids gradients "of any kind". That prohibition was written against decorative background gradients used as ornament, and it stands for every surface off the field. A gold glow built from `--glow-near` → `--glow-mid` → `--glow-far` is **not** an exception to F7 at page level: it is permitted only inside the attestation field and on the lit edge of a panel over it, under **A8.1**, which requires the outer stop to be `#D1A95400`. Anywhere else, F7 is unchanged and a gradient is a defect.
 
 ---
 
@@ -324,20 +367,27 @@ There is no `--z-overlay`. The mobile nav sheet is positioned inside the header 
 
 Monochrome base plus **exactly one** accent, both modes fully specified. **[01 §5.3]**
 
-**Per mode: 15 semantic tokens** — 5 neutral foregrounds, 3 surfaces, 3 alpha borders, accent ×3 (base, hover, tint), accent-foreground ×1.
-**Across both modes: 20 distinct hex values + 6 alpha tokens.**
+**Per mode: 16 semantic tokens** — 5 neutral foregrounds, **4 surfaces**, 3 alpha borders, accent ×3 (base, hover, tint), accent-foreground ×1.
+**Across both modes: 25 distinct hex values + 6 alpha tokens.**
+
+**Amended 2026-09-11 [DEV-14].** The count rose from 15 to 16 per mode and from 20 to 25 distinct hex, for two reasons stated plainly rather than buried: the neutral ladder was **warmed** (every neutral is a new hex, and the light and dark ladders no longer share a single value), and a **fourth surface step, `--color-overlay`**, was added because `docs/11` §5.4's ladder needs a fifth rung between "raised" and the text ramp. A further **9 field-scoped tokens** are declared in **§3.7**; they contribute **5 new hex and 1 new alpha** and are reachable only inside the `.stage` scope, so they are counted separately and are not part of the semantic surface any component may reach for. Whole-system total: **30 distinct hex + 7 alpha**, plus the three glow alphas of §2.8, which are alpha forms of an existing hex rather than new colours.
 
 `docs/01` §5.3 set a target of **≤14 distinct values**. That target is met per-mode but not across both, because the corpus counts it was drawn from (rauno 9, basement.studio 13) are largely single-theme pages. **[DEV-4]** Twenty distinct hex for a fully-specified dual-theme system sits inside `docs/01`'s own band for refined personal sites (9–45) and below paco.me's 35 — and paco.me is also dual-theme. Dropping light mode would put this system at 11.
+
+**DEV-4, restated after the 2026-09-11 amendment.** The figure is now **25 semantic hex + 6 alpha across both modes**, and **30 + 7** counting §3.7's field group. That is still inside `docs/01`'s 9–45 band and still below paco.me's 35 on the semantic count, but the margin is materially thinner and the honest reading is that **light mode is what costs it**: dark-only, this system would be **17 hex + 4 alpha** including the field. `docs/15` §7 R3 puts "this page is dark-only" to the owner as an open question. It is not a build agent's call and it is not decided here.
 
 ### 3.2 Light mode
 
 Fully specified and independently measured. Neither mode is a default (§9.2).
 
+**Amended 2026-09-11 [DEV-14] — the four surfaces are warm.** They are Radix `gold` light steps 1–4 **[PKG, via `docs/11` §5.3]**, adopted verbatim. `docs/11` §5.2's finding: *a warm accent on a cold ground reads as a highlighter mark; a warm accent on a warm ground reads as an identity.* The four **text** values and both accent values are unchanged in hex and have been **re-measured against all four new surfaces** — every one of them measures **higher** than it did on the old neutral surfaces, because each new surface is fractionally lighter. The full reprint is §3.6.
+
 | Token | Hex | Role |
 |---|---|---|
-| `--color-background` | **`#FCFCFC`** | Page background. **Not pure white** — paco's `--gray-1` is `#fcfcfc`, Resend's is `#fdfdfd`, Vercel's `#fafafa`; `docs/01` Part 2: "a 1–3 point step off white reduces glare and makes true white available as a highlight." |
-| `--color-surface` | `#F6F6F6` | Recessed/raised block background: code blocks, the nav sheet, hover fills |
-| `--color-surface-raised` | `#EDEDED` | Pressed states, chip fills |
+| `--color-background` | **`#FDFDFC`** | Page background. Radix `gold-1`. **Not pure white** — paco's `--gray-1` is `#fcfcfc`, Resend's is `#fdfdfd`, Vercel's `#fafafa`; `docs/01` Part 2: "a 1–3 point step off white reduces glare and makes true white available as a highlight." Warmed from `#FCFCFC` |
+| `--color-surface` | `#FAF9F2` | Radix `gold-2`. Recessed/raised block background: code blocks, the nav sheet, hover fills. Warmed from `#F6F6F6` |
+| `--color-surface-raised` | `#F2F0E7` | Radix `gold-3`. Pressed states, chip fills. Warmed from `#EDEDED` |
+| `--color-overlay` | **`#EAE6DB`** | **New fifth rung.** Radix `gold-4`. The surface a floating panel sits on. **Scope-restricted — see the binding note below this table** |
 | `--color-foreground-strong` | `#0A0A0A` | `--text-display` and `--text-h1` only |
 | `--color-foreground` | **`#1A1A1A`** | Primary text. **Not pure black** — `docs/01` §5.3 |
 | `--color-foreground-secondary` | `#5C5C5C` | Secondary body copy, nav links at rest |
@@ -351,29 +401,40 @@ Fully specified and independently measured. Neither mode is a default (§9.2).
 | `--color-accent-tint` | `#F7F1DF` | `::selection` background only |
 | `--color-accent-foreground` | **`#FFFFFF`** | Text on an accent fill — **white in light mode.** See the inversion warning in §3.4 |
 
-`--color-foreground-muted` is **`#696969`, not `docs/01`'s `#8A8A8A`**. **[DEV-5]** `#8A8A8A` measures **3.36:1** on `#FCFCFC` — it fails WCAG 1.4.3 (4.5:1) for the 13–16px metadata it is named for. `#696969` measures 5.35:1 on background and, critically, **4.69:1 on `--color-surface-raised`**, so muted metadata is still legible inside a raised block. This is a correctness fix, not a taste change.
+> **Binding — `--color-overlay` is not a body-text surface.** **[MEAS, 2026-09-11]** `--color-foreground-muted` `#696969` measures **4.40:1** on `#EAE6DB` and **fails** WCAG 1.4.3, and `--color-foreground-faint` fails there as it fails everywhere. The permitted foregrounds on `--color-overlay` are `--color-foreground-strong` (15.87:1), `--color-foreground` (13.95:1), `--color-foreground-secondary` (5.36:1), `--color-accent` (4.84:1) and `--color-accent-hover` (7.10:1). **Muted metadata on `--color-overlay` is a defect.** This is the same class of failure DEV-5 caught and is resolved the same way — by measurement, not by assumption. A later pass that genuinely needs muted metadata on this surface must move the token, not lower the bar; **`#5F5F5F`-class values are not offered here because none has been measured** and this document does not print estimates.
+
+`--color-foreground-muted` is **`#696969`, not `docs/01`'s `#8A8A8A`**. **[DEV-5]** `#8A8A8A` measures **3.36:1** on `#FCFCFC` — it fails WCAG 1.4.3 (4.5:1) for the 13–16px metadata it is named for. `#696969` measured 5.35:1 on the old background and, critically, **4.69:1 on the old `--color-surface-raised`**, so muted metadata is still legible inside a raised block. This is a correctness fix, not a taste change. **Re-measured on the warm ladder [DEV-14]: 5.39 / 5.20 / 4.80** on background / surface / surface-raised — every figure improved. It does **not** clear `--color-overlay` (4.40:1), which is why that surface is scope-restricted above.
 
 ### 3.3 Dark mode
 
-| Token | Hex | Role |
-|---|---|---|
-| `--color-background` | **`#0A0A0A`** | Page background (matches leerob.com's `#0a0a0a` and the current site's value, `docs/00` §11) |
-| `--color-surface` | `#141414` | |
-| `--color-surface-raised` | `#1C1C1C` | |
-| `--color-foreground-strong` | `#FCFCFC` | |
-| `--color-foreground` | **`#EDEDED`** | |
-| `--color-foreground-secondary` | `#A8A8A8` | |
-| `--color-foreground-muted` | **`#8A8A8A`** | |
-| `--color-foreground-faint` | `#4A4A4A` | Non-text only |
-| `--color-border` | `#FFFFFF1F` | |
-| `--color-border-subtle` | `#FFFFFF14` | |
-| `--color-border-interactive` | **`#FFFFFF6F`** | |
-| `--color-accent` | **`#D1A954`** | Brand gold, **unchanged from the current site** (`docs/00` §11) |
-| `--color-accent-hover` | `#DBBC7A` | |
-| `--color-accent-tint` | `#241C0B` | |
-| `--color-accent-foreground` | **`#0A0A0A`** | Text on an accent fill — **near-black in dark mode.** See the inversion warning in §3.4 |
+**Amended 2026-09-11 [DEV-14] — the whole dark ladder is warmed.** Hue held at **41**, saturation **6–8%**, lightness matched to the old steps so nothing about contrast compliance changes materially. Values taken from **`docs/11` §5.4**, which generated and measured them; none is invented here. Nobody will say "the background is brown" at 6% saturation, and the gold stops looking pasted on. The accent hexes are **unchanged**.
 
-Dark `--color-foreground-muted` is **`#8A8A8A`, not `docs/01`'s `#7C7C7C`**. **[DEV-5]** `#7C7C7C` passes on `#0A0A0A` (4.74:1) but measures **4.41:1 on `--color-surface`** and 4.08:1 on `--color-surface-raised` — it fails the moment metadata sits inside a block. `#8A8A8A` clears 4.5:1 on all three dark surfaces.
+| Token | Hex | Was | Role |
+|---|---|---|---|
+| `--color-background` | **`#0C0B0A`** | `#0A0A0A` | Page background |
+| `--color-surface` | `#161513` | `#141414` | |
+| `--color-surface-raised` | `#1F1E1C` | `#1C1C1C` | |
+| `--color-overlay` | **`#2A2925`** | — | **New fifth rung.** The surface a floating panel sits on. **Scope-restricted — see the binding note below** |
+| `--color-foreground-strong` | `#F2EFE8` | `#FCFCFC` | **17.12:1** on background |
+| `--color-foreground` | **`#EDE9E1`** | `#EDEDED` | **16.24:1** |
+| `--color-foreground-secondary` | `#A8A29A` | `#A8A8A8` | **7.77:1** |
+| `--color-foreground-muted` | **`#8C877E`** | `#8A8A8A` | **5.50:1** on background; **4.66:1 on `--color-surface-raised`** — the mandated re-measurement, see below |
+| `--color-foreground-faint` | `#423F38` | `#4A4A4A` | Non-text only |
+| `--color-border` | `#FFFFFF1F` | unchanged | |
+| `--color-border-subtle` | `#FFFFFF14` | unchanged | |
+| `--color-border-interactive` | **`#FFFFFF6F`** | unchanged | |
+| `--color-accent` | **`#D1A954`** | unchanged | Brand gold, **unchanged from the current site** (`docs/00` §11) |
+| `--color-accent-hover` | `#DBBC7A` | unchanged | |
+| `--color-accent-tint` | `#241C0B` | unchanged | |
+| `--color-accent-foreground` | **`#0C0B0A`** | `#0A0A0A` | Text on an accent fill — **near-black in dark mode.** Follows `--color-background` onto the warm ladder so the closed token set gains no stray hex. **8.90:1** on `--color-accent`. See the inversion warning in §3.4 |
+
+**Rounding convention, so a cross-check does not read as a disagreement.** `docs/11` §5.4 prints these four foreground figures as **17.13 / 16.25 / 7.78 / 5.51**, rounded to nearest. This document's stated method (§0) rounds **down** to 2dp, which gives **17.12 / 16.24 / 7.77 / 5.50**. Same measurement, same inputs, one convention apart. Where the two documents differ by 0.01, this document's figure is the conservative one and is the one to assert against.
+
+> **The `--color-foreground-muted` re-measurement, performed rather than predicted.** `docs/11` §5.4 required this check explicitly and `docs/15` §1.2 predicted ≈4.75:1. **[MEAS]** `#8C877E` on `#1F1E1C` measures **4.66:1** — it **passes** 4.5:1, with less headroom than predicted. The token therefore does **not** move and the candidate `#948F85` is **not** adopted. For the record, if a later pass needs muted metadata on `--color-overlay`, `#948F85` measures **6.11 / 5.67 / 5.17 / 4.52** across the four dark surfaces and is the value to move to; `#8C877E` measures **4.07:1** there and fails.
+
+> **Binding — `--color-overlay` is not a body-text surface, in either mode.** **[MEAS]** `--color-foreground-muted` `#8C877E` measures **4.07:1** on `#2A2925` and fails WCAG 1.4.3. Permitted foregrounds on dark `--color-overlay`: `--color-foreground-strong` (12.67:1), `--color-foreground` (12.02:1), `--color-foreground-secondary` (5.75:1), `--color-accent` (6.59:1), `--color-accent-hover` (7.96:1). Muted metadata on `--color-overlay` is a defect.
+
+Dark `--color-foreground-muted` was **`#8A8A8A`, not `docs/01`'s `#7C7C7C`**. **[DEV-5]** `#7C7C7C` passes on `#0A0A0A` (4.74:1) but measures **4.41:1 on the old `--color-surface`** and 4.08:1 on the old `--color-surface-raised` — it fails the moment metadata sits inside a block. DEV-5's reasoning is unchanged by DEV-14; its value is superseded by `#8C877E`, which clears 4.5:1 on all three of the surfaces DEV-5 tested.
 
 **Borders are alpha over neutral, never a gray value.** `docs/01` Part 2 / anti-pattern 10, brianlovin's `#0000001f` / `#ffffff1f` pattern: "borders stay correct over any background level without a per-level token." §3.6 proves this numerically — one `--color-border-interactive` token clears 3:1 on all three surfaces in both modes.
 
@@ -385,8 +446,12 @@ Dark `--color-foreground-muted` is **`#8A8A8A`, not `docs/01`'s `#7C7C7C`**. **[
 
 | Pair | Ratio | Verdict |
 |---|---:|---|
-| `#D1A954` on `#0A0A0A` (today's dark-only site) | **8.97:1** | ✅ excellent |
-| `#D1A954` on `#FCFCFC` (light mode) | **2.15:1** | ⛔ fails 4.5:1 **and** fails 3:1 |
+| `#D1A954` on `#0A0A0A` (the pre-DEV-14 dark ground) | **8.97:1** | ✅ excellent |
+| `#D1A954` on `#FCFCFC` (the pre-DEV-14 light ground) | **2.15:1** | ⛔ fails 4.5:1 **and** fails 3:1 |
+| `#D1A954` on `#0C0B0A` (**DEV-14 dark ground**) | **8.90:1** | ✅ excellent |
+| `#D1A954` on `#FDFDFC` (**DEV-14 light ground**) | **2.16:1** | ⛔ still fails both bars |
+
+*The warm ladder moves these figures by 0.07 and 0.01. The reason the accent needs two values is unchanged, and **A8.2 in §3.5 turns on the second row of this table**: `#D1A954` cannot carry emissive weight on a near-white page, so the field brings its own dark stage rather than compromising on contrast.*
 
 `#D1A954` is a light colour (HSL lightness 57.5%). On a near-white page it cannot carry a focus ring **[WCAG 1.4.11]**, a link indicator, or accent text. The failure is confined to light mode — and a per-mode accent value is the normal solution, not an exception: Linear ships `--color-accent-hover` at `#828fff` dark and `#8989f0` light **[01 §2]**.
 
@@ -394,7 +459,7 @@ So the brand hue is kept and the **lightness** is moved per mode. `#D1A954` ship
 
 #### Choosing the light-mode gold
 
-The site owner proposed `#8A6D1F` (4.77:1 on `#FCFCFC`) and offered `#7D6216` and `#85681A` as alternatives with more headroom. **Measured against all three surfaces the accent can appear on [MEAS]:**
+The site owner proposed `#8A6D1F` (4.77:1 on `#FCFCFC`) and offered `#7D6216` and `#85681A` as alternatives with more headroom. **Measured against all three surfaces the accent can appear on [MEAS]. This is the Phase-2 selection record, taken on the pre-DEV-14 neutral surfaces `#FCFCFC` / `#F6F6F6` / `#EDEDED`; it is kept as written because it is the record of a decision, and the adopted value's figures on the current surfaces are in §3.6.**
 
 | Candidate | on `#FCFCFC` | on `#F6F6F6` | on `#EDEDED` | Hue | Δ from brand |
 |---|---:|---:|---:|---:|---:|
@@ -417,34 +482,40 @@ Hover values are hue-locked to the brand at **40.8° exactly**: light `#5F4611` 
 | Mode | Accent fill | ✅ Correct `--color-accent-foreground` | Ratio | ⛔ The intuitive-but-wrong choice | Ratio |
 |---|---|---|---:|---|---:|
 | **Light** | `#7C5E1D` | **`#FFFFFF`** (white) | **6.04:1** ✅ | `#0A0A0A` (near-black) | **3.28:1** ⛔ |
-| **Dark** | `#D1A954` | **`#0A0A0A`** (near-black) | **8.97:1** ✅ | `#FFFFFF` (white) | **2.21:1** ⛔ |
+| **Dark** | `#D1A954` | **`#0C0B0A`** (near-black) | **8.90:1** ✅ | `#FFFFFF` (white) | **2.21:1** ⛔ |
 
-Both accents are the same hue, so an agent eyeballing "gold" will reach for dark text in both modes and ship a **3.28:1** primary CTA in light mode. **Never hard-code the text colour on an accent surface. Always use `var(--color-accent-foreground)`,** which resolves correctly per mode. Hover fills follow the same rule: `#FFFFFF` on `#5F4611` = **8.86:1**; `#0A0A0A` on `#DBBC7A` = **10.83:1**.
+Both accents are the same hue, so an agent eyeballing "gold" will reach for dark text in both modes and ship a **3.28:1** primary CTA in light mode. **Never hard-code the text colour on an accent surface. Always use `var(--color-accent-foreground)`,** which resolves correctly per mode. Hover fills follow the same rule: `#FFFFFF` on `#5F4611` = **8.85:1**; `#0C0B0A` on `#DBBC7A` = **10.75:1**. *(Both figures re-measured on the DEV-14 ladder; the dark near-black moved from `#0A0A0A` to `#0C0B0A`, costing 0.07 and 0.08 respectively against bars cleared by ~2×.)*
 
 Phase-5 check: assert that no element whose background resolves to `--color-accent` or `--color-accent-hover` has a literal colour value — it must be `var(--color-accent-foreground)`.
 
-#### Full accent matrix [MEAS]
+#### Full accent matrix [MEAS] — reprinted 2026-09-11 against the DEV-14 ladder
 
-| Accent token | Background | Surface | Surface-raised | Accent-tint | Text on it |
-|---|---:|---:|---:|---:|---|
-| light `--color-accent` `#7C5E1D` | 5.89:1 ✅ | 5.59:1 ✅ | 5.16:1 ✅ | 5.35:1 ✅ | `#FFFFFF` → **6.04:1** ✅ |
-| light `--color-accent-hover` `#5F4611` | 8.63:1 ✅ | 8.20:1 ✅ | 7.57:1 ✅ | 7.85:1 ✅ | `#FFFFFF` → **8.86:1** ✅ |
-| dark `--color-accent` `#D1A954` | 8.97:1 ✅ | 8.35:1 ✅ | 7.72:1 ✅ | 7.64:1 ✅ | `#0A0A0A` → **8.97:1** ✅ |
-| dark `--color-accent-hover` `#DBBC7A` | 10.83:1 ✅ | 10.08:1 ✅ | 9.32:1 ✅ | 9.22:1 ✅ | `#0A0A0A` → **10.83:1** ✅ |
+| Accent token | Background | Surface | Surface-raised | **Overlay** | Accent-tint | **Field ink** | Text on it |
+|---|---:|---:|---:|---:|---:|---:|---|
+| light `--color-accent` `#7C5E1D` | 5.93:1 ✅ | 5.72:1 ✅ | 5.29:1 ✅ | 4.84:1 ✅ | 5.35:1 ✅ | — | `#FFFFFF` → **6.04:1** ✅ |
+| light `--color-accent-hover` `#5F4611` | 8.70:1 ✅ | 8.39:1 ✅ | 7.75:1 ✅ | 7.10:1 ✅ | 7.84:1 ✅ | — | `#FFFFFF` → **8.85:1** ✅ |
+| dark `--color-accent` `#D1A954` | 8.90:1 ✅ | 8.26:1 ✅ | 7.54:1 ✅ | 6.59:1 ✅ | 7.63:1 ✅ | **9.01:1** ✅ | `#0C0B0A` → **8.90:1** ✅ |
+| dark `--color-accent-hover` `#DBBC7A` | 10.75:1 ✅ | 9.98:1 ✅ | 9.11:1 ✅ | 7.96:1 ✅ | 9.21:1 ✅ | — | `#0C0B0A` → **10.75:1** ✅ |
 
-Every accent value clears **4.5:1 on every surface in its own mode**, so the accent is safe as body-size text anywhere it is permitted — not merely as a 3:1 indicator. The weakest figure in the whole set is **5.16:1**, which is a wider margin than the vermilion this replaced (4.86:1). The gold decision cost nothing in contrast.
+Every accent value clears **4.5:1 on every surface in its own mode**, so the accent is safe as body-size text anywhere it is permitted — not merely as a 3:1 indicator. **The weakest figure in the whole set is now `4.84:1`** — light `--color-accent` on the new `--color-overlay` step — down from 5.16:1, because the fourth surface is darker than the three that existed before. Against the three original surfaces every accent figure **improved**: light 5.89→**5.93** / 5.59→**5.72** / 5.16→**5.29**; dark moved by −0.07 / −0.09 / −0.18, the warm ground being a shade lighter than the neutral one. Nothing in the set is within **1.6×** of its bar. The gold decision still costs nothing in contrast, and DEV-14 costs 0.32 of headroom at the single worst pair while adding a surface that did not previously exist.
+
+**The field ink column is not a licence.** It records that `--color-accent` on `--field-ink` measures 9.01:1 as a **static** pair, which is the ceiling, not the shipped condition — the field is an animated composite and its binding measurement is **A8.4** in §3.5, taken on composited pixels at the brightest authored frame. See §3.7.
 
 #### What the darker light-mode gold does cost: the 2px rule
 
-`#7C5E1D` has a relative luminance of **0.124**, which sits between `--color-foreground-secondary` (0.107) and `--color-foreground-muted` (0.141). **In light mode the accent is nearly the same *value* as secondary body text.** It is distinguished by chroma, not by lightness — and chroma is the weaker channel for peripheral vision, which is what a skimmer uses. The bright vermilion this replaced was separated by value *and* chroma.
+`#7C5E1D` has a relative luminance of **0.1238**, which sits between `--color-foreground-secondary` (0.1070) and `--color-foreground-muted` (0.1413). **In light mode the accent is nearly the same *value* as secondary body text.** *(Unchanged by DEV-14: all three of these are light-mode text values and none of them moved.)* It is distinguished by chroma, not by lightness — and chroma is the weaker channel for peripheral vision, which is what a skimmer uses. The bright vermilion this replaced was separated by value *and* chroma.
 
 **[03 AP5]** depends on the accent working as an attention router, so this is a real cost and it gets a real mitigation, binding:
 
 > **R-GOLD-1.** In light mode, every accent marker — the proof-noun underline (A1), the entry-heading underline (A2), the active-nav marker (A5) — renders at **`2px` minimum**, never `1px`. The accent is distinguished by mass and chroma, not by value.
 
-This applies in dark mode too, for consistency, where the accent is separated by value anyway (luminance 0.426 against `--color-foreground-secondary`'s 0.392 — also close, in the other direction). The 2px rule makes the router function robust in both modes. **[MEAS] [RAT]**
+This applies in dark mode too, for consistency, where the accent is separated by value anyway (luminance **0.4257** against `--color-foreground-secondary`'s **0.3650** — the warm `#A8A29A` is fractionally darker than the neutral `#A8A8A8` it replaced, so DEV-14 **widened** this gap from 0.034 to 0.061 and the dark-mode router is marginally stronger than it was). The 2px rule makes the router function robust in both modes. **[MEAS] [RAT]**
 
-> **R-GOLD-2.** Accent text (A7, the readout marker) may sit only on `--color-background` or `--color-surface`. It may never sit over the hero poster image, whose local luminance is indeterminate.
+> **R-GOLD-2.** *(Original, superseded below.)* Accent text (A7, the readout marker) may sit only on `--color-background` or `--color-surface`. It may never sit over the hero poster image, whose local luminance is indeterminate.
+
+> **R-GOLD-2, as amended 2026-09-11 [DEV-13].** Accent text (A7, the readout marker) may sit on `--color-background`, `--color-surface`, **or on the attestation field — and over the field only where a `data-scrim` block carves it**, with an **A8.4** measurement on composited pixels as the evidence. The field's local luminance is **no longer indeterminate; it is measured**, which is the whole difference between it and the hero poster image the original clause was written against. Everything else R-GOLD-2 forbade, it still forbids: accent text over `--color-surface-raised`, over `--color-overlay`, over an image, or over any surface whose luminance nobody has measured.
+>
+> **The HUD readout is A7 re-sited, not a new allowlist row.** `FieldHud` prints the same `verified` marker in the same colour in a new place. It does not add an accent group, and it does not need one.
 
 #### Wide-gamut upgrade
 
@@ -472,6 +543,20 @@ These P3 values are matched in **lightness** to their sRGB counterparts and diff
 | light `#FFFFFF` on the accent fill | 6.04 | **6.11** | +0.07 |
 | dark `#0A0A0A` on the accent fill | 8.97 | **8.86** | **−0.11** |
 
+**Reprinted 2026-09-11 on the DEV-14 surfaces [MEAS].** Method: Display-P3 component values through the sRGB transfer curve, then the P3→XYZ D65 luminance row `[0.2289746, 0.6917385, 0.0792869]`; sRGB figures by §0's method. The character of the discrepancy is unchanged — light is a hair higher, dark a hair lower, every delta ≤0.11.
+
+| | sRGB figure in §3.6 | P3 as actually rendered | Δ |
+|---|---:|---:|---:|
+| light ring on `#FDFDFC` | 5.93 | **6.00** | +0.07 |
+| light ring on `#EAE6DB` (**new worst light**) | 4.84 | **4.90** | +0.06 |
+| dark ring on `#0C0B0A` | 8.90 | **8.80** | **−0.10** |
+| dark ring on `#2A2925` (**new worst dark**) | 6.59 | **6.51** | **−0.08** |
+| dark ring on `--field-ink` `#0A0908` | 9.01 | **8.90** | **−0.11** |
+| light `#FFFFFF` on the accent fill | 6.04 | **6.11** | +0.07 |
+| dark `#0C0B0A` on the accent fill | 8.90 | **8.80** | **−0.10** |
+
+The worst pair in the system is now **4.84:1 sRGB / 4.90:1 P3** (light accent on `--color-overlay`) against a 4.5:1 text bar and a 3:1 component bar. That is **1.07×** the text bar, which is thinner than anything this document previously carried and is the one place where §3.4's own instruction — *"any future accent whose margin is thinner must be measured in the gamut it renders in"* — is now live rather than hypothetical. It has been so measured, in both gamuts, and it passes in both.
+
 **The accurate statement:** the sRGB figures are the floor in light mode and are within **0.11** of the rendered value in dark mode, where the bar is cleared by more than **2.5×** regardless. Nothing in this system is within 2.5 points of any threshold, so the discrepancy is immaterial to conformance — but the word *guaranteed* was wrong and is withdrawn. Any future accent whose margin is thinner must be measured **in the gamut it renders in**, not in the sRGB restatement.
 
 ### 3.5 Where the accent is ALLOWED and FORBIDDEN
@@ -490,7 +575,54 @@ These P3 values are matched in **lightness** to their sRGB counterparts and diff
 | A4 | The single primary CTA per viewport (résumé download in nav; the contact block's primary action) | Accent **fill** with **`var(--color-accent-foreground)`** text — never a literal colour (§3.4 inversion). Measured footprint is a button, ~220×44 — see the F4 scale rule. | `Button` variant `primary` |
 | A5 | The active nav item | **2px** bottom marker (R-GOLD-1) | `Nav` |
 | A6 | `::selection` background | `--color-accent-tint` (never `--color-accent`) | global |
-| A7 | The attestation readout's `verified` marker | **one glyph**, `--color-accent`, on `--color-background` or `--color-surface` only (R-GOLD-2). Measured 8×15px. **A7 licenses one text glyph, not the figure it sits beside** — see F4. | `AttestationReadout` |
+| A7 | The attestation readout's `verified` marker | **one glyph**, `--color-accent`, on `--color-background`, `--color-surface`, or over the field inside a `data-scrim` block (R-GOLD-2 as amended). Measured 8×15px. **A7 licenses one text glyph, not the figure it sits beside** — see F4. `FieldHud`'s marker is this glyph re-sited, not a new row | `AttestationReadout`, `FieldHud` |
+| **A8** | **The attestation field** — the single full-bleed generative surface behind the document, and the `AttestationPoster` still that stands in for it | **Emitted light only**, over an unbounded pixel area, subject to **A8.1–A8.6** below. **There is exactly one such surface on the site; a second is a defect.** | `AttestationField`, `FieldStage`, `runtime/scene.ts`, `AttestationPoster` |
+
+#### A8 — the attestation field, and its six binding conditions
+
+**Added 2026-09-11. [DEV-13]** A8 is the only allowlist row that licenses an accent-coloured area larger than a control, and it is fenced by six conditions. **All six bind. A field that fails any one of them is a defect under that condition, not a defect under F4** — the distinction matters, because it tells a fix pass what to change.
+
+##### A8.1 — emitted, never filled
+
+Every accent-coloured pixel in the field must arrive from an **additively blended emitter** — `gl.blendFunc(gl.ONE, gl.ONE)` on a point sprite with its own core-plus-halo falloff — or, on the poster path, from a `<radialGradient>` whose **outermost stop is `#D1A95400`** (`--glow-far`, §2.8). **No flat region of `--color-accent` may exist in the field at any frame.** A uniform fill, a solid polygon, a `background`, a `stroke` at constant alpha, or a gradient with a non-zero outer stop is **still an F4 defect inside the field**. **A8 licenses a light source; it does not license paint.**
+
+##### A8.2 — dark stage in both themes
+
+The field's ground is **`--field-ink` `#0A0908` in light mode and dark mode alike** (§3.7). The field never inherits `--color-background`. The measurement that forces this is in §3.4: `#D1A954` is **2.16:1 on `#FDFDFC`** and cannot carry emissive weight on a near-white page, and `#7C5E1D` does not glow at all. The answer is **structural, not a contrast compromise** — the field is a lit dark stage that the light-mode page enters and leaves, which is what a theatre does.
+
+**Consequence, stated here rather than discovered later:** in light mode the field is therefore **sectioned, not continuous**. It runs at full energy behind `#hero`, `#attestation` and `#ceremony`, and masks out to `--color-background` behind `#work`, `#projects`, `#about` and `#contact`. In dark mode it runs the full document height uninterrupted. This costs the "one continuous surface" reading, in light mode only. The cleaner alternative — that this page is dark-only — is an **owner decision, not a build agent's**; it is open as `docs/15` §7 R3 and recorded in §12.1 F.
+
+##### A8.3 — the scrim carves the composite, not a CSS sheet laid over it
+
+Every text block composited over the field declares **`data-scrim="padX,padY,amount"`**. Those live rects are packed into the composite pass as a rounded-box SDF and **carve darkness out of the field itself**, feathered. This is **not** a flat `rgba()` sheet over the canvas, and the difference is the entire basis of A8.4: **the pixels sampled for the contrast check are the pixels behind the type.** A CSS overlay would measure something other than what renders, which is how a field ships "compliant" and invisible.
+
+##### A8.4 — the measured floor
+
+**≥4.5:1** for every body-size string over the field and **≥3:1** for every large-text string (`--text-h3` and above), measured per A8.3 on **composited pixels at the field's brightest authored frame** — *not* against `--field-ink`, and *not* at a resting frame chosen for being dim. **Ship target: ≥7:1.** The prototype measured **9.3:1** for `--field-fg-secondary` `#B9B4A9` on live composited pixels via `gl.readPixels`; the static pair on `--field-ink` measures **9.62:1** (§3.7), and the composited figure sitting *below* the static one is the expected direction and a useful sanity check — a composited figure *above* it means the probe is sampling the wrong pixels.
+
+**A build that measures below 4.5:1 is a defect in the scrim, not a licence to dim the field.** The remedies, in order: raise the `data-scrim` `amount`, widen its padding, or move the block. Lowering the field's energy is the last resort and dimming the ramp toward grey is not a remedy at all — see the binding instruction below.
+
+##### A8.5 — the field is the ground, not a group
+
+**F9 counts marker, underline and glyph groups.** The field is none of those: it carries no information, it is `aria-hidden="true"`, nothing in it is focusable or interactive, and it is the surface the routers sit **on top of**. It is therefore **excluded from F9's per-viewport count** — a third named exception alongside A3 (the focus ring) and A4 (the primary CTA), and a **narrower** one: A3 and A4 are excluded because each is capped at one occurrence, whereas the field is excluded because **it is the page's substrate and there is exactly one of it.** No other accent-bearing recipe gains anything from this exclusion.
+
+##### A8.6 — poster and canvas change together
+
+§8.4's existing rule stands and now binds harder. **`AttestationPoster.tsx` and the GL scene are one artifact on two surfaces.** A change to the ramp, the point size, the camera, the density or the band count in one that is not made in the other is a defect, and the cross-fade will show it as a visible hue or scale shift. This is the condition that keeps the reduced-motion and no-WebGL paths from inheriting a different design — which is exactly how the 1.44:1 failure reached the accessibility path.
+
+#### ⚠️ Instruction to `review-design-qa` and to any future fix pass — binding
+
+**Read this before filing anything against the field.**
+
+> **The gold field is A8-compliant by design.** Filing it as an **F4** or **F9** defect — or "fixing" it by substituting **`--color-foreground-secondary`**, **`FIGURE_FALLBACK_DARK`** or **`FIGURE_FALLBACK_LIGHT`** into the field's ramp — **is itself the defect.**
+>
+> **This is not hypothetical. It has already happened, and it is on the record.** F4's original wording sent the point field to `--color-foreground-secondary`, and the lattice shipped at **1.44:1** — which is to say it shipped invisible — across both the live canvas and the poster, because the poster is frame ∞ of the same shader. The design-QA agent that filed it and the fix agent that resolved it both followed this document correctly. **The document was wrong.** A8 is the correction. Re-applying the old rule re-creates the old result.
+>
+> **What Phase 5's accent enumeration must do instead:** resolve the field to **A8**, then check the two things that can actually be wrong here — **A8.1** (is any pixel of the field a flat fill rather than an emitter?) and **A8.4** (does every string over the field clear its measured floor on composited pixels?).
+>
+> **`FIGURE_FALLBACK_DARK` and `FIGURE_FALLBACK_LIGHT` are deleted from `src/components/three/constants.ts` by this amendment**, in the same commit as the ramp change, so there is no grey value left in the module for a later pass to reach for. Their nine-line defending comment is deleted with them and replaced by a pointer to DEV-13/A8. **That comment was a correct reading of the pre-amendment document; it is a wrong reading of this one.** If you find it still in the tree, the port is incomplete — do not act on it.
+>
+> **A grey field is a regression, not compliance.**
 
 #### D4 — resolution of the §3.5 / §8.3 contradiction
 
@@ -518,12 +650,12 @@ The contradiction: **A1** above required a 2px accent underline at rest on the h
 | F1 | Any body-text fill |
 | F2 | Any heading text fill (`h1`–`h6`, `--text-display`) — `docs/01` §5.3 |
 | F3 | Borders and dividers — use `--color-border*`; `docs/01` anti-pattern 10 |
-| F4 | **Any accent-coloured region larger than a glyph, except the two named exceptions.** See the scale rule below — this is the row that was misread. |
+| F4 | **Any accent-coloured region larger than a glyph, except the three named exceptions.** See the scale rule below — this is the row that was misread, twice, in opposite directions. **Amended 2026-09-11 [DEV-13]:** the exception list is now **three**, the third being the attestation field (A8) under A8.1–A8.6. |
 | F5 | Icon fills by default — `docs/01` §5.3 |
 | F6 | `--text-label` / eyebrow text (the current site's `.eyebrow` is accent; it becomes `--color-foreground-muted`) — **[DEV-1]** |
 | F7 | Gradients of any kind |
 | F8 | Hover states on any element not listed in ALLOWED |
-| F9 | **More than one accent-bearing element group per viewport, excluding (a) the focus ring (A3) and (b) the single `primary` CTA fill (A4).** The hero's proof-noun underlines count as one group. `docs/01` §5.3 says "more than one element per viewport"; this is the version that survives **[03 R3]**'s requirement for ≥3 proper nouns above the fold. **[01→]** |
+| F9 | **More than one accent-bearing element group per viewport, excluding (a) the focus ring (A3), (b) the single `primary` CTA fill (A4), and (c) the attestation field (A8, added 2026-09-11 — it is the page's ground, not a group; see A8.5).** The hero's proof-noun underlines count as one group. `docs/01` §5.3 says "more than one element per viewport"; this is the version that survives **[03 R3]**'s requirement for ≥3 proper nouns above the fold. **[01→]** |
 | F10 | **A `1px` accent marker anywhere.** Violates R-GOLD-1 (§3.4) — the gold accent is separated from body text by chroma, not value, and a hairline loses the routing function. |
 | F11 | **A literal colour on an accent fill.** Must be `var(--color-accent-foreground)`; the correct value inverts between modes (§3.4). |
 
@@ -536,7 +668,17 @@ The exclusion is widened rather than A1 abandoned, because **F9 exists to stop t
 - **A3, the focus ring**, is transient, keyboard-only, and exists on at most one element at a time.
 - **A4, the primary CTA**, is capped at **one per viewport by its own allowlist row**. A rule that is already a hard cap of one does not need a second cap of one applied on top of it; all the original F9 wording achieved was to make A1 and A4 mutually exclusive in the hero, which is not a property anyone chose.
 
-**What F9 still forbids, and this is the part that matters:** a *second underline group*, a *second marker set*, an accent eyebrow, accent icons, an accent rule, or any new accent-bearing recipe appearing alongside the one group a viewport is allowed. F9 counts **marker, underline and glyph groups**. A3 and A4 are named exceptions, not a general licence — a third exception requires reopening this section.
+**Amended 2026-09-11 [DEV-13] — the third exclusion, A8.** The field is excluded for a **different reason** than A3 and A4, and the difference is what keeps the exclusion from becoming a loophole:
+
+| Exclusion | Why it cannot become texture |
+|---|---|
+| **A3**, the focus ring | transient, keyboard-only, at most one element at a time |
+| **A4**, the primary CTA | capped at **one per viewport** by its own allowlist row |
+| **A8**, the attestation field | it is the page's **substrate**, not an element in the composition. It carries no information, is `aria-hidden="true"`, contains nothing focusable, and the routers sit **on top of** it and are brighter than it is. There is exactly **one** of it, mounted once in `layout.tsx`; **a second field is a defect** |
+
+The old F9 argument against a large gold mass — that it would become the page's largest accent region and out-compete the routers — was written for a **boxed figure on screenful 3**, competing for attention inside the composition. Under this composition the field is the ground and there is nothing for it to compete with. **That is why the exclusion is safe here and would not be safe for anything else.**
+
+**What F9 still forbids, and this is the part that matters:** a *second underline group*, a *second marker set*, an accent eyebrow, accent icons, an accent rule, or any new accent-bearing recipe appearing alongside the one group a viewport is allowed. F9 counts **marker, underline and glyph groups**. A3, A4 and A8 are named exceptions, not a general licence — a **fourth** exception requires reopening this section.
 
 **The honest cost, stated rather than hidden.** The first viewport in light mode now shows three 2px gold underlines plus one gold button. That is more accent above the fold than the original F9 intended, and **[03 AP5]**'s router argument is weakened slightly by every additional accent mass. It is accepted because the alternative — the pre-fix state — had the CTA as the *only* accent in the viewport and the three names the hero exists to carry unrouted, which is the worse failure against the same rule. Phase 5 should verify AP5 empirically with the blur test (§1.4) rather than assume this trade came out right.
 
@@ -548,8 +690,8 @@ The exclusion is widened rather than A1 abandoned, because **F9 exists to stop t
 
 | Accent mass | Verdict |
 |---|---|
-| A **glyph-sized mark** — a text character, a 2px underline or marker bar, a single `::after` rule — whose accent-coloured area is on the order of a few hundred px² | **Allowed if and only if it maps to a row in A1–A7.** A7 is one `✓`, measured 8×15 px. A5 is a 2px bar. |
-| A **large fill** — any accent-coloured area **exceeding ~2,000 px² in total**, whether it arrives as `background`, `color`, `fill`, `stroke`, a gradient stop, a canvas draw, a shader uniform, or an SVG whose children inherit `currentColor` | **Forbidden**, with exactly two exceptions: `--color-accent-tint` as `::selection` (A6), and the `primary` Button fill (A4, ~220×44 = 9,680 px², capped at one per viewport by its own allowlist row). |
+| A **glyph-sized mark** — a text character, a 2px underline or marker bar, a single `::after` rule — whose accent-coloured area is on the order of a few hundred px² | **Allowed if and only if it maps to a row in A1–A8.** A7 is one `✓`, measured 8×15 px. A5 is a 2px bar. |
+| A **large fill** — any accent-coloured area **exceeding ~2,000 px² in total**, whether it arrives as `background`, `color`, `fill`, `stroke`, a gradient stop, a canvas draw, a shader uniform, or an SVG whose children inherit `currentColor` | **Forbidden**, with exactly **three** exceptions: `--color-accent-tint` as `::selection` (**A6**); the `primary` Button fill (**A4**, ~220×44 = 9,680 px², capped at one per viewport by its own allowlist row); **and the attestation field (A8), under the six conditions A8.1–A8.6.** |
 
 **Three clarifications that close the loopholes the poster used:**
 
@@ -557,54 +699,96 @@ The exclusion is widened rather than A1 abandoned, because **F9 exists to stop t
 2. **Aggregate, do not itemise.** 248 gold circles are one 830×466 accent field, not 248 compliant marks. Count the accent mass of a figure, a canvas, or an SVG **as a whole**.
 3. **A large accent surface breaks §7.4 as well as F4.** §7.4's proof that the focus ring is safe depends on no accent-coloured region ever surrounding a ring. An accent-filled panel invalidates it and reopens §7.
 
-**The correct token for a large figure is a foreground token.** The attestation poster and the live canvas now both read `--color-foreground-secondary` (light `#5C5C5C`, dark `#A8A8A8`; fallbacks `#5C5C5C` / `#A8A8A8`). The poster and the canvas **must be changed together** — they are one artifact on two surfaces and must never diverge. The `✓` in the readout keeps `--color-accent`; that, and nothing else in the figure, is A7.
+**~~The correct token for a large figure is a foreground token.~~ Superseded 2026-09-11 by A8 / DEV-13.** The original text of this paragraph read: *"The attestation poster and the live canvas now both read `--color-foreground-secondary` (light `#5C5C5C`, dark `#A8A8A8`; fallbacks `#5C5C5C` / `#A8A8A8`)."* **That instruction is withdrawn, and it is the instruction that produced the 1.44:1 field.** It was a reasonable rule for a boxed figure inside a section; it is the wrong rule for the page's own ground.
 
-**Phase-5 check [03 AP5 / B6]:** enumerate every element and pseudo-element in the rendered page whose computed `color`, `background-color`, `border-color`, `fill` or `stroke` resolves to `--color-accent`, `--color-accent-hover` or `--color-accent-tint`, in both themes. Each occurrence must map to A1–A7; each marker must measure ≥2px; and the **total accent-coloured area** must contain no mass larger than the single `primary` CTA.
+**The correct token for the attestation field is `--field-hot`, which references dark `--color-accent`, on the cold→gold→core ramp of §3.7, emitted under A8.1.** For **any other** large figure the original rule stands unchanged: a foreground token, never accent. A8 is a row for **one** surface, named in its Component column, and it does not generalise.
+
+The poster and the canvas **must be changed together** — they are one artifact on two surfaces and must never diverge (**A8.6**). The `✓` in the readout keeps `--color-accent`; that is A7, and A7 is still not a licence for the field — **A8 is**.
+
+**Phase-5 check [03 AP5 / B6], as amended 2026-09-11:** enumerate every element and pseudo-element in the rendered page whose computed `color`, `background-color`, `border-color`, `fill` or `stroke` resolves to `--color-accent`, `--color-accent-hover` or `--color-accent-tint`, in both themes. Each occurrence must map to **A1–A8**; each marker must measure ≥2px; and — **excluding the single A8 field** — the total accent-coloured area must contain no mass larger than the single `primary` CTA.
+
+**The field is enumerated differently, and this is the step that must not be skipped.** It resolves to **A8**, and the checks that apply to it are **A8.1** (every accent pixel is emitted, not filled: no flat region of `--color-accent` at any frame, and every poster gradient's outer stop is `#D1A95400`) and **A8.4** (every string over it clears its floor on composited pixels at the brightest authored frame). **Aggregate px² is not a meaningful measure of a light source and must not be applied to it.** Substituting a foreground token into the field ramp to satisfy the px² rule is the defect — see the binding instruction above.
 
 ### 3.6 Full contrast matrix [MEAS] [WCAG 1.4.3 / 1.4.11]
 
 Bar: **4.5:1** for text under 24px (or under 18.66px bold) · **3:1** for large text (≥24px at weight 400 — i.e. `--text-h3` and above) and for UI-component boundaries.
 
+**Reprinted in full 2026-09-11 [DEV-14].** Every cell below was **recomputed** against the warm ladder by §0's method — none is carried over, and the fourth surface column is new. `#FCFCFC` / `#F6F6F6` / `#EDEDED` and `#0A0A0A` / `#141414` / `#1C1C1C` no longer exist as surfaces; the superseded matrix is not reprinted, because §12.1's append rule protects the **record of decisions**, not stale measurements of values that are gone.
+
 #### Light mode
 
-| Foreground | on `--color-background` `#FCFCFC` | on `--color-surface` `#F6F6F6` | on `--color-surface-raised` `#EDEDED` | on `--color-accent-tint` `#F7F1DF` |
-|---|---:|---:|---:|---:|
-| `foreground-strong` `#0A0A0A` | 19.30 ✅ | 18.32 ✅ | 16.91 ✅ | 17.54 ✅ |
-| `foreground` `#1A1A1A` | 16.96 ✅ | 16.10 ✅ | 14.87 ✅ | 15.42 ✅ |
-| `foreground-secondary` `#5C5C5C` | 6.52 ✅ | 6.19 ✅ | 5.71 ✅ | 5.92 ✅ |
-| `foreground-muted` `#696969` | 5.35 ✅ | 5.08 ✅ | 4.69 ✅ | 4.86 ✅ |
-| `foreground-faint` `#BDBDBD` | 1.83 ⛔ | 1.74 ⛔ | 1.60 ⛔ | 1.66 ⛔ |
-| `accent` `#7C5E1D` | 5.89 ✅ | 5.59 ✅ | 5.16 ✅ | 5.35 ✅ |
-| `accent-hover` `#5F4611` | 8.63 ✅ | 8.20 ✅ | 7.57 ✅ | 7.85 ✅ |
-| `accent-foreground` `#FFFFFF` on `accent` fill | **6.04** ✅ | — | — | — |
+| Foreground | on `--color-background` `#FDFDFC` | on `--color-surface` `#FAF9F2` | on `--color-surface-raised` `#F2F0E7` | on `--color-overlay` `#EAE6DB` | on `--color-accent-tint` `#F7F1DF` |
+|---|---:|---:|---:|---:|---:|
+| `foreground-strong` `#0A0A0A` | 19.45 ✅ | 18.75 ✅ | 17.34 ✅ | 15.87 ✅ | 17.53 ✅ |
+| `foreground` `#1A1A1A` | 17.09 ✅ | 16.49 ✅ | 15.24 ✅ | 13.95 ✅ | 15.41 ✅ |
+| `foreground-secondary` `#5C5C5C` | 6.56 ✅ | 6.33 ✅ | 5.85 ✅ | 5.36 ✅ | 5.92 ✅ |
+| `foreground-muted` `#696969` | 5.39 ✅ | 5.20 ✅ | 4.80 ✅ | **4.40 ⛔** | 4.86 ✅ |
+| `foreground-faint` `#BDBDBD` | 1.84 ⛔ | 1.78 ⛔ | 1.64 ⛔ | 1.50 ⛔ | 1.66 ⛔ |
+| `accent` `#7C5E1D` | 5.93 ✅ | 5.72 ✅ | 5.29 ✅ | **4.84 ✅** | 5.35 ✅ |
+| `accent-hover` `#5F4611` | 8.70 ✅ | 8.39 ✅ | 7.75 ✅ | 7.10 ✅ | 7.84 ✅ |
+| `accent-foreground` `#FFFFFF` on `accent` fill | **6.04** ✅ | — | — | — | — |
 
 #### Dark mode
 
-| Foreground | on `--color-background` `#0A0A0A` | on `--color-surface` `#141414` | on `--color-surface-raised` `#1C1C1C` | on `--color-accent-tint` `#241C0B` |
-|---|---:|---:|---:|---:|
-| `foreground-strong` `#FCFCFC` | 19.30 ✅ | 17.96 ✅ | 16.61 ✅ | 16.43 ✅ |
-| `foreground` `#EDEDED` | 16.91 ✅ | 15.74 ✅ | 14.56 ✅ | 14.40 ✅ |
-| `foreground-secondary` `#A8A8A8` | 8.33 ✅ | 7.75 ✅ | 7.17 ✅ | 7.09 ✅ |
-| `foreground-muted` `#8A8A8A` | 5.73 ✅ | 5.34 ✅ | 4.94 ✅ | 4.88 ✅ |
-| `foreground-faint` `#4A4A4A` | 2.23 ⛔ | 2.08 ⛔ | 1.92 ⛔ | 1.90 ⛔ |
-| `accent` `#D1A954` | 8.97 ✅ | 8.35 ✅ | 7.72 ✅ | 7.64 ✅ |
-| `accent-hover` `#DBBC7A` | 10.83 ✅ | 10.08 ✅ | 9.32 ✅ | 9.22 ✅ |
-| `accent-foreground` `#0A0A0A` on `accent` fill | **8.97** ✅ | — | — | — |
+| Foreground | on `--color-background` `#0C0B0A` | on `--color-surface` `#161513` | on `--color-surface-raised` `#1F1E1C` | on `--color-overlay` `#2A2925` | on `--color-accent-tint` `#241C0B` |
+|---|---:|---:|---:|---:|---:|
+| `foreground-strong` `#F2EFE8` | 17.12 ✅ | 15.89 ✅ | 14.50 ✅ | 12.67 ✅ | 14.67 ✅ |
+| `foreground` `#EDE9E1` | 16.24 ✅ | 15.07 ✅ | 13.75 ✅ | 12.02 ✅ | 13.92 ✅ |
+| `foreground-secondary` `#A8A29A` | 7.77 ✅ | 7.21 ✅ | 6.58 ✅ | 5.75 ✅ | 6.66 ✅ |
+| `foreground-muted` `#8C877E` | 5.50 ✅ | 5.11 ✅ | **4.66 ✅** | **4.07 ⛔** | 4.72 ✅ |
+| `foreground-faint` `#423F38` | 1.87 ⛔ | 1.73 ⛔ | 1.58 ⛔ | 1.38 ⛔ | 1.60 ⛔ |
+| `accent` `#D1A954` | 8.90 ✅ | 8.26 ✅ | 7.54 ✅ | 6.59 ✅ | 7.63 ✅ |
+| `accent-hover` `#DBBC7A` | 10.75 ✅ | 9.98 ✅ | 9.11 ✅ | 7.96 ✅ | 9.21 ✅ |
+| `accent-foreground` `#0C0B0A` on `accent` fill | **8.90** ✅ | — | — | — | — |
+
+**What DEV-14 changed, stated as a ledger rather than a claim.** Light: every figure **rose** (the three warm surfaces are fractionally lighter than the neutrals they replace) — the worst light accent figure improved from 5.16 to **5.29**. Dark: every figure **fell** by 0.07–0.18 for the same reason in reverse, and the worst dark accent figure moved from 7.72 to **7.54**. Neither movement approaches a bar. **The one genuinely new result is `--color-overlay`**, a surface that did not exist before: it fails `--color-foreground-muted` in **both** modes (4.40 light, 4.07 dark) and is scope-restricted in §3.2 and §3.3 accordingly. **The two ⛔ muted cells are the only regressions in this amendment, and they are fenced rather than shipped.**
 
 ⛔ = **`--color-foreground-faint` fails 4.5:1 by design.** It is permitted only on (a) disabled controls, which **[WCAG 1.4.3]** exempts as "inactive user interface components," and (b) purely decorative rules that carry no information. A disabled control using it **must** also carry `aria-disabled="true"` and a non-colour cue (see `Button` state table, §8). Using it for any live text is a defect.
 
 #### Borders, alpha-composited [MEAS] [WCAG 1.4.11]
 
-| Token | over `background` | over `surface` | over `surface-raised` |
-|---|---|---|---|
-| light `--color-border` `#0000001F` | `#DDDDDD` 1.32:1 | `#D8D8D8` 1.32:1 | `#D0D0D0` 1.32:1 |
-| light `--color-border-subtle` `#00000014` | `#E8E8E8` 1.19:1 | `#E3E3E3` 1.19:1 | `#DADADA` 1.19:1 |
-| light `--color-border-interactive` `#0000006F` | `#8E8E8E` **3.19:1** ✅ | `#8B8B8B` **3.15:1** ✅ | `#868686` **3.11:1** ✅ |
-| dark `--color-border` `#FFFFFF1F` | `#282828` 1.34:1 | `#313131` 1.42:1 | `#383838` 1.45:1 |
-| dark `--color-border-subtle` `#FFFFFF14` | `#1D1D1D` 1.17:1 | `#262626` 1.22:1 | `#2E2E2E` 1.25:1 |
-| dark `--color-border-interactive` `#FFFFFF6F` | `#757575` **4.30:1** ✅ | `#7A7A7A` **4.29:1** ✅ | `#7F7F7F` **4.26:1** ✅ |
+**Recomposited 2026-09-11 against the DEV-14 surfaces and `--field-ink`.** The alpha border tokens themselves are unchanged; what they composite *to* is not.
 
-**Binding rule.** `--color-border` and `--color-border-subtle` sit far below 3:1 and are permitted **only** on decorative dividers and separators, which **[WCAG 1.4.11]** does not cover. **Any boundary that is required to identify or locate a control — an input field, an outlined button, the nav sheet edge, the canvas frame — must use `--color-border-interactive`.** This is the alpha-over-neutral pattern from `docs/01` anti-pattern 10 proved out: one token, ≥3:1 on every surface in both modes.
+| Token | over `background` | over `surface` | over `surface-raised` | over `overlay` | over `--field-ink` `#0A0908` |
+|---|---|---|---|---|---|
+| light `--color-border` `#0000001F` | `#DEDEDD` 1.32:1 | `#DCDBD5` 1.31:1 | `#D5D3CB` 1.31:1 | `#CECAC0` 1.31:1 | — |
+| light `--color-border-subtle` `#00000014` | `#E9E9E8` 1.19:1 | `#E6E5DF` 1.19:1 | `#DFDDD5` 1.19:1 | `#D8D4CA` 1.18:1 | — |
+| light `--color-border-interactive` `#0000006F` | `#8F8F8E` **3.18:1** ✅ | `#8D8D89` **3.15:1** ✅ | `#898882` **3.11:1** ✅ | `#84827C` **3.08:1** ✅ | — |
+| dark `--color-border` `#FFFFFF1F` | `#2A2928` 1.35:1 | `#323130` 1.40:1 | `#3A3938` 1.44:1 | `#444340` 1.47:1 | `#282726` 1.33:1 |
+| dark `--color-border-subtle` `#FFFFFF14` | `#1F1E1D` 1.18:1 | `#282726` 1.22:1 | `#31302E` 1.26:1 | `#3B3A36` 1.27:1 | `#1D1C1B` 1.16:1 |
+| dark `--color-border-interactive` `#FFFFFF6F` | `#767575` **4.28:1** ✅ | `#7B7B7A` **4.30:1** ✅ | `#81807F` **4.22:1** ✅ | `#878684` **4.00:1** ✅ | `#757474` **4.26:1** ✅ |
+
+**Binding rule.** `--color-border` and `--color-border-subtle` sit far below 3:1 and are permitted **only** on decorative dividers and separators, which **[WCAG 1.4.11]** does not cover. **Any boundary that is required to identify or locate a control — an input field, an outlined button, the nav sheet edge, a `.panel` edge over the field — must use `--color-border-interactive`.** This is the alpha-over-neutral pattern from `docs/01` anti-pattern 10 proved out: one token, ≥3:1 on **every** surface in both modes and on the field stage. The worst figure is **3.08:1** on light `--color-overlay`, which still clears 1.4.11.
+
+**The field column is a floor, not the shipped measurement.** `--field-ink` is the darkest the composite ever gets, so a border composited over it measures at its **best** there. The ceremony's own controls sit inside a `data-scrim` block and their boundaries are measured with the type, under **A8.4**, on the live composite — not from this table. A `--color-border` or `--color-border-subtle` hairline used as a control boundary over the field is a defect twice over: 1.33:1 statically, and worse against a lit frame.
+
+**`--edge-lit` is not a border.** `inset 0 1px 0 #FFFFFF1F` composites to the same `#282726` / 1.33:1 as `--color-border` over the stage. It is the lit half of the §2.6 shadow pair, decorative, and may never be the thing that identifies a control.
+
+### 3.7 The field token group — `--field-*`
+
+**New and additive, 2026-09-11. [DEV-13]** Nine tokens, **dark in both themes**, **field-scoped only**. They exist because A8.2 makes the field a stage rather than a surface of the page, and a stage cannot borrow the page's theme without borrowing the page's contrast problem with it.
+
+| Token | Value | Role | on `--field-ink` **[MEAS]** |
+|---|---|---|---:|
+| `--field-ink` | `#0A0908` | **the stage ground.** Dark in light mode and dark mode alike (A8.2) | — |
+| `--field-cold` | `#3A4655` | entropy / low-energy emitters — the cold end of the ramp | **2.07:1** — decorative emitter, **never text, never a boundary** |
+| `--field-hot` | **`= dark `--color-accent`` `#D1A954`** | the gold end of the ramp. **Referenced, never retyped** | **9.01:1** |
+| `--field-core` | `#FFF3D2` | the hot core, most-resolved points only | **18.00:1** |
+| `--field-fg` | **`= dark `--color-foreground`` `#EDE9E1`** | headings and display type over the field | **16.43:1** |
+| `--field-fg-secondary` | `#B9B4A9` | **body copy over the field** — the dimmest string the field must carry | **9.62:1** static; **9.3:1** measured on live composited pixels |
+| `--field-fg-muted` | `#9C978C` | the HUD readout, metadata over the field | **6.83:1** |
+| `--field-rule` | `#FFFFFF14` | hairlines in the blueprint grid and on panels. Composites to `#1D1C1B` | 1.16:1 — decorative only |
+| `--field-panel` | `#FFFFFF05` | the `.panel` surface tint over the stage. Composites to `#0F0E0D` | 1.03:1 — a *lit region*, not a coloured one |
+
+**Two of the nine are references, not new values.** `--field-hot` resolves to dark `--color-accent` and `--field-fg` to dark `--color-foreground`. Retyping either hex is a defect: it is how the poster and the canvas drift apart (**A8.6**), and it is how a future accent change silently stops reaching the field.
+
+**Declaration site.** These are **not** added to `@theme`. They are non-utility tokens in the `:root` block of §10, so Tailwind generates no `field-*` utilities and nothing outside the `.stage` scope can reach them by accident.
+
+**The `.stage` scope, and the failure it exists to prevent.** `.stage` redeclares `--color-foreground`, `--color-foreground-secondary` and `--color-foreground-muted` from `--field-fg*` **for its whole subtree, in CSS, unconditionally — never from JavaScript.** If any part of that is applied by script, a **light-mode visitor with JS disabled gets `#1A1A1A` body copy on `#0A0908`: 1.14:1**, which is worse than the 1.44:1 failure this amendment exists to correct. **[MEAS]** This is the single highest-consequence implementation detail in the field work and it is stated here rather than left to a build agent to infer.
+
+**How these figures relate to A8.4.** Every ratio in the last column is a **static pair against `--field-ink`** — the darkest the composite ever reaches, and therefore the **ceiling**, not the shipped condition. The binding measurement is **A8.4**: composited pixels, brightest authored frame, `gl.readPixels`. The prototype's **9.3:1** for `--field-fg-secondary` sits just below the 9.62:1 static figure, which is the correct direction and the cheapest available sanity check on the probe. *(At full scrim carve the composite floor is `--field-ink` scaled to 34% of its linear value — `#030303` — where the same pair measures **9.98:1**; so the scrim only ever raises contrast, and the binding case is a lightly-carved block at peak energy, which is exactly what A8.4 names.)*
+
+**`--field-cold` is the one token in this document that is below every bar by design and is still permitted.** It is emitted light in a decorative surface that is `aria-hidden` and carries no information — the same exemption class as `--color-foreground-faint`'s decorative rules, and it is bounded the same way: **never text, never a control boundary, never information-bearing.**
 
 ---
 
@@ -742,7 +926,7 @@ export const EASE_GLIDE    = [0.32, 0.72, 0, 1] as const;
 | M8 | Theme toggle crossfade (`--duration-base`) | colours crossfade | **Instant colour swap.** | reduced-motion block removes the `transition` on `color`/`background-color` |
 | M9 | Active-nav marker slide | marker translates between items | **Marker appears under the active item instantly**; no translate. | reduced-motion block |
 | M10 | Focus ring appearance (`--duration-fast`) | ring fades in | **Ring appears instantly at full opacity and full width.** Never suppressed, never delayed — **[WCAG 2.4.7]** applies regardless of motion preference. | `transition: none` on `outline` inside the reduced-motion block |
-| M11 | Hero 3D attestation resolve (`--ease-glide`, scroll-scrubbed) | point field resolves noise→lattice on scroll | **The OGL chunk is never downloaded.** The server-rendered poster — which is frame ∞ of the same shader at the committed seed **[02 §6]** — is the permanent visual, and the `<figcaption>` readout renders server-side with the build-time signature. The concept survives without the animation. | `docs/02 §8.2` Gate 1: reduced-motion is checked **before** the dynamic import, so these users pay **0 KB** |
+| M11 | Hero 3D attestation resolve (`--ease-glide`, scroll-scrubbed) | point field resolves noise→lattice on scroll | **The OGL chunk is never downloaded.** The server-rendered poster — which is frame ∞ of the same shader at the committed seed **[02 §6]** — is the permanent visual, and the readout renders server-side with the build-time signature. The concept survives without the animation. **Amended 2026-09-11 [DEV-13]: "frame ∞ of the same shader" is the reason A8.6 binds.** Under the pre-amendment rule the poster inherited the field's 1.44:1 failure exactly, so the reduced-motion path was the *worst*-served, not the best. On the §3.7 ramp the still is emissive in its own right — five `<radialGradient>` bands, outer stops at `#D1A95400` — and a reduced-motion visitor loses the resolve, not the idea. | `docs/02 §8.2` Gate 1: reduced-motion is checked **before** the dynamic import, so these users pay **0 KB**. A `matchMedia` `change` listener disposes a live scene and cross-fades back to the poster if the preference is enabled *after* mount |
 | M12 | Lenis smooth scroll | eased scroll | **Lenis is never constructed — and, since the fix pass, never downloaded.** Native browser scroll. The `lenis` class is never added to `<html>`, so none of its base rules match. | `SmoothScrollProvider` branches on the reduced-motion preference **before the `import()`**, the same gate shape as M11, so these users pay **0 KB** rather than downloading a library to destroy it (§5.3) |
 | M13 | Scroll-linked progress line (if any timeline UI ships) | line grows with scroll | **Line renders at 100% progress** (its completed state). Not 0%, not hidden. | static class |
 | M14 | `@supports (animation-timeline: view())` progressive-enhancement reveals **[02 §8.6]** | CSS scroll-driven reveal | The `@media (prefers-reduced-motion: reduce)` block is authored **after** the `@supports` block so it wins the cascade; elements render final. | source order |
@@ -784,10 +968,14 @@ One token set for the whole site, following rauno.me's `--focus-ring: 2px solid 
 
 **This is the token the gold decision stressed hardest, and it came out stronger.** The ring must clear 3:1 against every surface it can appear over, in both modes. Measured **[MEAS]**:
 
-| Mode | Ring colour | on `background` | on `surface` | on `surface-raised` | Worst case vs the 3:1 bar |
-|---|---|---:|---:|---:|---|
-| Light | `#7C5E1D` | **5.89:1** | **5.59:1** | **5.16:1** | **1.72×** the requirement |
-| Dark | `#D1A954` | **8.97:1** | **8.35:1** | **7.72:1** | **2.57×** the requirement |
+**Re-measured 2026-09-11 against the DEV-14 ladder and the new fourth surface.**
+
+| Mode | Ring colour | on `background` | on `surface` | on `surface-raised` | on `overlay` | Worst case vs the 3:1 bar |
+|---|---|---:|---:|---:|---:|---|
+| Light | `#7C5E1D` | **5.93:1** | **5.72:1** | **5.29:1** | **4.84:1** | **1.61×** the requirement |
+| Dark | `#D1A954` | **8.90:1** | **8.26:1** | **7.54:1** | **6.59:1** | **2.19×** the requirement |
+
+Against the three surfaces a control actually sits on today the worst cases are **5.29:1 light / 7.54:1 dark**; `--color-overlay` has no consumer yet (§12.1 F-2). **A ring over the attestation field is not covered by this table** — it is measured on composited pixels under **A8.4**, alongside the type. See §7.4.
 
 For comparison, the vermilion this replaced bottomed out at 4.86:1, and `docs/01`'s recommended `#F4622A` bottoms out at **2.71:1 on `--color-surface-raised` — an outright fail of [WCAG 1.4.11]**. The two-value gold has more headroom than either. **The ring colour must never be hard-coded**; it resolves through `--color-accent` so the light/dark values can never be transposed.
 
@@ -819,17 +1007,27 @@ Suppressing it is correct rather than a waiver: **[WCAG 2.4.7]** governs user in
 | Criterion | Level | How this spec meets it |
 |---|---|---|
 | **2.4.7 Focus Visible** | AA | Every interactive element receives the ring; `:focus-visible` fires for keyboard and for programmatic focus. M10 forbids suppressing or delaying it under reduced motion. |
-| **1.4.11 Non-text Contrast** | AA | Ring vs the surface behind it, measured **[MEAS]**: light `#7C5E1D` → **5.89:1** / **5.59:1** / **5.16:1**. Dark `#D1A954` → **8.97:1** / **8.35:1** / **7.72:1**. Bar is 3:1; the smallest margin is **5.16:1, 1.72× the requirement.** |
+| **1.4.11 Non-text Contrast** | AA | Ring vs the surface behind it, measured **[MEAS]**, re-measured 2026-09-11: light `#7C5E1D` → **5.93** / **5.72** / **5.29** / **4.84**. Dark `#D1A954` → **8.90** / **8.26** / **7.54** / **6.59**. Bar is 3:1; the smallest margin is **4.84:1, 1.61× the requirement** (4.90:1 as rendered in P3, §3.4). **Over the attestation field the ring is measured under A8.4** on composited pixels, not inferred from this row. |
 | **2.4.11 Focus Not Obscured (Minimum)** | **AA (new in 2.2)** | `SiteHeader` is sticky at `--header-height: 64px`. Every focusable element and every in-page anchor target carries `scroll-margin-block-start: calc(var(--header-height) + var(--space-4))` = **80px**, so a focused element can never be fully hidden behind the header. The mobile nav sheet is a non-modal disclosure and does not overlay content when closed. |
-| **2.4.13 Focus Appearance** | AAA — **specified anyway** | The indicator area is a 2px-thick perimeter at 2px offset, which is **≥ the area of a 2px perimeter of the unfocused component** (the offset adds area, it does not subtract). Contrast of the focus indicator area between its focused and unfocused states is the ring colour against whatever it replaces — the page background: **5.89:1 light / 8.97:1 dark**, against the 3:1 requirement. The worst case anywhere on the page, over `--color-surface-raised`, is **5.16:1 light / 7.72:1 dark**. |
+| **2.4.13 Focus Appearance** | AAA — **specified anyway** | The indicator area is a 2px-thick perimeter at 2px offset, which is **≥ the area of a 2px perimeter of the unfocused component** (the offset adds area, it does not subtract). Contrast of the focus indicator area between its focused and unfocused states is the ring colour against whatever it replaces — the page background: **5.93:1 light / 8.90:1 dark**, against the 3:1 requirement. The worst case over a surface a control sits on, `--color-surface-raised`, is **5.29:1 light / 7.54:1 dark**; over the unused `--color-overlay` step it is **4.84:1 / 6.59:1**. |
 | **2.5.8 Target Size (Minimum)** | **AA (new in 2.2)** | Every standalone interactive target is **≥24×24 CSS px**; touch targets are **≥44×44**. Inline links inside prose use the 2.5.8 "inline" exception. Enforced per-component in §8. |
 | **3.2.6 Consistent Help** | AA (new in 2.2) | Contact affordances appear in the same order in the header and in `ContactBlock`. |
 
 ### 7.4 The accent-fill edge case
 
-The only accent **background** on the page is the `primary` Button (A4). Its focus ring is also accent — but `outline-offset: 2px` places the ring outside the element, so the 2px gap between button and ring is painted by the **page background**, not by the button. The ring therefore measures against `--color-background` (**5.89:1 light / 8.97:1 dark**), not against itself.
+The only accent **background** on the page is the `primary` Button (A4). Its focus ring is also accent — but `outline-offset: 2px` places the ring outside the element, so the 2px gap between button and ring is painted by the **page background**, not by the button. The ring therefore measures against `--color-background` (**5.93:1 light / 8.90:1 dark**), not against itself.
 
-This is safe **only because F4 forbids accent backgrounds larger than 24px**, so no accent-coloured region can ever surround a focus ring. If a later phase proposes an accent-filled panel, this rule breaks and §7 must be reopened.
+This was safe **only because F4 forbade accent backgrounds larger than 24px**, so no accent-coloured region could ever surround a focus ring. §3.5's F4 restatement says so in terms: *"A large accent surface breaks §7.4 as well as F4."*
+
+#### ⚠️ §7 is reopened by A8, as that clause requires — and here is the answer
+
+**A8 (DEV-13) introduces exactly the thing this rule warned about: an accent-bearing surface of unbounded area, which controls can sit over.** The warning is honoured rather than waived, and the resolution has three parts:
+
+1. **The field is never a uniform accent field.** **A8.1** forbids any flat region of `--color-accent` inside it at any frame: every accent pixel is additively emitted with a core-plus-halo falloff, over a `#0A0908` stage, with the bright mass concentrated in sub-pixel-to-few-pixel points. There is no accent-coloured *region* for a ring to be surrounded by, which is the specific geometry §7.4's argument depends on.
+2. **Every control over the field sits inside a `data-scrim` block** (**A8.3**), so the pixels immediately around its ring are **carved** — darker than the stage, not brighter. At full carve the composite floor is `#030303` (§3.7), where `#D1A954` measures **9.34:1**.
+3. **It is measured, not argued.** A ring over the field is asserted in the **A8.4** harness alongside the type — **≥3:1 on composited pixels at the brightest authored frame** — together with `--color-border-interactive` on the ceremony's controls. §3.6's table is not the evidence for anything over the field, and neither is the 9.01:1 static pair against `--field-ink`.
+
+**What remains forbidden.** An accent-filled *panel* — a flat fill, a solid gradient, a constant-alpha stroke — still breaks §7.4 and is still an F4 defect, **including inside the field**, where A8.1 forbids it independently. A8 is not a precedent for a second accent surface: **A8.5 caps the field at one**, and a fourth F9 exclusion requires reopening §3.5.
 
 ### 7.5 Skip link
 
@@ -929,7 +1127,7 @@ Every component the site needs. Nothing outside this list may be built without a
 | | |
 |---|---|
 | Props | **`contactLinks`**, **`year`** |
-| Type | `--text-caption`, `--color-foreground-muted` (5.35:1 / 5.73:1) |
+| Type | `--text-caption`, `--color-foreground-muted` (**5.39:1 / 5.50:1**, re-measured on the DEV-14 ladder) |
 | Links | **`StandaloneLink`, not `InlineLink`.** Footer links are standalone navigational affordances, not links inside a sentence, so the 2.5.8 inline exception does **not** apply. As `InlineLink` they measured **8.6 × 16 px** (the `X` link) against a 24×24 bar; as `StandaloneLink` all four measure **24px**, and **44px** under `@media (pointer: coarse)` **[WCAG 2.5.8]**. |
 | Spacing | `padding-block: var(--space-8)`, `border-block-start: 1px var(--color-border-subtle)`. **No `margin-block-start`** — the closing gap belongs to `Section`'s `isLast` (§2.3). |
 | States | link states per `StandaloneLink` |
@@ -1011,7 +1209,7 @@ interface WorkEntryProps {
 | Heading | `--text-h3` (25px, weight 500), `--color-foreground-strong`, wrapped in an `InlineLink` to `href` |
 | Mechanism | `--text-body`, `--color-foreground`, `--measure-prose`, immediately under the heading at `--rhythm-title` |
 | Contribution | `--text-body`, `--color-foreground`, `--rhythm-paragraph` below mechanism |
-| Metadata line | `--text-caption`, `--color-foreground-muted` (5.35:1 / 5.73:1), items separated by ` · `, at `--rhythm-meta` |
+| Metadata line | `--text-caption`, `--color-foreground-muted` (**5.39:1 / 5.50:1**), items separated by ` · `, at `--rhythm-meta` |
 | Layout | **No card, no border, no background, no icon, no logo.** A row in a single column. `docs/01` Part 4: "no cards, no grid, no icons." Entries separated by `--rhythm-entry` (32px), with a `--color-border-subtle` hairline as a **decorative** accompaniment — see the separator note. |
 | Separation | **Carried by the heading and the rhythm, not by the rule.** Corrected 2026-09-11 (`docs/06-review-accessibility` §8). `--color-border-subtle` composites to **1.19:1** on every surface in both modes — it is invisible to a low-vision reader, so a document that calls it "the entry separator" is claiming information the pixel does not carry. What actually separates entries is a **25px / weight-500 `<h3>`** and **32px of whitespace**, which is two channels and satisfies **[03 AP3]** on its own. The hairline is ornament. Promoting it does not help: `--color-border` is only 1.32:1, and **[WCAG 1.4.11]** does not cover decorative separators, so **no code change is required for AA** — the false claim was the defect. Do not "fix" the contrast by inventing a darker separator token; that would put a heavier rule between every entry than the design intends. |
 | Variants | none. There is deliberately no `featured` or `compact` variant — **[03 B4.4]** requires the Queralt entry to occupy ≥80% of Splita's vertical space, and a size variant is exactly how that requirement gets quietly broken. |
@@ -1171,13 +1369,13 @@ A link on its own line acting as a navigational affordance.
 
 | Variant | default | hover | focus-visible | active | disabled |
 |---|---|---|---|---|---|
-| `primary` (**A4** — max one per viewport) | `--color-accent` fill, **`var(--color-accent-foreground)`** text — white on light gold, near-black on dark gold (**6.04:1 / 8.97:1**) | `--color-accent-hover` fill, same variable (**8.86:1 / 10.83:1**) | ring (§7.4) | `--press-scale` 0.98 | `--color-surface-raised` fill, `--color-foreground-faint` text, `aria-disabled="true"`, `cursor: not-allowed` |
+| `primary` (**A4** — max one per viewport) | `--color-accent` fill, **`var(--color-accent-foreground)`** text — white on light gold, near-black on dark gold (**6.04:1 / 8.90:1**) | `--color-accent-hover` fill, same variable (**8.85:1 / 10.75:1**) | ring (§7.4) | `--press-scale` 0.98 | `--color-surface-raised` fill, `--color-foreground-faint` text, `aria-disabled="true"`, `cursor: not-allowed` |
 | `secondary` | transparent, 1px `--color-border-interactive`, `--color-foreground` text | `--color-surface` fill | ring | `--color-surface-raised` + `--press-translate` | as above |
-| `ghost` | transparent, no border, `--color-foreground-secondary` text (6.52:1 / 8.33:1) | `--color-surface` fill, `--color-foreground` text | ring | `--color-surface-raised` | as above |
+| `ghost` | transparent, no border, `--color-foreground-secondary` text (**6.56:1 / 7.77:1**) | `--color-surface` fill, `--color-foreground` text | ring | `--color-surface-raised` | as above |
 
 **The `primary` text colour is the single most likely build error in this system.** Both accents are gold, but the correct foreground inverts: white on the light-mode gold, near-black on the dark-mode gold (§3.4). Hard-coding either one ships a **3.28:1** or **2.21:1** CTA in the other mode. Use the variable; F11 makes a literal value a defect.
 
-Disabled state uses `--color-foreground-faint`, which measures 1.83:1 / 2.23:1 — **permitted only here**, under the **[WCAG 1.4.3]** inactive-component exemption, and only with `aria-disabled="true"` present as the non-colour cue. A `disabled` control must never be the only path to information **[03 R34]**.
+Disabled state uses `--color-foreground-faint`, which measures **1.84:1 / 1.87:1** on the DEV-14 ladder (was 1.83:1 / 2.23:1) — **permitted only here**, under the **[WCAG 1.4.3]** inactive-component exemption, and only with `aria-disabled="true"` present as the non-colour cue. A `disabled` control must never be the only path to information **[03 R34]**.
 Motion: `--duration-fast` `--ease-standard`. Reduced motion **M5**.
 
 **The faint-token licence is narrower than it reads — see `ResumeAffordance`.** It applies to a **real, focusable control** that is genuinely inactive and genuinely announces that fact. It does not extend to anything that merely *looks* disabled.
@@ -1198,7 +1396,7 @@ Motion: `--duration-fast` `--ease-standard`. Reduced motion **M5**.
 
 **Two corrections this slot needed, both worth stating so they are not undone** (`docs/07-fix-report` CRITICAL 3):
 
-1. **`--color-foreground-muted`, never `--color-foreground-faint`.** At faint the string measured **1.83:1 light / 2.23:1 dark** against a 4.5:1 bar — an outright **[WCAG 1.4.3]** failure on the only résumé affordance on the site. Muted measures **5.35:1 / 5.73:1**. The faint token's §3.6 licence is for *inactive user interface components*; a sentence of live, information-bearing text is not one, and a résumé line the reader cannot see is the R24 defect wearing a colour.
+1. **`--color-foreground-muted`, never `--color-foreground-faint`.** At faint the string measured **1.83:1 light / 2.23:1 dark** against a 4.5:1 bar — an outright **[WCAG 1.4.3]** failure on the only résumé affordance on the site (**1.84:1 / 1.87:1** on the DEV-14 ladder — no better). Muted measures **5.39:1 / 5.50:1**. The faint token's §3.6 licence is for *inactive user interface components*; a sentence of live, information-bearing text is not one, and a résumé line the reader cannot see is the R24 defect wearing a colour.
 2. **No `aria-disabled` on the `<span>`.** A `<span>`'s computed role is `generic`, where ARIA **discards** the attribute — so it exposed nothing to assistive technology while implying to a reviewer that the 1.4.3 inactive-component exemption applied. It claimed the exemption without being the thing the exemption is for. The words "not yet published" are the non-colour cue **[03 R24]** actually asks for.
 
 #### `Reveal` — `'use client'`
@@ -1215,6 +1413,8 @@ The single reveal primitive. **No other component implements its own scroll anim
 | Reduced motion | **M1/M2/M3** — `useReveal()` → `useMotionSpec(revealSpec)` returns `null`, so the observer is never constructed and `data-reveal` is never written (§5.4) |
 
 ### 8.4 The 3D moment
+
+> **Amended 2026-09-11 [DEV-13] — read this before the table below.** This section still describes the **boxed figure**: a 768×432 `aspect-ratio: 16/9` frame inside `#work`, with a `--radius-lg` corner and a `--color-border-interactive` edge. Under `docs/15`, the figure is promoted out of the section and becomes the page's ground — a `position: fixed; inset: 0` host at `--z-field`, mounted once, `pointer-events: none`, `aria-hidden="true"`. **`AttestationFigure` is deleted; `AttestationLive` becomes `FieldStage`; `AttestationField` and `FieldHud` are new.** The contracts that survive unchanged are the ones that matter and they are the ones stated below: **the gate order, `null` as the loading UI, the poster as the fallback for all four failure modes, full teardown, the DPR cap, and the P3 parse hardening.** Two change: the CLS defence is no longer an aspect box (a fixed layer reserves nothing and shifts nothing, so CLS stays 0 by construction), and a **gate 8** is added — a `largest-contentful-paint` `PerformanceObserver` with a 3,000 ms fallback — because the canvas is now above the fold and gate 6 (viewport intersection) therefore defers nothing. **This document owns the tokens and the colour contract; `docs/15` §2 owns the module layout.** Where the two disagree about a component *name*, `docs/15` is current.
 
 **Renamed to the shipped components 2026-09-11 (design-QA D5).** This section originally specified `CanvasFrame`, `CanvasPoster`, `HeroCanvasGate` and `HeroCanvas`. Those names never existed in the tree. Every **contract** they carried — the frame geometry, the gate order, the `null` loading UI, the poster-as-LCP rule — was honoured by components with different names, and the shipped names are better, because the figure is no longer in the hero and calling it `HeroCanvas` would now be a lie. The document was the thing out of date. The names below are the shipped ones and the contracts are unchanged.
 
@@ -1253,7 +1453,7 @@ The single reveal primitive. **No other component implements its own scroll anim
 |---|---|
 | Props | **`alt`** |
 | Renders | **inline SVG** — 248 `<circle>` elements in 3 `<g>` bands, carrying `data-attestation-poster`, with `fill="currentColor"` so one `color` declaration drives the whole field |
-| Colour | **`--color-foreground-secondary`**, with `FIGURE_FALLBACK_*` constants `#5C5C5C` light / `#A8A8A8` dark. **Never `--color-accent`** — see the F4 scale rule in §3.5. |
+| Colour | **Amended 2026-09-11 [DEV-13]. Was: `--color-foreground-secondary`, with `FIGURE_FALLBACK_*` constants `#5C5C5C` light / `#A8A8A8` dark, "never `--color-accent`."** That instruction shipped the poster at **1.44:1** and is **withdrawn.** The poster now renders the **§3.7 field ramp** — `--field-cold` → `--field-hot` → `--field-core` — as five `<radialGradient>` bands, one per `POSTER_DEPTH_BANDS`, each a core-plus-halo two-stop **whose outer stop is `#D1A95400`** (**A8.1**). Dark in both themes (**A8.2**). **`FIGURE_FALLBACK_DARK` and `FIGURE_FALLBACK_LIGHT` are deleted from `constants.ts`**, so no grey value remains in the module for a later pass to reach for. **Substituting a foreground token back into this ramp is the defect** — see the binding instruction in §3.5. |
 | Note | generated headlessly **from the same lattice function at a committed seed** — never authored by hand **[02 §9]** |
 | Alt text | describes the resolved end state, e.g. "A lattice of points resolved from scattered noise into an ordered surface." **[02 §8.1]** |
 | Forced colours | the one surface the UA cannot fix for itself, because its colour arrives as an author `color` on an `<svg>` whose circles inherit it. `@media (forced-colors: active) { [data-attestation-poster] { color: CanvasText } }` hands it back to the system palette. The focus ring and `.btn--primary` are already re-coloured correctly by the UA and are deliberately left alone. |
@@ -1262,7 +1462,7 @@ The single reveal primitive. **No other component implements its own scroll anim
 
 The only modules that import `ogl`. Named imports only. Owns full teardown, DPR cap at 1.5, rAF pause on `IntersectionObserver` miss and on `visibilitychange`, `webglcontextlost` → unmount and reveal poster. **[02 §8.3]** Budget: deferred chunk ≤40 KB gz (measured target ~22 KB).
 
-**The poster and the live canvas are one artifact on two surfaces and must be changed together.** They read the same token through `runtime/color.ts` (`readFigureColor` / `watchFigureColor` → `--color-foreground-secondary`). Changing one colour without the other makes the cross-fade visibly shift hue. This is the property that made the accent fix a one-line change in each file rather than a redesign.
+**The poster and the live canvas are one artifact on two surfaces and must be changed together — this is now binding as A8.6.** They read the same tokens through `runtime/color.ts`, **retargeted 2026-09-11 from `--color-foreground-secondary` to the `--field-*` group (§3.7)**. A change to the ramp, the point size, the camera, the density or the band count made in one and not the other is a defect, and the cross-fade shows it as a visible hue or scale shift. This is also the property that let the 1.44:1 failure reach the accessibility path unnoticed: the poster is frame ∞ of the same shader, so a near-invisible canvas produced a near-invisible reduced-motion still. A8.6 is the rule that keeps that coupling working *for* the design instead of against it.
 
 **`parseCssColor` must survive every colour form the token can take.** `--color-foreground-secondary` resolves to `color(display-p3 …)` on a wide-gamut display and to a hex or `rgb()` elsewhere. A float-matching regex without a boundary guard matched the literal `3` inside `display-p3` as the first component — `color(display-p3 .47 .37 .1)` parsed as `[3, .47, .37]`, the red channel clamped to 1.0, the blue channel was discarded, and the lattice rendered **salmon** in all three engines. Two independent defences are required so a future colour form must defeat both: a `(?<![\w.])` boundary on the float pattern, **and** stripping `fn(` plus any leading colour-space keyword before the scan. Unit-tested (`color.test.ts`) against `color(display-p3 …)`, `color(srgb …)`, `rgb()`, `rgba()`, slash-alpha, both spellings of the leading dot, and both documented sRGB hexes.
 
@@ -1272,7 +1472,7 @@ The only modules that import `ogl`. Named imports only. Owns full teardown, DPR 
 |---|---|
 | Props | **`alg`**, **`short`**, **`ms`** (i.e. `AttestationReadoutValues`), `className?` |
 | Type | `--font-mono` / `--text-mono` (13px, 1.5, `0em`) / `--color-foreground-muted` |
-| Accent | **the `verified` marker glyph only (A7)** — one character, measured 8×15px. A7 licenses this glyph and nothing else in the figure; the point field is `--color-foreground-secondary` (§3.5 F4). |
+| Accent | **the `verified` marker glyph only (A7)** — one character, measured 8×15px. A7 licenses this glyph and nothing else *in the readout*. **Amended 2026-09-11:** the clause that followed — *"the point field is `--color-foreground-secondary`"* — is **withdrawn**; the field is licensed separately and in its own right by **A8** (§3.5), on the §3.7 ramp. A7 and A8 are independent rows and neither is evidence about the other. |
 | Renders | server-side with the build-time signature, so the concept survives with JS off **[02 §6]** |
 | Copy constraint | states algorithm, truncated signature and verify time only — **never** implies encryption or a security guarantee **[02 §9]** |
 
@@ -1388,10 +1588,19 @@ The dark palette appears in two selector blocks — `[data-theme="dark"]` (autho
   a[href^="https://"]::after { content: " (" attr(href) ")"; font-size: 11px; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
   header, .no-print { display: none; }
+  /* The field never prints (§3.7, DEV-13). It is a fixed full-viewport layer;
+     left in, it either covers the page or wastes a sheet of gold ink. The
+     .stage type-colour scope must go with it, or printed body copy resolves
+     to --field-fg-secondary #B9B4A9 on white: 2.06:1. */
+  .stage, [data-field], canvas, [data-attestation-poster] { display: none !important; }
+  .stage { --color-foreground: initial; --color-foreground-secondary: initial;
+           --color-foreground-muted: initial; }
 }
 ```
 
 **[03 R29]** — text-selectable, links not truncated, no content lost to a dark background or to an un-fired reveal.
+
+**Amended 2026-09-11 [DEV-13].** The field and the poster are suppressed in print, and `.stage`'s foreground redeclarations are reset with them. **[MEAS]** `--field-fg-secondary` `#B9B4A9` on `#FFFFFF` measures **2.06:1** — printing the stage's type colours onto a forced-white sheet would lose the copy entirely, which is the same class of failure as the `.stage`-by-JavaScript trap in §3.7 and is caught here rather than at the printer.
 
 ---
 
@@ -1402,6 +1611,8 @@ CSS-first. **No JS config file.**
 **Status, as of the 2026-09-11 amendment.** This section was written as a paste-ready replacement for `src/app/globals.css`. That file has since been built out with the full component layer (§8), so **`src/app/globals.css` is now the implementation of record and this block is the token contract**. The relationship is exact and checkable:
 
 - **Blocks 1–4 below (colour, responsive scalars, `@theme`, non-utility tokens) must match the shipped file value-for-value.** Phase 5 diffs them. Nothing may be added to `@theme` that is not printed here.
+- **Amended 2026-09-11 (DEV-13/14/15).** Block 1's neutral ladder is warmed in both modes and gains `--overlay`; `@theme inline` gains exactly one entry, `--color-overlay`; block 4 gains `--z-field` / `--z-grid` (§2.7), the light-source group (§2.8) and the `--field-*` group (§3.7). **Nothing else in `@theme` changed, and no `field-*`, `glow-*`, `light-*` or `z-*` utility is generated** — that is the whole reason those groups are declared in block 4 rather than in `@theme`.
+- **`--field-hot` is written as a reference, not a hex.** The `var(--accent-dark, #d1a954)` form above is the contract: the field's gold must track dark `--color-accent`, and because the field is dark in *both* themes it cannot simply read `var(--accent)` (which resolves to the light gold on a light page). The implementing pass declares `--accent-dark: #d1a954` once, unconditionally, alongside these tokens. **Retyping `#d1a954` into the shader, the poster, or a second CSS rule is a defect under A8.6** — it is how the two surfaces drift apart.
 - **Blocks 5–10 are the structural rules this document owns** (base, focus, reveal, reduced-motion, print, forced-colours). The shipped file adds the §8 component layer between blocks 7 and 9 and Lenis's required base rules inside block 5; those are implementations of §8 and §5.3, not new tokens.
 - **Do not paste this over the shipped file.** It would delete the component layer.
 
@@ -1442,9 +1653,11 @@ Five notes before the code:
 [data-theme="light"] {
   color-scheme: light;
 
-  --background:            #fcfcfc;
-  --surface:               #f6f6f6;
-  --surface-raised:        #ededed;
+  /* Warm ladder (§3.2, DEV-14) — Radix `gold` light steps 1–4. */
+  --background:            #fdfdfc;
+  --surface:               #faf9f2;
+  --surface-raised:        #f2f0e7;
+  --overlay:               #eae6db;   /* NOT a body-text surface (§3.2) */
 
   --foreground-strong:     #0a0a0a;
   --foreground:            #1a1a1a;
@@ -1475,21 +1688,23 @@ Five notes before the code:
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --background:           #0a0a0a;
-    --surface:              #141414;
-    --surface-raised:       #1c1c1c;
-    --foreground-strong:    #fcfcfc;
-    --foreground:           #ededed;
-    --foreground-secondary: #a8a8a8;
-    --foreground-muted:     #8a8a8a;
-    --foreground-faint:     #4a4a4a;
+    /* Warm ladder (§3.3, DEV-14) — hue 41, S 6–8%. */
+    --background:           #0c0b0a;
+    --surface:              #161513;
+    --surface-raised:       #1f1e1c;
+    --overlay:              #2a2925;   /* NOT a body-text surface (§3.3) */
+    --foreground-strong:    #f2efe8;
+    --foreground:           #ede9e1;
+    --foreground-secondary: #a8a29a;
+    --foreground-muted:     #8c877e;
+    --foreground-faint:     #423f38;
     --border:               #ffffff1f;
     --border-subtle:        #ffffff14;
     --border-interactive:   #ffffff6f;
     --accent:               #d1a954;   /* brand gold, unchanged */
     --accent-hover:         #dbbc7a;
     --accent-tint:          #241c0b;
-    --accent-foreground:    #0a0a0a;   /* ⚠ near-black — inverts vs light */
+    --accent-foreground:    #0c0b0a;   /* ⚠ near-black — inverts vs light */
     --shadow-overlay: 0 8px 32px rgb(0 0 0 / 0.48);
   }
 }
@@ -1499,21 +1714,23 @@ Five notes before the code:
    KEEP IN SYNC with the @media block above — same values. */
 [data-theme="dark"] {
   color-scheme: dark;
-  --background:           #0a0a0a;
-  --surface:              #141414;
-  --surface-raised:       #1c1c1c;
-  --foreground-strong:    #fcfcfc;
-  --foreground:           #ededed;
-  --foreground-secondary: #a8a8a8;
-  --foreground-muted:     #8a8a8a;
-  --foreground-faint:     #4a4a4a;
+  /* Warm ladder (§3.3, DEV-14) — hue 41, S 6–8%. */
+    --background:           #0c0b0a;
+  --surface:              #161513;
+  --surface-raised:       #1f1e1c;
+  --overlay:              #2a2925;   /* NOT a body-text surface (§3.3) */
+  --foreground-strong:    #f2efe8;
+  --foreground:           #ede9e1;
+  --foreground-secondary: #a8a29a;
+  --foreground-muted:     #8c877e;
+  --foreground-faint:     #423f38;
   --border:               #ffffff1f;
   --border-subtle:        #ffffff14;
   --border-interactive:   #ffffff6f;
   --accent:               #d1a954;   /* brand gold, unchanged */
   --accent-hover:         #dbbc7a;
   --accent-tint:          #241c0b;
-  --accent-foreground:    #0a0a0a;   /* ⚠ near-black — inverts vs light */
+  --accent-foreground:    #0c0b0a;   /* ⚠ near-black — inverts vs light */
   --shadow-overlay: 0 8px 32px rgb(0 0 0 / 0.48);
 }
 
@@ -1560,6 +1777,7 @@ Five notes before the code:
   --color-background:           var(--background);
   --color-surface:              var(--surface);
   --color-surface-raised:       var(--surface-raised);
+  --color-overlay:              var(--overlay);
   --color-foreground-strong:    var(--foreground-strong);
   --color-foreground:           var(--foreground);
   --color-foreground-secondary: var(--foreground-secondary);
@@ -1713,9 +1931,40 @@ Five notes before the code:
 
   /* Stacking order (§2.7). Declared here, NOT in @theme, so no z-* utilities
      are generated and the token surface above stays exactly as printed.
+     Order: field -> grid -> content (normal flow) -> header -> skip link.
      The skip link must paint above the sticky header. */
+  --z-field: 0;
+  --z-grid: 1;
   --z-header: 2;
   --z-skip: 3;
+
+  /* The light source (§2.8, DEV-15). ONE origin. Every lit edge on the page
+     is a radial gradient anchored to it; nothing reads a second position.
+     Frozen at these defaults under reduced motion and with JS disabled. */
+  --light-x: 50%;
+  --light-y: -10%;
+  --glow-near:  #d1a95433;
+  --glow-mid:   #d1a9541f;
+  /* Every gold glow fades to THIS, never to `transparent` — `transparent` is
+     rgba(0,0,0,0) and interpolates through grey (docs/11 §3 move 5). */
+  --glow-far:   #d1a95400;
+  --edge-lit:   inset 0 1px 0 #ffffff1f;
+  --shadow-panel: 0 40px 100px -50px #000;
+  --grain-opacity: 0.20;
+
+  /* The attestation field (§3.7, DEV-13). DARK IN BOTH THEMES — the field is
+     a stage the light-mode page enters and leaves (A8.2), so these are NOT
+     redeclared per theme. Not in @theme: no field-* utilities are generated
+     and nothing outside the .stage scope can reach them by accident. */
+  --field-ink:          #0a0908;
+  --field-cold:         #3a4655;
+  --field-hot:          var(--accent-dark, #d1a954); /* = dark --accent (A8.6) */
+  --field-core:         #fff3d2;
+  --field-fg:           #ede9e1;                     /* = dark --foreground   */
+  --field-fg-secondary: #b9b4a9;                     /* body over the field   */
+  --field-fg-muted:     #9c978c;
+  --field-rule:         #ffffff14;
+  --field-panel:        #ffffff05;
 
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
@@ -1916,25 +2165,48 @@ TYPE      Space Grotesk Variable, latin subset — 22,320 B measured (was 37,360
 SPACE     base 4px (Tailwind --spacing: 0.25rem) · 4/8/12/16/24/32/48/64/96/144/192
           section GAP (not symmetric padding) 144px ≥1024 · 96px 768–1023 · 72px <768
           gutter 48 / 32 / 24 · header 64px · breakpoints 768 / 1024 only
-          shell 1024 · wide 768 · prose 672 · radius 4/8/16 · one shadow token
+          shell 1024 · wide 768 · prose 672 · radius 4/8/16
+          shadows: --shadow-overlay (nav sheet) + --shadow-panel (over the field
+            ONLY, and never without --edge-lit — they ship as a pair, §2.6)
           column classes are .col / .col--prose|wide|shell — NEVER .container
           (Tailwind reserves it; @layer utilities beats @layer components)
-          z: --z-header 2 · --z-skip 3 (skip link above the sticky header)
+          z: --z-field 0 · --z-grid 1 · --z-header 2 · --z-skip 3
+          LIGHT SOURCE (§2.8): one origin --light-x 50% / --light-y −10%
+            every gold glow fades to --glow-far #D1A95400, NEVER to `transparent`
+            no shadow without a lit edge · grain 20%, over everything but the field
 
-COLOUR    15 semantic tokens per mode · 20 distinct hex + 6 alpha across both
-          light bg #FCFCFC / fg #1A1A1A      dark bg #0A0A0A / fg #EDEDED
-          ACCENT IS GOLD, two values, one hue:
-            dark  #D1A954  (brand, unchanged)  8.97 / 8.35 / 7.72 on the 3 surfaces
-            light #7C5E1D  (hue 41.1° vs brand 40.8°)  5.89 / 5.59 / 5.16
+COLOUR    16 semantic tokens per mode · 25 distinct hex + 6 alpha across both
+            (+9 field-scoped tokens, §3.7 → 30 hex + 7 alpha whole-system)
+          THE NEUTRALS ARE WARM (DEV-14): hue 41, S 6–8%, lightness matched
+            light bg #FDFDFC / surface #FAF9F2 / raised #F2F0E7 / overlay #EAE6DB
+            light fg #1A1A1A (text values unchanged; every figure ROSE)
+            dark  bg #0C0B0A / #161513 / #1F1E1C / overlay #2A2925
+            dark  fg #EDE9E1 16.24 · strong #F2EFE8 17.12 · sec #A8A29A 7.77
+                  muted #8C877E 5.50 (4.66 on raised — re-measured, passes)
+          ⚠ --color-overlay is NOT a body-text surface: fg-muted 4.40 light /
+            4.07 dark. Permitted there: strong, fg, secondary, accent, hover.
+          ACCENT IS GOLD, two values, one hue, BOTH HEXES UNCHANGED:
+            dark  #D1A954  8.90 / 8.26 / 7.54 / 6.59 on the 4 surfaces
+            light #7C5E1D  5.93 / 5.72 / 5.29 / 4.84  (worst pair in the system)
           ⚠ accent-foreground INVERTS: #FFFFFF on light gold (6.04:1),
-            #0A0A0A on dark gold (8.97:1). Always var(), never a literal.
+            #0C0B0A on dark gold (8.90:1). Always var(), never a literal.
           R-GOLD-1: every accent marker ≥2px — the gold is separated from
             body text by chroma, not value
-          borders are alpha-over-neutral; --border-interactive ≥3.11:1 on every surface
-          accent ALLOWED on 7 named uses (A1–A7), FORBIDDEN on 11 (F1–F11)
+          R-GOLD-2 (amended): accent text on background, surface, OR over the
+            field inside a data-scrim block. Nowhere unmeasured.
+          borders are alpha-over-neutral; --border-interactive ≥3.08:1 everywhere
+          accent ALLOWED on 8 named uses (A1–A8), FORBIDDEN on 11 (F1–F11)
           A1 = 2px accent underline AT REST on hero proof nouns (D4 resolution)
           F4 = no accent mass >~2000px² in ANY property (color/fill/stroke/
-            background/canvas), except ::selection tint and the one primary CTA
+            background/canvas), except THREE: ::selection tint (A6), the one
+            primary CTA (A4), and THE ATTESTATION FIELD (A8)
+          A8 = the field is EMITTED LIGHT (gl.ONE,gl.ONE / gradients ending at
+            #D1A95400) on a #0A0908 stage, dark in both themes, scrim carved
+            into the composite, ≥4.5:1 body measured on COMPOSITED pixels at the
+            brightest frame (ship ≥7:1), excluded from F9, poster == canvas.
+          ⛔ SUBSTITUTING --color-foreground-secondary OR FIGURE_FALLBACK_* INTO
+            THE FIELD RAMP IS THE DEFECT, NOT THE FIX. It shipped 1.44:1 once.
+            A grey field is a regression. See §3.5's binding instruction.
 
 MOTION    3 easings: 0.4,0,0.2,1 STANDARD (9/13 sites) · 0,0,0.2,1 entrance
                      0.32,0.72,0,1 glide (one authored moment). No spring. No ease-in
@@ -1950,7 +2222,9 @@ MOTION    3 easings: 0.4,0,0.2,1 STANDARD (9/13 sites) · 0,0,0.2,1 entrance
             survive and are load-bearing. Do not reintroduce a library.
 
 FOCUS     2px solid accent @ 2px offset · :focus-visible only
-          5.89 / 5.59 / 5.16 light · 8.97 / 8.35 / 7.72 dark (bar 3:1, worst 1.72×)
+          5.93 / 5.72 / 5.29 / 4.84 light · 8.90 / 8.26 / 7.54 / 6.59 dark
+          (bar 3:1; worst 4.84 = 1.61× the 3:1 bar, 1.07× the 4.5:1 text bar —
+           measured in P3 too, at 4.90, because that margin is now thin)
           scroll-margin 80px for WCAG 2.2 SC 2.4.11 · targets ≥24×24, touch ≥44×44
 
 THEME     NO default mode. prefers-color-scheme decides; toggle overrides + persists
@@ -1979,7 +2253,10 @@ Every conflict with a `docs/01` recommendation, in one place, for Phase 5.
 | **DEV-9** | Reduced motion: "set all durations to `0.01ms` and remove all transforms" | A 15-row substitution table (§6.1) mapping every motion token to a real static end state; the blanket rule demoted to a safety net | **[03 R35]** and `BUILD-PLAN` both require "a real layout, not an animation with duration zero." A 0.01ms transition still starts at `opacity: 0` and still depends on JS arriving |
 | **DEV-10** | (brief) "project card" | `ProjectEntry` renders as a list row, not a bordered card | `docs/01` Part 4: "a single narrow column, one measure, no cards, no grid, no icons" — the mechanic that makes a dense personal-site page survivable |
 | **DEV-11** | *(no `docs/01` position; this document's own earlier position was "light is the authored default")* | **No default mode.** `prefers-color-scheme` decides; the toggle overrides and persists | **Site-owner decision, 2026-09-11.** Both palettes are independently specified and independently measured; `:root` carries the light set only because the cascade requires a base declaration, and both the attribute path and the media path override it before first paint (§9.2). Five cases verified in §9.3, including JS-disabled |
-| **DEV-12** | *(new rule, no `docs/01` position)* | **R-GOLD-1** — every accent marker ≥2px; **R-GOLD-2** — accent text only on `--color-background` / `--color-surface` | Forced by DEV-6a. The light-mode gold (luminance 0.124) is close in value to `--color-foreground-secondary` (0.107), so it routes attention by chroma rather than value. A 1px hairline in that colour is not a router. **[MEAS] [03 AP5]** |
+| **DEV-12** | *(new rule, no `docs/01` position)* | **R-GOLD-1** — every accent marker ≥2px; **R-GOLD-2** — accent text only on `--color-background` / `--color-surface` *(amended by DEV-13 to add the field, inside a `data-scrim` block)* | Forced by DEV-6a. The light-mode gold (luminance 0.124) is close in value to `--color-foreground-secondary` (0.107), so it routes attention by chroma rather than value. A 1px hairline in that colour is not a router. **[MEAS] [03 AP5]** |
+| **DEV-13** | `docs/01` §5.3 allows the accent on ≤3 named roles; this document's own F4 forbade any accent mass >~2,000 px² with two exceptions | **Allowlist row A8 — the attestation field is an emissive surface and gold is permitted in it**, over an unbounded pixel area, under six binding conditions A8.1–A8.6. F4's exception list becomes **three**; F9 gains a third exclusion; R-GOLD-2 is widened; §2.6 gains the `--shadow-panel` / `--edge-lit` pair; §2.7 gains `--z-field` / `--z-grid`; §3.7 declares the `--field-*` group | **Measurement, and an owner decision.** The pre-amendment rule sent the point field to `--color-foreground-secondary` and it shipped at **1.44:1** — invisible — on both the canvas and the poster. The old rule's reasoning (a large gold mass would out-compete the page's routers) was correct for a **boxed figure inside a section** and is wrong for the page's **ground**, which the routers sit on top of and are brighter than. A8 licenses **a light source, not paint**: A8.1 requires every accent pixel to be additively emitted, A8.4 requires ≥4.5:1 body / ≥3:1 large on **composited** pixels at the brightest authored frame. `docs/15` §1.1; `docs/11` Part 8 Direction C |
+| **DEV-14** | (current site, and DEV-5's own values) a perfectly neutral greyscale — `#0A0A0A`, `#141414`, `#1C1C1C`, `#EDEDED`, `#A8A8A8`, `#8A8A8A`, `#4A4A4A` — under a hue-41 accent | **A warm neutral ladder in both modes.** Dark: hue 41, S 6–8%, lightness matched — `#0C0B0A` / `#161513` / `#1F1E1C` / **`#2A2925`** and `#F2EFE8` / `#EDE9E1` / `#A8A29A` / `#8C877E` / `#423F38`. Light: Radix `gold` steps 1–4 — `#FDFDFC` / `#FAF9F2` / `#F2F0E7` / **`#EAE6DB`**, text values unchanged. Both accent values unchanged | `docs/11` §5.2 **[MEAS]**: *a warm accent on a cold ground reads as a highlighter mark; a warm accent on a warm ground reads as an identity.* Every site in the corpus that reads as expensive with a warm accent warms its neutrals (claude.com, henry.codes `hsl(38,11%,…)`, Mercury, by-kin `#F4F2ED`). Values from `docs/11` §5.4, not invented here; **§3.6 reprinted in full and every figure recomputed.** At 6% saturation nobody reads the ground as brown. `docs/11` calls this the cheapest high-impact change in the document |
+| **DEV-15** | `docs/01` has no position; DEV-3 forbade **all** content shadows | **A light-source system.** One origin (`--light-x` / `--light-y` on `:root`), a three-stop gold glow ramp ending at `--glow-far` `#D1A95400`, `--edge-lit` + `--shadow-panel` as an inseparable pair for panels **over the field only**, `--grain-opacity: 0.20` | `docs/11` §3 moves 1, 3, 5, 8. The diagnosis is that the page **has no light source**: flat fills, black shadows invisible on a near-black ground, and gradients that fade to `transparent` — which is `rgba(0,0,0,0)` and interpolates through grey, producing the dirty band `docs/11` measured on every gradient in the build. **DEV-3 is not reversed**: panels off the field still carry no shadow, and a `--shadow-panel` without `--edge-lit` is the exact black-shadow-on-near-black failure this exists to fix |
 
 ### DEV-6a — record of the accent override
 
@@ -2059,13 +2336,67 @@ Four review passes and one fix pass produced findings whose agreed remedy was *a
 | **LCP** | 2,003 ms against a 2,000 ms lab requirement; 88.8% of initial JS is the React + Next app shell. | No token in this document moves it. An architecture decision. | `main` |
 | **§2.6 dead-shadow wording** | §2.6 said "any other `box-shadow` in the codebase is a defect"; Tailwind emitted a `.shadow` rule from prose that no element carried. | Narrowed to *rendered* shadows, with the `source(none)` fix as the structural answer. Recorded rather than left ambiguous. | resolved, §2.6 |
 
+#### F. The attestation-field amendment — 2026-09-11
+
+**Nothing above this line was rewritten.** §12.1 A–E are the Phase-5 reconciliation record and stand as written. This subsection is appended per §12.1's own rule, and the next amendment appends after it.
+
+**Input:** `docs/15-field-port-plan.md` §1, itself resting on `docs/11-portfolio-visual-research.md` Part 8 Direction C and §5.2/§5.4, and on `docs/12` §5.1–5.2. **Deviations produced: DEV-13, DEV-14, DEV-15** (§12). **Sections changed:** §2.6, §2.7, **§2.8 (new)**, §3.1, §3.2, §3.3, §3.4, §3.5, §3.6, **§3.7 (new)**, §8.4, §10, §11, §12, §13. **No existing section number moved**; §2.8 and §3.7 are appended after the last existing subsection of their part, so every external citation by number — `docs/05`, `docs/11`, `docs/12`, `docs/15` — still resolves.
+
+##### F.1 The deviation, and the reason for it
+
+The site shipped at Lighthouse 100/100/100/100 and looked flat. Its one ambitious element — a point lattice seeded by a real ECDSA P-256 signature — rendered at **1.44:1**, which is to say it rendered invisible, on both the live canvas and the poster.
+
+**Nobody involved made a mistake.** `docs/06-review-design-qa` D3 correctly found an 830×466 field filled with `--color-accent` and correctly filed it against F4. The fix pass correctly resolved it to `--color-foreground-secondary`, because F4's remedy clause said in terms that *"the correct token for a large figure is a foreground token."* `src/components/three/constants.ts` still carries a nine-line comment defending that grey, and **that comment is a correct reading of the pre-amendment document.** Both agents followed the contract exactly. **The contract was wrong, and this is the amendment that fixes the root cause rather than the symptom.**
+
+**What was wrong with it, precisely.** F4's remedy conflated two different objects under one word, "figure":
+
+| | The object F4 was written against | The object A8 governs |
+|---|---|---|
+| Placement | a boxed 768×432 illustration inside `#work`, on screenful 3 | the page's **ground** — `position: fixed`, mounted once in `layout.tsx`, at `--z-field` |
+| Relationship to the routers | **competes with them** for attention inside the composition | the routers sit **on top of it** and are brighter than it is |
+| What the accent is doing | **paint** — a flat `fill` inherited through `currentColor` | **emitted light** — additive blending, core-plus-halo falloff, gradients ending at `#D1A95400` |
+| The right measure | aggregate px² of accent mass | contrast of type over the **composited** result (A8.4) |
+
+Aggregate px² is a sound test for paint and a meaningless one for a light source. **A8 is not a loosening of F4; it is F4 applied to the right object, with six conditions that are stricter than F4 was** — A8.1 forbids inside the field the very thing F4 was written to catch, and A8.4 imposes a measured floor F4 never had.
+
+##### F.2 The previous recommendation, overridden
+
+**Recorded plainly, in the manner of DEV-6a, because this document has now been overruled twice on the accent and the pattern is worth seeing.**
+
+**What this document previously recommended:** that the attestation poster and the live canvas both read `--color-foreground-secondary` — light `#5C5C5C`, dark `#A8A8A8`, with `FIGURE_FALLBACK_DARK` / `FIGURE_FALLBACK_LIGHT` as constants — and *"never `--color-accent`."* (§3.5 F4 remedy clause; §8.4 `AttestationPoster` Colour row.)
+
+**What overrode it:**
+
+1. **Measurement.** The recommendation shipped and was measured at **1.44:1** (`docs/12` §5.1). The prototype `scratchpad/proto-c-field.html` restaged the same concept as an emissive field and measured **9.3:1** for body copy over it, on real composited pixels via `gl.readPixels` — not a restatement, not a static pair, the actual rendered result. **[MEAS]**
+2. **Owner decision.** The owner's verdict on the shipped appearance was *"terrible visually"*, and Direction C was chosen from `docs/11` Part 8 on that basis. Direction C's palette specification is *"near-black, bone, and gold as emitted light only — two colours and a light source."* A grey field is not a cheaper version of that idea; it is a different idea, and it is the one that was already tried.
+
+**What the override cost, stated honestly rather than hidden.** The accent now covers more of the page than any previous version of F9 contemplated — unboundedly more, in dark mode. **[03 AP5]**'s router argument depends on accent scarcity, and A8.5's answer (the field is substrate, not a group) is an argument, not a measurement. **Phase 5 should verify AP5 empirically with the blur test (§1.4) over the live field, in both themes, rather than assume the exclusion came out right** — the same instruction DEV-6a left, for the same reason, and it was not carried out last time.
+
+**What the override did not cost:** contrast. The field's dimmest authored string measures **9.3:1** composited against a 4.5:1 bar, where the grey it replaces measured 1.44:1. **The version that satisfied the written rule was the version that failed the standard the rule exists to serve.**
+
+##### F.3 What is bound to what — the sequencing this amendment assumes
+
+This document is a hard gate and this amendment is the gate on the field work. **`docs/15` §6 Lane T names `docs/04-design-system.md` as exclusively owned; every other lane routes findings here rather than editing.** The dependency that matters: **this amendment must be committed before the first change to `src/components/three/`,** because a QA pass run against the pre-amendment document will file the gold field at HIGH and a fix pass doing its job correctly will substitute the grey back. The mitigations are sequencing, deletion (`FIGURE_FALLBACK_*` leaves the tree in the same commit as the ramp change), §3.5's binding instruction, and `e2e/field-contrast.spec.ts` making a 1.44:1 field a **failing test** rather than a judgement call.
+
+##### F.4 Open against this amendment — not resolved here
+
+| # | Item | Why it is still open | Owner |
+|---|---|---|---|
+| **F-1** | **Light mode is warm in its surfaces and cold in its text.** DEV-14 warms all four light surfaces but leaves `#0A0A0A` / `#1A1A1A` / `#5C5C5C` / `#696969` / `#BDBDBD` exactly as they were, because `docs/11` §5.4 generated and measured a warm ladder for **dark mode only** and this document does not print values nobody measured. The result is defensible — high-contrast text reads as near-black regardless of a 6% ground tint — but it is a **partial** application of `docs/11` §5.2's finding. | A warm light text ladder must be generated and measured against all four new surfaces before it can be adopted. That is a research output, not an editorial choice. | `design-research` / `portfolio-visual-research`, then back to this document |
+| **F-2** | **`--color-overlay` has no consumer.** It was added because `docs/11` §5.4 called for a fifth rung, and it immediately produced the only two contrast regressions in this amendment (muted metadata, 4.40 light / 4.07 dark), which are fenced by scope restriction rather than by moving a token. | Nothing on the page currently sits on it — §8.5 provides no modal, popover, tooltip or toast. If it acquires a consumer that needs muted metadata, the muted token moves (dark candidate `#948F85`, measured **6.11 / 5.67 / 5.17 / 4.52**); if it acquires none, a later pass should consider deleting it rather than carrying an unused surface. | next token pass |
+| **F-3** | **Dark-only.** `docs/15` §7 R3 puts it to the owner: Direction C's own palette spec describes a dark-only design, and light mode now costs 16 tokens, a full second contrast matrix, the `--accent-foreground` inversion trap, **and** a field that is sectioned rather than continuous (A8.2). Dark-only, this system would be 17 hex + 4 alpha instead of 30 + 7. | **Not a build agent's call**, and not this document's. A8.2 adopts the sectioned-field answer so that work is not blocked on the question. | site owner |
+| **F-4** | **A8.4 has no artifact yet.** The floor is specified; `e2e/field-contrast.spec.ts` does not exist. Until it does, A8.4 is a promise rather than a gate, and A8 is exactly as strong as the pre-amendment F4 was — which is to say, strong enough to be followed into a wrong result. | The spec is `docs/15` §5.1's deliverable and belongs to the field lane. | `three-d` / `review-accessibility` |
+| **F-5** | **The blur test over the live field has never been run.** See F.2. | `docs/15` does not schedule it. | `review-design-qa`, Phase 5 |
+
 ---
 
 ## 13. Phase-5 checklist for `review-design-qa`
 
 Mechanical. Every item is pass/fail against a section of this document.
 
-- [ ] Every rendered colour resolves to a `--color-*` token from §3.2/§3.3. No literal hex, `rgb()`, or `hsl()` outside `globals.css`.
+> **Before running the accent items, read §3.5's binding instruction.** The gold attestation field resolves to **A8** and is **compliant by design**. Filing it under F4 or F9, or "fixing" it by substituting `--color-foreground-secondary`, `FIGURE_FALLBACK_DARK` or `FIGURE_FALLBACK_LIGHT` into the field ramp, **is itself the defect** — that substitution is what produced the 1.44:1 field. **A grey field is a regression, not compliance.**
+
+- [ ] Every rendered colour resolves to a `--color-*` token from §3.2/§3.3, or to a `--field-*` token from §3.7 **inside the `.stage` scope only**. No literal hex, `rgb()`, or `hsl()` outside `globals.css`.
 - [ ] Every rendered font-size resolves to a `--text-*` token from §1.2. No literal `px`/`rem` font sizes.
 - [ ] No `font-weight` other than 400 or 500 anywhere in the computed styles (§1.1).
 - [ ] ≥85% of rendered pixel spacing values are multiples of 4 (§2.1); each exception carries a comment naming its optical reason.
@@ -2074,12 +2405,23 @@ Mechanical. Every item is pass/fail against a section of this document.
 - [ ] No `translateY` reveal distance exceeds **16px** (§5.2).
 - [ ] **No JS animation library is in `package.json` or in any chunk** (§5.4). `defineMotionSpec`, `use-reveal`, `reveal-observer` and `lib/motion/tokens.ts` are present and passing their tests — they are the reduced-motion guarantee, not leftovers.
 - [ ] **Every column carries `col` / `col--*` and no element carries `container`** (§1.5). `.col--prose` measures **768px outer / 672px content** at 1440×900; `--wide` 864/768; `--shell` 1120/1024. No `Container` is nested inside another `Container`.
-- [ ] Every accent occurrence maps to A1–A7 (§3.5). Every F1–F11 forbidden use is absent.
-- [ ] **No accent mass exceeds the single `primary` CTA** (§3.5 F4). Enumerate computed `color`, `background-color`, `border-color`, `fill` and `stroke` in **both** themes; aggregate per figure rather than per element. The attestation poster field must be `--color-foreground-secondary`, never accent; the readout's `✓` is the only accent in that figure (A7).
+- [ ] Every accent occurrence maps to **A1–A8** (§3.5). Every F1–F11 forbidden use is absent.
+- [ ] **No accent mass exceeds the single `primary` CTA — excluding the one A8 field** (§3.5 F4). Enumerate computed `color`, `background-color`, `border-color`, `fill` and `stroke` in **both** themes; aggregate per figure rather than per element. ~~The attestation poster field must be `--color-foreground-secondary`, never accent~~ — **withdrawn 2026-09-11 (DEV-13); that instruction is what produced the 1.44:1 regression.** The poster and the canvas render the §3.7 field ramp.
+- [ ] **The field resolves to A8. Substituting a foreground token into the field ramp is the defect, not the fix.** `FIGURE_FALLBACK_DARK` and `FIGURE_FALLBACK_LIGHT` must **not exist anywhere in the tree** (`grep -r FIGURE_FALLBACK src/` returns nothing), and neither must the nine-line comment that defended them.
+- [ ] **A8.1 — the field is emitted, not filled.** Every accent pixel arrives from an additive emitter (`gl.blendFunc(gl.ONE, gl.ONE)`) or a `<radialGradient>` whose outer stop is `#D1A95400`. **No flat region of `--color-accent` exists in the field at any frame**, and no gradient anywhere fades to the keyword `transparent` (§2.8). A flat fill inside the field is still an F4 defect.
+- [ ] **A8.2 — the stage is `#0A0908` in both themes.** The field never inherits `--color-background`. In light mode it is sectioned (full energy behind `#hero`, `#attestation`, `#ceremony`; masked out elsewhere); in dark mode it is continuous.
+- [ ] **A8.3 — the scrim carves the composite.** `[data-scrim="padX,padY,amount"]` rects are packed into the composite pass as a rounded-box SDF. **A flat `rgba()` CSS sheet over the canvas is a defect**, because the pixels sampled would not be the pixels behind the type.
+- [ ] **A8.4 — the measured floor.** ≥4.5:1 body / ≥3:1 `--text-h3`-and-above, on **composited pixels at the brightest authored frame**, via `e2e/field-contrast.spec.ts`. Ship target ≥7:1. A figure below 4.5:1 is a defect in the scrim; **dimming the field or greying the ramp is not a remedy**. `--color-border-interactive` on the ceremony's controls is measured in the same harness at ≥3:1.
+- [ ] **A8.5 — exactly one field exists**, mounted once in `layout.tsx`, `aria-hidden="true"`, nothing inside it focusable, `pointer-events: none`. A second field is a defect. The field is **excluded** from the F9 per-viewport count; A3, A4 and A8 are the only exclusions and a fourth requires reopening §3.5.
+- [ ] **A8.6 — poster and canvas match.** Ramp, point size, camera, density and band count are identical between `AttestationPoster.tsx` and the GL scene; the cross-fade shows no hue or scale shift. `--field-hot` and `--field-fg` are **references**, not retyped hexes.
+- [ ] **The `.stage` type colours are applied in CSS, unconditionally — never by JavaScript** (§3.7). With **JS disabled in light mode**, `#attestation` body copy computes to `--field-fg-secondary` `#B9B4A9`, not `#1A1A1A` (which would be **1.14:1** on the stage — worse than the failure this amendment corrects). Assert this in both themes.
+- [ ] **`--color-overlay` carries no muted or faint text** in either mode (§3.2, §3.3) — 4.40:1 light / 4.07:1 dark, both below 4.5:1.
+- [ ] **Every gold glow's outer stop is `#D1A95400`, never `transparent`** (§2.8). One light origin only: `--light-x` / `--light-y` on `:root`, read by every lit edge, with no second light position anywhere.
+- [ ] **No `--shadow-panel` without `--edge-lit` on the same element, and neither on an element that is not over the field** (§2.6). `--shadow-overlay` remains the only shadow permitted off the field.
 - [ ] **Every accent marker measures ≥2px** (R-GOLD-1, F10). No 1px accent hairline anywhere.
 - [ ] **The hero's proof-noun underlines are 2px `--color-accent` AT REST**, not only on hover (§3.5 A1, D4 resolution). The `InlineLink` `emphasis="proof"` variant exists.
 - [ ] **No element with an accent background carries a literal text colour** — it must be `var(--color-accent-foreground)` (F11). Verify the `primary` Button renders **white** text in light mode and **near-black** in dark mode; the inverse is a 3.28:1 / 2.21:1 failure (§3.4).
-- [ ] Focus ring present on every interactive element; measured ≥3:1 against the surface behind it in both modes (§7.3). Worst measured case is 5.16:1 light / 7.72:1 dark — anything below that means a token was hard-coded.
+- [ ] Focus ring present on every interactive element; measured ≥3:1 against the surface behind it in both modes (§7.3). **Worst measured case, after DEV-14, is 4.84:1 light (on `--color-overlay`) / 6.59:1 dark** — 5.29:1 / 7.54:1 on `--color-surface-raised`, which is the worst surface a control actually sits on today. Anything below those means a token was hard-coded. A ring **over the field** is measured under A8.4, not from §3.6.
 - [ ] Every standalone interactive target measures ≥24×24 CSS px (§7.3, WCAG 2.5.8).
 - [ ] With `prefers-reduced-motion: reduce`: every §6.1 row's static end state is present, and the page is visually identical to the animated page at rest (§6.1).
 - [ ] **All five theme cases in §9.3 produce the correct first paint with no flash:** system light · system dark · stored dark on a light system · stored light on a dark system · JS disabled.
@@ -2087,10 +2429,11 @@ Mechanical. Every item is pass/fail against a section of this document.
 - [ ] The `:root:not([data-theme="light"])` guard is intact in `globals.css` — without it an explicit light choice loses to a dark OS preference (§9.2).
 - [ ] The `[data-theme="dark"]` block and the `@media (prefers-color-scheme: dark)` block declare **identical** values (§9.4).
 - [ ] Blur test: heading rhythm visible as distinct bands at 1440×900 and 390×844 (§1.4, **[03 AP3]**).
+- [ ] **Blur test for [03 AP5], over the live field, in both themes** — the accent routers must still read as the brightest marks in the blurred frame with the field behind them. This verifies A8.5's argument empirically instead of assuming it. It was left as an instruction by DEV-6a and not carried out; §12.1 F.2 and F-5 leave it again, deliberately, as a **required** item rather than a suggestion.
 - [ ] `document.body.scrollHeight / window.innerHeight ≤ 6` at **both** 1440×900 **and 390×844** (§2.3, **[03 R14]**). **[03 R14]** is viewport-independent; asserting only the desktop figure hid a 6.10 at mobile (§12.1 E, D17).
 - [ ] Exactly one webfont request on first paint; `Space Grotesk` variable only; measured ≤23 KB (§1.1). **`:root`'s computed `--font-sans` is non-empty and `h1`'s computed `font-family` starts with `"Space Grotesk"`** — an empty `--font-sans` is the silent failure mode of §1.1 rule 1.
 - [ ] No `box-shadow` **rendered on any element** other than `--shadow-overlay` on the nav sheet (§2.6). `@import "tailwindcss" source(none)` with an explicit `@source` is present, so no utility is generated from prose (§10).
-- [ ] No bare numeric `z-index` anywhere; every one resolves to `--z-header` or `--z-skip` (§2.7).
+- [ ] No bare numeric `z-index` anywhere; every one resolves to `--z-field`, `--z-grid`, `--z-header` or `--z-skip` (§2.7). There is no `--z-content` and nothing needs one.
 - [ ] **No type value is retyped as a literal.** Every hand-authored `line-height` / `letter-spacing` beside a `font-size: var(--text-*)` is written as `var(--text-*--line-height, <literal>)` (§10 note 5).
 - [ ] `border-radius: inherit` is **absent** from the focus rule; a focused `.btn--primary` still computes `8px` and a focused `.skip-link` still computes `9999px` (§7.2).
 - [ ] The only `outline: none` on a focusable element is `main[tabindex="-1"]` (§7.2). Skip-link focus lands on `main` in Chromium, Firefox **and** WebKit.
