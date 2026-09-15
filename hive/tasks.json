@@ -111,7 +111,7 @@
     "id": "R6-04",
     "owner": "queen",
     "acceptance_test": "Validate success, tampered payload, stale state, resets, keyboard focus and no network transmission; run unit/browser and unchanged performance gates",
-    "status": "complete"
+    "status": "in_progress"
   },
   {
     "id": "R6-05",

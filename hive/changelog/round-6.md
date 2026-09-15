@@ -24,3 +24,6 @@ PR 7 merged as dee660fbd3e6c4f911b083078537ab13db48c026. The custom domain and a
 Production audit 34974650171 automatically published and enforced 99/100/100/100, representative run 4, LCP 1986ms, TBT 61ms, CLS 0. The full performance series was 82/99/99/99/99; all raw reports remain in its artifact. Metrics branch 146d3ed carries this exact production commit and measurement. These are representative mobile Lighthouse measurements, not a claim that every run or physical device scored identically.
 
 The initial Linux attempt 34973658216 failed one test because Node 24 and Node 25 use different error names when refusing private-key export. The corrected assertion accepts the two observed names while still requiring rejection for both PKCS8 and JWK exports. Feature code was unchanged.
+
+## Post-merge follow-up
+The separate main-branch CI34974556397 subsequently failed its local-host mobile performance gate at94/100/100/100 (series77/94/94/95/93,LCP2511ms,TBT213ms,CLS0). Its build, unit, browser and bundle checks passed. This differs from the passing required pre-merge96 and actual production99 measurements; retain all three. The production badge remains the measured production result. The round's performance follow-up is reopened; do not describe every run as green or start the next feature before examining this result.
