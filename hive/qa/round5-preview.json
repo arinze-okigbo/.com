@@ -1,17 +1,17 @@
 {
-  "checkedAt": "2026-09-15T04:40:50.722502+00:00",
-  "url": "https://com-aaryo9b06-arinze-okigbos-projects.vercel.app",
-  "commitSha": "15cd201eb11f71eb4a651eeb01fcedcc6fcd7ea0",
+  "checkedAt": "2026-09-15T05:01:13.590937+00:00",
+  "url": "https://com-19sj7asxw-arinze-okigbos-projects.vercel.app",
+  "commitSha": "63b1d1f952088d814996a4fe64e974f0d42db95a",
   "method": "Manual authenticated Chrome browser",
   "checks": [
     "Commit meta matched expected SHA",
-    "Real index loaded24 destinations",
-    "Identity query returned project and essay",
-    "Populated search dismissed with one Escape",
-    "Immediate Control+K reopened dialog"
+    "Theme toggle immediately followed by Header Lab navigation succeeded",
+    "Spring target control responded",
+    "Lazy stack selected browser-native identity with one active card",
+    "Under the hood displayed actual Navigation, Passkey lab, and Spring lab timing rows"
   ],
   "limits": [
-    "Later optimization commits require another preview check",
-    "This preview was not measured by unauthenticated Lighthouse"
+    "Unauthenticated preview Lighthouse is not available because deployment protection is enabled",
+    "Final production SHA and audit remain pending"
   ]
 }

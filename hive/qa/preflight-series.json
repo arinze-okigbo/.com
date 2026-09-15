@@ -1,0 +1,47 @@
+{
+  "method": "Lighthouse computeMedianRun; fixed five sequential runs",
+  "reference": "https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md",
+  "selectedRun": 4,
+  "runs": [
+    {
+      "run": 1,
+      "auditedAt": "2026-09-15T05:06:29.068Z",
+      "performance": 97,
+      "benchmarkIndex": 4119,
+      "tbt": 18,
+      "lcp": 2626.3568999999998
+    },
+    {
+      "run": 2,
+      "auditedAt": "2026-09-15T05:06:39.190Z",
+      "performance": 97,
+      "benchmarkIndex": 4194.5,
+      "tbt": 17,
+      "lcp": 2622.2893
+    },
+    {
+      "run": 3,
+      "auditedAt": "2026-09-15T05:06:49.335Z",
+      "performance": 97,
+      "benchmarkIndex": 4165.5,
+      "tbt": 14.999999999999773,
+      "lcp": 2621.3354999999997
+    },
+    {
+      "run": 4,
+      "auditedAt": "2026-09-15T05:06:59.458Z",
+      "performance": 97,
+      "benchmarkIndex": 4149.5,
+      "tbt": 15,
+      "lcp": 2622.471
+    },
+    {
+      "run": 5,
+      "auditedAt": "2026-09-15T05:07:09.569Z",
+      "performance": 97,
+      "benchmarkIndex": 4103.5,
+      "tbt": 18,
+      "lcp": 2626.0683
+    }
+  ]
+}

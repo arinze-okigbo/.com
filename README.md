@@ -53,3 +53,5 @@ Read `hive/RESUME.md` and `hive/HIVE.md`. The task board, source cache, acceptan
 ### Release gate
 
 `npm run test:e2e` and `npm run test:hive` use the same production-browser suite. After building, `npm run check:performance` starts the built server if needed and enforces mobile Lighthouse 95/95/100/100. Main requires the `verify` PR check; administrators also follow it. Vercel preview is reviewed before merge, and the separate production audit verifies the deployed commit and publishes dated results.
+
+Mobile performance uses five sequential cold-browser reports and Lighthouse’s representative median (FCP/TTI). All reports are retained; a failing series remains blocked. Failed CI performance also saves a diagnostic system-Chrome CPU profile; it does not replace the Lighthouse result.

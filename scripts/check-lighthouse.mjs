@@ -1,6 +1,7 @@
 /** Measure the built app before a pull request can reach production. */
 import { spawn } from "node:child_process";
-import { mkdir, open } from "node:fs/promises";
+import { mkdir, open, readFile, writeFile } from "node:fs/promises";
+import { computeMedianRun } from "lighthouse/core/lib/median-run.js";
 import { resolve } from "node:path";
 
 const target = process.env.QA_URL || "http://localhost:3100";
@@ -36,14 +37,44 @@ try {
       await new Promise((resolveWait) => setTimeout(resolveWait, 300));
     }
   }
-  await run("node_modules/lighthouse/cli/index.js", [
-    target,
-    "--quiet",
-    "--output=json",
-    "--save-assets",
-    `--output-path=${directory}/preflight-mobile.json`,
-    "--chrome-flags=--headless --no-sandbox",
-  ]);
+  // Fixed five-run series, selected by Lighthouse's FCP/TTI median algorithm.
+  // Never retry until green or select the best score. Keep every raw report.
+  const reports = [];
+  for (let index = 1; index <= 5; index++) {
+    const output = `${directory}/preflight-run-${index}-mobile.json`;
+    await run("node_modules/lighthouse/cli/index.js", [
+      target,
+      "--quiet",
+      "--output=json",
+      "--save-assets",
+      `--output-path=${output}`,
+      "--chrome-flags=--headless --no-sandbox",
+    ]);
+    const report = JSON.parse(await readFile(output, "utf8"));
+    if (report.runtimeError) throw new Error(report.runtimeError.message);
+    reports.push(report);
+    console.log(`Lighthouse ${index}/5: ${Math.round(report.categories.performance.score * 100)}`);
+  }
+  const median = computeMedianRun(reports);
+  await writeFile(`${directory}/preflight-mobile.json`, JSON.stringify(median));
+  await writeFile(`${directory}/preflight-series.json`, JSON.stringify({
+    method: "Lighthouse computeMedianRun; fixed five sequential runs",
+    reference: "https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md",
+    selectedRun: reports.indexOf(median) + 1,
+    runs: reports.map((report, index) => ({
+      run: index + 1,
+      auditedAt: report.fetchTime,
+      performance: Math.round(report.categories.performance.score * 100),
+      benchmarkIndex: report.environment.benchmarkIndex,
+      tbt: report.audits["total-blocking-time"].numericValue,
+      lcp: report.audits["largest-contentful-paint"].numericValue,
+    })),
+  }, null, 2) + "\n");
+  for (const report of reports) {
+    if (report.categories.accessibility.score < 0.95 ||
+        report.categories["best-practices"].score !== 1 || report.categories.seo.score !== 1)
+      throw new Error("A series run failed accessibility, best practices, or SEO");
+  }
   await run(
     "scripts/audit-summary.mjs",
     [

@@ -55,3 +55,5 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: PR5 firstLinux run34929619920 failedperformance70/TBT1096; gate preventedmerge. Removed eagerFramer using exact analytic springs for small controls and a separate optionalstack. Local97/100/100/100,TBT19,CLS0; all355unit/61browserchecks and motionharnesspass.
 
 - 2026-09-15: Linux74 trace exposed React streamed ViewTransition layout; set route-keyed boundary update/default none with explicit enter/exit. Replace native root-capturing theme wipe with an inert decorative overlay so immediate pointer navigation succeeds. All355unit/66browserchecks plus motionharness and local97 pass; Linux rerun required.
+
+- 2026-09-15: Three held Linux candidates scored70/74/70 while local97 repeats. Adopt Lighthouse’s documented fixed five-run representative median, retain all raw reports and unchanged thresholds, and collect an unthrottled system-Chrome CPU profile only after failure. No retry-until-green or best-score selection.
