@@ -6,7 +6,7 @@ Rebuild arinzeokigbo.com as a visually ambitious, technically credible personal 
 
 ## Current session
 
-Round8 — editorial polish. The owner requests better typography and icons, the supplied Splita logo, and removal of all public references to the site being built by a swarm. This supersedes the original public build-process showcase. Internal coordination/evidence stays in the repository. Three specialists own typography/motion text, SVG icons/brand, and public content cleanup. Queen owns independent QA and gated release. Branch hive/round-8-editorial-polish.
+Round8 — editorial polish. The owner requests better typography and icons, the supplied Splita logo, and removal of all public references to the site being built by a swarm. This supersedes the original public build-process showcase. Internal coordination/evidence stays in the repository. Three specialists own typography/motion text, SVG icons/brand, and public content cleanup. Queen owns independent QA and gated release. Branch hive/round-8-editorial-polish. Completed and live as 6b54d779 through PR #9; see RESUME.md for the exact verification checkpoint.
 
 ## Decisions
 
@@ -89,3 +89,5 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: Production4fd1c6c verified, all87 browserchecks passed after one local-network infrastructure retry, and audit34981175312 published/enforced99/100/100/100 (95/97/99/99/99,LCP1666ms,TBT111ms,CLS0). Final mainCI34981068899 subsequently measured93 (91/94/97/92/93). Keep R7-04 open and preserve all evidence; production passed, while Linux startup consistency remains unresolved. Portrait is already SSR-preloaded, so no duplicate preload or speculative image change.
 
 - 2026-09-15: Owner explicitly requests agents to polish typography/icons, use the provided Splita logo, and remove visitor-facing swarm/site-build messaging. Remove public build records/replays/credits and the unused profiling showcase; preserve old URLs and factual projects. Internal coordination is not visitor content.
+
+- 2026-09-15: Round 8 released as 6b54d779 (PR #9). Required Linux and postmerge main CI pass at representative performance 96; independent production audit 35034711769 passes 100/100/100/100. All 93 production browser checks pass, 3 device-specific skips. Retain fixed-five series including slow first runs (main 79, production 68). Current acceptance passes and closes carried R6/R7 QA, without claiming historical variability eliminated. Public construction content remains removed under the owner override.

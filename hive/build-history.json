@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T23:05:52.648Z",
+  "capturedAt": "2026-09-15T23:19:10.489Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "85c36b1aff45a72b569095acf6f1031a423a4025",
+  "headCommit": "6b54d77964f50c9f16d23d09daa3f14f4e415161",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -179,9 +179,7 @@
       "commitSHA": "8654a806fa5f29fb71f93d5697096f18583b60fd",
       "timestamp": "2026-09-15T00:04:12-04:00",
       "subject": "test(site): verify generated metadata and light-mode accessibility",
-      "changedFiles": [
-        "tests/hive/metadata.spec.ts"
-      ]
+      "changedFiles": ["tests/hive/metadata.spec.ts"]
     },
     {
       "commitSHA": "a118398513ced42889540e45ba0b7a7118aac72b",
@@ -540,10 +538,7 @@
       "commitSHA": "24b6dda373df1efbf0532e40721c8404ccd36c32",
       "timestamp": "2026-09-15T00:40:05-04:00",
       "subject": "fix(quality): read Next 16 bundle manifests and refresh browser evidence",
-      "changedFiles": [
-        "hive/acceptance.md",
-        "scripts/check-bundle-budget.mjs"
-      ]
+      "changedFiles": ["hive/acceptance.md", "scripts/check-bundle-budget.mjs"]
     },
     {
       "commitSHA": "83d3ed4fd49d65ef80509d91d43afa9b6216ddcc",
@@ -577,10 +572,7 @@
       "commitSHA": "e6acf91c9492459317c17235bd35bc1a10c57d90",
       "timestamp": "2026-09-15T00:46:24-04:00",
       "subject": "ci(performance): retain traces for slow-device diagnostics",
-      "changedFiles": [
-        ".gitignore",
-        "scripts/check-lighthouse.mjs"
-      ]
+      "changedFiles": [".gitignore", "scripts/check-lighthouse.mjs"]
     },
     {
       "commitSHA": "f242f9268e26d9ce1b8a568f2604945d7036fda7",
@@ -829,9 +821,7 @@
       "commitSHA": "5bbe6445b8e6f0c8c7f60053a1d09f12f571710d",
       "timestamp": "2026-09-15T01:49:39-04:00",
       "subject": "docs(hive): refresh recorded build history",
-      "changedFiles": [
-        "hive/build-history.json"
-      ]
+      "changedFiles": ["hive/build-history.json"]
     },
     {
       "commitSHA": "a4cb9962d202dedbc38edb3a2cf9368381186ec8",
@@ -1092,6 +1082,71 @@
         "hive/changelog/round-8.md",
         "hive/qa/editorial-polish-series.json",
         "hive/qa/editorial-polish-summary.json",
+        "hive/research/splita-logo.json",
+        "hive/tasks.json",
+        "next.config.ts",
+        "public/brand/splita-supplied.jpg",
+        "src/app/about/page.tsx",
+        "src/app/api/og/route.tsx",
+        "src/app/contact/page.tsx",
+        "src/app/globals.css",
+        "src/app/lab/changelog/page.tsx",
+        "src/app/lab/page.tsx",
+        "src/app/layout.tsx",
+        "src/app/not-found.tsx",
+        "src/app/now/page.tsx",
+        "src/app/opengraph-image.tsx",
+        "src/app/page.tsx",
+        "src/app/projects/[slug]/page.tsx",
+        "src/app/sitemap.test.ts",
+        "src/app/sitemap.ts",
+        "src/app/writing/[slug]/page.tsx",
+        "src/app/writing/page.tsx",
+        "src/components/hive/Experiments.tsx",
+        "src/components/hive/Footer.tsx",
+        "src/components/hive/Header.tsx",
+        "src/components/hive/Icon.tsx",
+        "src/components/hive/Interactions.tsx",
+        "src/components/hive/Motion.tsx",
+        "src/components/hive/Primitives.tsx",
+        "src/components/hive/ProjectStack.tsx",
+        "src/components/hive/QuickNavigationDialog.tsx",
+        "src/components/hive/SplitaLogo.tsx",
+        "src/components/hive/WritingFeed.tsx",
+        "src/components/hive/brand.css",
+        "src/components/hive/motion/interactions.css",
+        "src/components/hive/navigation-index.ts",
+        "src/components/hive/portrait-design.css",
+        "src/content/editorial.ts",
+        "tests/hive/editorial-polish.spec.ts",
+        "tests/hive/metadata.spec.ts",
+        "tests/hive/navigation.spec.ts"
+      ]
+    },
+    {
+      "commitSHA": "7498d7b8805d7b4a7f4ff943c6da0ec128992b56",
+      "timestamp": "2026-09-15T19:05:52-04:00",
+      "subject": "docs(hive): capture the editorial polish implementation",
+      "changedFiles": ["hive/build-history.json"]
+    },
+    {
+      "commitSHA": "6b54d77964f50c9f16d23d09daa3f14f4e415161",
+      "timestamp": "2026-09-15T19:12:44-04:00",
+      "subject": "Merge pull request #9 from arinze-okigbo/hive/round-8-editorial-polish",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/build-history.json",
+        "hive/changelog/round-7.md",
+        "hive/changelog/round-8.md",
+        "hive/qa/editorial-polish-series.json",
+        "hive/qa/editorial-polish-summary.json",
+        "hive/qa/portrait-linux-series.json",
+        "hive/qa/portrait-linux-summary.json",
+        "hive/qa/portrait-postmerge-linux-series.json",
+        "hive/qa/portrait-postmerge-linux-summary.json",
+        "hive/qa/portrait-production-series.json",
+        "hive/qa/portrait-production-summary.json",
         "hive/research/splita-logo.json",
         "hive/tasks.json",
         "next.config.ts",

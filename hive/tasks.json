@@ -111,7 +111,8 @@
     "id": "R6-04",
     "owner": "queen",
     "acceptance_test": "Validate success, tampered payload, stale state, resets, keyboard focus and no network transmission; run unit/browser and unchanged performance gates",
-    "status": "in_progress"
+    "status": "complete",
+    "completion_evidence": "Round 8 verified production 6b54d779; required CI 35034155418, postmerge CI 35034629171 and production audit 35034711769 passed. Historical failures and current slow first runs retained; no claim that variance is eliminated."
   },
   {
     "id": "R6-05",
@@ -140,8 +141,9 @@
   {
     "id": "R7-04",
     "owner": "queen",
-    "status": "in_progress",
-    "acceptance_test": "Visually validate desktop/mobile dark/light portrait and effects; pass browser/accessibility/bundle/fixed-five performance gates and retain earlier failure"
+    "status": "complete",
+    "acceptance_test": "Visually validate desktop/mobile dark/light portrait and effects; pass browser/accessibility/bundle/fixed-five performance gates and retain earlier failure",
+    "completion_evidence": "Round 8 verified production 6b54d779; required CI 35034155418, postmerge CI 35034629171 and production audit 35034711769 passed. Historical failures and current slow first runs retained; no claim that variance is eliminated."
   },
   {
     "id": "R7-05",
@@ -176,7 +178,8 @@
   {
     "id": "R8-05",
     "owner": "queen",
-    "status": "in_progress",
-    "acceptance_test": "Exact preview and production verification plus truthful clean checkpoint."
+    "status": "complete",
+    "acceptance_test": "Exact preview and production verification plus truthful clean checkpoint.",
+    "completion_evidence": "Round 8 verified production 6b54d779; required CI 35034155418, postmerge CI 35034629171 and production audit 35034711769 passed. Historical failures and current slow first runs retained; no claim that variance is eliminated."
   }
 ]

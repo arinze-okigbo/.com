@@ -11,3 +11,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 # ASTRA HIVE workflow
 
 Read `hive/RESUME.md` and `hive/HIVE.md` first. Preserve the owner's source, privacy, accessibility, and deployment gates in `hive/BRIEF.md`. Assign scoped ownership before parallel work; avoid overlapping edits. Keep exact progress in the task board and resume file. Never present an unmeasured score or unverified deployment as complete.
+
+## Current public content direction
+
+The owner's September15 editorial request supersedes the original public build showcase in hive/BRIEF.md. Keep visitor-facing pages focused on the person, projects and experiments. Do not restore swarm credits, site-construction stories, internal task/build replays, the public internal changelog or the profiling showcase. Internal coordination and QA evidence remain under hive/ and must not be rendered as public site content. Preserve the supplied Splita logo and real portrait.

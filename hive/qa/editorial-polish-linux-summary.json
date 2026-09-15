@@ -1,0 +1,29 @@
+{
+  "url": "http://localhost:3100/",
+  "auditedAt": "2026-09-15T23:10:36.436Z",
+  "commitSha": "b502695a653206b8025d48687ecd0d1bc38eac16",
+  "environment": {
+    "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "benchmarkIndex": 2359.5,
+    "throttlingMethod": "simulate",
+    "cpuSlowdownMultiplier": 4,
+    "screen": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    }
+  },
+  "scores": {
+    "performance": 96,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "lcp": 2640.0883,
+    "cls": 0,
+    "tbt": 110.72792499999991
+  }
+}
