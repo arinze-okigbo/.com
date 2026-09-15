@@ -8,9 +8,9 @@ The experiment loads on request. Its private key is non-extractable through Web 
 Verification tests a message against a public key. It does not encrypt a message, certify an account, or identify a named person.
 
 ## Validation before release
-Build, lint, types,371 unit tests and78 browser checks passed, with2 device-specific skips. Browser checks include genuine sign/verify/tamper behavior, reset races, Unicode byte limits, empty messages, unavailable crypto, unchanged storage, no outbound challenge payload, keyboard focus, both themes and reduced motion. Manual Chrome review covered desktop dark and390px light layouts. Physical iPhone frame rate remains unverified.
+Build, lint, types, 371 unit tests and 78 browser checks passed, with 2 device-specific skips. Browser checks include genuine sign/verify/tamper behavior, reset races, Unicode byte limits, empty messages, unavailable crypto, unchanged storage, no outbound challenge payload, keyboard focus, both themes and reduced motion. Manual Chrome review covered desktop dark and 390px light layouts. Physical iPhone frame rate remains unverified.
 
-The fixed-five local mobile Lighthouse series scored98/97/97/98/98. Lighthouse's representative run scored98 performance,100 accessibility,100 best practices and100 SEO; LCP2500ms, TBT11.5ms, CLS0. Homepage initial JavaScript remains154.3KiB; all budgeted routes stay below180KiB.
+The fixed-five local mobile Lighthouse series scored 98/97/97/98/98. Lighthouse's representative run scored 98 performance, 100 accessibility, 100 best practices and 100 SEO; LCP 2500ms, TBT 11.5ms, CLS 0. The lab route also passed a separate fixed-five series at 96/100/100/100 on every run (representative LCP 2774ms,TBT 19ms,CLS 0). Homepage initial JavaScript remains 154.3KiB; all budgeted routes stay below 180KiB.
 
 Required Linux checks, exact-preview validation and production audit remain release gates. The live footer links the dated deployed measurement. No production score for this change is claimed here before it is measured.
 

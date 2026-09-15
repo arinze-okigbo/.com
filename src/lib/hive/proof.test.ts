@@ -21,12 +21,12 @@ describe("ephemeral browser signature proof with real Web Crypto", () => {
     expect(publicKey.type).toBe("public");
     expect(publicKey.extractable).toBe(true);
     expect(publicKey.usages).toEqual(["verify"]);
-    await expect(crypto.subtle.exportKey("pkcs8", privateKey)).rejects.toMatchObject({
-      name: "InvalidAccessException",
-    });
-    await expect(crypto.subtle.exportKey("jwk", privateKey)).rejects.toMatchObject({
-      name: "InvalidAccessException",
-    });
+    // Node 24 and 25 use different names for the same non-extractable-key rejection.
+    for (const format of ["pkcs8", "jwk"] as const) {
+      await expect(crypto.subtle.exportKey(format, privateKey)).rejects.toMatchObject({
+        name: expect.stringMatching(/^(InvalidAccessError|InvalidAccessException)$/),
+      });
+    }
   });
 
   it("signs and verifies, then rejects changed text, changed signature, and a different key", async () => {
