@@ -6,7 +6,7 @@ Rebuild arinzeokigbo.com as a visually ambitious, technically credible personal 
 
 ## Current session
 
-Round 6 signature lab is live at dee660f; a later post-merge Linux performance follow-up is open. The real ephemeral signature lab passed required Linux CI, manual preview review,78 production browser checks and production mobile Lighthouse99/100/100/100. Final evidence is in the round-six QA summaries and changelog. Resolve the recorded post-merge performance follow-up before the next feature.
+Round 7 — Portrait, composition and motion. The user explicitly prioritizes visual representation, a headshot, layout and more animation over the planned audio experiment. Implement that direction now; retain the open R6 performance evidence and unchanged release gates. Five scoped tasks cover portrait provenance, responsive design, motion, QA and deployment. Branch hive/round-7-portrait-design.
 
 ## Decisions
 
@@ -77,3 +77,7 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: PR7 passed required Linux96/100/100/100 and merged as dee660f. Domain SHA and78 browser checks pass; production audit34974650171 published/enforced99/100/100/100 (series82/99/99/99/99,LCP1986ms,TBT61ms,CLS0). Preserve every measurement; checkpoint before beginning another feature.
 
 - 2026-09-15: Late main CI34974556397 measured94/100/100/100 (series77/94/94/95/93) after pre-merge96 and production99 passed. Reopen R6-04 and retain every report. No direct homepage feature changes or bundle growth were identified; avoid an unsupported causal claim, rollback or retry-until-green. Investigate the captured startup profile before the next feature.
+
+- 2026-09-15: User requests resuming the hive around layout, design, personal representation/headshot and more effects. This supersedes the earlier no-portrait preference and planned audio round. Pair a real portrait with editorial composition and bounded motion; performance remains a ship gate.
+
+- 2026-09-15: Round7 restores the authentic portrait from Git history, promotes editorial home/About layouts, and adds native spring portrait depth, hover light and decorative frame entrances. Local fixed-five97/100/100/100 versus controlled baseline98, with CLS0 and all bundle gates passing. Keep the measured one-point tradeoff explicit; do not attribute old Linux variance to the portrait or claim it resolved.

@@ -1,21 +1,23 @@
 # Exact resume point
 
-Round 6 signature lab is live, with a post-merge performance follow-up still open at https://arinzeokigbo.com/lab#proof. Production commit: dee660fbd3e6c4f911b083078537ab13db48c026, merged through PR 7. R6-04 has been reopened after the later main-branch CI result. This post-release checkpoint adds evidence; the live changelog contains the implementation and pre-release checks, and will receive this final audit appendix with the next gated release.
+Round 7 — portrait, composition and motion. Local implementation and QA complete; release pending on hive/round-7-portrait-design. Production remains dee660fbd3e6c4f911b083078537ab13db48c026.
 
-## Verified release
-- Required Linux CI 34974009657 passed: build, lint, types, 371 unit tests, 78 browser checks (2 device-specific skips), bundle budget, representative mobile Lighthouse 96/100/100/100. Series 80/96/96/99/95 retained; one earlier test-only Node error-name failure was corrected.
-- Exact Vercel preview 978ef20 and production dee660f verified. All 78 browser checks passed against production; real signatures, tampering, reset races, limits, unavailable crypto, privacy, focus, reduced motion and themes are covered.
-- Production audit 34974650171 automatically published and enforced 99/100/100/100. Series 82/99/99/99/99, representative run 4, LCP 1986ms,TBT 61ms,CLS 0. Metrics branch 146d3ed records the exact production SHA. The footer refreshes its dated report on a five-minute cache.
-- Local fixed-five home 98/100/100/100; lab 96/100/100/100. Homepage initial JS 154.3KiB remains unchanged; all budgeted routes below 180KiB. Manual Chrome desktop dark and 390px light/dark layouts passed. Physical iPhone frame rate remains unverified; verified project screenshots remain limited to two projects.
+## Implemented and verified
 
-## Next action — performance follow-up first
-Read hive/qa/round-six-postmerge-linux-summary.json and series. Main CI34974556397 subsequently failed local-host mobile Lighthouse94/100/100/100 (series77/94/94/95/93,LCP2511ms,TBT213ms,CLS0); build/unit/browser/bundle checks passed. Required pre-mergeCI96 and actual production audit99 passed. Preserve all evidence; do not retry completed measurements until green or erase the failure.
+- Real owner portrait recovered from site Git history; 1280×1280 WebP, 197684 bytes, provenance in hive/research/portrait.json.
+- Home and About recomposed around the portrait; larger editorial selected work; orbital scene moved to laboratory teaser.
+- Spring pointer depth, bounded scroll offset, hover light and decorative frame entrance; static accessible photo, reduced-motion/no-JavaScript and visibility safeguards.
+- Build/lint/types/371 unit tests pass; full browser suite87 passed/3 skips; final focused portrait suite7 passed/1 mobile pointer skip. Desktop and390px light/dark manually reviewed.
+- Fixed-five local final97/100/100/100 (98/97/97/97/97), LCP2626ms,TBT21ms,CLS0. Same-host baseline98; first portrait candidate97. All three compact reports retained. Homepage160.5KiB initial JS versus154.3 before; unchanged180KiB gate passes.
 
-The downloaded main-run CPU profile is ../main-round6-34974556397/hive/qa/startup/startup.cpuprofile with summary.txt. Specialist review found no proof JavaScript requested in the failed homepage audit. The separate unthrottled profile shows webpack module startup as its largest named self sample (~26ms), with1309ms idle and169ms unattributed program time; it cannot establish the cause of213ms simulated blocking time. No speculative feature edit or rerun was made. Round6 changed only the lab route/component and docs, leaving homepage initial JS at154.3KiB. Diagnose with a controlled comparison before selecting a change. Keep thresholds and strict CSP intact. R6-04 remains open; do not begin an audio feature yet.
+## Exact next action
 
-Once the performance follow-up is resolved and all relevant gates pass, create a fresh branch from origin/main and carry this post-release checkpoint forward. Next candidate theme is a demand-loaded local audio-reactive visualization with explicit playback, no uploads, no microphone capture, no persisted audio or invented music credits. No R7 feature code has started.
+Push the clean candidate branch and create one PR if none exists. Wait required Linux verify, inspect its complete fixed-five results, visually verify the exact Vercel preview commit, then merge with matching head only after all gates pass. Verify production domain SHA, full production browser suite, independent production audit and final main CI. Record actual results and failures; update tasks/changelog/this checkpoint.
+
+## Retained prior evidence
+
+Round6 pre-merge CI34974009657 passed96 and production audit34974650171 published99/100/100/100. Later main CI34974556397 failed94 (77/94/94/95/93,TBT213ms). Its reports remain in hive/qa/round-six-postmerge-linux-\*.json. The unthrottled profile did not establish the cause; R6-04 stays open. Do not retry completed measurements until green or claim a cause was fixed. The user explicitly prioritizes the portrait/design round over the prior investigation and planned audio experiment; all release gates remain unchanged.
 
 Worktree: /Users/arinzeokigbo/Documents/Codex/2026-09-14/github-plugin-github-openai-curated-remote/work/astra-site
-Current branch: hive/round-6-proof-lab (post-release checkpoint follows merged main).
-Original branch preserved in /Users/arinzeokigbo/arinzeokigbo.
-Daily09:00 America/New_York heartbeat: astra-hive-site-improvement (active; continue from this file).
+Original checkout preserved: /Users/arinzeokigbo/arinzeokigbo.
+Daily09:00 America/New_York heartbeat: astra-hive-site-improvement. Continue from this file.

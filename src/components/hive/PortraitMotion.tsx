@@ -16,17 +16,15 @@ export function PortraitMotion({
   variant?: "hero" | "about";
 }) {
   const frame = useRef<HTMLDivElement>(null);
-  const reveal = useRef<HTMLDivElement>(null);
   const entered = useRef(false);
   const reduced = useReducedMotion();
   useEffect(() => {
     const node = frame.current;
-    const imageLayer = reveal.current;
-    if (!node || !imageLayer || reduced) return;
+    if (!node || reduced) return;
     let visible = false;
     let scrollFrame = 0;
     let bounds: DOMRect | null = null;
-    let entrance: Animation | undefined;
+    const entrances: Animation[] = [];
     const pointer = createPointerSpring((x, y) => {
       node.style.setProperty("--portrait-x", x.toFixed(4));
       node.style.setProperty("--portrait-y", y.toFixed(4));
@@ -39,21 +37,25 @@ export function PortraitMotion({
       node.removeAttribute("data-portrait-active");
     };
     const enter = () => {
-      const image = imageLayer.querySelector("img");
-      if (
-        entered.current ||
-        !visible ||
-        document.hidden ||
-        !image?.complete ||
-        !image.naturalWidth ||
-        typeof imageLayer.animate !== "function"
-      )
+      if (entered.current || !visible || document.hidden || typeof node.animate !== "function")
         return;
       entered.current = true;
-      entrance = imageLayer.animate(
-        springKeyframes(1.055, 1, (scale) => ({ transform: `scale(${scale})` })),
-        { duration: 950, easing: "linear" },
-      );
+      // Only ornaments enter: changing the photo's painted size can postpone LCP.
+      node
+        .querySelectorAll<HTMLElement>(".portrait-motion-rule, .portrait-motion-corner")
+        .forEach((ornament) => {
+          const isRule = ornament.classList.contains("portrait-motion-rule");
+          entrances.push(
+            ornament.animate(
+              springKeyframes(0, 1, (progress) => ({
+                transform: isRule
+                  ? `scaleX(${0.3 + progress * 0.7})`
+                  : `translate3d(${(1 - progress) * -8}px, ${(1 - progress) * 8}px, 0)`,
+              })),
+              { duration: 850, easing: "linear" },
+            ),
+          );
+        });
     };
     const updateScroll = () => {
       scrollFrame = 0;
@@ -87,7 +89,7 @@ export function PortraitMotion({
     const suspend = () => {
       cancelAnimationFrame(scrollFrame);
       scrollFrame = 0;
-      entrance?.cancel();
+      entrances.forEach((animation) => animation.cancel());
       rest();
     };
     const onVisibility = () => {
@@ -100,7 +102,6 @@ export function PortraitMotion({
       else suspend();
     });
     observer.observe(node);
-    node.addEventListener("load", enter, true);
     node.addEventListener("pointermove", onMove);
     node.addEventListener("pointerleave", onLeave);
     node.addEventListener("pointercancel", onLeave);
@@ -110,7 +111,6 @@ export function PortraitMotion({
     return () => {
       observer.disconnect();
       suspend();
-      node.removeEventListener("load", enter, true);
       node.removeEventListener("pointermove", onMove);
       node.removeEventListener("pointerleave", onLeave);
       node.removeEventListener("pointercancel", onLeave);
@@ -128,7 +128,7 @@ export function PortraitMotion({
       data-portrait-variant={variant}
     >
       <div className="portrait-motion-depth">
-        <div ref={reveal} className="portrait-motion-reveal">
+        <div className="portrait-motion-reveal">
           <div className="portrait-motion-media" data-portrait-image>
             {children}
           </div>

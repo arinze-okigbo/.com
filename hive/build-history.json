@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T13:26:28.196Z",
+  "capturedAt": "2026-09-15T14:01:08.871Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "dee660fbd3e6c4f911b083078537ab13db48c026",
+  "headCommit": "3b098755ac3752507496dea548a2408e1426a450",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -937,6 +937,53 @@
         "src/lib/hive/proof.test.ts",
         "src/lib/hive/proof.ts",
         "tests/hive/proof-lab.spec.ts"
+      ]
+    },
+    {
+      "commitSHA": "5d0b4dcf86b0522cb6c852bfc8fb88b99ea3cc71",
+      "timestamp": "2026-09-15T09:26:52-04:00",
+      "subject": "docs(hive): checkpoint verified round-six production release",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/build-history.json",
+        "hive/changelog/round-6.md",
+        "hive/qa/round-six-linux-series.json",
+        "hive/qa/round-six-linux-summary.json",
+        "hive/qa/round-six-production-series.json",
+        "hive/qa/round-six-production-summary.json",
+        "hive/tasks.json"
+      ]
+    },
+    {
+      "commitSHA": "2046f33230a7629e28484c40aca7385982de1cf3",
+      "timestamp": "2026-09-15T09:31:31-04:00",
+      "subject": "docs(quality): preserve post-merge performance failure and diagnostic checkpoint",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/changelog/round-6.md",
+        "hive/qa/round-six-postmerge-linux-series.json",
+        "hive/qa/round-six-postmerge-linux-summary.json",
+        "hive/tasks.json"
+      ]
+    },
+    {
+      "commitSHA": "3b098755ac3752507496dea548a2408e1426a450",
+      "timestamp": "2026-09-15T09:55:17-04:00",
+      "subject": "feat(design): bring portrait and editorial motion into the portfolio",
+      "changedFiles": [
+        "hive/research/portrait.json",
+        "public/portrait.webp",
+        "src/app/about/page.tsx",
+        "src/app/page.tsx",
+        "src/components/hive/Portrait.tsx",
+        "src/components/hive/PortraitMotion.tsx",
+        "src/components/hive/portrait-design.css",
+        "src/components/hive/portrait-motion.css",
+        "src/content/metadata.ts",
+        "tests/hive/metadata.spec.ts",
+        "tests/hive/portrait-design.spec.ts"
       ]
     }
   ]

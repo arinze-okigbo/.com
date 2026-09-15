@@ -1,0 +1,29 @@
+{
+  "url": "http://localhost:3100/",
+  "auditedAt": "2026-09-15T13:55:53.340Z",
+  "commitSha": "local",
+  "environment": {
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "benchmarkIndex": 3865,
+    "throttlingMethod": "simulate",
+    "cpuSlowdownMultiplier": 4,
+    "screen": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    }
+  },
+  "scores": {
+    "performance": 97,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "lcp": 2633.2832,
+    "cls": 0,
+    "tbt": 27
+  }
+}

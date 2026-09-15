@@ -118,5 +118,35 @@
     "owner": "queen",
     "acceptance_test": "Verify preview and production SHA, publish measured audits and a truthful round-six changelog, then checkpoint",
     "status": "complete"
+  },
+  {
+    "id": "R7-01",
+    "owner": "research_content",
+    "status": "complete",
+    "acceptance_test": "Recover a verified high-resolution owner portrait from repo history/public sources; record provenance and image dimensions without inventing biography"
+  },
+  {
+    "id": "R7-02",
+    "owner": "frontend_design",
+    "status": "complete",
+    "acceptance_test": "Recompose home and about around the real portrait with strong responsive hierarchy and richer selected work; keep all source-backed content and URLs"
+  },
+  {
+    "id": "R7-03",
+    "owner": "motion_lab",
+    "status": "complete",
+    "acceptance_test": "Add coordinated portrait/scroll/hover motion with reduced-motion and visibility guards, no eager heavy animation dependency"
+  },
+  {
+    "id": "R7-04",
+    "owner": "queen",
+    "status": "complete",
+    "acceptance_test": "Visually validate desktop/mobile dark/light portrait and effects; pass browser/accessibility/bundle/fixed-five performance gates and retain earlier failure"
+  },
+  {
+    "id": "R7-05",
+    "owner": "queen",
+    "status": "in_progress",
+    "acceptance_test": "Verify exact preview and production commits, publish truthful measured evidence and a clean resume checkpoint"
   }
 ]
