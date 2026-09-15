@@ -1,0 +1,101 @@
+{
+  "sha": "32754de039625eae9251fd44e0fb08d02269c4d6",
+  "node_id": "C_kwDORqfO_NoAKDMyNzU0ZGUwMzk2MjVlYWU5MjUxZmQ0NGUwZmIwOGQwMjI2OWM0ZDY",
+  "commit": {
+    "author": {
+      "name": "Arinze Okigbo",
+      "email": "okigboarinze1@gmail.com",
+      "date": "2026-09-11T14:44:42Z"
+    },
+    "committer": {
+      "name": "Arinze Okigbo",
+      "email": "okigboarinze1@gmail.com",
+      "date": "2026-09-11T14:44:42Z"
+    },
+    "message": "fix: correct tracked filename case for Button.tsx\n\nGit tracked src/components/ui/button.tsx from the original scaffold while\ndisk held Button.tsx. macOS sets core.ignorecase=true, so every local\ngate — typecheck, lint, tests, build — resolved the import against the\nlowercase file and passed. Vercel builds on Linux, where the checkout\ngenuinely produces button.tsx and `@/components/ui/Button` cannot\nresolve, failing three modules.\n\nA repo-wide scan found this was the only case mismatch.\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01TVCj9rGjhKeXpXZ9MkVRFX",
+    "tree": {
+      "sha": "0b59115836a271ddc16780ed50425da6f865af72",
+      "url": "https://api.github.com/repos/arinze-okigbo/.com/git/trees/0b59115836a271ddc16780ed50425da6f865af72"
+    },
+    "url": "https://api.github.com/repos/arinze-okigbo/.com/git/commits/32754de039625eae9251fd44e0fb08d02269c4d6",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/arinze-okigbo/.com/commits/32754de039625eae9251fd44e0fb08d02269c4d6",
+  "html_url": "https://github.com/arinze-okigbo/.com/commit/32754de039625eae9251fd44e0fb08d02269c4d6",
+  "comments_url": "https://api.github.com/repos/arinze-okigbo/.com/commits/32754de039625eae9251fd44e0fb08d02269c4d6/comments",
+  "author": {
+    "login": "arinze-okigbo",
+    "id": 108366892,
+    "node_id": "U_kgDOBnWMLA",
+    "avatar_url": "https://avatars.githubusercontent.com/u/108366892?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/arinze-okigbo",
+    "html_url": "https://github.com/arinze-okigbo",
+    "followers_url": "https://api.github.com/users/arinze-okigbo/followers",
+    "following_url": "https://api.github.com/users/arinze-okigbo/following{/other_user}",
+    "gists_url": "https://api.github.com/users/arinze-okigbo/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/arinze-okigbo/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/arinze-okigbo/subscriptions",
+    "organizations_url": "https://api.github.com/users/arinze-okigbo/orgs",
+    "repos_url": "https://api.github.com/users/arinze-okigbo/repos",
+    "events_url": "https://api.github.com/users/arinze-okigbo/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/arinze-okigbo/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "arinze-okigbo",
+    "id": 108366892,
+    "node_id": "U_kgDOBnWMLA",
+    "avatar_url": "https://avatars.githubusercontent.com/u/108366892?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/arinze-okigbo",
+    "html_url": "https://github.com/arinze-okigbo",
+    "followers_url": "https://api.github.com/users/arinze-okigbo/followers",
+    "following_url": "https://api.github.com/users/arinze-okigbo/following{/other_user}",
+    "gists_url": "https://api.github.com/users/arinze-okigbo/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/arinze-okigbo/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/arinze-okigbo/subscriptions",
+    "organizations_url": "https://api.github.com/users/arinze-okigbo/orgs",
+    "repos_url": "https://api.github.com/users/arinze-okigbo/repos",
+    "events_url": "https://api.github.com/users/arinze-okigbo/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/arinze-okigbo/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "9669878a0ed951696aed61dd3af984e0b3a5e36b",
+      "url": "https://api.github.com/repos/arinze-okigbo/.com/commits/9669878a0ed951696aed61dd3af984e0b3a5e36b",
+      "html_url": "https://github.com/arinze-okigbo/.com/commit/9669878a0ed951696aed61dd3af984e0b3a5e36b"
+    }
+  ],
+  "stats": {
+    "total": 0,
+    "additions": 0,
+    "deletions": 0
+  },
+  "files": [
+    {
+      "sha": "4bb80bc2922bde2e50655193e0f39aa3e5f74f37",
+      "filename": "src/components/ui/Button.tsx",
+      "status": "renamed",
+      "additions": 0,
+      "deletions": 0,
+      "changes": 0,
+      "blob_url": "https://github.com/arinze-okigbo/.com/blob/32754de039625eae9251fd44e0fb08d02269c4d6/src%2Fcomponents%2Fui%2FButton.tsx",
+      "raw_url": "https://github.com/arinze-okigbo/.com/raw/32754de039625eae9251fd44e0fb08d02269c4d6/src%2Fcomponents%2Fui%2FButton.tsx",
+      "contents_url": "https://api.github.com/repos/arinze-okigbo/.com/contents/src%2Fcomponents%2Fui%2FButton.tsx?ref=32754de039625eae9251fd44e0fb08d02269c4d6",
+      "previous_filename": "src/components/ui/button.tsx"
+    }
+  ]
+}

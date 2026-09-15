@@ -1,0 +1,9 @@
+import { z } from 'zod';
+const webUrl = z.string().url().refine(value => ['https:', 'http:'].includes(new URL(value).protocol));
+const meta = { fetchedAt: z.string().datetime(), source: webUrl, status: z.enum(['fresh', 'cached', 'unavailable']) };
+export const articleSchema = z.object({ slug:z.string().regex(/^[a-z0-9-]+$/),title:z.string().min(1),subtitle:z.string(),url:webUrl,date:z.string().datetime(),cover:webUrl.nullable(),bodyHtml:z.string(),blocks:z.array(z.object({type:z.enum(['heading','paragraph','list-item','quote','code']),text:z.string(),id:z.string(),level:z.number()})),readingMinutes:z.number().int().positive(),tags:z.array(z.string()) });
+export const substackSchema = z.object({...meta,items:z.array(articleSchema)});
+export const linkedinSchema = z.object({...meta,items:z.array(z.object({title:z.string(),url:webUrl.refine(u=>new URL(u).hostname==='www.linkedin.com'),date:z.string().datetime().nullable(),dateLabel:z.string(),summary:z.string(),topics:z.array(z.string()),embedUrl:webUrl.nullable().refine(u=>!u||/^https:\/\/www\.linkedin\.com\/embed\/feed\/update\/urn:li:(activity|share|ugcPost):\d+$/.test(u))}))});
+export const githubSchema = z.object({...meta,repos:z.array(z.object({name:z.string(),url:webUrl,description:z.string().nullable(),language:z.string().nullable(),languages:z.array(z.string()),updatedAt:z.string().datetime(),stars:z.number().nonnegative()})),pinned:z.array(z.string()),contributions:z.array(z.object({date:z.string().regex(/^\d{4}-\d{2}-\d{2}$/),level:z.number().int().min(0).max(4),count:z.number().int().nonnegative().nullable()})),latestCommit:z.object({message:z.string(),url:webUrl,date:z.string().datetime(),repo:z.string()}).nullable()});
+export type Article = z.infer<typeof articleSchema>;
+export type GithubFeed = z.infer<typeof githubSchema>;

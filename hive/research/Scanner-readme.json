@@ -1,0 +1,18 @@
+{
+  "name": "README.md",
+  "path": "README.md",
+  "sha": "ce14ef59d9494101c0f2fd5f579f3fc38de028d2",
+  "size": 932,
+  "url": "https://api.github.com/repos/arinze-okigbo/Scanner/contents/README.md?ref=main",
+  "html_url": "https://github.com/arinze-okigbo/Scanner/blob/main/README.md",
+  "git_url": "https://api.github.com/repos/arinze-okigbo/Scanner/git/blobs/ce14ef59d9494101c0f2fd5f579f3fc38de028d2",
+  "download_url": "https://raw.githubusercontent.com/arinze-okigbo/Scanner/main/README.md",
+  "type": "file",
+  "content": "IyBTY2FubmVyCgpTY2FubmVyIGlzIGEgbGlnaHR3ZWlnaHQgcHJvamVjdCBm\nb3Igc2Nhbm5pbmcgYW5kIGFuYWx5emluZyBmaWxlcyBvciBpbnB1dHMgaW4g\nYSBzdHJ1Y3R1cmVkIHdheS4gSXQgd2FzIGJ1aWx0IGFzIGEgdGVjaG5pY2Fs\nIHByb2plY3QgZm9jdXNlZCBvbiBzeXN0ZW1zIHRoaW5raW5nLCBjb2RlIG9y\nZ2FuaXphdGlvbiwgYW5kIHByYWN0aWNhbCB0b29saW5nLgoKIyMgT3ZlcnZp\nZXcKVGhpcyBwcm9qZWN0IGV4cGxvcmVzIGhvdyB0byBkZXNpZ24gYSBzaW1w\nbGUgc2Nhbm5lci1zdHlsZSBhcHBsaWNhdGlvbiB0aGF0IGNhbiBwcm9jZXNz\nIGlucHV0LCBpbnNwZWN0IGNvbnRlbnQsIGFuZCByZXR1cm4gdXNlZnVsIHJl\nc3VsdHMgZWZmaWNpZW50bHkuIEl0IHJlZmxlY3RzIGFuIGludGVyZXN0IGlu\nIGJhY2tlbmQgbG9naWMsIGxvdy1sZXZlbCBzeXN0ZW1zIGNvbmNlcHRzLCBh\nbmQgYnVpbGRpbmcgZnVuY3Rpb25hbCBkZXZlbG9wZXItb3JpZW50ZWQgdG9v\nbHMuCgojIyBGZWF0dXJlcwotIFN0cnVjdHVyZWQgc2Nhbm5pbmcgd29ya2Zs\nb3cKLSBGaWxlIG9yIGlucHV0IGFuYWx5c2lzCi0gTW9kdWxhciBwcm9qZWN0\nIG9yZ2FuaXphdGlvbgotIE1ha2VmaWxlLWJhc2VkIGJ1aWxkIHdvcmtmbG93\nCgojIyBUZWNoIFN0YWNrCl9BZGQgdGhlIGV4YWN0IGxhbmd1YWdlcy90b29s\ncyB1c2VkIGhlcmUuXwotIEMgLyBDKysgLyBvdGhlciBsYW5ndWFnZTogW3Jl\ncGxhY2Ugd2l0aCBhY3R1YWxdCi0gQnVpbGQgc3lzdGVtOiBNYWtlCi0gT3Ro\nZXIgdG9vbHM6IFthZGQgaWYgbmVlZGVkXQoKIyMgUHJvamVjdCBTdHJ1Y3R1\ncmUKYGBgdGV4dApTY2FubmVyLwrilJzilIDilIAgTWFrZWZpbGUK4pSc4pSA\n4pSAIFtzb3VyY2UgZmlsZXNdCuKUnOKUgOKUgCBbaGVhZGVyIGZpbGVzXQri\nlJTilIDilIAgW290aGVyIHByb2plY3QgYXNzZXRzXQo=\n",
+  "encoding": "base64",
+  "_links": {
+    "self": "https://api.github.com/repos/arinze-okigbo/Scanner/contents/README.md?ref=main",
+    "git": "https://api.github.com/repos/arinze-okigbo/Scanner/git/blobs/ce14ef59d9494101c0f2fd5f579f3fc38de028d2",
+    "html": "https://github.com/arinze-okigbo/Scanner/blob/main/README.md"
+  }
+}
