@@ -8,6 +8,7 @@ import { BuildReplay, SpringLab, ProjectStack } from "@/components/hive/Experime
 import { CeremonyMount } from "@/components/ceremony/CeremonyMount";
 import { Label, PageIntro, pageMeta } from "@/components/hive/Primitives";
 import { projects } from "@/content/editorial";
+import { ProofLabMount } from "@/components/hive/ProofLabMount";
 export const metadata = pageMeta(
   "Lab",
   "Interactive experiments in authentication, motion, and AI-assisted building. Try the systems in your browser.",
@@ -35,8 +36,19 @@ export default function Lab() {
             </ProfiledIsland>
           </div>
         </section>
+        <section className="lab-section" id="proof">
+          <Label>02 / THE EXACT MESSAGE MATTERS</Label>
+          <SplitText as="h2" text="A small change. A different proof." by="word" />
+          <p>
+            Create a temporary key, sign a message, then put the signature to the test. Change one
+            character and see how public-key verification responds.
+          </p>
+          <div className="experiment-shell">
+            <ProofLabMount />
+          </div>
+        </section>
         <section className="lab-section" id="ceremony">
-          <Label>02 / BROWSER-NATIVE AUTHENTICATION</Label>
+          <Label>03 / BROWSER-NATIVE AUTHENTICATION</Label>
           <SplitText as="h2" text="A ceremony, made visible." by="word" />
           <p>
             Inspect what happens when a browser creates a passkey and verifies an assertion. Run the
@@ -52,7 +64,7 @@ export default function Lab() {
           </div>
         </section>
         <section className="lab-section">
-          <Label>03 / HOW THIS SITE IS BUILT</Label>
+          <Label>04 / HOW THIS SITE IS BUILT</Label>
           <SplitText as="h2" text="One direction. Many specialists." by="word" />
           <p>
             A Queen coordinates research, design, motion, and implementation. Each specialist works
@@ -77,7 +89,7 @@ export default function Lab() {
           </Link>
         </section>
         <section className="lab-section">
-          <Label>04 / PHYSICAL INTERFACES</Label>
+          <Label>05 / PHYSICAL INTERFACES</Label>
           <SplitText as="h2" text="Pick up an idea." by="word" />
           <p>
             Drag the cards to explore the stack. A small experiment in direct manipulation, with
