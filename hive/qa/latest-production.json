@@ -1,16 +1,29 @@
 {
   "url": "https://arinzeokigbo.com/",
-  "auditedAt": "2026-09-15T04:09:30.357Z",
-  "commitSha": "a118398513ced42889540e45ba0b7a7118aac72b",
+  "auditedAt": "2026-09-15T05:45:32.304Z",
+  "commitSha": "9be233ef3b2827882bd9c082b38727d69f1c836c",
+  "environment": {
+    "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "benchmarkIndex": 3901,
+    "throttlingMethod": "simulate",
+    "cpuSlowdownMultiplier": 4,
+    "screen": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    }
+  },
   "scores": {
-    "performance": 69,
+    "performance": 100,
     "accessibility": 100,
     "bestPractices": 100,
     "seo": 100
   },
   "metrics": {
-    "lcp": 3134.673,
+    "lcp": 1228.402,
     "cls": 0,
-    "tbt": 1226.5
+    "tbt": 33
   }
 }
