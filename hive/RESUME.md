@@ -1,13 +1,16 @@
 # Exact resume point
 
-Round 5 is live at https://arinzeokigbo.com, commit 9be233ef3b2827882bd9c082b38727d69f1c836c (PR5 merged). Domain marker verified; 68 production browser checks pass with two device-specific skips.
+Round 6 signature lab is implemented on hive/round-6-proof-lab. Production remains Round 5 commit a4cb9962d202dedbc38edb3a2cf9368381186ec8 until all release gates pass.
 
-- Required Linux CI34933482617 passed 96/100/100/100. Local fixed five runs all scored98. Build, lint, types and358 unit tests pass; initial JS154–163KiB is below180KiB. Motion harness and both-theme preview checks pass.
-- Production audit34933954175: fixed series71/100/100/100/99, representative run4 at100/100/100/100, LCP1228.402ms, TBT33ms, CLS0. The raw first cold run remains retained. Scores are host measurements, not physical iPhone frame-rate proof.
-- Automatic measurement publication hit a tracked-file collision. Exact retained production measurements were independently enforced and published to hive/metrics as d1fc2a8; the live badge can cache for five minutes.
-- Current branch hive/round-5-audit-publish changes generated production audit filenames to production-current, preserving historical reports, and publishes the round changelog. Next: push this tested checkpoint, open its follow-up PR, wait for required CI, merge, verify the final deployed SHA and successful automated publication. Do not relax gates or bypass branch protection.
-- Then start Round6 with five bounded tasks and one substantive new lab experiment. Suggested theme: an in-browser cryptographic proof lab with generated ephemeral keys and real tamper verification; no account or persistent credential creation. Continue verified media coverage and physical-device timing only when evidence is available.
+## Verified locally
+- Build, lint, types, 371 unit tests and 78 browser checks pass;2 device-specific skips. The final accessibility refinement was rebuilt and all 10 proof-lab checks rerun successfully.
+- Real P-256/SHA-256 signing, tamper rejection, restored-message success, empty/Unicode limits, unavailable crypto, reset races, unchanged storage, no challenge transmission and close focus pass on desktop/mobile emulation.
+- Manual Chrome desktop dark and 390px light review confirms readable controls and genuine success/tamper/reset behavior. Physical iPhone frame rate remains unverified.
+- Home initial JavaScript remains 154.3KiB; all budgeted routes remain under 180KiB. No new dependencies, trackers, stored credentials or challenge requests.
+
+## Next action
+Local fixed-five mobile Lighthouse passed 98/100/100/100 (series98/97/97/98/98, LCP 2500ms,TBT 11.5ms,CLS 0). PR 7 is open; preview d8a6bf8 was verified. Linux run 34973658216 failed a Node 24/25 native export-error name assertion while correctly rejecting private-key export. Apply the test portability fix, push and wait for fresh required CI. Lab fixed-five also passed 96/100/100/100 throughout. Required Linux verify must pass before merge; inspect the exact Vercel preview and custom-domain production commit. Publish measured production audit, update changelog/tasks and checkpoint. Do not bypass branch protection or choose the best audit run.
 
 Worktree: /Users/arinzeokigbo/Documents/Codex/2026-09-14/github-plugin-github-openai-curated-remote/work/astra-site
 Original branch preserved in /Users/arinzeokigbo/arinzeokigbo.
-Daily09:00 America/New_York heartbeat: astra-hive-site-improvement.
+Daily09:00 America/New_York heartbeat: astra-hive-site-improvement (active; continue from this file).

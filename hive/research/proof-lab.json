@@ -1,0 +1,211 @@
+{
+  "round": "R6-01",
+  "checkedAt": "2026-09-15T13:05:20.705816+00:00",
+  "scope": "Web Crypto proof-lab technical references only; no owner biography, external project claims, production QA or unrelated feed refresh.",
+  "researchCacheFormat": "Normalized source findings with exact URLs, sections, version where applicable and retrieval date.",
+  "sources": [
+    {
+      "id": "w3c-ecdsa",
+      "url": "https://www.w3.org/TR/2017/REC-WebCryptoAPI-20170126/#ecdsa-operations",
+      "title": "Web Cryptography API \u2014 ECDSA operations",
+      "publisher": "W3C",
+      "version": "Recommendation, 26 January 2017",
+      "sections": [
+        "23.3 EcdsaParams",
+        "23.7 Sign / Verify / Generate Key / Export Key"
+      ],
+      "normalizedFindings": [
+        "P-256 key generation supports sign and verify usages. Signing uses the private key and selected digest; verification uses the public key and returns a boolean.",
+        "Generated public keys are extractable; the private key inherits the extractable argument. SPKI export encodes the public key and algorithm parameters."
+      ],
+      "retrieval": "Opened and inspected through web tool; cached normalized findings, not the full document.",
+      "checkedAt": "2026-09-15T13:05:20.705816+00:00",
+      "status": "verified-primary-documentation"
+    },
+    {
+      "id": "mdn-generate",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/generateKey",
+      "title": "SubtleCrypto.generateKey",
+      "publisher": "MDN Web Docs",
+      "sections": [
+        "Parameters: extractable",
+        "Return value",
+        "Secure context"
+      ],
+      "normalizedFindings": [
+        "For asymmetric generation, extractable controls private-key export; public keys remain extractable. Requires a supporting secure context."
+      ],
+      "retrieval": "Opened and inspected through web tool; normalized relevant API documentation.",
+      "checkedAt": "2026-09-15T13:05:20.705816+00:00",
+      "status": "verified-primary-documentation"
+    },
+    {
+      "id": "mdn-sign",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#ecdsa",
+      "title": "SubtleCrypto.sign \u2014 ECDSA",
+      "publisher": "MDN Web Docs",
+      "sections": [
+        "Supported algorithms",
+        "ECDSA"
+      ],
+      "normalizedFindings": [
+        "ECDSA signs with a private key; the hash is supplied to sign(). The result is a signature buffer, not encrypted plaintext.",
+        "Web Crypto ECDSA signatures concatenate fixed-width r and s values; this differs from ASN.1 DER signatures."
+      ],
+      "retrieval": "Opened and inspected through web tool; normalized relevant API documentation.",
+      "checkedAt": "2026-09-15T13:05:20.705816+00:00",
+      "status": "verified-primary-documentation"
+    },
+    {
+      "id": "mdn-verify",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/verify",
+      "title": "SubtleCrypto.verify",
+      "publisher": "MDN Web Docs",
+      "sections": [
+        "Parameters",
+        "Return value"
+      ],
+      "normalizedFindings": [
+        "Verification consumes the key, algorithm, signature and original data, returning true or false. A supplied name is not an input authenticated by this API."
+      ],
+      "retrieval": "Opened and inspected through web tool; normalized relevant API documentation. Named-identity limit is an inference from inputs plus unbound generated keys.",
+      "checkedAt": "2026-09-15T13:05:20.705816+00:00",
+      "status": "verified-primary-documentation"
+    },
+    {
+      "id": "mdn-export",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/exportKey",
+      "title": "SubtleCrypto.exportKey",
+      "publisher": "MDN Web Docs",
+      "sections": [
+        "Parameters: format",
+        "SubjectPublicKeyInfo export"
+      ],
+      "normalizedFindings": [
+        "The spki format exports SubjectPublicKeyInfo bytes. A public-key fingerprint can hash these exact bytes rather than PEM or base64 display text."
+      ],
+      "retrieval": "Opened and inspected through web tool; fingerprint convention is this lab design, not a separate API guarantee.",
+      "checkedAt": "2026-09-15T13:05:20.705816+00:00",
+      "status": "verified-primary-documentation"
+    },
+    {
+      "id": "mdn-digest",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest",
+      "title": "SubtleCrypto.digest",
+      "publisher": "MDN Web Docs",
+      "sections": [
+        "Supported algorithms",
+        "Converting a digest to a hex string"
+      ],
+      "normalizedFindings": [
+        "SHA-256 digests an input buffer to 256 bits. Hex is a display encoding of the digest. Hashing SPKI identifies that public-key encoding; hashing text identifies message bytes."
+      ],
+      "retrieval": "Opened and inspected through web tool; normalized relevant API documentation.",
+      "checkedAt": "2026-09-15T13:05:20.705816+00:00",
+      "status": "verified-primary-documentation"
+    },
+    {
+      "id": "w3c-security-draft",
+      "url": "https://www.w3.org/TR/2025/WD-webcrypto-2-20250422/#security-developers",
+      "title": "Web Cryptography Level 2 \u2014 Security considerations for authors",
+      "publisher": "W3C",
+      "version": "First Public Working Draft, 22 April 2025; not a Recommendation",
+      "sections": [
+        "6.2 Security considerations for authors"
+      ],
+      "normalizedFindings": [
+        "Non-extractability does not promise hardware isolation, protected storage, or zeroization after references are dropped. Hostile scripts may still misuse accessible keys.",
+        "Keys are not automatically persisted by application code; lifecycle and storage promises require implementation review."
+      ],
+      "retrieval": "Inspected the redirected current W3C publication carrying this dated draft; draft status retained.",
+      "checkedAt": "2026-09-15T13:05:20.705816+00:00",
+      "status": "verified-primary-documentation"
+    }
+  ],
+  "contract": {
+    "keyGeneration": "crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign', 'verify'])",
+    "messageEncoding": "UTF-8 via TextEncoder; sign and verify the exact bytes without trimming or silent normalization.",
+    "signatureAlgorithm": {
+      "name": "ECDSA",
+      "hash": "SHA-256"
+    },
+    "publicKeyEncoding": "SPKI bytes from exportKey('spki', publicKey)",
+    "fingerprint": "SHA-256 of the exact SPKI bytes; display the full 32-byte digest as hex, or explicitly mark a shortened preview.",
+    "expectedSignatureFormat": "P-256 Web Crypto result: 64-byte raw r || s (P1363), not DER.",
+    "privateKeyExportable": false,
+    "publicKeyExportable": true
+  },
+  "claims": [
+    {
+      "id": "signature-binding",
+      "copy": "A valid signature matches these exact message bytes and this public key.",
+      "sources": [
+        "w3c-ecdsa",
+        "mdn-verify"
+      ],
+      "basis": "API verification semantics"
+    },
+    {
+      "id": "no-encryption",
+      "copy": "The message stays readable. Signing does not encrypt it.",
+      "sources": [
+        "mdn-sign"
+      ],
+      "basis": "Signature output is separate from input message; no encryption operation is used."
+    },
+    {
+      "id": "no-person-identity",
+      "copy": "This generated key is not linked to a verified person or account.",
+      "sources": [
+        "mdn-verify"
+      ],
+      "basis": "Application-design inference: this lab generates an unbound key pair; verification alone supplies no trusted identity binding."
+    },
+    {
+      "id": "non-extractable",
+      "copy": "The private key is non-extractable through the Web Crypto export API.",
+      "sources": [
+        "mdn-generate",
+        "w3c-security-draft"
+      ],
+      "basis": "API restriction only; do not claim hardware security, impossible theft or guaranteed memory erasure."
+    },
+    {
+      "id": "fingerprint",
+      "copy": "Public-key fingerprint: SHA-256 of SPKI.",
+      "sources": [
+        "mdn-export",
+        "mdn-digest"
+      ],
+      "basis": "Explicit lab encoding convention; not a certificate, biometric fingerprint or proof of a person."
+    }
+  ],
+  "suggestedCopy": {
+    "heading": "Sign a message. Change one character. Verify again.",
+    "description": "Generate a browser signing key, create a signature, then test whether an edited message still matches.",
+    "valid": "Signature valid for this message and public key.",
+    "invalid": "Signature does not match this message and public key.",
+    "reset": "Generate a new key pair.",
+    "limits": "This demonstration checks a message against a public key. It does not encrypt the message or verify a named person."
+  },
+  "implementationDependentClaimsToVerify": [
+    "No network requests from the proof operation.",
+    "No localStorage, IndexedDB or other application persistence of messages/keys.",
+    "Key references are dropped on reset/unmount; do not claim secure erasure.",
+    "Signing occurs only after an explicit visitor action.",
+    "Capability and operation failures show a truthful unsupported/error state.",
+    "Signing/loading results are discarded if the visitor edits or resets before completion."
+  ],
+  "suggestedChecks": [
+    "Original message verifies true.",
+    "Changed message, changed signature and wrong public key verify false.",
+    "Private-key export rejects; public SPKI export and fingerprint succeed.",
+    "A new key changes the fingerprint.",
+    "Unicode input is signed and checked as the same UTF-8 bytes.",
+    "Never treat a timestamp or unbound fingerprint as trusted identity, freshness or a certificate."
+  ],
+  "implementationQA": {
+    "status": "pending",
+    "note": "This file verifies technical references. Browser implementation, network behavior, accessibility, performance and deployment are not yet certified."
+  }
+}

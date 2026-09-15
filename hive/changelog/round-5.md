@@ -14,3 +14,8 @@ Production audit verifies the deployed commit, uses the fixed five-run median me
 
 ## Next
 Verify the permanent metrics-publication correction. Continue physical-device timing and verified project screenshot coverage; physical iPhone performance remains unverified and is not implied by desktop browser emulation.
+
+## Publication follow-up — September 15, 2026
+PR #6 merged as a4cb996. Automatic audit publication and enforcement passed in run34934773759, attempt2. The first attempt produced no measurement because Chrome failed to launch. The complete fixed series on retry was97,100,98,99,100; every run met every category gate. Representative run5 at05:59:32 UTC measured100/100/100/100, LCP1667.894ms, TBT60.5ms and CLS0. Metrics commit a6e010a records that exact deployed SHA. The final main quality check also passed.
+
+The release is complete. Round6 is queued as a local cryptographic signature experiment; physical-device timing and further verified media remain future work.
