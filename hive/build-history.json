@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T04:36:55.655Z",
+  "capturedAt": "2026-09-15T04:57:38.745Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "25c2e74abc29d315f1d53521e0b859d696c27c99",
+  "headCommit": "f242f9268e26d9ce1b8a568f2604945d7036fda7",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -517,6 +517,80 @@
         "src/components/hive/quick-navigation-dialog.css",
         "src/components/hive/quick-navigation-trigger.css",
         "tests/hive/navigation.spec.ts"
+      ]
+    },
+    {
+      "commitSHA": "15cd201eb11f71eb4a651eeb01fcedcc6fcd7ea0",
+      "timestamp": "2026-09-15T00:38:12-04:00",
+      "subject": "docs(hive): record round five evidence and release checkpoint",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/acceptance.md",
+        "hive/build-history.json",
+        "hive/changelog/round-5.md",
+        "hive/qa/lab-summary.json",
+        "hive/qa/motion-interactions.json",
+        "hive/qa/preflight-summary.json",
+        "hive/qa/production-summary.json",
+        "hive/tasks.json"
+      ]
+    },
+    {
+      "commitSHA": "24b6dda373df1efbf0532e40721c8404ccd36c32",
+      "timestamp": "2026-09-15T00:40:05-04:00",
+      "subject": "fix(quality): read Next 16 bundle manifests and refresh browser evidence",
+      "changedFiles": [
+        "hive/acceptance.md",
+        "scripts/check-bundle-budget.mjs"
+      ]
+    },
+    {
+      "commitSHA": "83d3ed4fd49d65ef80509d91d43afa9b6216ddcc",
+      "timestamp": "2026-09-15T00:45:24-04:00",
+      "subject": "perf(motion): remove eager animation runtime from initial routes",
+      "changedFiles": [
+        "src/components/hive/Experiments.tsx",
+        "src/components/hive/Interactions.tsx",
+        "src/components/hive/Motion.tsx",
+        "src/components/hive/ProjectStack.tsx",
+        "src/components/hive/motion/native-spring.test.tsx",
+        "src/components/hive/motion/native-spring.ts"
+      ]
+    },
+    {
+      "commitSHA": "3bf2cb90ab8ccc9db2a591d3bfaaa2168cbb5942",
+      "timestamp": "2026-09-15T00:46:10-04:00",
+      "subject": "docs(quality): record reduced bundles and held Linux candidate",
+      "changedFiles": [
+        ".github/workflows/quality.yml",
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/changelog/round-5.md",
+        "hive/qa/motion-interactions.json",
+        "hive/qa/preflight-summary.json",
+        "hive/qa/round5-linux-first-summary.json",
+        "hive/qa/round5-preview.json"
+      ]
+    },
+    {
+      "commitSHA": "e6acf91c9492459317c17235bd35bc1a10c57d90",
+      "timestamp": "2026-09-15T00:46:24-04:00",
+      "subject": "ci(performance): retain traces for slow-device diagnostics",
+      "changedFiles": [
+        ".gitignore",
+        "scripts/check-lighthouse.mjs"
+      ]
+    },
+    {
+      "commitSHA": "f242f9268e26d9ce1b8a568f2604945d7036fda7",
+      "timestamp": "2026-09-15T00:57:32-04:00",
+      "subject": "fix(motion): keep initial rendering and theme changes interactive",
+      "changedFiles": [
+        "src/components/hive/Interactions.tsx",
+        "src/components/hive/motion/interactions.css",
+        "tests/hive/page-transitions.spec.ts",
+        "tests/hive/theme-input.spec.ts"
       ]
     }
   ]

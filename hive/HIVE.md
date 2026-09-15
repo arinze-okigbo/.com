@@ -53,3 +53,5 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: Repair the historical 180KiB bundle gate for Next16 manifests; measured initial JS is202–210KiB, so isolate eager motion rather than raising the existing budget. Enforce the repaired check in CI.
 
 - 2026-09-15: PR5 firstLinux run34929619920 failedperformance70/TBT1096; gate preventedmerge. Removed eagerFramer using exact analytic springs for small controls and a separate optionalstack. Local97/100/100/100,TBT19,CLS0; all355unit/61browserchecks and motionharnesspass.
+
+- 2026-09-15: Linux74 trace exposed React streamed ViewTransition layout; set route-keyed boundary update/default none with explicit enter/exit. Replace native root-capturing theme wipe with an inert decorative overlay so immediate pointer navigation succeeds. All355unit/66browserchecks plus motionharness and local97 pass; Linux rerun required.
