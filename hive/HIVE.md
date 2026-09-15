@@ -57,3 +57,5 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: Linux74 trace exposed React streamed ViewTransition layout; set route-keyed boundary update/default none with explicit enter/exit. Replace native root-capturing theme wipe with an inert decorative overlay so immediate pointer navigation succeeds. All355unit/66browserchecks plus motionharness and local97 pass; Linux rerun required.
 
 - 2026-09-15: Three held Linux candidates scored70/74/70 while local97 repeats. Adopt Lighthouse’s documented fixed five-run representative median, retain all raw reports and unchanged thresholds, and collect an unthrottled system-Chrome CPU profile only after failure. No retry-until-green or best-score selection.
+
+- 2026-09-15: Fixed Linux series75/93/98/95/93 selects93 by Lighthouse median; gate still holds. CPU profile identified repeated Intl initialization in NYClock, so share a formatter/timer only among visible clocks. Align production with fixed five-run measurement, retain environment metadata and all raw reports, and publish the measured score before enforcing unchanged thresholds.

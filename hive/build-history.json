@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T04:57:38.745Z",
+  "capturedAt": "2026-09-15T05:20:28.968Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "f242f9268e26d9ce1b8a568f2604945d7036fda7",
+  "headCommit": "4ca4b4e28379c1899f972d3a5438465d1fa70b78",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -591,6 +591,72 @@
         "src/components/hive/motion/interactions.css",
         "tests/hive/page-transitions.spec.ts",
         "tests/hive/theme-input.spec.ts"
+      ]
+    },
+    {
+      "commitSHA": "63b1d1f952088d814996a4fe64e974f0d42db95a",
+      "timestamp": "2026-09-15T00:58:56-04:00",
+      "subject": "docs(quality): record transition diagnostics and current validation",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/acceptance.md",
+        "hive/build-history.json",
+        "hive/changelog/round-5.md",
+        "hive/qa/motion-interactions.json",
+        "hive/qa/preflight-summary.json",
+        "hive/qa/round5-cpu8-summary.json",
+        "hive/qa/round5-linux-native-summary.json",
+        "hive/qa/round5-software-summary.json",
+        "hive/qa/theme-navigation-local.json"
+      ]
+    },
+    {
+      "commitSHA": "bcd14160407c656f1ded95081d80b4664e8db688",
+      "timestamp": "2026-09-15T01:09:14-04:00",
+      "subject": "ci(performance): use fixed median series and profile failed startup",
+      "changedFiles": [
+        ".github/workflows/quality.yml",
+        ".gitignore",
+        "README.md",
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/qa/preflight-series.json",
+        "hive/qa/preflight-summary.json",
+        "hive/qa/round5-preview.json",
+        "scripts/check-lighthouse.mjs",
+        "scripts/profile-startup.mjs"
+      ]
+    },
+    {
+      "commitSHA": "4ca4b4e28379c1899f972d3a5438465d1fa70b78",
+      "timestamp": "2026-09-15T01:20:28-04:00",
+      "subject": "perf(clock): defer shared timezone updates until visible",
+      "changedFiles": [
+        ".github/workflows/deployment-audit.yml",
+        "content/github.json",
+        "content/substack.json",
+        "hive/research/.com-languages.json",
+        "hive/research/HomeworkAIChatBot-languages.json",
+        "hive/research/LibraryManagementSystem-languages.json",
+        "hive/research/Scanner-languages.json",
+        "hive/research/arinze-okigbo-languages.json",
+        "hive/research/github-contributions.html",
+        "hive/research/github-events.json",
+        "hive/research/github-latest-commit.json",
+        "hive/research/github-profile.html",
+        "hive/research/github-repos.json",
+        "hive/research/linkedin-plus-bookmarklet-languages.json",
+        "hive/research/nyc-live-languages.json",
+        "hive/research/nyclive-languages.json",
+        "hive/research/sky-view-languages.json",
+        "hive/research/splita-coming-soon-languages.json",
+        "hive/research/substack-feed.xml",
+        "hive/research/tindext-v2-languages.json",
+        "scripts/audit-summary.mjs",
+        "scripts/check-lighthouse.mjs",
+        "src/components/hive/Interactions.tsx",
+        "src/components/hive/NYClock.test.tsx"
       ]
     }
   ]

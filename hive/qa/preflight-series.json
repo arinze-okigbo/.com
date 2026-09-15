@@ -1,47 +1,47 @@
 {
   "method": "Lighthouse computeMedianRun; fixed five sequential runs",
   "reference": "https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md",
-  "selectedRun": 4,
+  "selectedRun": 3,
   "runs": [
     {
       "run": 1,
-      "auditedAt": "2026-09-15T05:06:29.068Z",
+      "auditedAt": "2026-09-15T05:19:04.938Z",
       "performance": 97,
-      "benchmarkIndex": 4119,
-      "tbt": 18,
-      "lcp": 2626.3568999999998
+      "benchmarkIndex": 3906.5,
+      "tbt": 20,
+      "lcp": 2631.592
     },
     {
       "run": 2,
-      "auditedAt": "2026-09-15T05:06:39.190Z",
-      "performance": 97,
-      "benchmarkIndex": 4194.5,
-      "tbt": 17,
-      "lcp": 2622.2893
+      "auditedAt": "2026-09-15T05:19:15.106Z",
+      "performance": 98,
+      "benchmarkIndex": 3903,
+      "tbt": 9,
+      "lcp": 2474.8360000000002
     },
     {
       "run": 3,
-      "auditedAt": "2026-09-15T05:06:49.335Z",
+      "auditedAt": "2026-09-15T05:19:25.253Z",
       "performance": 97,
-      "benchmarkIndex": 4165.5,
-      "tbt": 14.999999999999773,
-      "lcp": 2621.3354999999997
+      "benchmarkIndex": 3849.5,
+      "tbt": 18,
+      "lcp": 2626.3609
     },
     {
       "run": 4,
-      "auditedAt": "2026-09-15T05:06:59.458Z",
+      "auditedAt": "2026-09-15T05:19:35.388Z",
       "performance": 97,
-      "benchmarkIndex": 4149.5,
-      "tbt": 15,
-      "lcp": 2622.471
+      "benchmarkIndex": 3906,
+      "tbt": 16,
+      "lcp": 2623.9875
     },
     {
       "run": 5,
-      "auditedAt": "2026-09-15T05:07:09.569Z",
+      "auditedAt": "2026-09-15T05:19:45.534Z",
       "performance": 97,
-      "benchmarkIndex": 4103.5,
-      "tbt": 18,
-      "lcp": 2626.0683
+      "benchmarkIndex": 3880,
+      "tbt": 23,
+      "lcp": 2629.9536
     }
   ]
 }
