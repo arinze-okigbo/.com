@@ -81,3 +81,5 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: User requests resuming the hive around layout, design, personal representation/headshot and more effects. This supersedes the earlier no-portrait preference and planned audio round. Pair a real portrait with editorial composition and bounded motion; performance remains a ship gate.
 
 - 2026-09-15: Round7 restores the authentic portrait from Git history, promotes editorial home/About layouts, and adds native spring portrait depth, hover light and decorative frame entrances. Local fixed-five97/100/100/100 versus controlled baseline98, with CLS0 and all bundle gates passing. Keep the measured one-point tradeoff explicit; do not attribute old Linux variance to the portrait or claim it resolved.
+
+- 2026-09-15: PR8 required Linux34978867809 blocked merge at94/100/100/100 (91/94/94/97/92,LCP2662ms,TBT161ms,CLS0.00313). Build/unit/browser/bundle checks passed; exact preview b852228 is visually verified. Preserve reports and investigate the recorded185ms startup task plus portrait-introduction layout shift.

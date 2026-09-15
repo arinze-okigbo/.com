@@ -1,6 +1,6 @@
 # Exact resume point
 
-Round 7 — portrait, composition and motion. Local implementation and QA complete; release pending on hive/round-7-portrait-design. Production remains dee660fbd3e6c4f911b083078537ab13db48c026.
+Round 7 — portrait, composition and motion. Local implementation and revised QA complete; release held pending a new required Linux run on hive/round-7-portrait-design. Production remains dee660fbd3e6c4f911b083078537ab13db48c026.
 
 ## Implemented and verified
 
@@ -12,7 +12,7 @@ Round 7 — portrait, composition and motion. Local implementation and QA comple
 
 ## Exact next action
 
-Push the clean candidate branch and create one PR if none exists. Wait required Linux verify, inspect its complete fixed-five results, visually verify the exact Vercel preview commit, then merge with matching head only after all gates pass. Verify production domain SHA, full production browser suite, independent production audit and final main CI. Record actual results and failures; update tasks/changelog/this checkpoint.
+PR8 is open: https://github.com/arinze-okigbo/.com/pull/8. First Linux34978867809 failed performance94; all otherchecks passed. The exact b852228 preview was visually verified. A targeted mobile top-alignment fix prevents streamed content recentering the name; MotionProvider skips the startup page-height read and coalesces scroll events. Revised build/fullbrowser87pass3skip and localfixedfive97allruns/CLS0pass; mobilelayout manually rechecked. Push this revised commit and wait for its fresh required Linux run. Do not rerun the failed unchanged candidate. Wait required Linux verify, inspect its complete fixed-five results, visually verify the exact Vercel preview commit, then merge with matching head only after all gates pass. Verify production domain SHA, full production browser suite, independent production audit and final main CI. Record actual results and failures; update tasks/changelog/this checkpoint.
 
 ## Retained prior evidence
 

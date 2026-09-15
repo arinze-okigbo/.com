@@ -392,6 +392,8 @@
   .portrait-introduction {
     grid-column: 1;
     grid-row: 1;
+    /* Keep the text anchored while the streamed portrait completes this row. */
+    align-self: start;
   }
   .portrait-kicker {
     font-size: var(--type-1);

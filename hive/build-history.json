@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T14:01:08.871Z",
+  "capturedAt": "2026-09-15T14:14:54.206Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "3b098755ac3752507496dea548a2408e1426a450",
+  "headCommit": "b8522282f5adbdf88a5d49172341fbceec88c8ff",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -984,6 +984,25 @@
         "src/content/metadata.ts",
         "tests/hive/metadata.spec.ts",
         "tests/hive/portrait-design.spec.ts"
+      ]
+    },
+    {
+      "commitSHA": "b8522282f5adbdf88a5d49172341fbceec88c8ff",
+      "timestamp": "2026-09-15T10:01:14-04:00",
+      "subject": "perf(motion): keep the portrait stable during its frame entrance",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/build-history.json",
+        "hive/changelog/round-7.md",
+        "hive/qa/portrait-baseline-series.json",
+        "hive/qa/portrait-baseline-summary.json",
+        "hive/qa/portrait-candidate-series.json",
+        "hive/qa/portrait-candidate-summary.json",
+        "hive/qa/portrait-final-series.json",
+        "hive/qa/portrait-final-summary.json",
+        "hive/tasks.json",
+        "src/components/hive/PortraitMotion.tsx"
       ]
     }
   ]

@@ -140,7 +140,7 @@
   {
     "id": "R7-04",
     "owner": "queen",
-    "status": "complete",
+    "status": "in_progress",
     "acceptance_test": "Visually validate desktop/mobile dark/light portrait and effects; pass browser/accessibility/bundle/fixed-five performance gates and retain earlier failure"
   },
   {
