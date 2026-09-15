@@ -1,13 +1,13 @@
 {
-  "spring": "98.85401183380817",
+  "spring": "99.50197771438611",
   "pauseLabel": 1,
   "cardSelectors": 3,
   "activeCards": 1,
   "profiler": {
     "rows": 3,
     "records": [
-      "Navigation0.60 ms0.50 ms1",
-      "Passkey lab0.70 ms0.40 ms4",
+      "Navigation0.90 ms0.90 ms1",
+      "Passkey lab0.50 ms0.50 ms4",
       "Spring lab0.10 ms0.10 ms3"
     ],
     "outlines": "true"
@@ -19,7 +19,7 @@
     "errors": []
   },
   "tags": 8,
-  "tagMoved": "touch-action: none; position: absolute; left: 0px; top: 0px; width: 110px; height: 40px; transform: translate3d(37.8269px, 25px, 0px);",
+  "tagMoved": "touch-action: none; position: absolute; left: 0px; top: 0px; width: 110px; height: 40px; transform: translate3d(35.581px, 25px, 0px);",
   "reducedStack": 1,
   "reducedLinks": 3,
   "errors": [],

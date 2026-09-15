@@ -38,7 +38,7 @@
   {
     "id": "R4-07",
     "owner": "queen",
-    "status": "in_progress",
+    "status": "complete",
     "acceptance_test": "Build, lint, types, tests, axe, links, browser and Lighthouse gates pass"
   },
   {
@@ -50,7 +50,7 @@
   {
     "id": "R5-01",
     "owner": "frontend_design",
-    "status": "in_progress",
+    "status": "complete",
     "acceptance_test": "Production mobile Lighthouse reaches95/95/100/100 after reducing startup work"
   },
   {
@@ -82,5 +82,11 @@
     "owner": "queen",
     "status": "in_progress",
     "acceptance_test": "Required pre-merge performance checks, preview QA, verified production audit and checkpoint"
+  },
+  {
+    "id": "R5-07",
+    "owner": "queen",
+    "status": "in_progress",
+    "acceptance_test": "Production audit publishes without overwriting historical reports; checked workflow and public release record ship through required CI"
   }
 ]
