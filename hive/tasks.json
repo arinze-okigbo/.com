@@ -93,30 +93,30 @@
     "id": "R6-01",
     "owner": "research_content",
     "acceptance_test": "Document the browser signature experiment using primary Web Crypto references; distinguish the experiment from authentication and keep factual copy sourced",
-    "status": "pending"
+    "status": "complete"
   },
   {
     "id": "R6-02",
     "owner": "motion_lab",
     "acceptance_test": "Generate an ephemeral P-256 key, sign a challenge, verify it, and demonstrate rejection after tampering; private key stays in memory with no storage or outbound payload",
-    "status": "pending"
+    "status": "complete"
   },
   {
     "id": "R6-03",
     "owner": "frontend_design",
     "acceptance_test": "Integrate one polished lazy-loaded lab panel with dark/light, keyboard, mobile and reduced-motion states while preserving bundle budget",
-    "status": "pending"
+    "status": "complete"
   },
   {
     "id": "R6-04",
     "owner": "queen",
     "acceptance_test": "Validate success, tampered payload, stale state, resets, keyboard focus and no network transmission; run unit/browser and unchanged performance gates",
-    "status": "pending"
+    "status": "in_progress"
   },
   {
     "id": "R6-05",
     "owner": "queen",
     "acceptance_test": "Verify preview and production SHA, publish measured audits and a truthful round-six changelog, then checkpoint",
-    "status": "pending"
+    "status": "in_progress"
   }
 ]

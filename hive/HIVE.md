@@ -6,7 +6,7 @@ Rebuild arinzeokigbo.com as a visually ambitious, technically credible personal 
 
 ## Current session
 
-Round 5 shipped as 9be233e after required Linux 96/100/100/100 and preview QA. Production verified at 100/100/100/100 using the fixed representative five-run method, with 68 browser checks passing. Final release a4cb996 includes the publication filename repair and public record. Branch hive/round-6-proof-lab holds the next five-task checkpoint; implementation has not started. Queen coordinates; specialist agents implement research, frontend, and motion.
+Round 6 — Ephemeral cryptographic proof lab. Five scoped tasks in tasks.json: primary-source validation, real browser signing/verification, accessible lazy-loaded interface, privacy and behavior tests, and gated preview/production release. Work on hive/round-6-proof-lab. Production remains the verified Round5 release a4cb996 until this round clears all gates.
 
 ## Decisions
 
@@ -69,3 +69,5 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: PR6 passed required Linux 98/100/100/100 and merged as a4cb996; domain SHA and public changelog verified. Its first production audit attempt failed before measurements because Chrome could not launch. Retry that infrastructure failure once with the unchanged fixed-five method; keep the last valid production score published. Prepare Round6 around an ephemeral browser signature experiment with no stored keys, credentials, or outbound challenge payload.
 
 - 2026-09-15: Final production a4cb996 verified. Audit34934773759 attempt2 completed automatic publication and enforcement: fixed performance series97/100/98/99/100, representative100/100/100/100, LCP1667.894ms, TBT60.5ms, CLS0. All five runs meet every category gate. Metrics branch a6e010a carries this exact SHA and measurement. Final main CI also passed. Round5 is complete; Round6 tasks are pending on the clean checkpoint branch.
+
+- 2026-09-15: Resume with one bounded signature experiment. Use real ECDSA P-256/SHA-256, non-extractable in-memory private keys, a public SPKI fingerprint and deliberate message tampering. This demonstrates integrity and key possession, with no account, identity assertion, persistent credential or outbound challenge data.

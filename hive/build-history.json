@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T06:01:35.701Z",
+  "capturedAt": "2026-09-15T13:13:28.274Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "a4cb9962d202dedbc38edb3a2cf9368381186ec8",
+  "headCommit": "511673c670fe31c883baec5a9bed54cfcc10d9dc",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -850,6 +850,37 @@
         "hive/qa/round5-production-series.json",
         "hive/qa/round5-production-summary.json",
         "hive/tasks.json"
+      ]
+    },
+    {
+      "commitSHA": "6089398500352363d8084074441027a46b8eac29",
+      "timestamp": "2026-09-15T02:01:51-04:00",
+      "subject": "docs(hive): close round five and checkpoint the proof lab",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/acceptance.md",
+        "hive/build-history.json",
+        "hive/changelog/round-5.md",
+        "hive/qa/round5-final-production-series.json",
+        "hive/qa/round5-final-production-summary.json",
+        "hive/qa/round5-publish-preflight-summary.json",
+        "hive/tasks.json"
+      ]
+    },
+    {
+      "commitSHA": "511673c670fe31c883baec5a9bed54cfcc10d9dc",
+      "timestamp": "2026-09-15T09:13:13-04:00",
+      "subject": "feat(lab): demonstrate real ephemeral browser signatures",
+      "changedFiles": [
+        "hive/research/proof-lab.json",
+        "src/app/lab/page.tsx",
+        "src/components/hive/ProofLab.tsx",
+        "src/components/hive/ProofLabMount.tsx",
+        "src/components/hive/proof-lab.css",
+        "src/lib/hive/proof.test.ts",
+        "src/lib/hive/proof.ts",
+        "tests/hive/proof-lab.spec.ts"
       ]
     }
   ]
