@@ -1,22 +1,23 @@
 # Exact resume point
 
-Round 7 — portrait, composition and motion. Local implementation and revised QA complete; release held pending a new required Linux run on hive/round-7-portrait-design. Production remains dee660fbd3e6c4f911b083078537ab13db48c026.
+Round7 portrait, composition and motion is live. Production commit: 4fd1c6ca0a6e63a36f2ac16e280e89c544dafefd, merged through PR8. Branch hive/round-7-portrait-design carries a post-release evidence checkpoint for the next gated release. No feature edits are pending.
 
-## Implemented and verified
+## Verified result
 
-- Real owner portrait recovered from site Git history; 1280×1280 WebP, 197684 bytes, provenance in hive/research/portrait.json.
-- Home and About recomposed around the portrait; larger editorial selected work; orbital scene moved to laboratory teaser.
-- Spring pointer depth, bounded scroll offset, hover light and decorative frame entrance; static accessible photo, reduced-motion/no-JavaScript and visibility safeguards.
-- Build/lint/types/371 unit tests pass; full browser suite87 passed/3 skips; final focused portrait suite7 passed/1 mobile pointer skip. Desktop and390px light/dark manually reviewed.
-- Fixed-five local final97/100/100/100 (98/97/97/97/97), LCP2626ms,TBT21ms,CLS0. Same-host baseline98; first portrait candidate97. All three compact reports retained. Homepage160.5KiB initial JS versus154.3 before; unchanged180KiB gate passes.
+- Real portrait recovered from site Git history,1280×1280 WebP,197684bytes; provenance in hive/research/portrait.json.
+- Headshot appears in the first desktop/mobile viewport on home and About. Larger editorial project layouts, spring pointer depth, hover light, bounded scroll movement and decorative frame entrances. Mobile heading is top-aligned during streaming. Reduced motion and no-JavaScript retain readable content.
+- Required premerge Linux34980406593 passed96/100/100/100 (64/95/96/98/96). Exact preview a2430f1 and custom domain4fd1c6c verified.
+- Production audit34981175312 published/enforced99/100/100/100 (95/97/99/99/99),LCP1666ms,TBT111ms,CLS0. Metrics branch ce651fd records the exact production SHA.
+- All87 production browserchecks pass,3 device-specific skips. First attempt encountered a local network disconnect after51passes; preserved traces at ../round7-production-network-interruption and report at ../round7-production-network-report. One infrastructure retry passed. Final log /tmp/astra-round7-production-browser.log.
+- Build/lint/types/371 unit tests pass. Homepage160.5KiB initial JS, unchanged180KiB gate passes. Local final fixed-five97 in everyrun,CLS0. Instrumentation verifies MotionProvider startup height reads1→0 and accurate normal/reduced-motion scroll progress.
 
-## Exact next action
+## Exact next action — Linux startup consistency
 
-PR8 is open: https://github.com/arinze-okigbo/.com/pull/8. First Linux34978867809 failed performance94; all otherchecks passed. The exact b852228 preview was visually verified. A targeted mobile top-alignment fix prevents streamed content recentering the name; MotionProvider skips the startup page-height read and coalesces scroll events. Revised build/fullbrowser87pass3skip and localfixedfive97allruns/CLS0pass; mobilelayout manually rechecked. Push this revised commit and wait for its fresh required Linux run. Do not rerun the failed unchanged candidate. Wait required Linux verify, inspect its complete fixed-five results, visually verify the exact Vercel preview commit, then merge with matching head only after all gates pass. Verify production domain SHA, full production browser suite, independent production audit and final main CI. Record actual results and failures; update tasks/changelog/this checkpoint.
+Read hive/qa/portrait-postmerge-linux-summary.json and series. Final mainCI34981068899 failed93/100/100/100 (91/94/97/92/93,LCP2657ms,TBT223ms,CLS0); build/unit/browser/bundle checks passed. Full raw reports and CPU profile: ../main-round7-34981068899/hive/qa/. Required premerge96 and actualproduction99 passed. Keep R7-04 open. Do not claim allchecks green, retry unchanged measurements until green, lower thresholds or attribute causality without evidence.
 
-## Retained prior evidence
+The earlier first R7 Linux94 is in portrait-linux-held reports; R6 late-main94 remains in round-six-postmerge-linux reports. Preserve all of them. Native profile mainly exposes Next module initialization; no confirmed app-module bottleneck. Raw image timing already shows a high-priority SSR head preload,7KB transfer and near-identical loadtimings across2177/2657ms simulated LCP runs. A duplicate image preload is not warranted.
 
-Round6 pre-merge CI34974009657 passed96 and production audit34974650171 published99/100/100/100. Later main CI34974556397 failed94 (77/94/94/95/93,TBT213ms). Its reports remain in hive/qa/round-six-postmerge-linux-\*.json. The unthrottled profile did not establish the cause; R6-04 stays open. Do not retry completed measurements until green or claim a cause was fixed. The user explicitly prioritizes the portrait/design round over the prior investigation and planned audio experiment; all release gates remain unchanged.
+Next controlled candidate: make visible homepage links prefetch on hover/focus/touch intent instead of automatically at initial load. Raw representative run5 contains7 automatic RSC requests260–320ms after navigation,10585transferbytes, while CPU samples include Next prefetch handling. Measure the candidate using unchanged fixed-five gates, request counts and navigation latency; no benefit is claimed yet. Preserve React production profiling: disabling it would remove the actual component render measurements. The estimated isolated-renderer overhead is7469gzipbytes, not a measured application-bundle saving. Resume this bounded investigation before another feature. If a concrete fix is supported, create a fresh branch from origin/main and carry this checkpoint forward. Keep the portrait/composition/effects and strict CSP. No speculative runtime changes have been made. Physical iPhone60fps remains unverified.
 
 Worktree: /Users/arinzeokigbo/Documents/Codex/2026-09-14/github-plugin-github-openai-curated-remote/work/astra-site
 Original checkout preserved: /Users/arinzeokigbo/arinzeokigbo.

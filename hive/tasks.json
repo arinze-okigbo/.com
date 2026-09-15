@@ -146,7 +146,7 @@
   {
     "id": "R7-05",
     "owner": "queen",
-    "status": "in_progress",
+    "status": "complete",
     "acceptance_test": "Verify exact preview and production commits, publish truthful measured evidence and a clean resume checkpoint"
   }
 ]

@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T14:14:54.206Z",
+  "capturedAt": "2026-09-15T22:51:14.454Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "b8522282f5adbdf88a5d49172341fbceec88c8ff",
+  "headCommit": "4fd1c6ca0a6e63a36f2ac16e280e89c544dafefd",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -1003,6 +1003,65 @@
         "hive/qa/portrait-final-summary.json",
         "hive/tasks.json",
         "src/components/hive/PortraitMotion.tsx"
+      ]
+    },
+    {
+      "commitSHA": "a2430f1f696f8bdb99fc76cf3db03d0d11f07a6e",
+      "timestamp": "2026-09-15T10:15:24-04:00",
+      "subject": "perf(layout): stabilize the mobile introduction during streaming",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/build-history.json",
+        "hive/changelog/round-7.md",
+        "hive/qa/portrait-linux-held-series.json",
+        "hive/qa/portrait-linux-held-summary.json",
+        "hive/qa/portrait-stable-series.json",
+        "hive/qa/portrait-stable-summary.json",
+        "hive/tasks.json",
+        "src/components/hive/Motion.tsx",
+        "src/components/hive/portrait-design.css"
+      ]
+    },
+    {
+      "commitSHA": "4fd1c6ca0a6e63a36f2ac16e280e89c544dafefd",
+      "timestamp": "2026-09-15T10:21:21-04:00",
+      "subject": "Merge pull request #8 from arinze-okigbo/hive/round-7-portrait-design",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/build-history.json",
+        "hive/changelog/round-6.md",
+        "hive/changelog/round-7.md",
+        "hive/qa/portrait-baseline-series.json",
+        "hive/qa/portrait-baseline-summary.json",
+        "hive/qa/portrait-candidate-series.json",
+        "hive/qa/portrait-candidate-summary.json",
+        "hive/qa/portrait-final-series.json",
+        "hive/qa/portrait-final-summary.json",
+        "hive/qa/portrait-linux-held-series.json",
+        "hive/qa/portrait-linux-held-summary.json",
+        "hive/qa/portrait-stable-series.json",
+        "hive/qa/portrait-stable-summary.json",
+        "hive/qa/round-six-linux-series.json",
+        "hive/qa/round-six-linux-summary.json",
+        "hive/qa/round-six-postmerge-linux-series.json",
+        "hive/qa/round-six-postmerge-linux-summary.json",
+        "hive/qa/round-six-production-series.json",
+        "hive/qa/round-six-production-summary.json",
+        "hive/research/portrait.json",
+        "hive/tasks.json",
+        "public/portrait.webp",
+        "src/app/about/page.tsx",
+        "src/app/page.tsx",
+        "src/components/hive/Motion.tsx",
+        "src/components/hive/Portrait.tsx",
+        "src/components/hive/PortraitMotion.tsx",
+        "src/components/hive/portrait-design.css",
+        "src/components/hive/portrait-motion.css",
+        "src/content/metadata.ts",
+        "tests/hive/metadata.spec.ts",
+        "tests/hive/portrait-design.spec.ts"
       ]
     }
   ]
