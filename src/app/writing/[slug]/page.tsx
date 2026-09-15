@@ -1,83 +1,129 @@
-import type { Metadata } from "next";
+import Link from "next/link";
+import { SplitText } from "@/components/hive/Motion";
 import { notFound } from "next/navigation";
-import type { ReactNode } from "react";
-
-import { Container } from "@/components/ui/Container";
-import { Prose } from "@/components/ui/Prose";
-import { NOT_FOUND } from "@/content/not-found";
-import { getPublishedPost, getPublishedPosts, isWritingEnabled } from "@/content/writing/posts";
+import { getHiveContent } from "@/lib/hive/feeds";
+import { getPublishedPost, getPublishedPosts } from "@/content/writing/posts";
 import { renderPostBody } from "@/content/writing/render";
-
-/**
- * `/writing/[slug]` — built and working, unlisted at launch (`docs/05 §6`).
- *
- * Statically generated from `content/writing/*.mdx`. Drafts (`published: false`)
- * never produce a route. `Prose` (`docs/04 §8.2`) supplies every token; code
- * blocks render monochrome because no syntax-highlighting palette exists.
- */
-
-const DATE_FORMATTER = new Intl.DateTimeFormat("en-GB", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  timeZone: "UTC",
-});
-
-interface PostPageProps {
-  readonly params: Promise<{ readonly slug: string }>;
+import { PageIntro, Source, pageMeta } from "@/components/hive/Primitives";
+type Props = { params: Promise<{ slug: string }> };
+export async function generateStaticParams() {
+  const { substack } = await getHiveContent();
+  return [
+    ...substack.items.map((p) => ({ slug: p.slug })),
+    ...getPublishedPosts()
+      .filter((post) => !substack.items.some((remote) => remote.slug === post.slug))
+      .map((p) => ({ slug: p.slug })),
+  ];
 }
-
-export function generateStaticParams(): readonly { slug: string }[] {
-  return getPublishedPosts().map((post) => ({ slug: post.slug }));
-}
-
-export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const post = getPublishedPost(slug);
-
-  // The title MUST be set on the not-found branch. Returning a metadata object
-  // with no `title` declares `title: undefined` for the segment, which
-  // suppresses the layout's `title.template` rather than falling through to it,
-  // and the document shipped an EMPTY <title> — WCAG 2.4.2 Page Titled, Level
-  // A. Reuse the same string `not-found.tsx` renders, so they cannot drift.
-  if (post === null) {
-    return {
-      title: NOT_FOUND.metadata.title,
-      description: NOT_FOUND.metadata.description,
-      robots: { index: false, follow: false },
-    };
-  }
-
-  return {
-    title: post.frontmatter.title,
-    description: post.frontmatter.description,
-    robots: isWritingEnabled() ? undefined : { index: false, follow: false },
-  };
+  const { substack } = await getHiveContent();
+  const p = substack.items.find((p) => p.slug === slug);
+  const local = getPublishedPost(slug);
+  return p
+    ? pageMeta(p.title, p.subtitle, `/writing/${slug}`)
+    : local
+      ? pageMeta(local.frontmatter.title, local.frontmatter.description, `/writing/${slug}`)
+      : { title: "Article not found" };
 }
-
-export default async function PostPage({ params }: PostPageProps): Promise<ReactNode> {
+export default async function Article({ params }: Props) {
   const { slug } = await params;
-  const post = getPublishedPost(slug);
-
-  if (post === null) notFound();
-
+  const { substack } = await getHiveContent();
+  const post = substack.items.find((p) => p.slug === slug);
+  const local = getPublishedPost(slug);
+  if (!post && !local) notFound();
+  if (!post && local)
+    return (
+      <>
+        <PageIntro
+          label="WRITING"
+          title={local.frontmatter.title}
+          description={local.frontmatter.description}
+        >
+          <div className="article-meta">
+            <time dateTime={local.frontmatter.date}>
+              {new Date(`${local.frontmatter.date}T00:00:00Z`).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+                timeZone: "UTC",
+              })}
+            </time>
+            <span>{Math.max(1, Math.ceil(local.body.split(/\s+/).length / 220))} min read</span>
+          </div>
+        </PageIntro>
+        <article className="article-body">{renderPostBody(local.body)}</article>
+      </>
+    );
+  if (!post) notFound();
   return (
-    <Container
-      as="article"
-      width="prose"
-      className="pt-[calc(var(--header-height)+var(--space-12))] pb-[var(--section-gap)]"
-    >
-      <h1 className="text-h1 text-foreground-strong max-w-[var(--measure-h1)]">
-        {post.frontmatter.title}
-      </h1>
-
-      <p className="mt-[var(--rhythm-meta)] text-caption text-foreground-muted">
-        <time dateTime={post.frontmatter.date}>
-          {DATE_FORMATTER.format(new Date(`${post.frontmatter.date}T00:00:00Z`))}
-        </time>
-      </p>
-
-      <Prose className="mt-[var(--rhythm-heading)]">{renderPostBody(post.body)}</Prose>
-    </Container>
+    <>
+      <PageIntro
+        label="WRITING / ORIGINALLY ON SUBSTACK"
+        title={post.title}
+        description={post.subtitle}
+      >
+        <div className="article-meta">
+          <time dateTime={post.date}>
+            {new Date(post.date).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+              timeZone: "UTC",
+            })}
+          </time>
+          <span>{post.readingMinutes} min read</span>
+          <Source href={post.url} label="Original article" />
+        </div>
+      </PageIntro>
+      <article className="article-body">
+        {post.blocks.some((b) => b.type === "heading") && (
+          <nav className="article-toc" aria-label="Table of contents">
+            <span className="eyebrow">IN THIS ESSAY</span>
+            {post.blocks
+              .filter((b) => b.type === "heading")
+              .map((b) => (
+                <a href={`#${b.id}`} key={b.id}>
+                  {b.text}
+                </a>
+              ))}
+          </nav>
+        )}
+        {post.blocks.map((b, index) =>
+          b.type === "heading" ? (
+            b.level <= 2 ? (
+              <h2 id={b.id} key={index}>
+                <SplitText text={b.text} by="word" />
+              </h2>
+            ) : (
+              <h3 id={b.id} key={index}>
+                <SplitText text={b.text} by="word" />
+              </h3>
+            )
+          ) : b.type === "quote" ? (
+            <blockquote key={index}>{b.text}</blockquote>
+          ) : b.type === "code" ? (
+            <pre key={index}>
+              <code>{b.text}</code>
+            </pre>
+          ) : b.type === "list-item" ? (
+            <p className="article-list-item" key={index}>
+              • {b.text}
+            </p>
+          ) : (
+            <p key={index}>{b.text}</p>
+          ),
+        )}
+        <div className="article-end">
+          <p>Originally published on Substack.</p>
+          <a href={post.url} className="text-link" target="_blank" rel="noreferrer">
+            Read the original ↗
+          </a>
+          <Link href="/writing" className="text-link">
+            ← All writing
+          </Link>
+        </div>
+      </article>
+    </>
   );
 }

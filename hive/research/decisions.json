@@ -1,0 +1,25 @@
+{
+  "round": "R1-02",
+  "verifiedAt": "2026-09-15",
+  "sources": {
+    "site": "https://arinzeokigbo.com",
+    "linkedin": "https://www.linkedin.com/in/arinzeokigbo",
+    "substack": "https://arinzeokigbo.substack.com/feed",
+    "github": "https://api.github.com/users/arinze-okigbo/repos?per_page=100&sort=updated",
+    "splita": "https://splita.co"
+  },
+  "decisions": [
+    "Current homepage has only same-page internal links; all discovered links, text, images, and metadata are inventoried.",
+    "NYU Class of 2028 and Cyera Data Security Intern are verified by public author LinkedIn posts; no internship dates inferred.",
+    "LinkedIn profile could not be fetched publicly; no login bypass attempted. Public indexed posts provide precise claims.",
+    "Substack feed discovered through an indexed public LinkedIn discussion; five complete RSS bodies cached.",
+    "GitHub contribution heatmap and four pinned repos extracted from actual public markup; counts never generated.",
+    "ARINZE.OS, Obi/OpenClaw Portal, Garmin dashboard lack identified public source artifacts; do not invent detail pages.",
+    "LinkedIn+ public artifact is a bookmarklet, not a verified published Chrome extension.",
+    "Yale Innovation Summit appearance, ColorStack, named scholarships, hobbies, and language proficiency not independently verified in this round; omit.",
+    "Splita fundraising and internal metrics omitted even where old site mentions them.",
+    "GitHub READMEs may describe planned or unverified behavior; retain their limitations and avoid invented impact metrics or personal lessons.",
+    "LinkedIn refresh uses checked-in curated posts every six hours because no authorized public feed exists. GitHub and Substack use server-only cached fetch and checked-in last-good fallbacks.",
+    "LinkedIn publication dates verified from SocialMediaPosting structured data. Official embed URNs extracted from public post HTML and checked with the official endpoint; no ID guessing."
+  ]
+}

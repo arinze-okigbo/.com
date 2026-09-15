@@ -1,32 +1,4 @@
-/**
- * Analytics event catalogue.
- *
- * `@vercel/analytics` and `@vercel/speed-insights` were installed but imported
- * nowhere (`docs/00` §9 / Defect 2), so the live site collected nothing while
- * the README claimed otherwise. The `<Analytics />` and `<SpeedInsights />`
- * components are mounted in `src/app/layout.tsx` by the frontend-core agent,
- * which owns that file. This module is the other half: the typed catalogue of
- * custom events, so tracking calls are named in one place instead of being
- * scattered as string literals through components.
- *
- * ## What is tracked
- *
- * | Event | Fired when | Properties |
- * |---|---|---|
- * | `resume_click` | the résumé link is activated | `location` |
- * | `contact_email_click` | a `mailto:` affordance is activated | `location` |
- * | `work_link_click` | an outbound link in work/projects is activated | `artifact`, `destination`, `location` |
- * | `profile_link_click` | GitHub / LinkedIn / X / Splita is activated | `destination`, `location` |
- *
- * ## What is NOT tracked
- *
- * No message content, no email address, no name, no free text of any kind —
- * only the closed enumerations declared below. There is no identifier, no
- * cookie and no cross-site property; Vercel Web Analytics is cookieless by
- * design and this module adds nothing to that.
- */
-
-import { track } from "@vercel/analytics";
+/** Legacy event API retained for existing links. No events are collected or sent. */
 
 /** Where on the page the interaction happened. Closed set. */
 export type EventLocation =
@@ -78,24 +50,11 @@ export interface AnalyticsEventProperties {
   };
 }
 
-/**
- * Records a custom event.
- *
- * Client-side only — `@vercel/analytics`'s `track` is a no-op during SSR and
- * outside production, so calling this from a server component silently does
- * nothing. Call it from an event handler.
- *
- * Failures are swallowed deliberately and only here: an analytics beacon must
- * never break an interaction the visitor actually asked for. Nothing else in
- * this codebase swallows an error.
- */
+/** Intentional no-op: the site has no analytics transport or visitor identifiers. */
 export function trackEvent<TName extends AnalyticsEventName>(
   name: TName,
   properties: AnalyticsEventProperties[TName],
 ): void {
-  try {
-    track(name, { ...properties });
-  } catch {
-    // Intentionally ignored. See the note above.
-  }
+  void name;
+  void properties;
 }

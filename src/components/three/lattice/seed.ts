@@ -1,11 +1,15 @@
 import {
   GRID_COLUMNS_HIGH,
   GRID_COLUMNS_LOW,
+  GRID_COLUMNS_MID,
   GRID_ROWS_HIGH,
   GRID_ROWS_LOW,
+  GRID_ROWS_MID,
   HIGH_DENSITY_CORE_THRESHOLD,
+  HIGH_DENSITY_MEMORY_GB,
   LATTICE_HALF_HEIGHT,
   LATTICE_HALF_WIDTH,
+  MID_DENSITY_CORE_THRESHOLD,
   NOISE_HALF_DEPTH,
   NOISE_HALF_HEIGHT,
   NOISE_HALF_WIDTH,
@@ -16,7 +20,8 @@ import {
  *
  * Pure and deterministic: the same bytes always produce the same lattice. This
  * is what lets the server-rendered poster and the WebGL scene be the same
- * structure rather than two artifacts that can drift (docs/02 §9).
+ * structure rather than two artifacts that can drift (docs/02 §9, now binding
+ * as A8.6).
  */
 
 const TAU = Math.PI * 2;
@@ -29,20 +34,43 @@ export interface LatticeGrid {
 export interface LatticeGeometry {
   /** Number of points. Equals `grid.columns * grid.rows`. */
   readonly count: number;
+  readonly columns: number;
+  readonly rows: number;
   /** Unresolved entropy positions, `count * 3` floats. */
   readonly noise: Float32Array;
   /** Resolved ordered positions, `count * 3` floats. */
   readonly lattice: Float32Array;
   /** Per-point `[stagger, sizeJitter]` in 0..1, `count * 2` floats. */
   readonly seeds: Float32Array;
+  /**
+   * Per-point heat bias in 0..1, read straight out of the signature, `count`
+   * floats. This is what makes "every point has a coordinate that came out of
+   * that signature" visibly true rather than merely asserted: a different
+   * signature gives a different pattern of hotter and colder regions.
+   */
+  readonly flare: Float32Array;
 }
 
-/** Picks a grid density the device can sustain. */
-export function resolveGrid(coreCount: number | undefined): LatticeGrid {
-  const cores = coreCount ?? 0;
-  return cores >= HIGH_DENSITY_CORE_THRESHOLD
-    ? { columns: GRID_COLUMNS_HIGH, rows: GRID_ROWS_HIGH }
-    : { columns: GRID_COLUMNS_LOW, rows: GRID_ROWS_LOW };
+export interface DeviceProfile {
+  readonly cores: number | undefined;
+  readonly memoryGb: number | undefined;
+}
+
+/**
+ * Picks a density the device can sustain. Tiering is by capability, not by
+ * viewport: fillrate is the only real constraint, and the cost of a point is
+ * its halo area, not its vertex.
+ */
+export function resolveGrid(profile: DeviceProfile): LatticeGrid {
+  const cores = profile.cores ?? 0;
+  const memoryGb = profile.memoryGb ?? HIGH_DENSITY_MEMORY_GB;
+  if (cores >= HIGH_DENSITY_CORE_THRESHOLD && memoryGb >= HIGH_DENSITY_MEMORY_GB) {
+    return { columns: GRID_COLUMNS_HIGH, rows: GRID_ROWS_HIGH };
+  }
+  if (cores >= MID_DENSITY_CORE_THRESHOLD) {
+    return { columns: GRID_COLUMNS_MID, rows: GRID_ROWS_MID };
+  }
+  return { columns: GRID_COLUMNS_LOW, rows: GRID_ROWS_LOW };
 }
 
 /** Mulberry32 — 4 lines, uniform enough, and identical on every platform. */
@@ -104,6 +132,10 @@ function surfaceHeight(x: number, y: number, p: SurfaceParameters): number {
   return primary * p.amplitudePrimary + diagonal * p.amplitudeSecondary + x * p.tiltX + y * p.tiltY;
 }
 
+/** Signature-derived heat bias for one grid cell. */
+const FLARE_BASE = 0.3;
+const FLARE_SPAN = 0.7;
+
 /**
  * Builds both states of the field from a signature.
  *
@@ -121,6 +153,7 @@ export function buildLattice(signature: Uint8Array, grid: LatticeGrid): LatticeG
   const noise = new Float32Array(count * 3);
   const lattice = new Float32Array(count * 3);
   const seeds = new Float32Array(count * 2);
+  const flare = new Float32Array(count);
 
   const parameters = readSurfaceParameters(signature);
   const random = createRandom(hashBytes(signature));
@@ -148,8 +181,104 @@ export function buildLattice(signature: Uint8Array, grid: LatticeGrid): LatticeG
 
       seeds[offset2] = random();
       seeds[offset2 + 1] = random();
+
+      const byte = signature[(column * 7 + row * 13) % signature.length] / 255;
+      flare[index] = FLARE_BASE + FLARE_SPAN * byte;
     }
   }
 
-  return { count, noise, lattice, seeds };
+  return { count, columns: grid.columns, rows: grid.rows, noise, lattice, seeds, flare };
+}
+
+export interface SignatureTraces {
+  /** Line-list vertices, `count * 3` floats. */
+  readonly position: Float32Array;
+  /** Per-vertex reveal parameter in 0..1, `count` floats. */
+  readonly progress: Float32Array;
+  /** Vertex count. Two per segment. */
+  readonly count: number;
+}
+
+/** `[firstByte, lastByte, rowBandCentre]` — r is bytes 0–31, s is 32–63. */
+const TRACE_STRANDS: readonly (readonly [number, number, number])[] = [
+  [0, 32, 0.3],
+  [32, 64, 0.7],
+];
+
+/** How far either side of its band centre a strand may wander, in rows. */
+const TRACE_BAND_SPREAD = 0.3;
+
+/** Lift above the surface, so a trace is never z-fighting its own points. */
+const TRACE_LIFT = 0.004;
+
+/** Heat written into the lattice where a trace passes, and beside it. */
+const TRACE_FLARE_ON = 1.0;
+const TRACE_FLARE_NEIGHBOUR = 0.9;
+
+/**
+ * Draws `r` and `s` as figures in the field.
+ *
+ * Each 32-byte half becomes a 32-vertex polyline whose row index is the byte
+ * value, snapped to real lattice points so the traces lie on the resolved
+ * surface. The points a trace passes through are flared hot, and so are their
+ * four neighbours, so the trace reads as a lit seam rather than a hairline.
+ *
+ * **This mutates `geometry.flare` in place, deliberately and by contract.** The
+ * flare buffer is a GPU upload source owned by the caller, and copying a
+ * Float32Array per build to preserve a value nobody reads would be a cost with
+ * no reader. The caller builds the lattice, calls this once, then uploads.
+ *
+ * @throws {RangeError} when the signature is shorter than the strands it names.
+ */
+export function buildSignatureTraces(
+  geometry: LatticeGeometry,
+  signature: Uint8Array,
+): SignatureTraces {
+  const required = TRACE_STRANDS[TRACE_STRANDS.length - 1][1];
+  if (signature.length < required) {
+    throw new RangeError(`buildSignatureTraces requires at least ${required} signature bytes`);
+  }
+
+  const { columns, rows, lattice, flare } = geometry;
+  const positions: number[] = [];
+  const progress: number[] = [];
+
+  for (const [from, to, band] of TRACE_STRANDS) {
+    const length = to - from;
+    let previous: readonly [number, number, number] | null = null;
+
+    for (let step = 0; step < length; step += 1) {
+      const column = Math.min(columns - 1, Math.round((step / (length - 1)) * (columns - 1)));
+      const rowFraction =
+        (band - TRACE_BAND_SPREAD * 0.5 + (signature[from + step] / 255) * TRACE_BAND_SPREAD) *
+        (rows - 1);
+      const row = Math.max(0, Math.min(rows - 1, Math.round(rowFraction)));
+      const index = row * columns + column;
+
+      flare[index] = TRACE_FLARE_ON;
+      for (const neighbour of [index - 1, index + 1, index - columns, index + columns]) {
+        if (neighbour < 0 || neighbour >= flare.length) continue;
+        flare[neighbour] = Math.max(flare[neighbour], TRACE_FLARE_NEIGHBOUR);
+      }
+
+      const current: readonly [number, number, number] = [
+        lattice[index * 3],
+        lattice[index * 3 + 1],
+        lattice[index * 3 + 2] + TRACE_LIFT,
+      ];
+
+      if (previous) {
+        positions.push(previous[0], previous[1], previous[2], current[0], current[1], current[2]);
+        const t = step / length;
+        progress.push(t, t);
+      }
+      previous = current;
+    }
+  }
+
+  return {
+    position: Float32Array.from(positions),
+    progress: Float32Array.from(progress),
+    count: progress.length,
+  };
 }

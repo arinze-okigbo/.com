@@ -1,0 +1,4 @@
+Contact: mailto:arinze@splita.co
+Expires: 2027-09-14T23:59:59Z
+Preferred-Languages: en
+Canonical: https://arinzeokigbo.com/.well-known/security.txt

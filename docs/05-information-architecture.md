@@ -460,6 +460,49 @@ the structure changes, because the nonce does.
 
 ---
 
+### 3.3a The ceremony — bridging copy and resting contract `#ceremony`
+
+`docs/15` §3.1 and §7 R7 flag that the `#attestation` → `#ceremony` adjacency needs a bridging sentence so it neither walks back the honesty disclaimer nor overclaims by association. That is a copy decision and it is mine.
+
+**Bridging copy — final, one paragraph, always expanded:**
+
+```
+The field above is decoration with real bytes behind it. This is not. Press the
+button and your own authenticator creates a credential, signs a challenge, and
+verifies it here — WebAuthn/FIDO2, the protocol named in the Queralt entry above.
+```
+
+*Revised from two paragraphs to one on 2026-09-11. Every load-bearing element is retained; the saving is a `--rhythm-paragraph` gap and two tightenings ("in this tab" → "here", "This is not decoration." → "This is not."). Sourced: WebAuthn/FIDO2 as work he did is `[00 §2/L55]`. The opening clause repeats the §3.3 disclaimer rather than softening it, which is what stops the adjacency reading as a retraction. The Queralt entry is named "above" rather than claimed as the same artifact — `docs/00` sources WebAuthn as one of the integration pathways analysed there, not that this demo is that work.*
+
+> **Why this paragraph is not split, and must not be collapsed — recorded so a later reader can evaluate the rule rather than inherit it.**
+> `ceremony-build` proposed moving the second half behind the disclosure; on height alone it was the single change that closed the debt. **Rejected on content grounds.** That half carries three things the resting state cannot lose: what pressing the button does (this document's own contract requires it at rest), the string **WebAuthn/FIDO2**, and the tie back to the entry at position 2. `docs/03` A3 finds evaluators skim for technology keywords and then read the prose *around* them — collapsing the highest-value keyword in the section removes it from the scan path entirely. `docs/03` B4.1 calls moving protocol nouns *up* into the first twelve words "the single highest-value structural edit available on this page"; moving this one into a closed `<details>` is that edit in reverse. **If a future pass needs height here, it does not come from this paragraph.**
+
+**Resting-state content contract** — binding on `ceremony-build` / `webauthn-demo`:
+
+| Slot | State |
+|---|---|
+| Heading, the bridging paragraph, the button, the line naming what happens on press | **Always expanded.** This is the section's evidence; **[R30]** and **[R34]** apply in full. |
+| **The honesty caveat** — *"The challenge is generated client-side, so this demonstrates the protocol rather than authenticating you to anything. Nothing is stored and nothing leaves your browser."* | **Always expanded. Ruled 2026-09-11; this row previously said otherwise.** |
+| The live result panel | Appears on run. It does not exist before the ceremony runs, so it is not information being hidden. |
+| The decoded captured sample and the closing notes | **Behind disclosure**, per §12.1 lever 1. |
+| Capability probe and authenticator selector (client panel) | **Behind their own native `<details>`, `platform` default.** Approved — see below. |
+
+> **Why the caveat stays at rest.** The contract already reserves a slot for "one line naming what happens on press"; a line naming what pressing *does not* do occupies that same slot and carries the `docs/02` §9 weight. The failure case is concrete and it is the one `docs/02` §9 names as the single way this backfires with a security audience: Touch ID fires, *"signature valid"* appears, the reader leaves — and the only statement that this is a demonstration was collapsed at that moment. **The caveat is also not a source of height.** It measures ~25–40px against a debt several times that, so trimming it hurts and still misses; it is refused as a height lever, now and later.
+
+> **Why the capability probe may be collapsed.** It is diagnostics about the *visitor's browser*, not a fact about Arinze, and it does not exist until script runs. **[R30]** and **[R34]** protect information about him from being animation- or interaction-gated; neither attaches to runtime output about the reader's own machine. `platform` default means nobody needs to open it to run the ceremony.
+
+**Resting-height budget: ≤710px at 390×844** (desktop lands lower — the block is part fixed-height controls, part reflowing prose, so it is not viewport-invariant).
+
+> **Budget history, recorded because the unit changed twice and the reasons are not interchangeable.** Written first as "≤0.75 vp at 390×844"; that invited a column-ratio conversion to desktop which came in 0.23 vp low, so it was restated as "≤633px at any viewport." That was also imprecise: `field-compose` then measured 748px mobile against 658px desktop, because the bridge prose reflows even though the controls do not. **The 633px figure was this document's own scaffolding — derived, at the non-binding viewport, by a method already conceded wrong — not a researched rule.** With R14 passing at both caps (§12.1), holding evidence hostage to that derived number would be `docs/03` AP6 exactly: the layout quietly cutting the highest-value sentences. **R14 itself is untouched and still passes at 6.00. Amending my own scaffolding to measured reality is not the same act as amending the rule, and this document declined to do the latter and still does.**
+
+Hard constraints on the disclosure — two rules bite here:
+
+- It must be a **server-rendered native `<details>`/`<summary>`**, not a JS-mounted accordion. `docs/04 §8.5` refuses `Accordion`/`Disclosure` *components* for content; a native `<details>` keeps every word in the initial DOM, survives a JS-disabled render **[R30, R4]**, stays findable by in-page search, and is exposed to assistive tech — so the information is not *only* reachable through interaction **[R34]**.
+- The `<summary>` text must be information-bearing **[R12]**. Not "Show more", not "Details". Ship: `A captured ceremony, decoded field by field`.
+- The captured sample exists for the visitor who **cannot** run the ceremony — no platform authenticator, JS off, locked-down corporate laptop. That path must still reach it. If disclosure would break that path, the disclosure is wrong, not the path.
+
+---
+
 ### 3.4 Projects
 
 `SectionHeading` level 2, `id="projects-heading"`:
@@ -581,7 +624,9 @@ competitions. World Bank Youth Summit, May 2025: delivered a speech on Africa's 
 in building a global technology hub, and joined a fireside chat on digital currencies
 in development.
 ```
-*`[00 §4/L105]` and `[00 §2/L60]`. If Phase 4 finds this pushes the page past six screenfuls **[R14]**, cut this line, not the education line.*
+*`[00 §4/L105]` and `[00 §2/L60]`.*
+
+> **CUT — executed 2026-09-11.** This line is removed from the shipping page. The condition it was written against has now been measured rather than estimated: `field-compose` reports the built page at **10.32 vp at 390×844** and D17 records **6.10 vp at 390×844** before Direction C. The pre-authorisation in this section fires, exactly as drafted — **this line goes, the education line stays**, and the primary `CredentialsLine` naming Tyree and the World Bank Youth Summit stays. **[R22]** and **[R23]** are both still satisfied: the grant-shaped credentials keep their one compact home below screenful two, and education is still exactly one line. Saving: −0.14 vp. See §12.1.
 
 **Not in About:** the current site's `"I care about execution and clarity…"` `[00 §1/L20]`, `"I build systems, products, and companies."` `[00 §1/L17]`, and the `"Builder Across AI, Security, and Fintech"` achievement `[00 §4/L107]` — all three are self-summary with no artifact behind them, which is `03 F3`. The dead app's skills list `[00 §1/L35]` and stats block `[00 §1/L34]` are excluded entirely: **[R17]** bans skill clouds and stat counters, and `docs/00` tags both as unverified AI-builder placeholder.
 
@@ -1248,7 +1293,7 @@ All four items below appear **only** in the dead Vite app or in dead, unimported
 | R11 mechanism in first ≤12 words | Pass — 12 / 11 / 11 / 8 words | §3.2, §3.4 |
 | R12 information-bearing link text | Pass — 27-row inventory, zero banned names | §3.9 |
 | R13 evidence order descending | Pass | §1 |
-| R14 ≤6 viewport heights | Designed to 6; Phase 4 must not exceed | §1 |
+| R14 ≤6 viewport heights | **PASS — 5.81 vp @ 1440×900 (cap 6.00), 7.11 vp @ 390×844 (companion cap 8.00).** Cap never amended. Closed. | §12.1 |
 | R15 four evidence slots per entry | Pass; `outcome` omitted where unsourced | §3.2 |
 | R16 first-person attribution | Pass on 3 entries; **placeholder on Splita** | §3.2, §7 |
 | R17 no skill cloud / tag soup | Pass — no `tags` prop exists | §3.2, §9 |
@@ -1265,6 +1310,130 @@ All four items below appear **only** in the dead Vite app or in dead, unimported
 | R28 GitHub linked, not featured | Pass — no activity component | §9 |
 | R29 prints legibly | `docs/04 §9.5` forces light on print | — |
 | R31–R35 motion | `docs/04 §5, §6` | §9 |
+
+---
+
+## 12.1 R14 page-height ruling
+
+Routed here by `docs/15` §3.2 with three levers. **The ruling is not the one the levers anticipated, because the measurement exposed a rule error upstream of them.**
+
+### The measurements, and the viewport problem
+
+`field-compose` measured the built page at 390×844: document **10.32 vp**, of which `#ceremony` alone is **3.71 vp** against a 0.60 estimate, and `#attestation` is **0.53 vp** against a +1.00 estimate — *under* budget. Its arithmetic reproduces exactly.
+
+Three agents have been quoting three viewports: 390×844 (10.32), 1280×900 (7.57, `field-three-d`), 1440×900 (unmeasured since Direction C). Those numbers are not comparable and were being compared.
+
+**R14's literal text settles it:** *"Total scroll length of the page must not exceed 6 full viewport heights **at 1440×900**."* The rule names one viewport. D17 records the page at **5.28 at 1440×900 — passes** — and 6.10 at 390×844, then `docs/04` §13 extended the assertion to both viewports on the ground that "**[03 R14]** is viewport-independent."
+
+**R14 is not viewport-independent; it names a viewport in its own sentence.** That extension was a design-system checklist asserting a stricter form of a content rule it does not own, and it is what manufactured D17. Reusing a cap calibrated at 1440×900 as though it also held at 390×844 is a silent tightening: the same page reflows **1.36× taller** in viewport units on mobile (10.32 / 7.57 measured). A faithful mobile translation of "6.0 at 1440×900" is **≈8.18 vp at 390×844**, not 6.0.
+
+### The ruling
+
+1. **Governing check stays `scrollHeight / innerHeight ≤ 6.00` at 1440×900**, as written. **The cap is not amended.** Lever 3 is declined.
+2. **A calibrated mobile companion is added: ≤ 8.00 vp at 390×844.** Derived from the measured 1.36× reflow factor and rounded *down* from 8.18. This is the same rule expressed at a second viewport — not a second, looser rule.
+3. **`docs/04` §13's "R14 is viewport-independent" assertion is rescinded.** D17 is reclassified: the page did not breach R14; the checklist did.
+4. **Lever 2 — taken, and now genuinely executed.** `credentialsDetailLine` is cut (§3.5). Pre-authorised in this document since drafting; the condition is now measured. **Correction:** when this ruling was first written it recorded the cut as done while the row was still rendering in `AboutSection.tsx` — the document overstated the shipped state for one round. `field-compose` caught it and executed it. Measured saving **0.09 vp at 390×844**, not the 0.14 estimated. The strings stay in `src/content/about.ts` and stay enumerated by `content.test.ts`, so this is a composition change, not a copy deletion, and the row is one line from being restored.
+5. **Lever 1 — taken, with a budget, and it is load-bearing for the governing check.** `#ceremony` resting height **≤ 0.75 vp (≈633px at 390×844)**. Content contract and the two rules constraining *how* it collapses are in §3.3a. It was first taken here on content grounds independent of R14 — 3.71 vp of pre-expanded reference material before the visitor has pressed anything is a weak use of the fold. **The governing measurement has since made it mandatory rather than merely correct:** see the table below. Nothing should later read lever 1 as the optional, taste-driven one. It is the single reason the page passes the cap this ruling declined to amend.
+6. **Governing figure, measured 2026-09-11 by `field-compose` at 1440×900** — the number nobody had post-Direction-C:
+
+| | before cuts | after cuts | projected, lever 1 landed | cap |
+|---|---:|---:|---:|---:|
+| **1440×900 total** | 7.57 | **7.46 — FAILS by 24%** | **5.67 — passes** | 6.00 |
+| 1440×900 without `#ceremony` | 5.28 | 5.17 | — | — |
+| 390×844 total | 10.32 | **10.06 — fails** | **7.09 — passes** | 8.00 |
+| 390×844 without `#ceremony` | 6.61 | 6.34 | — | — |
+
+`#ceremony` is **2.29 vp of the 2.29-over-cap desktop failure**. At the §3.3a resting budget it costs ~0.50 vp at 1440×900, where the wider column forces fewer reflowed lines than mobile. Both viewports clear; **neither clears without lever 1.**
+
+**Desktop headroom is the binding constraint from here.** See the final measured state below — it is thinner than this projection.
+
+### What is not on the table
+
+**The ceremony itself.** Per `docs/03` A7, what defeats the age-discount heuristic is evidence with an external referent that does not care how old the author is — *"a protocol with a spec number… A FIDO2/PKI implementation is exactly as hard at 20 as at 40."* A live WebAuthn ceremony firing the reader's own authenticator is the strongest instance of that available to this page, and it is the live proof of the entry at position 2. If the re-measure still fails at 1440×900, **the next cut is not the ceremony** — come back here.
+
+**`#attestation`** came in under its estimate and is smaller than the boxed figure it replaced. Not a contributor.
+
+### Final measured state — `<details>` landed
+
+`field-compose`, built page, disclosure in place:
+
+| viewport | measured | cap | headroom |
+|---|---:|---:|---:|
+| **1440×900 (governing)** | **5.90 vp** | 6.00 | **0.10 vp — 1.7%** |
+| 390×844 (companion) | 7.23 vp | 8.00 | 0.77 vp — 9.6% |
+
+**Both caps pass. R14 is satisfied as written, without amendment.** That was the object of the ruling and it is met.
+
+**The margin is 1.7%, not the 5.5% projected above.** At that width a single added paragraph anywhere on the page can breach the governing cap. The forward rule is therefore stronger than "any future section reopens this ruling": **no new content block of any size ships without a 1440×900 re-measure taken first.** Mobile is not a proxy for it and 1280×900 is not a substitute.
+
+**0.14 vp is owed against the §3.3a budget.** `#ceremony` resting measures 748px against the 633px budget — over by 115px. That is `ceremony-build`'s to close, and it is the cheapest headroom on the page because it is a debt against a budget that already exists. Collected, it puts mobile at 7.09 (this document's projection to the decimal) and desktop at ≈5.77.
+
+**AUTHORISED 2026-09-11 — the `.panel` lever, lever 1 of the order below.** The conditional recorded here has fired on its own terms. `field-compose` corrected the debt arithmetic: the §3.3a overage is **fixed-px, not fixed-vp** — 115px at 390×844 but only **25px at 1440×900** — so collecting it in full takes desktop to **5.87**, above the ~5.85 trigger, not the 5.77 this document projected. `.panel` padding-block 24→16px is therefore authorised now: **desktop 5.80 vp, headroom 0.20 vp (3.3%)**, roughly doubling the margin. `--section-gap` stays unspent.
+
+*The px/vp lesson bit twice in one round, in opposite directions. A fixed-px budget converted to vp under-reads on the taller viewport; a fixed-px debt is a larger vp fraction on the shorter one — mobile's 115px is 0.136 vp, desktop's 25px is 0.028, a 4.9× difference in what collecting it buys. Same block, same budget. Quote px for block heights and vp only for page totals.*
+
+**The §3.3a budget is amended rather than collected in copy.** Both caps pass, the binding viewport's debt is 25px, and the gap lever covers it two and a half times over. See §3.3a for the reasoning and for why this is not the act this ruling refused when it declined to amend R14.
+
+**Ruling on the structural levers: hold them.** `field-compose` proposed changing nothing until that 0.14 is collected, and that is right — spending a structural lever to cover an unpaid content budget is backwards. If the debt is collected and desktop still sits above ~5.85, the order of resort is:
+
+1. **`.panel` padding-block 24→16px (−0.07 vp).** Gap, not content. `docs/03` AP2 is explicit that when a page is over budget the content is cut and the gap is not, so this precedes any copy change.
+2. **`--section-gap` × 0.75 (−0.24 vp).** The largest lever and the only one that would comfortably restore margin — but it is `docs/04` §2.3's rhythm across the whole page. **A design-system decision, not a content one.**
+
+Both are token changes and neither is mine to take. **What is mine, and is settled: the content side will not fund desktop headroom by cutting copy while gap-priced levers remain unspent.** No entry, no mechanism sentence, no contribution clause and no section is on the table for page height. `docs/03` AP6 anticipated exactly this pressure — a minimal aesthetic quietly cutting the highest-value sentences for layout reasons — and its ruling stands: if something has to give for height, it is not the argument.
+
+**Not proposed, and refused if offered:** `.panel` padding-block → 0 (collapses the lit panel into its own text) and reverting the footer clearance (it is WCAG 2.2 SC 2.4.11 clearance for the fixed `FieldHud` over focusable links — an accessibility regression is not a height lever).
+
+### CLOSED — final measured state, 2026-09-11
+
+| | measured | cap | headroom |
+|---|---:|---:|---:|
+| **1440×900 (governing)** | **5.81 vp** | 6.00 | **0.19 vp — 3.2%** |
+| 390×844 (companion) | **7.11 vp** | 8.00 | 0.89 vp — 11.2% |
+| JS disabled | 5.81 / 7.15 | — | both pass |
+
+`#ceremony` resting **707px against the amended 710px budget — met, with 3px to spare** (642px at 1440×900). Desktop sits below the 5.85 trigger, so no further lever fires. **`--section-gap` unspent. No copy was cut.** The 0.04 vp JS-off mobile delta predates the disclosure — still no disclosure-shaped divergence between the two paths.
+
+What each change bought:
+
+```
+before            5.90 desktop · 7.23 mobile
+.panel 24→16      5.83         · 7.16    gap-priced lever  (−0.07)
+bridge rewrite    5.81         · 7.11    copy, no evidence lost (−0.02 / −0.05)
+```
+
+**The rejected edit was oversized for the problem, not merely unnecessary.** Moving the bridge's second half would have bought ~0.16 vp mobile against a 0.14 debt — it would have spent the section's highest-value keyword to buy *more* headroom than the budget needed. The one-paragraph rewrite closed the same gap with 3px of margin and cost nothing. Recorded because the general lesson is not "keep the paragraph": it is that a height problem should be priced before a content lever is reached for, and `docs/03` AP2's ordering — gap before content — held at every step here.
+
+**Doc/code parity verified:** `CEREMONY_BRIDGE` in `src/content/ceremony.ts` is byte-identical to the §3.3a string (240 chars, diffed). Given that conclusion-without-reason divergence bit three times in this work, the shipped constant also carries the rejection reasoning in its doc comment, so the argument travels with the string.
+
+### §3.3a compliance — verified
+
+`field-compose` confirmed all three constraints on the built page, and `CeremonySection.test.tsx` asserts them structurally:
+
+- One native `<details>`, **server-rendered and closed with JavaScript disabled** — not a JS-mounted accordion, so `docs/04` §8.5 holds. ✓
+- `<summary>` reads exactly `A captured ceremony, decoded field by field` — information-bearing **[R12]**. ✓
+- The decoded sample is **in the initial DOM while closed**: in-page search finds it, assistive tech reaches it **[R30, R34]**. ✓
+- Bridging copy present; the honesty caveat sits *outside* the disclosure, asserted by test. ✓
+- JS-off height 7.28 vp vs 7.23 with JS — **no disclosure-shaped divergence between the two paths**, which was the risk that mattered. ✓
+
+The no-authenticator path is intact: the captured sample exists for the visitor who cannot run the ceremony, and it survives with JS off.
+
+### The 0.69 vp — accounted, and closed
+
+Resolved by `field-compose`. **The decisive check was the governing viewport: the page without `#ceremony` measures 5.28 vp at 1440×900 — D17's recorded figure to the decimal.** The non-ceremony page had not grown at all where the rule is asserted. The discrepancy was mobile-only, which is why it looked like drift: it was reflow, not content.
+
+Breakdown at 390×844:
+
+| Δ | Cause | Disposition |
+|---:|---|---|
+| 0.18 vp | **`.panel` inline padding.** 24px each side on a ~326px column removes 15% of the measure, so text reflows taller — 333px across the three work entries, of which only 144px is the padding itself and the rest is the extra lines the narrowed measure forces. | **Cut** to 16px below `--breakpoint-md`, 24px restored above it. Pure gap, no content — `docs/03` AP2: gap goes first. |
+| 0.09 vp | Lever 2, now executed | Cut |
+| 0.17 vp | `.panel` block padding | **Kept** — deliberate |
+| 0.04 vp | Footer block-end | **Kept** — WCAG 2.2 SC 2.4.11 clearance for the fixed `FieldHud`, which would otherwise overlay the focusable footer links |
+| ~0.21 vp | Unattributed — D17-baseline drift or growth outside `field-compose`'s files | **Closed, not chased.** See below. |
+
+**The ~0.21 vp residual is closed deliberately.** It is mobile-only — desktop reconciled exactly — and mobile carries 0.91 vp of headroom against its companion cap. Chasing it would spend agent time on the viewport that is not binding. If a future change puts mobile near 8.00 it can be reopened; until then it is noise.
+
+Worth recording against the original suspicion: **the field restaging is net −0.11 vp at the governing viewport.** The page is now *below* its pre-port desktop baseline despite gaining `#attestation`. The restaging did not cost height; it paid for itself.
 
 ---
 

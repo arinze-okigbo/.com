@@ -1,0 +1,281 @@
+{
+  "checkedAt": "2026-09-15T03:44:06.140988+00:00",
+  "scope": "Unique external source and contact web URLs from editorial.ts, hive.ts, and checked-in feed canonical URLs. Existing successful GET caches reused; other requests only validate HTTP availability, not content quality.",
+  "summary": {
+    "accessible": 31,
+    "broken": 0,
+    "blocked-or-unverified": 1,
+    "login-required": 0
+  },
+  "contact": {
+    "url": "mailto:arinze@splita.co",
+    "classification": "syntax-and-original-site-verified",
+    "delivery": "Not tested; no email sent.",
+    "source": "content/inventory.json"
+  },
+  "results": [
+    {
+      "url": "https://arinzeokigbo.com",
+      "classification": "accessible",
+      "status": null,
+      "method": "cached successful GET",
+      "evidence": "hive/research/current-site-1.html",
+      "checkedAt": "2026-09-15T03:29:33.212397+00:00",
+      "verification": "Successful curl --fail GET and saved source document; exact response code was not retained."
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://arinzeokigbo.substack.com/",
+      "checkedAt": "2026-09-15T03:44:03.460524+00:00"
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/feed",
+      "classification": "accessible",
+      "status": null,
+      "method": "cached successful GET",
+      "evidence": "hive/research/substack-feed.xml",
+      "checkedAt": "2026-09-15T03:30:40.493263+00:00",
+      "verification": "Successful curl --fail GET and saved source document; exact response code was not retained."
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/from-breakdown-to-breakthrough-how",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://arinzeokigbo.substack.com/p/from-breakdown-to-breakthrough-how",
+      "checkedAt": "2026-09-15T03:44:03.455521+00:00"
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/how-tech-is-tackling-the-environmental",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://arinzeokigbo.substack.com/p/how-tech-is-tackling-the-environmental",
+      "checkedAt": "2026-09-15T03:44:03.463840+00:00"
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/tech-vs-tech-how-technology-may-save",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://arinzeokigbo.substack.com/p/tech-vs-tech-how-technology-may-save",
+      "checkedAt": "2026-09-15T03:44:03.461273+00:00"
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/the-next-decade-of-digital-identity",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://arinzeokigbo.substack.com/p/the-next-decade-of-digital-identity",
+      "checkedAt": "2026-09-15T03:44:03.512671+00:00"
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/why-nigeria-needs-an-ai-policy-for",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://arinzeokigbo.substack.com/p/why-nigeria-needs-an-ai-policy-for",
+      "checkedAt": "2026-09-15T03:44:03.788614+00:00"
+    },
+    {
+      "url": "https://bantamsports.com/sports/mens-track-and-field/roster/arinze-okigbo/14121",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://bantamsports.com/sports/mens-track-and-field/roster/arinze-okigbo/14121",
+      "checkedAt": "2026-09-15T03:44:04.884870+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo",
+      "classification": "accessible",
+      "status": null,
+      "method": "cached successful GET",
+      "evidence": "hive/research/github-profile.html",
+      "checkedAt": "2026-09-15T03:29:55.508823+00:00",
+      "verification": "Successful curl --fail GET and saved source document; exact response code was not retained."
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/.com",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/.com",
+      "checkedAt": "2026-09-15T03:44:04.148835+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/.com/commit/32754de039625eae9251fd44e0fb08d02269c4d6",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/.com/commit/32754de039625eae9251fd44e0fb08d02269c4d6",
+      "checkedAt": "2026-09-15T03:44:04.154142+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/HomeworkAIChatBot",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/HomeworkAIChatBot",
+      "checkedAt": "2026-09-15T03:44:04.143786+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+      "checkedAt": "2026-09-15T03:44:04.481767+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/Scanner",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/Scanner",
+      "checkedAt": "2026-09-15T03:44:04.665257+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/arinze-okigbo",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/arinze-okigbo",
+      "checkedAt": "2026-09-15T03:44:04.666603+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
+      "checkedAt": "2026-09-15T03:44:04.700637+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/nyc-live",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/nyc-live",
+      "checkedAt": "2026-09-15T03:44:05.097302+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/nyclive",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/nyclive",
+      "checkedAt": "2026-09-15T03:44:05.000127+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/sky-view",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/sky-view",
+      "checkedAt": "2026-09-15T03:44:05.239154+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/splita-coming-soon",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/splita-coming-soon",
+      "checkedAt": "2026-09-15T03:44:05.219175+00:00"
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/tindext-v2",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://github.com/arinze-okigbo/tindext-v2",
+      "checkedAt": "2026-09-15T03:44:05.542749+00:00"
+    },
+    {
+      "url": "https://snorkel.ai",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://snorkel.ai/",
+      "checkedAt": "2026-09-15T03:44:05.336857+00:00"
+    },
+    {
+      "url": "https://splita.co",
+      "classification": "accessible",
+      "status": null,
+      "method": "cached successful GET",
+      "evidence": "hive/research/splita.html",
+      "checkedAt": "2026-09-15T03:29:55.667570+00:00",
+      "verification": "Successful curl --fail GET and saved source document; exact response code was not retained."
+    },
+    {
+      "url": "https://www.linkedin.com/embed/feed/update/urn:li:share:7450687947185491968",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7450687947185491968",
+      "checkedAt": "2026-09-15T03:44:05.766674+00:00"
+    },
+    {
+      "url": "https://www.linkedin.com/embed/feed/update/urn:li:share:7469756318426398720",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7469756318426398720",
+      "checkedAt": "2026-09-15T03:44:05.766430+00:00"
+    },
+    {
+      "url": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7470842500073721856",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7470842500073721856",
+      "checkedAt": "2026-09-15T03:44:05.539889+00:00"
+    },
+    {
+      "url": "https://www.linkedin.com/in/arinzeokigbo",
+      "classification": "blocked-or-unverified",
+      "status": 999,
+      "method": "HEAD",
+      "effectiveUrl": "https://www.linkedin.com/in/arinzeokigbo",
+      "checkedAt": "2026-09-15T03:44:05.538516+00:00"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_cybersecurity-datasecurity-cloudsecurity-activity-7450891042796507136-J0J3",
+      "classification": "accessible",
+      "status": null,
+      "method": "cached successful GET",
+      "evidence": "hive/research/linkedin-post-0.html",
+      "checkedAt": "2026-09-15T03:35:10.578988+00:00",
+      "verification": "Successful curl --fail GET and saved source document; exact response code was not retained."
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_cyera-just-announced-our-600m-series-g-activity-7470842500950376448-4o3M",
+      "classification": "accessible",
+      "status": null,
+      "method": "cached successful GET",
+      "evidence": "hive/research/linkedin-post-2.html",
+      "checkedAt": "2026-09-15T03:35:11.452208+00:00",
+      "verification": "Successful curl --fail GET and saved source document; exact response code was not retained."
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_nyu-computerscience-splita-activity-7469756321639198721-MUpx",
+      "classification": "accessible",
+      "status": null,
+      "method": "cached successful GET",
+      "evidence": "hive/research/linkedin-post-1.html",
+      "checkedAt": "2026-09-15T03:35:11.170120+00:00",
+      "verification": "Successful curl --fail GET and saved source document; exact response code was not retained."
+    },
+    {
+      "url": "https://www.queraltinc.com",
+      "classification": "accessible",
+      "status": 200,
+      "method": "HEAD",
+      "effectiveUrl": "https://www.queraltinc.com/",
+      "checkedAt": "2026-09-15T03:44:06.140080+00:00"
+    }
+  ]
+}

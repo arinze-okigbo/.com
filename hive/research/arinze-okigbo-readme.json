@@ -1,0 +1,18 @@
+{
+  "name": "README.md",
+  "path": "README.md",
+  "sha": "fc6fa40758bb79b4627d7f14a4d3dde88e9270b4",
+  "size": 1494,
+  "url": "https://api.github.com/repos/arinze-okigbo/arinze-okigbo/contents/README.md?ref=main",
+  "html_url": "https://github.com/arinze-okigbo/arinze-okigbo/blob/main/README.md",
+  "git_url": "https://api.github.com/repos/arinze-okigbo/arinze-okigbo/git/blobs/fc6fa40758bb79b4627d7f14a4d3dde88e9270b4",
+  "download_url": "https://raw.githubusercontent.com/arinze-okigbo/arinze-okigbo/main/README.md",
+  "type": "file",
+  "content": "IyBIaSwgSeKAmW0gQXJpbnplIE9raWdibwohW1RvcCBMYW5nc10oaHR0cHM6\nLy9naXRodWItcmVhZG1lLXN0YXRzLnZlcmNlbC5hcHAvYXBpL3RvcC1sYW5n\ncy8/dXNlcm5hbWU9YXJpbnplLW9raWdibyZsYXlvdXQ9Y29tcGFjdCkKPGJy\nPgpGb3VuZGVyLCBidWlsZGVyLCBhbmQgY29tcHV0ZXIgc2NpZW5jZSBzdHVk\nZW50IHdvcmtpbmcgYXQgdGhlIGludGVyc2VjdGlvbiBvZiBBSSwgc2VjdXJp\ndHksIHNvZnR3YXJlIGluZnJhc3RydWN0dXJlLCBhbmQgZmludGVjaC4KCkni\ngJltIGN1cnJlbnRseSB0aGUgQ28tRm91bmRlciAmIENFTyBvZiAqKlNwbGl0\nYSoqLCB3aGVyZSBJ4oCZbSBidWlsZGluZyBhIGJldHRlciB3YXkgdG8gY29v\ncmRpbmF0ZSBncm91cCBwYXltZW50cyBieSBjb2xsZWN0aW5nIGV2ZXJ5b25l\n4oCZcyBzaGFyZSB1cGZyb250IGFuZCBwYXlpbmcgdGhlIHZlbmRvciBpbiBm\ndWxsLiBJIGFsc28gd29yayBvbiBBSSBzeXN0ZW1zIGF0ICoqU25vcmtlbCBB\nSSoqIGFuZCBhdXRoZW50aWNhdGlvbiBpbmZyYXN0cnVjdHVyZSBhdCAqKlF1\nZXJhbHQgSW5jLioqLCB3aXRoIGEgZm9jdXMgb24gc2VjdXJlIHN5c3RlbXMs\nIGRldmVsb3BlciB0b29saW5nLCBhbmQgcmVhbC13b3JsZCBwcm9kdWN0IGV4\nZWN1dGlvbi4KCiMjIFdoYXQgSeKAmW0gd29ya2luZyBvbgotIEJ1aWxkaW5n\nICoqU3BsaXRhKioKLSBDb250cmlidXRpbmcgdG8gKipBSSBzeXN0ZW0gZXZh\nbHVhdGlvbiBhbmQgcmVsaWFiaWxpdHkqKgotIFdvcmtpbmcgb24gKiphdXRo\nZW50aWNhdGlvbiBpbmZyYXN0cnVjdHVyZSwgUEtJLCBhbmQgRklETzIqKgot\nIEdyb3dpbmcgYXMgYSBzb2Z0d2FyZSBlbmdpbmVlciwgZm91bmRlciwgYW5k\nIHByb2R1Y3QgYnVpbGRlcgoKIyMgSW50ZXJlc3RzCi0gQXJ0aWZpY2lhbCBJ\nbnRlbGxpZ2VuY2UKLSBDeWJlcnNlY3VyaXR5Ci0gRmludGVjaAotIERldmVs\nb3BlciBUb29scwotIFNvZnR3YXJlIEVuZ2luZWVyaW5nCi0gRW50cmVwcmVu\nZXVyc2hpcAoKIyMgQ3VycmVudCBGb2N1cwotIFNoaXBwaW5nIHByb2R1Y3Rz\nIHRoYXQgc29sdmUgcmVhbCBwcm9ibGVtcwotIERlZXBlbmluZyBteSB1bmRl\ncnN0YW5kaW5nIG9mIEFJIGFuZCBzZWN1cmUgc3lzdGVtcwotIEJ1aWxkaW5n\nIHRlY2huaWNhbCBhbmQgZm91bmRlciBsZXZlcmFnZSBlYXJseQoKIyMgRXhw\nZXJpZW5jZQotICoqQ28tRm91bmRlciAmIENFTyoqIOKAlCBTcGxpdGEgIAot\nICoqQUkgRGV2T3BzIENvbnRyYWN0b3IqKiDigJQgU25vcmtlbCBBSSAgCi0g\nKipTb2Z0d2FyZSBFbmdpbmVlcmluZyoqIOKAlCBRdWVyYWx0IEluYy4gIAot\nICoqQ1MgU3R1ZGVudCoqIOKAlCBUcmluaXR5IENvbGxlZ2UKCiMjIENvbm5l\nY3Qgd2l0aCBtZQotIExpbmtlZEluOiBbaHR0cHM6Ly93d3cubGlua2VkaW4u\nY29tL2luL2FyaW56ZW9raWdiby9dCi0gUGVyc29uYWwgV2Vic2l0ZTogW3d3\ndy5hcmluemVva2lnYm8uY29tXQotIFNwbGl0YSBXZWJzaXRlOiBbd3d3LnNw\nbGl0YS5jb10K\n",
+  "encoding": "base64",
+  "_links": {
+    "self": "https://api.github.com/repos/arinze-okigbo/arinze-okigbo/contents/README.md?ref=main",
+    "git": "https://api.github.com/repos/arinze-okigbo/arinze-okigbo/git/blobs/fc6fa40758bb79b4627d7f14a4d3dde88e9270b4",
+    "html": "https://github.com/arinze-okigbo/arinze-okigbo/blob/main/README.md"
+  }
+}

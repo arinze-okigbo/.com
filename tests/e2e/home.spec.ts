@@ -33,6 +33,16 @@ const EXPECTED_HEADING_CHAIN: readonly { level: number; text: string }[] = [
     text: "Browser-native authentication — FIDO2, PKI, and Microsoft Entra ID",
   },
   { level: 3, text: "LLM output evaluation inside production AI pipelines" },
+  // #attestation sits here on the page and contributes NO heading, by design:
+  // docs/15 §3 row 3 titles it by its eyebrow precisely so the R9 chain is
+  // unchanged by the field port. Its absence from this list is the assertion.
+  {
+    level: 2,
+    text: "A WebAuthn ceremony runs here, on your device, and this page decodes every byte of it.",
+  },
+  { level: 3, text: "Read this first" },
+  { level: 3, text: "The captured sample, decoded" },
+  { level: 3, text: "Notes" },
   {
     level: 2,
     text: "Open-source: SkyView layers live flight traffic on a photorealistic 3D globe.",
@@ -132,7 +142,9 @@ test.describe("home page structure", () => {
 
     // The address also appears as plain, selectable body text [R25], distinct
     // from the mailto: CTA button.
-    await expect(page.locator("#contact").getByText("arinze@splita.co", { exact: true })).toBeVisible();
+    await expect(
+      page.locator("#contact").getByText("arinze@splita.co", { exact: true }),
+    ).toBeVisible();
     await expect(
       page.locator("#contact").getByRole("link", { name: "Email arinze@splita.co" }),
     ).toHaveAttribute("href", "mailto:arinze@splita.co");
@@ -165,9 +177,10 @@ test.describe("home page structure", () => {
     const bodyText = await page.locator("body").innerText();
 
     for (const marker of PLACEHOLDER_MARKERS) {
-      expect(bodyText.includes(marker), `found placeholder marker "${marker}" in rendered text`).toBe(
-        false,
-      );
+      expect(
+        bodyText.includes(marker),
+        `found placeholder marker "${marker}" in rendered text`,
+      ).toBe(false);
     }
   });
 

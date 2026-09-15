@@ -1,0 +1,18 @@
+{
+  "name": "README.md",
+  "path": "README.md",
+  "sha": "4848a0178369347a3ef52efe08ab798951e0963e",
+  "size": 1654,
+  "url": "https://api.github.com/repos/arinze-okigbo/tindext-v2/contents/README.md?ref=main",
+  "html_url": "https://github.com/arinze-okigbo/tindext-v2/blob/main/README.md",
+  "git_url": "https://api.github.com/repos/arinze-okigbo/tindext-v2/git/blobs/4848a0178369347a3ef52efe08ab798951e0963e",
+  "download_url": "https://raw.githubusercontent.com/arinze-okigbo/tindext-v2/main/README.md",
+  "type": "file",
+  "content": "IyBDYW1wdXMgQm9va3NoZWxmIChUaW5kZXh0KQo8aW1nIHdpZHRoPSIxMjgw\nIiBoZWlnaHQ9IjY3NyIgYWx0PSJTY3JlZW5zaG90IDIwMjYtMDMtMTAgYXQg\nMTAgMTkgMTHigK9BTSIgc3JjPSJodHRwczovL2dpdGh1Yi5jb20vdXNlci1h\ndHRhY2htZW50cy9hc3NldHMvMjUyZjQ1YmUtYTIwOC00Mjc3LTgyMmMtNmE4\nMDU5YjFmM2I1IiAvPgoKQ2FtcHVzIEJvb2tzaGVsZiBpcyBhIHN0dWRlbnQt\nZm9jdXNlZCBtYXJrZXRwbGFjZSBmb3IgYnV5aW5nLCBzZWxsaW5nLCBhbmQg\nZXhjaGFuZ2luZyBib29rcyB3aXRoaW4gYSBjYW1wdXMgY29tbXVuaXR5LiBJ\ndCBpcyBkZXNpZ25lZCB0byBtYWtlIGFjYWRlbWljIG1hdGVyaWFscyBtb3Jl\nIGFmZm9yZGFibGUsIGFjY2Vzc2libGUsIGFuZCBlYXNpZXIgdG8gY2lyY3Vs\nYXRlIGFtb25nIHN0dWRlbnRzLgoKIyMgT3ZlcnZpZXcKVGhlIHByb2plY3Qg\nZXhwbG9yZXMgaG93IGEgc2ltcGxlIGRpZ2l0YWwgbWFya2V0cGxhY2UgY2Fu\nIHJlZHVjZSB0ZXh0Ym9vayBjb3N0cyBhbmQgaW1wcm92ZSBwZWVyLXRvLXBl\nZXIgcmVzb3VyY2Ugc2hhcmluZyBvbiBjYW1wdXMuIEluc3RlYWQgb2YgcmVs\neWluZyBvbmx5IG9uIGV4dGVybmFsIHZlbmRvcnMsIHN0dWRlbnRzIGNhbiBj\nb25uZWN0IGRpcmVjdGx5IHdpdGggb25lIGFub3RoZXIgdG8gZXhjaGFuZ2Ug\nYm9va3MgdGhleSBubyBsb25nZXIgbmVlZC4KCiMjIEZlYXR1cmVzCi0gU3R1\nZGVudC10by1zdHVkZW50IGJvb2sgbGlzdGluZ3MKLSBMb2NhbCBjYW1wdXMt\nZm9jdXNlZCBkaXNjb3ZlcnkKLSBCdXlpbmcsIHNlbGxpbmcsIGFuZCBleGNo\nYW5nZSB3b3JrZmxvd3MKLSBBZmZvcmRhYmxlIGFjY2VzcyB0byBhY2FkZW1p\nYyBtYXRlcmlhbHMKCiMjIFdoeSBUaGlzIFByb2plY3QgTWF0dGVycwpDb2xs\nZWdlIHN0dWRlbnRzIG9mdGVuIGZhY2UgaGlnaCBjb3N0cyBmb3IgYm9va3Mg\nYW5kIGNvdXJzZSBtYXRlcmlhbHMuIENhbXB1cyBCb29rc2hlbGYgd2FzIGJ1\naWx0IGFzIGEgcHJhY3RpY2FsIHNvbHV0aW9uIHRvIGhlbHAgc3R1ZGVudHMg\nc2F2ZSBtb25leSwgcmV1c2UgcmVzb3VyY2VzLCBhbmQgc3RyZW5ndGhlbiBj\nb21tdW5pdHktYmFzZWQgZXhjaGFuZ2UuCgojIyBUZWNoIFN0YWNrCl9BZGQg\neW91ciBhY3R1YWwgc3RhY2sgaGVyZS5fCi0gRnJvbnRlbmQ6IEhUTUwsIENT\nUywgSmF2YVNjcmlwdAotIEJhY2tlbmQ6IFtBZGQgYmFja2VuZCBmcmFtZXdv\ncmsgb3IgbGFuZ3VhZ2VdCi0gRGF0YWJhc2U6IFtBZGQgZGF0YWJhc2VdCi0g\nRGVwbG95bWVudDogVmVyY2VsCgojIyBSb2FkbWFwCi0gQXV0aGVudGljYXRp\nb24gYW5kIHVzZXIgcHJvZmlsZXMKLSBTZWFyY2gsIGNhdGVnb3JpZXMsIGFu\nZCBmaWx0ZXJzCi0gTWVzc2FnaW5nIGFuZCBjb29yZGluYXRpb24gdG9vbHMK\nLSBJbXByb3ZlZCBVSS9VWAotIEV4cGFuZGVkIGNhbXB1cyBvbmJvYXJkaW5n\nIGZsb3cKCiMjIFByb2plY3QgU3RhdHVzClRoaXMgaXMgYW4gZWFybHktc3Rh\nZ2UgcHJvamVjdCBhbmQgcGFydCBvZiBhIGJyb2FkZXIgaW50ZXJlc3QgaW4g\nYnVpbGRpbmcgdXNlZnVsIHNvZnR3YXJlIGZvciByZWFsIHN0dWRlbnQgcHJv\nYmxlbXMuCgojIyBBdXRob3IKKipBcmluemUgT2tpZ2JvKioKCiMjIExpY2Vu\nc2UKTm8gbGljZW5zZSBoYXMgYmVlbiBhZGRlZCB5ZXQuCg==\n",
+  "encoding": "base64",
+  "_links": {
+    "self": "https://api.github.com/repos/arinze-okigbo/tindext-v2/contents/README.md?ref=main",
+    "git": "https://api.github.com/repos/arinze-okigbo/tindext-v2/git/blobs/4848a0178369347a3ef52efe08ab798951e0963e",
+    "html": "https://github.com/arinze-okigbo/tindext-v2/blob/main/README.md"
+  }
+}

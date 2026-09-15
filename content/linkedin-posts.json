@@ -1,0 +1,43 @@
+{
+  "source": "https://www.linkedin.com/in/arinzeokigbo",
+  "fetchedAt": "2026-09-15T03:33:14.781391Z",
+  "status": "cached",
+  "items": [
+    {
+      "title": "Building with the security team at Cyera",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_cyera-just-announced-our-600m-series-g-activity-7470842500950376448-4o3M",
+      "date": "2026-06-11T14:20:53.749Z",
+      "dateLabel": "2026-06-11",
+      "summary": "A reflection on interning with the Cyera security team. The post connects enterprise AI adoption with trust in data.",
+      "topics": [
+        "Security",
+        "AI"
+      ],
+      "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7470842500073721856"
+    },
+    {
+      "title": "A new chapter at NYU",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_nyu-computerscience-splita-activity-7469756321639198721-MUpx",
+      "date": "2026-06-08T14:24:48.422Z",
+      "dateLabel": "2026-06-08",
+      "summary": "Transferring from Trinity College to NYU for Computer Science, Class of 2028. Bringing Splita closer to New York\u2019s fintech and security community.",
+      "topics": [
+        "Education",
+        "Splita"
+      ],
+      "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7469756318426398720"
+    },
+    {
+      "title": "Joining Cyera\u2019s security team",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_cybersecurity-datasecurity-cloudsecurity-activity-7450891042796507136-J0J3",
+      "date": "2026-04-17T13:00:55.445Z",
+      "dateLabel": "2026-04-17",
+      "summary": "Announcing a Data Security Internship with Cyera\u2019s internal security team. The role reports to the CISO.",
+      "topics": [
+        "Security",
+        "Work"
+      ],
+      "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7450687947185491968"
+    }
+  ]
+}

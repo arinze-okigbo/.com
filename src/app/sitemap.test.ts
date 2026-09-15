@@ -1,58 +1,67 @@
-import { describe, expect, test } from "vitest";
-
-import { isWritingEnabled } from "@/content/writing/posts";
+import { describe, expect, test, vi } from "vitest";
+import snapshot from "../../content/substack.json";
+vi.mock("@/lib/hive/feeds", () => ({ getHiveContent: async () => ({ substack: snapshot }) }));
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
-
-/**
- * These assert the launch state: zero published posts, writing hidden. Nothing
- * is mocked — both surfaces read the content layer's own switch, so if that
- * switch flips these tests see it.
- */
+import * as localWriting from "@/content/writing/posts";
+import { projects } from "@/content/editorial";
 describe("sitemap", () => {
-  test("the content layer really does report the writing section as hidden", () => {
-    expect(isWritingEnabled()).toBe(false);
+  test("includes all major routes and every sourced project", async () => {
+    const urls = (await sitemap()).map((e) => e.url);
+    for (const route of [
+      "",
+      "/about",
+      "/work",
+      "/projects",
+      "/lab",
+      "/lab/changelog",
+      "/writing",
+      "/now",
+      "/contact",
+      ...projects.map((p) => `/projects/${p.slug}`),
+    ])
+      expect(urls).toContain(`https://arinzeokigbo.com${route}`);
   });
-
-  test("emits the home page only while writing is unpublished", () => {
-    const entries = sitemap();
-
-    expect(entries).toHaveLength(1);
-    expect(entries[0]?.url).toBe("https://arinzeokigbo.com");
+  test("includes exactly the sourced article routes", async () => {
+    const urls = (await sitemap()).map((e) => e.url).filter((u) => u.includes("/writing/"));
+    expect(urls).toEqual(snapshot.items.map((p) => `https://arinzeokigbo.com/writing/${p.slug}`));
   });
-
-  test("emits no URL for unpublished writing", () => {
-    const urls = sitemap().map((entry) => entry.url);
-
-    expect(urls.some((url) => url.includes("/writing"))).toBe(false);
+  test("keeps published local article URLs and deduplicates an overlapping Substack slug", async () => {
+    const local = vi.spyOn(localWriting, "getPublishedSummaries").mockReturnValue([
+      {
+        slug: "local-archive",
+        title: "Local archive fixture",
+        description: "Test fixture",
+        date: "2026-01-01",
+      },
+      {
+        slug: snapshot.items[0].slug,
+        title: "Duplicate fixture",
+        description: "Test fixture",
+        date: "2026-01-01",
+      },
+    ]);
+    try {
+      const urls = (await sitemap()).map((entry) => entry.url);
+      expect(urls).toContain("https://arinzeokigbo.com/writing/local-archive");
+      expect(urls.filter((url) => url.endsWith(`/writing/${snapshot.items[0].slug}`))).toHaveLength(
+        1,
+      );
+    } finally {
+      local.mockRestore();
+    }
   });
-
-  test("every URL is absolute and on the canonical apex host", () => {
-    for (const entry of sitemap()) {
-      expect(entry.url.startsWith("https://arinzeokigbo.com")).toBe(true);
-      expect(entry.url).not.toContain("www.");
+  test("all entries have unique canonical HTTPS URLs", async () => {
+    const urls = (await sitemap()).map((e) => e.url);
+    expect(new Set(urls).size).toBe(urls.length);
+    for (const url of urls) {
+      expect(new URL(url).origin).toBe("https://arinzeokigbo.com");
     }
   });
 });
-
 describe("robots", () => {
-  test("allows the site root and disallows the API", () => {
-    const rules = robots().rules;
-    const rule = Array.isArray(rules) ? rules[0] : rules;
-
-    expect(rule?.allow).toBe("/");
-    expect(rule?.disallow).toContain("/api/");
-  });
-
-  test("disallows the writing section while it is unlisted", () => {
-    const rules = robots().rules;
-    const rule = Array.isArray(rules) ? rules[0] : rules;
-
-    expect(rule?.disallow).toContain("/writing");
-  });
-
-  test("points at the sitemap on the canonical apex host", () => {
+  test("allows the published writing and links the canonical sitemap", () => {
+    expect(robots().rules).toEqual({ userAgent: "*", allow: "/" });
     expect(robots().sitemap).toBe("https://arinzeokigbo.com/sitemap.xml");
-    expect(robots().host).toBe("arinzeokigbo.com");
   });
 });

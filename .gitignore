@@ -44,3 +44,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env*.local
+
+# raw performance traces; compact dated summaries stay versioned
+/hive/qa/*mobile.json
+/hive/qa/*desktop.json
+/hive/qa/*.png
+/hive/qa/*.html
+/hive/qa/*.zip
+
+/hive/qa/*.log

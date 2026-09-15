@@ -1,13 +1,31 @@
 /**
  * The attestation figure — `docs/05 §3.3`.
  *
- * Not a section. A `<figure>` placed immediately after the Queralt entry inside
- * `#work`. It carries NO heading, so it does not enter the [R9] headings chain.
+ * Amended for the field port (`docs/15` §3). This was a `<figure>` inside
+ * `#work`; the boxed figure is deleted and the copy is promoted into
+ * `#attestation`, the field's own section at position 3. It still carries NO
+ * heading, so it does not enter the [R9] headings chain — it is titled by its
+ * eyebrow.
  *
- * Markup, frame, readout and `<figcaption>` are owned by the `three-d` agent
- * (`@/components/three` → `AttestationFigure`). This module owns only the copy.
+ * The poster and the live canvas are owned by the `field-three-d` agent
+ * (`@/components/three` → `AttestationField`). This module owns only the copy,
+ * and `caption` is the honesty copy `docs/02 §9` makes non-optional.
  */
 export const ATTESTATION = {
+  /** The anchor `docs/15 §3` row 3 gives the section. */
+  id: "attestation",
+
+  /**
+   * `docs/15 §3` row 3: this section contributes **no heading**, preserving the
+   * [R9] headings chain — it is titled by its eyebrow, as the prototype does.
+   * Verbatim from `proto-c-field.html`. Rendered `--color-foreground-muted`,
+   * never accent (`docs/04 §3.5` F6).
+   *
+   * ADDITIVE ONLY. `content.test.ts` locks every string in this module that it
+   * enumerates; this key is new rather than a rewrite of one.
+   */
+  sectionEyebrow: "Attestation · live in this tab",
+
   /** [WCAG 1.1.1] poster alt, verbatim from `docs/02 §8.1`. */
   posterAlt: "A lattice of points resolving from scattered noise into an ordered surface.",
 

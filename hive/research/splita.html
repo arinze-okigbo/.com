@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Splita – The smartest way to split the bill</title>
+  <meta name="description"
+    content="Splita makes splitting bills with friends effortless. Scan the receipt, everyone picks their items, and pays their share upfront. No chasing. No awkwardness." />
+
+  <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+  <meta property="og:title" content="Splita – The smartest way to split the bill" />
+  <meta property="og:description"
+    content="Splita makes splitting bills with friends effortless. Scan the receipt, everyone picks their items, and pays their share upfront. No chasing. No awkwardness." />
+  <meta property="og:image" content="https://www.splita.co/assets/og-image.png" />
+  <meta property="og:url" content="https://www.splita.co" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Splita – The smartest way to split the bill" />
+  <meta name="twitter:description"
+    content="Splita makes splitting bills with friends effortless. Scan the receipt, everyone picks their items, and pays their share upfront. No chasing. No awkwardness." />
+  <meta name="twitter:image" content="https://www.splita.co/assets/og-image.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mint: '#4ECFB0',
+            navy: '#0D1B2A',
+          },
+          fontFamily: {
+            sans: ['Gilroy', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-UltraLight.ttf');
+      font-weight: 100;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-UltraLightItalic.ttf');
+      font-weight: 100;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-Thin.ttf');
+      font-weight: 200;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-ThinItalic.ttf');
+      font-weight: 200;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-Light.ttf');
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-LightItalic.ttf');
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-Regular.ttf');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-RegularItalic.ttf');
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-Medium.ttf');
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-MediumItalic.ttf');
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-SemiBold.ttf');
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-SemiBoldItalic.ttf');
+      font-weight: 600;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-Bold.ttf');
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-BoldItalic.ttf');
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-ExtraBold.ttf');
+      font-weight: 800;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-ExtraBoldItalic.ttf');
+      font-weight: 800;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-Black.ttf');
+      font-weight: 900;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-BlackItalic.ttf');
+      font-weight: 900;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-Heavy.ttf');
+      font-weight: 950;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gilroy';
+      src: url('assets/gilroy font pack/Gilroy-HeavyItalic.ttf');
+      font-weight: 950;
+      font-style: italic;
+    }
+  </style>
+  <style>
+    .grid-bg {
+      background-color: #c8ede8;
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='480' height='480'><rect width='480' height='480' fill='%23c8ede8'/><rect x='240' width='240' height='240' fill='%23e3e7ed'/><rect y='240' width='240' height='240' fill='%23e3e7ed'/><line x1='0' y1='0' x2='480' y2='0' stroke='%23b0c4c0' stroke-width='1'/><line x1='0' y1='240' x2='480' y2='240' stroke='%23b0c4c0' stroke-width='1'/><line x1='0' y1='0' x2='0' y2='480' stroke='%23b0c4c0' stroke-width='1'/><line x1='240' y1='0' x2='240' y2='480' stroke='%23b0c4c0' stroke-width='1'/></svg>");
+      background-size: 480px 480px;
+      background-position: 0 0;
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      color: #4ECFB0;
+      animation: blink 0.7s step-end infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .crew-scroll::-webkit-scrollbar {
+      height: 4px;
+      display: block;
+    }
+
+    .crew-scroll::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 99px;
+    }
+
+    .crew-scroll::-webkit-scrollbar-thumb {
+      background: #0D1B2A;
+      border-radius: 99px;
+    }
+
+    .crew-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: #0D1B2A rgba(255, 255, 255, 0.2);
+      overflow-x: scroll;
+    }
+
+    @keyframes fadeFromLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .nav-logo {
+      animation: fadeFromLeft 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+    }
+
+    .nav-links {
+      animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+    }
+
+    .nav-cta {
+      animation: fadeFromRight 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+    }
+
+    /* Entrance animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .anim-fade-up {
+      opacity: 0;
+      animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .anim-fade-in {
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.25s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-4 {
+      animation-delay: 0.55s;
+    }
+
+    .delay-5 {
+      animation-delay: 0.7s;
+    }
+
+    /* Scroll-reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-[#eef0f3] font-sans">
+
+  <!-- Grid hero background -->
+  <div class="grid-bg absolute inset-x-0 top-0 h-[90vh]"
+    style="-webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); mask-image: linear-gradient(to bottom, black 60%, transparent 100%);">
+  </div>
+
+  <!-- Navbar -->
+  <header id="site-header" class="sticky top-0 z-50 transition-all duration-300 px-0">
+    <nav id="site-nav"
+      class="w-full bg-navy px-6 md:px-16 py-0 flex items-center justify-between transition-all duration-300">
+      <!-- Left: Logo -->
+      <div class="flex items-center nav-logo">
+        <img src="/assets/logo.png" class="w-20 h-20 object-contain flex-shrink-0" alt="Splita logo" />
+      </div>
+
+      <!-- Centre: Nav links (desktop only) -->
+      <div class="hidden md:flex items-center gap-10 nav-links">
+        <a href="/home"
+          class="text-white/70 text-base font-medium hover:text-white transition-colors duration-200">Home</a>
+        <a href="/team"
+          class="text-white/70 text-base font-medium hover:text-white transition-colors duration-200">Team</a>
+        <a href="/demo" class="text-white/70 text-base font-medium hover:text-white transition-colors duration-200">Try
+          Demo</a>
+        <a href="/pitch-deck"
+          class="text-white/70 text-base font-medium hover:text-white transition-colors duration-200">Pitch Deck</a>
+      </div>
+
+      <!-- Right: CTA (desktop) + Hamburger (mobile) -->
+      <div class="flex items-center gap-4 nav-cta">
+        <button onclick="openWaitlistModal()"
+          class="hidden md:block border border-mint text-mint text-sm font-medium px-5 py-2 rounded-full hover:bg-mint hover:text-navy transition-colors duration-200">
+          Join waitlist
+        </button>
+        <!-- Hamburger button (mobile only) -->
+        <button onclick="toggleMobileMenu()" id="hamburger"
+          class="md:hidden relative w-8 h-8 flex flex-col justify-center items-center">
+          <span id="bar1" class="absolute w-6 h-0.5 bg-white transition-all duration-300 ease-in-out"
+            style="top:10px"></span>
+          <span id="bar2" class="absolute w-6 h-0.5 bg-white transition-all duration-300 ease-in-out"
+            style="top:16px"></span>
+          <span id="bar3" class="absolute w-6 h-0.5 bg-white transition-all duration-300 ease-in-out"
+            style="top:22px"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile dropdown menu -->
+    <div id="mobile-menu" class="hidden bg-navy border-t border-white/10 px-6 py-6 flex flex-col gap-5 md:hidden">
+      <a href="/home" class="text-white/70 text-base font-medium hover:text-white">Home</a>
+      <a href="/team" class="text-white/70 text-base font-medium hover:text-white">Team</a>
+      <a href="/demo" class="text-white/70 text-base font-medium hover:text-white">Try Demo</a>
+      <a href="/pitch-deck" class="text-white/70 text-base font-medium hover:text-white">Pitch Deck</a>
+      <button onclick="openWaitlistModal(); toggleMobileMenu();"
+        class="mt-1 border border-mint text-mint text-sm font-medium px-5 py-3 rounded-full hover:bg-mint hover:text-navy transition-colors duration-200">
+        Join waitlist
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main class="relative flex flex-col items-center justify-center text-center px-6 pt-24 md:pt-32 pb-14">
+
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-navy leading-tight max-w-3xl anim-fade-up delay-1">
+      The <em id="hero-word" class="text-[#2aab8e] italic">smartest</em> way to <br />
+      split the bill
+    </h1>
+
+    <div class="flex flex-wrap items-center justify-center gap-3 mt-3 anim-fade-up delay-2">
+      <span class="bg-navy rounded-3xl p-1.5 inline-block"><span
+          class="block text-mint text-sm font-semibold px-4 py-1.5 rounded-2xl border-2 border-mint/60">+$20</span></span>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-navy">with friends</h1>
+      <div class="flex -space-x-2">
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Ryan&backgroundColor=b6e3f4"
+          class="w-9 h-9 rounded-full border-2 border-white object-cover" alt="user" />
+        <img
+          src="https://api.dicebear.com/9.x/adventurer/svg?seed=Jocelyn&backgroundColor=ffd5dc&facialHairProbability=80"
+          class="w-9 h-9 rounded-full border-2 border-white object-cover" alt="user" />
+        <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Christian&backgroundColor=c0aede"
+          class="w-9 h-9 rounded-full border-2 border-white object-cover" alt="user" />
+        <div
+          class="w-9 h-9 rounded-full border-2 border-white bg-navy text-white text-xs font-bold flex items-center justify-center">
+          3+</div>
+      </div>
+    </div>
+
+    <p class="mt-6 text-navy/90 text-lg md:text-xl font-medium max-w-xl leading-relaxed anim-fade-up delay-3">
+      Scan the bill. Invite your friend group. Everyone picks their items and pays.
+      <span class="inline-block bg-navy rounded-3xl p-1.5 align-middle ml-1"><span
+          class="block text-mint text-sm font-semibold px-4 py-1.5 rounded-2xl border-2 border-mint/60">+$10</span></span>
+    </p>
+
+    <button onclick="openWaitlistModal()"
+      class="mt-10 bg-[#2aab8e] text-white font-semibold text-base px-8 py-3.5 rounded-full hover:brightness-105 active:scale-95 transition-all duration-200 shadow-md anim-fade-up delay-4">
+      Get early access
+    </button>
+
+    <div class="flex items-center gap-3 mt-5 anim-fade-in delay-5">
+      <div class="flex -space-x-2">
+        <img
+          src="https://api.dicebear.com/9.x/adventurer/svg?seed=Sawyer&backgroundColor=d1f4e0&facialHairProbability=80"
+          class="w-7 h-7 rounded-full border-2 border-white object-cover" alt="user" />
+        <img src="https://api.dicebear.com/9.x/avataaars/png?seed=Chloe&backgroundColor=ffd5dc"
+          class="w-7 h-7 rounded-full border-2 border-white object-cover" alt="user" />
+        <img src="https://api.dicebear.com/9.x/avataaars/png?seed=Tyler&backgroundColor=b6e3f4&facialHairProbability=80"
+          class="w-7 h-7 rounded-full border-2 border-white object-cover" alt="user" />
+      </div>
+      <p class="text-navy/70 text-sm">Join <span id="waitlist-count" class="text-navy font-semibold">...</span> already
+        on the waitlist</p>
+    </div>
+
+  </main>
+
+
+  <!-- How it works section -->
+  <section class="px-6 md:px-12 pt-32 pb-16 reveal">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="text-center mb-16">
+        <p class="text-[#2aab8e] text-sm font-semibold uppercase tracking-widest mb-4">How it works</p>
+        <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-navy leading-tight mb-5">
+          Everyone pays their share
+        </h2>
+        <p class="text-navy/50 text-lg leading-relaxed max-w-xl mx-auto">
+          Your group joins a live session. Each person taps what they ordered. Their total is calculated instantly. No
+          need for a calculator.
+        </p>
+      </div>
+
+
+      <!-- Dark card: Host scans the receipt -->
+      <div class="bg-navy rounded-3xl p-8 md:p-12 flex flex-col md:flex-row gap-10 items-start">
+
+        <div class="flex-1">
+          <h3 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-4">
+            Scan the bill.
+          </h3>
+          <p class="text-white/60 text-base leading-relaxed mb-8 max-w-sm">
+            Take a photo or upload it. We use AI to retrieve your items. Review and correct anything in seconds.
+          </p>
+          <button onclick="openWaitlistModal()"
+            class="inline-block bg-mint text-white font-semibold text-base px-7 py-3.5 rounded-xl hover:brightness-105 active:scale-95 transition-all duration-200">
+            Get early access
+          </button>
+        </div>
+
+        <div class="flex-shrink-0 w-full md:w-[340px] bg-[#0a1628] rounded-2xl p-5 flex flex-col gap-3">
+          <div class="bg-[#162035] rounded-xl px-4 py-3 text-white text-sm flex items-center gap-1">
+            <span id="typewriter"></span><span class="typewriter-cursor">|</span>
+          </div>
+          <div class="bg-[#162035] rounded-xl px-4 py-6 flex flex-col items-center gap-2">
+            <div class="w-12 h-12 bg-mint/20 rounded-lg flex items-center justify-center">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="3" width="7" height="7" rx="1" stroke="#4ECFB0" stroke-width="1.5" />
+                <rect x="14" y="3" width="7" height="7" rx="1" stroke="#4ECFB0" stroke-width="1.5" />
+                <rect x="3" y="14" width="7" height="7" rx="1" stroke="#4ECFB0" stroke-width="1.5" />
+                <rect x="5" y="5" width="3" height="3" fill="#4ECFB0" />
+                <rect x="16" y="5" width="3" height="3" fill="#4ECFB0" />
+                <rect x="5" y="16" width="3" height="3" fill="#4ECFB0" />
+                <path d="M14 14h2v2h-2zM16 16h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z" fill="#4ECFB0" />
+              </svg>
+            </div>
+            <!-- <p class="text-white/50 text-xs">Take a photo of the receipt</p>
+            <p class="text-white/30 text-xs">or</p>
+            <p class="text-mint text-xs font-medium cursor-pointer">Upload from gallery</p> -->
+          </div>
+          <button
+            class="w-full bg-mint text-white font-semibold text-sm py-3 rounded-xl hover:brightness-105 transition-all cursor-default">
+            Take a photo of the receipt
+          </button>
+          <button
+            class="w-full bg-[#162035] text-white font-semibold text-sm py-3 rounded-xl transition-all cursor-default">
+            Upload photo
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Two-card row -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+
+        <!-- Card 1: Friends join with one tap -->
+        <div class="bg-[#c8ede6] rounded-3xl p-8 flex flex-col">
+          <h3 class="text-2xl md:text-3xl font-extrabold text-navy leading-tight mb-3">
+            Friends join with one tap
+          </h3>
+          <p class="text-navy/60 text-sm leading-relaxed mb-8 max-w-xs">
+            Share a QR code or 4-digit code. Your saved friends join instantly. No downloads needed for guests.
+          </p>
+          <div class="bg-[#0a1628] rounded-2xl p-5 flex flex-col gap-3 mt-auto">
+            <p class="text-white font-semibold text-sm text-center">Join a session</p>
+            <p class="text-white/40 text-xs text-center -mt-2">Enter the 4-digit code from your host, or scan their QR
+              code.</p>
+            <div class="flex justify-center gap-3 my-1">
+              <div
+                class="w-12 h-12 bg-[#162035] rounded-xl flex items-center justify-center text-mint font-bold text-lg">A
+              </div>
+              <div
+                class="w-12 h-12 bg-[#162035] rounded-xl flex items-center justify-center text-mint font-bold text-lg">7
+              </div>
+              <div
+                class="w-12 h-12 bg-[#162035] rounded-xl flex items-center justify-center text-mint font-bold text-lg">K
+              </div>
+              <div
+                class="w-12 h-12 bg-[#162035] rounded-xl flex items-center justify-center text-mint font-bold text-lg">3
+              </div>
+            </div>
+            <a href="https://www.splita.co/demo">
+              <button
+                class="w-full bg-mint text-white font-semibold text-sm py-3 rounded-xl hover:brightness-105 transition-all cursor-default">
+                Join session
+              </button>
+            </a>
+            <button
+              class="w-full bg-[#162035] text-white font-semibold text-sm py-3 rounded-xl transition-all cursor-default">
+              Scan QR code instead
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2: Everyone picks their items -->
+        <div class="bg-mint rounded-3xl p-8 flex flex-col gap-6">
+          <div>
+            <h3 class="text-2xl md:text-3xl font-extrabold text-white leading-tight mb-3">
+              Everyone picks their items
+            </h3>
+            <p class="text-[#0d1b2a] text-base leading-relaxed max-w-xs">
+              Each person taps what they ordered. Tax and tip splits automatically. Pay via Apple Pay or Google Pay.
+            </p>
+          </div>
+          <div class="bg-[#0a1628] rounded-2xl p-6 flex flex-col gap-4">
+            <div class="flex items-center justify-between">
+              <p class="text-white font-semibold text-sm">Pick your items Amy</p>
+              <p class="text-mint font-bold text-sm">$14.50</p>
+            </div>
+            <div class="bg-[#162035] rounded-xl px-4 py-3 flex items-center gap-3 border border-mint/40">
+              <div class="w-5 h-5 rounded-md bg-mint flex items-center justify-center flex-shrink-0">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6l3 3 5-5" stroke="#0a1628" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-white text-sm font-medium">Cheeseburger + Fries</p>
+                <p class="text-mint text-xs">Your item</p>
+              </div>
+              <p class="text-white text-sm font-semibold">$14.50</p>
+            </div>
+            <div class="bg-[#162035] rounded-xl px-4 py-3 flex items-center gap-3 opacity-50">
+              <div class="w-5 h-5 rounded-md bg-[#0a1628] border border-white/20 flex-shrink-0"></div>
+              <div class="flex-1">
+                <p class="text-white text-sm font-medium">BBQ Ribs + Coleslaw</p>
+                <p class="text-white/40 text-xs">Claimed by Kyle</p>
+              </div>
+              <p class="text-white text-sm font-semibold">$17.00</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Built for your crew section -->
+  <section class="bg-mint px-6 md:px-12 pt-20 pb-6 reveal">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="text-center mb-12">
+        <p class="text-white/60 text-sm font-semibold uppercase tracking-widest mb-4">Built for your friend group</p>
+        <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight mb-5">
+          Your friend group,<br />always ready to split.
+        </h2>
+        <p class="text-white/70 text-lg leading-relaxed max-w-xl mx-auto">
+          Save your regular friend group once. Invite them to any session in one tap. No more typing numbers or chasing
+          people to join.
+        </p>
+      </div>
+
+      <div class="crew-scroll flex gap-5 pb-4">
+
+        <div
+          class="bg-navy rounded-2xl p-7 flex flex-col gap-5 flex-shrink-0 w-72 hover:bg-[#162035] transition-colors duration-200">
+          <div class="w-11 h-11 rounded-full bg-mint/20 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#4ECFB0" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="9" cy="7" r="4" stroke="#4ECFB0" stroke-width="2" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="#4ECFB0" stroke-width="2"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-white font-bold text-lg mb-2">Friends list & groups</h4>
+            <p class="text-white/50 text-sm leading-relaxed">Add your regular friend group after signup. Create named
+              groups like "Roomates" or "Sports Teams" so sessions are instant to start.</p>
+          </div>
+        </div>
+
+        <div
+          class="bg-navy rounded-2xl p-7 flex flex-col gap-5 flex-shrink-0 w-72 hover:bg-[#162035] transition-colors duration-200">
+          <div class="w-11 h-11 rounded-full bg-mint/20 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#4ECFB0" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-white font-bold text-lg mb-2">One-tap invites</h4>
+            <p class="text-white/50 text-sm leading-relaxed">Saved friends get notified instantly. They join with one
+              tap — no entering codes, no confusion, no delay.</p>
+          </div>
+        </div>
+
+        <div
+          class="bg-navy rounded-2xl p-7 flex flex-col gap-5 flex-shrink-0 w-72 hover:bg-[#162035] transition-colors duration-200">
+          <div class="w-11 h-11 rounded-full bg-mint/20 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="#4ECFB0" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="9" cy="7" r="4" stroke="#4ECFB0" stroke-width="2" />
+              <line x1="19" y1="8" x2="19" y2="14" stroke="#4ECFB0" stroke-width="2" stroke-linecap="round" />
+              <line x1="22" y1="11" x2="16" y2="11" stroke="#4ECFB0" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-white font-bold text-lg mb-2">Invite anyone as a guest</h4>
+            <p class="text-white/50 text-sm leading-relaxed">First-timers? Just share a link or QR code. They join, pick
+              their items, and pay — no account needed.</p>
+          </div>
+        </div>
+
+        <div
+          class="bg-navy rounded-2xl p-7 flex flex-col gap-5 flex-shrink-0 w-72 hover:bg-[#162035] transition-colors duration-200">
+          <div class="w-11 h-11 rounded-full bg-mint/20 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <circle cx="18" cy="5" r="3" stroke="#4ECFB0" stroke-width="2" />
+              <circle cx="6" cy="12" r="3" stroke="#4ECFB0" stroke-width="2" />
+              <circle cx="18" cy="19" r="3" stroke="#4ECFB0" stroke-width="2" />
+              <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" stroke="#4ECFB0" stroke-width="2"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-white font-bold text-lg mb-2">Share & split instantly</h4>
+            <p class="text-white/50 text-sm leading-relaxed">Send the session link anywhere — iMessage, WhatsApp,
+              anywhere. Everyone's in within seconds.</p>
+          </div>
+        </div>
+
+        <div
+          class="bg-navy rounded-2xl p-7 flex flex-col gap-5 flex-shrink-0 w-72 hover:bg-[#162035] transition-colors duration-200">
+          <div class="w-11 h-11 rounded-full bg-mint/20 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M1 4v6h6" stroke="#4ECFB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M23 20v-6h-6" stroke="#4ECFB0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 0 1 3.51 15" stroke="#4ECFB0"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-white font-bold text-lg mb-2">Recurring groups</h4>
+            <p class="text-white/50 text-sm leading-relaxed">Same people every Friday lunch? Save the group. Next time,
+              invite everyone at once and go straight to splitting.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Payment section -->
+  <section class="px-6 md:px-12 py-20 reveal">
+    <div class="max-w-6xl mx-auto">
+
+      <div class="mb-10">
+        <p class="text-[#2aab8e] text-sm font-semibold uppercase tracking-widest mb-4">Payment modes</p>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-navy leading-tight mb-4">
+          One tap to collect. Zero awkwardness.
+        </h2>
+        <p class="text-navy/50 text-base leading-relaxed max-w-md">
+          No more Venmo requests going ignored. Everyone pays their share before they leave the table.
+        </p>
+      </div>
+
+      <div class="bg-navy rounded-2xl p-10 flex flex-col md:flex-row gap-10 items-center">
+
+        <div class="flex-1 flex flex-col gap-6">
+          <h3 class="text-3xl md:text-4xl font-extrabold text-white leading-tight">
+            One person doesn't pay out of pocket. Everyone pays their share.
+          </h3>
+          <p class="text-white/50 text-base leading-relaxed">
+            A virtual card pools everyone's payments so the host can tap and pay the full bill in one go. Powered by
+            Stripe and Apple/Google Wallet.
+          </p>
+          <button onclick="openWaitlistModal()"
+            class="inline-block bg-mint text-white font-semibold text-base px-7 py-3.5 rounded-xl hover:brightness-105 active:scale-95 transition-all duration-200 w-fit">
+            Get early access
+          </button>
+        </div>
+
+        <div class="flex-shrink-0 w-full md:w-80 bg-[#0a1628] rounded-2xl p-6 flex flex-col gap-4">
+          <p class="text-white/40 text-xs text-center">Payment summary</p>
+          <div class="flex flex-col gap-1.5 border-b border-white/10 pb-4">
+            <div class="flex items-center justify-between">
+              <span class="text-white/60 text-sm">Subtotal</span>
+              <span class="text-white/60 text-sm">$108.00</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-white/60 text-sm">Tip <span class="text-white/30 text-xs">(15%)</span></span>
+              <span class="text-white/60 text-sm">$16.00</span>
+            </div>
+            <div class="flex items-center justify-between mt-1">
+              <span class="text-white text-sm font-semibold">Total</span>
+              <span class="text-white font-bold text-lg">$124.00</span>
+            </div>
+          </div>
+          <!-- Progress bar -->
+          <div>
+            <div class="flex justify-between text-xs text-white/40 mb-1.5">
+              <span>Collected</span>
+              <span>$52.50 of $124.00</span>
+            </div>
+            <div class="w-full bg-white/10 rounded-full h-1.5">
+              <div class="bg-mint h-1.5 rounded-full" style="width: 42%"></div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-7 h-7 rounded-full bg-mint/30 flex items-center justify-center text-mint text-xs font-bold">A
+                </div>
+                <span class="text-white/70 text-sm">Amy</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-white text-sm font-medium">$18.50</span>
+                <span class="text-xs bg-mint/20 text-mint px-2 py-0.5 rounded-full">Paid</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-7 h-7 rounded-full bg-mint/30 flex items-center justify-center text-mint text-xs font-bold">K
+                </div>
+                <span class="text-white/70 text-sm">Kyle</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-white text-sm font-medium">$34.00</span>
+                <span class="text-xs bg-mint/20 text-mint px-2 py-0.5 rounded-full">Paid</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/40 text-xs font-bold">
+                  T</div>
+                <span class="text-white/40 text-sm">Tyler</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-white/40 text-sm font-medium">$41.50</span>
+                <span class="text-xs bg-white/10 text-white/40 px-2 py-0.5 rounded-full">Pending</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/40 text-xs font-bold">
+                  J</div>
+                <span class="text-white/40 text-sm">Jade</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-white/40 text-sm font-medium">$30.00</span>
+                <span class="text-xs bg-white/10 text-white/40 px-2 py-0.5 rounded-full">Pending</span>
+              </div>
+            </div>
+          </div>
+          <button class="w-full bg-mint/20 text-mint/60 font-semibold text-sm py-3 rounded-xl cursor-default mt-1">
+            Waiting for 2 payments...
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA section -->
+  <section class="bg-navy px-6 md:px-12 py-24 text-center reveal">
+    <div class="max-w-3xl mx-auto flex flex-col items-center gap-6">
+
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+        Be first to try the easiest way to<br />
+        <em class="text-mint italic">split bills</em> with friends.
+      </h2>
+
+      <p class="text-white/50 text-base leading-relaxed max-w-lg">
+        Join the waitlist and get priority access when we launch plus an exclusive founding member badge.
+      </p>
+
+      <button onclick="openWaitlistModal()"
+        class="bg-mint text-white font-semibold text-sm px-8 py-3.5 rounded-xl hover:brightness-105 active:scale-95 transition-all duration-200 mt-2">
+        Get early access
+      </button>
+
+      <div class="flex flex-wrap justify-center gap-5 mt-2">
+        <span class="flex items-center gap-2 text-white/60 text-sm"><span class="w-2 h-2 rounded-full bg-mint"></span>
+          Priority early access</span>
+        <span class="flex items-center gap-2 text-white/60 text-sm"><span class="w-2 h-2 rounded-full bg-mint"></span>
+          Founding member badge</span>
+        <span class="flex items-center gap-2 text-white/60 text-sm"><span class="w-2 h-2 rounded-full bg-mint"></span>
+          Zero fees at launch</span>
+      </div>
+
+      <p class="text-white/30 text-xs">No spam. &nbsp; Unsubscribe anytime. &nbsp; We hate clutter too.</p>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-navy border-t border-white/10 px-12 md:px-24 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <img src="/assets/logo.png" class="w-20 h-20 object-contain flex-shrink-0" alt="Splita logo" />
+    </div>
+    <p class="text-white/30 text-sm">2026 Splita. All rights reserved</p>
+  </footer>
+
+
+  <!-- Demo Modal -->
+  <!-- Desktop demo modal -->
+  <div id="demo-modal" class="fixed inset-0 z-[100] items-center justify-center hidden">
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeDemoModal()"></div>
+    <div class="relative flex flex-col items-center justify-center" style="height:100vh; gap: 12px;">
+      <button onclick="closeDemoModal()" style="position:absolute; top:20px; right:24px;"
+        class="text-white/40 hover:text-white text-2xl leading-none">&times;</button>
+      <div class="rounded-[32px] overflow-hidden"
+        style="width:320px; height:693px; box-shadow: 0 32px 80px rgba(0,0,0,0.6); position:relative; flex-shrink:0;">
+        <iframe src="https://demo.splita.co"
+          style="border:none; display:block; position:absolute; inset:0; width:390px; height:844px; transform: scale(0.821); transform-origin: top left;"></iframe>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Waitlist Modal -->
+  <div id="waitlist-modal" class="fixed inset-0 z-[100] flex items-center justify-center px-4 hidden">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeWaitlistModal()"></div>
+    <div class="relative bg-navy rounded-2xl p-8 w-full max-w-md flex flex-col gap-5 shadow-2xl">
+      <button onclick="closeWaitlistModal()"
+        class="absolute top-4 right-4 text-white/30 hover:text-white text-xl leading-none">&times;</button>
+      <h3 class="text-2xl font-extrabold text-white">Join the waitlist</h3>
+      <p class="text-white/50 text-sm">Get priority access + an exclusive founding member badge when we launch.</p>
+      <form onsubmit="submitWaitlist(event, 'modal-msg')" class="flex flex-col gap-3">
+        <input id="modal-name" type="text" placeholder="Full name" required
+          class="bg-white/10 text-white placeholder-white/30 text-sm px-5 py-3.5 rounded-xl border border-white/10 focus:outline-none focus:border-mint/50" />
+        <input id="modal-email" type="email" placeholder="Email address" required
+          class="bg-white/10 text-white placeholder-white/30 text-sm px-5 py-3.5 rounded-xl border border-white/10 focus:outline-none focus:border-mint/50" />
+        <div class="flex gap-2">
+          <select id="modal-phone-code"
+            class="bg-navy text-white text-sm px-3 py-3.5 rounded-xl border border-white/10 focus:outline-none focus:border-mint/50 appearance-none w-32 flex-shrink-0">
+            <option value="" class="bg-navy">+--</option>
+          </select>
+          <input id="modal-phone" type="tel" placeholder="Phone number" required
+            class="bg-white/10 text-white placeholder-white/30 text-sm px-5 py-3.5 rounded-xl border border-white/10 focus:outline-none focus:border-mint/50 flex-1" />
+        </div>
+        <select id="modal-age" required
+          class="bg-white/10 text-white text-sm px-5 py-3.5 rounded-xl border border-white/10 focus:outline-none focus:border-mint/50 appearance-none">
+          <option value="" disabled selected class="bg-navy">Age range</option>
+          <option value="18-24" class="bg-navy">18 - 24</option>
+          <option value="25-34" class="bg-navy">25 - 34</option>
+          <option value="35-44" class="bg-navy">35 - 44</option>
+          <option value="45-54" class="bg-navy">45 - 54</option>
+          <option value="55+" class="bg-navy">55+</option>
+        </select>
+        <button type="submit"
+          class="bg-mint text-white font-semibold text-sm px-6 py-3.5 rounded-xl hover:brightness-105 active:scale-95 transition-all duration-200">
+          Join waitlist
+        </button>
+      </form>
+      <p id="modal-msg" class="text-sm hidden"></p>
+    </div>
+  </div>
+
+  <script>
+    const header = document.getElementById('site-header');
+    const nav = document.getElementById('site-nav');
+
+    function updateNav() {
+      const isMobile = window.innerWidth < 768;
+      if (window.scrollY > 60) {
+        header.classList.add('top-4', 'px-4');
+        header.classList.remove('top-0', 'px-0');
+        nav.classList.add('max-w-5xl', 'mx-auto', 'rounded-full', 'bg-navy/90', 'backdrop-blur-md', 'shadow-xl', 'shadow-navy/20', 'px-10');
+        nav.classList.remove('w-full', 'bg-navy', 'px-4', 'px-32', 'py-2');
+      } else {
+        header.classList.remove('top-4', 'px-4');
+        header.classList.add('top-0', 'px-0');
+        nav.classList.remove('max-w-5xl', 'mx-auto', 'rounded-full', 'bg-navy/90', 'backdrop-blur-md', 'shadow-xl', 'shadow-navy/20', 'px-10', 'px-4', 'px-32', 'py-3');
+        nav.classList.add('w-full', 'bg-navy', isMobile ? 'px-4' : 'px-32', 'py-2');
+      }
+    }
+
+    window.addEventListener('scroll', updateNav);
+    updateNav();
+
+    // Scroll-reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    (function () {
+      const phrases = [
+        "Dinner at The Cheesecake Factory",
+        "Brunch at The Ivy",
+        "Pizza night 🍕",
+        "Road trip snacks",
+        "Friday drinks 🍹",
+      ];
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let deleting = false;
+      const el = document.getElementById('typewriter');
+
+      function tick() {
+        const current = phrases[phraseIndex];
+        if (deleting) {
+          charIndex--;
+          el.textContent = current.slice(0, charIndex);
+          if (charIndex === 0) {
+            deleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            setTimeout(tick, 400);
+            return;
+          }
+          setTimeout(tick, 40);
+        } else {
+          charIndex++;
+          el.textContent = current.slice(0, charIndex);
+          if (charIndex === current.length) {
+            deleting = true;
+            setTimeout(tick, 1800);
+            return;
+          }
+          setTimeout(tick, 80);
+        }
+      }
+      tick();
+    })();
+
+    (function () {
+      const words = ['smartest', 'easiest', 'cleanest', 'smoothest', 'fastest', 'simplest', 'slickest'];
+      const el = document.getElementById('hero-word');
+      let index = 0;
+
+      function fadeToNext() {
+        el.style.transition = 'opacity 0.3s ease';
+        el.style.opacity = '0';
+        setTimeout(() => {
+          index = (index + 1) % words.length;
+          el.textContent = words[index];
+          el.style.opacity = '1';
+        }, 300);
+      }
+
+      setInterval(fadeToNext, 2200);
+    })();
+
+    fetch('/api/waitlist-count')
+      .then(r => r.json())
+      .then(({ count }) => {
+        document.getElementById('waitlist-count').textContent = count.toLocaleString() + ' people';
+      })
+      .catch(() => {
+        document.getElementById('waitlist-count').textContent = 'many people';
+      });
+
+    let mobileMenuOpen = false;
+    function toggleMobileMenu() {
+      mobileMenuOpen = !mobileMenuOpen;
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+      const bar1 = document.getElementById('bar1');
+      const bar2 = document.getElementById('bar2');
+      const bar3 = document.getElementById('bar3');
+      if (mobileMenuOpen) {
+        bar1.style.top = '16px'; bar1.style.transform = 'rotate(45deg)';
+        bar2.style.opacity = '0';
+        bar3.style.top = '16px'; bar3.style.transform = 'rotate(-45deg)';
+      } else {
+        bar1.style.top = '10px'; bar1.style.transform = 'rotate(0)';
+        bar2.style.opacity = '1';
+        bar3.style.top = '22px'; bar3.style.transform = 'rotate(0)';
+      }
+    }
+
+
+    let countryCodesLoaded = false;
+    async function loadCountryCodes() {
+      if (countryCodesLoaded) return;
+      try {
+        const res = await fetch('https://restcountries.com/v3.1/all?fields=name,idd,flag');
+        const countries = await res.json();
+        const select = document.getElementById('modal-phone-code');
+        const options = countries
+          .filter(c => c.idd?.root && c.idd?.suffixes?.length)
+          .map(c => {
+            const code = c.idd.root + (c.idd.suffixes.length === 1 ? c.idd.suffixes[0] : '');
+            return { name: c.name.common, flag: c.flag, code };
+          })
+          .sort((a, b) => a.name.localeCompare(b.name));
+        select.innerHTML = options.map(o =>
+          `<option value="${o.code}" class="bg-navy">${o.flag} ${o.code} ${o.name}</option>`
+        ).join('');
+        // Default to GB
+        const gbOption = options.find(o => o.name === 'United Kingdom');
+        if (gbOption) select.value = gbOption.code;
+        countryCodesLoaded = true;
+      } catch (err) {
+        console.error('Failed to load country codes:', err);
+      }
+    }
+
+    function openDemoModal() {
+      if (window.innerWidth < 768) {
+        window.open('https://demo.splita.co', '_blank');
+      } else {
+        document.body.style.overflow = 'hidden';
+        const modal = document.getElementById('demo-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeDemoModal() {
+      document.body.style.overflow = '';
+      const modal = document.getElementById('demo-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function openWaitlistModal() {
+      document.getElementById('waitlist-modal').classList.remove('hidden');
+      loadCountryCodes();
+    }
+
+    if (new URLSearchParams(window.location.search).get('waitlist') === '1') {
+      openWaitlistModal();
+    }
+    function closeWaitlistModal() {
+      document.getElementById('waitlist-modal').classList.add('hidden');
+    }
+
+    async function submitWaitlist(e, msgId) {
+      e.preventDefault();
+      const isModal = msgId === 'modal-msg';
+      const msgEl = document.getElementById(msgId);
+      const btn = e.target.querySelector('button[type="submit"]');
+
+      const emailEl = document.getElementById(isModal ? 'modal-email' : 'footer-email');
+      const email = emailEl.value.trim();
+      const name = isModal ? document.getElementById('modal-name')?.value.trim() : '';
+      const phoneNumber = isModal ? document.getElementById('modal-phone')?.value.trim() : '';
+      const phoneCode = isModal ? document.getElementById('modal-phone-code')?.value : '';
+      const phone = phoneNumber ? `${phoneCode}${phoneNumber}` : '';
+      const age_range = isModal ? document.getElementById('modal-age')?.value : '';
+
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+      msgEl.classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, name, phone_number: phone, age_range }),
+        });
+        const text = await res.text();
+        const data = text ? JSON.parse(text) : {};
+        if (res.ok) {
+          emailEl.value = '';
+          msgEl.textContent = data.message === 'already_exists'
+            ? "You're already on the list. We'll be in touch soon!"
+            : "You're on the list! Check your inbox for a confirmation.";
+          msgEl.className = 'text-sm text-mint';
+          msgEl.classList.remove('hidden');
+          if (isModal) setTimeout(closeWaitlistModal, 3000);
+        } else {
+          throw new Error(data.error || 'Something went wrong.');
+        }
+      } catch (err) {
+        msgEl.textContent = err.message;
+        msgEl.className = 'text-sm text-red-400';
+        msgEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = isModal ? 'Join waitlist' : 'Get early access';
+      }
+    }
+  </script>
+
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3b48cc2a81727f6',t:'MTc4OTQ0Mjk5NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+</html>

@@ -1,0 +1,271 @@
+{
+  "fetchedAt": "2026-09-15T03:37:51.813959+00:00",
+  "note": "One source snapshot per round. Canonical URLs in inventory, decisions, public search results, and feed collections. Raw GitHub repo metadata includes source URLs.",
+  "files": [
+    {
+      "file": "hive/research/Scanner-languages.json",
+      "sha256": "2687c774edae1a39be4b5d2740f12012031219f35344bab37fad0774bdbb933c",
+      "bytes": 67
+    },
+    {
+      "file": "hive/research/crawl.py",
+      "sha256": "aa90ef77539b29d346bad1a4a6b80eee5398836807d1f10fba4e3cd901387c93",
+      "bytes": 1817
+    },
+    {
+      "file": "hive/research/linkedin-embed-1.html",
+      "sha256": "e5e41f1abb1aa801951b98d7137f7fb73f436cea191493cd009f6a4217cfe995",
+      "bytes": 26543
+    },
+    {
+      "file": "hive/research/tindext-v2-readme.json",
+      "sha256": "e7f9107a43ea40030cc03faa5e044ceec124f81220c83379753bf5cb3a405ee5",
+      "bytes": 3163
+    },
+    {
+      "file": "hive/research/splita-coming-soon-readme.md",
+      "sha256": "3942aabc5941c20d7246425ec661734b2a22877af0aef485cd203c2cd55a2aeb",
+      "bytes": 3724
+    },
+    {
+      "file": "hive/research/linkedin-post-2.html",
+      "sha256": "bb25127d2ac6d8f2d97cf726a0d933b3a69f8b24ddc08cddf841115ce7f44532",
+      "bytes": 104282
+    },
+    {
+      "file": "hive/research/linkedin-search.json",
+      "sha256": "7f26727689d50246b4ab428c658cab31a309f4e5a1c85b4777ecf77bfe138434",
+      "bytes": 31891
+    },
+    {
+      "file": "hive/research/nyclive-languages.json",
+      "sha256": "8e1d794b49e35ea828279c6a8c95282bbb9a0787cf5c9385256c2cc9d17baeb7",
+      "bytes": 5
+    },
+    {
+      "file": "hive/research/current-site-1.html",
+      "sha256": "f9ecfbef900f08f32f8489da6e42b55e8a457133a6573fc93cf2b80c8dcb5ee0",
+      "bytes": 84375
+    },
+    {
+      "file": "hive/research/linkedin-embed-0.html",
+      "sha256": "b4c3016157be5840ae24596da30eed6093ecc1459fb5a7b3ff5b6b700bc62867",
+      "bytes": 23012
+    },
+    {
+      "file": "hive/research/splita-coming-soon-languages.json",
+      "sha256": "2280789793624238c86dd237dbc8475c01e929bad8d634e633e0919b5d3ed4ed",
+      "bytes": 75
+    },
+    {
+      "file": "hive/research/substack-feed.xml",
+      "sha256": "4313402bb3946f85dffc6250d45af3eead4e774aaa7ed112662262d29bdaac8a",
+      "bytes": 85848
+    },
+    {
+      "file": "hive/research/tindext-v2-languages.json",
+      "sha256": "8729081fb10170f5bf6b5d1f8f0d978a2d3a14e45b4ba3a9227ad6b244643a72",
+      "bytes": 79
+    },
+    {
+      "file": "hive/research/HomeworkAIChatBot-languages.json",
+      "sha256": "da787e299c45ffefa0c2bf3a26184492aa28d4383e854aac4354b26e62bcf998",
+      "bytes": 60
+    },
+    {
+      "file": "hive/research/nyc-live-readme.md",
+      "sha256": "b974adffa2d5f753335122f9d1d47f92745a0709796baca5b70c9c2306b17a8d",
+      "bytes": 9875
+    },
+    {
+      "file": "hive/research/Scanner-readme.md",
+      "sha256": "cf2b2750f5cbaed6cd548e210615eeafb55525f6d3c937ee4a3810566432b324",
+      "bytes": 932
+    },
+    {
+      "file": "hive/research/arinze-okigbo-readme.md",
+      "sha256": "7e195da7ec444da9fc6d852a26a1b2a11988437fdba7a49fe1535acbab856b89",
+      "bytes": 1494
+    },
+    {
+      "file": "hive/research/public-mentions.json",
+      "sha256": "1f9801f281563e48fc646cd027b20b8636469715d773bf84dc212035eed22fac",
+      "bytes": 28790
+    },
+    {
+      "file": "hive/research/arinze-okigbo-languages.json",
+      "sha256": "8e1d794b49e35ea828279c6a8c95282bbb9a0787cf5c9385256c2cc9d17baeb7",
+      "bytes": 5
+    },
+    {
+      "file": "hive/research/LibraryManagementSystem-readme.md",
+      "sha256": "f21af1f026fa5d2cd97d80f94ee4737744939be058c17beaf05f2fa07669e717",
+      "bytes": 5961
+    },
+    {
+      "file": "hive/research/linkedin-plus-bookmarklet-readme.json",
+      "sha256": "5671910ccd050798242bc1487a303e34bef8c996fda3d55779c7413d1b5118e5",
+      "bytes": 4914
+    },
+    {
+      "file": "hive/research/decisions.json",
+      "sha256": "906fa783d00aaaf865fe92063d89c7e46be4f0a399f3f9cbcf2194b4f57a8dc9",
+      "bytes": 1993
+    },
+    {
+      "file": "hive/research/github-profile.json",
+      "sha256": "533891d66a05202c39e57e63768f8b1faaf458a73838cf9a8a3092fc7079797c",
+      "bytes": 1449
+    },
+    {
+      "file": "hive/research/splita-coming-soon-readme.json",
+      "sha256": "795563a1aa6ac44daf731a3c78f971eb7786cb27d76e5779ea57dc0598acd00f",
+      "bytes": 6071
+    },
+    {
+      "file": "hive/research/.com-readme.md",
+      "sha256": "52a4a9c3275e5a262b615bde15f5649d5e1f413fc5f3ba19c434c9a4446bebe5",
+      "bytes": 5036
+    },
+    {
+      "file": "hive/research/LibraryManagementSystem-readme.json",
+      "sha256": "b296a55abc22ff6e2fa8f359902ac2a66ba161fb67be80eaf633552f5ff6633c",
+      "bytes": 9186
+    },
+    {
+      "file": "hive/research/linkedin-post-pages.json",
+      "sha256": "ca0cf647b57e0ff2fd045661d1fd74f637882a49344f6997521056375f864f09",
+      "bytes": 13992
+    },
+    {
+      "file": "hive/research/nyc-live-languages.json",
+      "sha256": "b81bed5d17e4c7bde39386e5bfe9c5805310265ca3fbf1a17ce4d2da4bcd8c06",
+      "bytes": 97
+    },
+    {
+      "file": "hive/research/current-site.json",
+      "sha256": "fc9c7c42560284b84793ae3d5852b3ad68bf9c5678dd0070b8ca3f0d7ef0d47e",
+      "bytes": 15653
+    },
+    {
+      "file": "hive/research/github-profile.html",
+      "sha256": "675121b502e549a2b0840466b950afa2db1b0896d61a0a507721ec5641bb6195",
+      "bytes": 215205
+    },
+    {
+      "file": "hive/research/github-latest-commit.json",
+      "sha256": "fe59a2c3ab988e918d4b7e29765244f99e686e29c76f35637991c047d2cfaa7d",
+      "bytes": 5253
+    },
+    {
+      "file": "hive/research/sky-view-readme.md",
+      "sha256": "e73f10f44c414f2ff68b777905af7bfc11b3fd3393a19c4349b51409a4cf8ce9",
+      "bytes": 3554
+    },
+    {
+      "file": "hive/research/linkedin-plus-bookmarklet-readme.md",
+      "sha256": "404c26f78c895c8b257f7fef35e9f616a14f9b6af9fcd1b8add22067b0f78fb4",
+      "bytes": 2849
+    },
+    {
+      "file": "hive/research/LibraryManagementSystem-languages.json",
+      "sha256": "925f4e3e0818606662c802beb219ba1b9db38260519c3b59d67a65294f06c25d",
+      "bytes": 56
+    },
+    {
+      "file": "hive/research/sky-view-readme.json",
+      "sha256": "300836470caa219bcd27998ea6ccd689ac449e8e3f9c0b0bece01b418a0f55ff",
+      "bytes": 5765
+    },
+    {
+      "file": "hive/research/github-contributions.html",
+      "sha256": "2572d612d1fdffe147b34d1f0efd2b1bb6bb37848c3d36fabcaad54dda297cb0",
+      "bytes": 224657
+    },
+    {
+      "file": "hive/research/.com-readme.json",
+      "sha256": "d399fd422f0831e20707b9e7f5ea5c7d74c10e6510ba90d5e0f74e80f48c2078",
+      "bytes": 7779
+    },
+    {
+      "file": "hive/research/Scanner-readme.json",
+      "sha256": "455900a188d62f2375ad083c2328ced7c7903d4f7c3ee71839734a6d7087bf26",
+      "bytes": 2145
+    },
+    {
+      "file": "hive/research/nyc-live-readme.json",
+      "sha256": "bc0149eb0d8de3b70e465d37488a53ac3f20002ed2213615d781b32999a96832",
+      "bytes": 14610
+    },
+    {
+      "file": "hive/research/tindext-v2-readme.md",
+      "sha256": "67dd5e53da67d9efe8bf4e510fe02f4535aeb977f8720c61228a8796f11b8acf",
+      "bytes": 1654
+    },
+    {
+      "file": "hive/research/github-events.json",
+      "sha256": "c9023e8da2d9c9bad79cbb5fb0196f357bdf70f5f6de2d4a6fd64bbdd0749f7f",
+      "bytes": 25325
+    },
+    {
+      "file": "hive/research/nyclive-readme.json",
+      "sha256": "30e60f92af570068c04d8a0b87802c509776b8e3b6d2161de2535d171ae7794a",
+      "bytes": 134
+    },
+    {
+      "file": "hive/research/linkedin-post-0.html",
+      "sha256": "9de23955e487cef3343595adedbfda73cec5a1558e33f990cc1d7c2476aea295",
+      "bytes": 189075
+    },
+    {
+      "file": "hive/research/splita.html",
+      "sha256": "a05b78db68faa2eae1ca5f41de423a9ce30c3497000778cbce98cef4f28469e1",
+      "bytes": 48958
+    },
+    {
+      "file": "hive/research/linkedin-plus-bookmarklet-languages.json",
+      "sha256": "8e1d794b49e35ea828279c6a8c95282bbb9a0787cf5c9385256c2cc9d17baeb7",
+      "bytes": 5
+    },
+    {
+      "file": "hive/research/linkedin-embed-2.html",
+      "sha256": "d2544eb378f5111634b98cb0d48aa70b6c16e703481dcff33c5b0998bd30ed9b",
+      "bytes": 21969
+    },
+    {
+      "file": "hive/research/arinze-okigbo-readme.json",
+      "sha256": "a1bf5b65d77cfc8b43d4af6e30ce284348f67e8056a07a3a7abed10a478d6571",
+      "bytes": 2962
+    },
+    {
+      "file": "hive/research/sky-view-languages.json",
+      "sha256": "22889693e9a25508f762573a230286badb444df63eaa09f2a3d1df57117e1511",
+      "bytes": 59
+    },
+    {
+      "file": "hive/research/HomeworkAIChatBot-readme.md",
+      "sha256": "4a81ed4a2de1648e26c45840ad7eb32be27fcc182b60cbfcc3c1836f8cba01a4",
+      "bytes": 5921
+    },
+    {
+      "file": "hive/research/github-repos.json",
+      "sha256": "ab97001713244ffb88a6389bd91bdb375fc9aa514d27f2c970e08fe70a0152f0",
+      "bytes": 66964
+    },
+    {
+      "file": "hive/research/linkedin-post-1.html",
+      "sha256": "19ccf280edb89fee923bb58248a6b1b47c73ffcbdf701133f11c3d88f98963fc",
+      "bytes": 193060
+    },
+    {
+      "file": "hive/research/HomeworkAIChatBot-readme.json",
+      "sha256": "77570098df34a177714a48d4b3b3bbcff5ca78c080a3acc2be2021e1272fd757",
+      "bytes": 9090
+    },
+    {
+      "file": "hive/research/.com-languages.json",
+      "sha256": "1d4c31e66b6eff3e53ba6a72633e117ff37bbc9fb9f6e3c3057509e132fc475a",
+      "bytes": 65
+    }
+  ]
+}

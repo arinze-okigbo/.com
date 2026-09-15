@@ -1,55 +1,58 @@
-import { describe, expect, test } from "vitest";
-
-import { isWritingEnabled } from "@/content/writing/posts";
+import { describe, expect, test, vi } from "vitest";
+import snapshot from "../../../content/substack.json";
+vi.mock("@/lib/hive/feeds", () => ({ getHiveContent: async () => ({ substack: snapshot }) }));
+import * as localWriting from "@/content/writing/posts";
+import { buildFeedDocument, GET } from "./route";
 import { RSS_CONTENT_TYPE } from "@/lib/feed/rss";
-import { GET, buildFeedDocument } from "@/app/feed.xml/route";
-
-/**
- * `content/writing/` holds no published posts at launch, so these run against
- * the real content-layer parser rather than a mock — the empty case is the
- * condition that actually has to hold in production.
- */
-describe("GET /feed.xml with zero posts", () => {
-  test("the content layer really does report the writing section as hidden", () => {
-    expect(isWritingEnabled()).toBe(false);
+describe("writing RSS", () => {
+  test("serves RSS with a 6-hour cache", async () => {
+    const r = await GET();
+    expect(r.status).toBe(200);
+    expect(r.headers.get("content-type")).toBe(RSS_CONTENT_TYPE);
+    expect(r.headers.get("cache-control")).toContain("s-maxage=21600");
   });
-
-  test("returns 200 with the RSS content type", async () => {
-    const response = await GET();
-
-    expect(response.status).toBe(200);
-    expect(response.headers.get("content-type")).toBe(RSS_CONTENT_TYPE);
-  });
-
-  test("body is a complete, item-free RSS 2.0 document", async () => {
-    const response = await GET();
-    const body = await response.text();
-
-    expect(body.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true);
-    expect(body).toContain('<rss version="2.0"');
-    expect(body).toContain("</rss>");
-    expect(body).not.toContain("<item>");
-  });
-
-  test("advertises itself via atom:link rel=self at the canonical origin", () => {
-    const xml = buildFeedDocument(new Date("2026-09-11T00:00:00Z"));
-
-    expect(xml).toContain(
-      '<atom:link href="https://arinzeokigbo.com/feed.xml" rel="self" type="application/rss+xml" />',
-    );
-  });
-
-  test("never emits a www. form of the canonical host", () => {
+  test("publishes one item for each verified article at the local canonical route", () => {
     const xml = buildFeedDocument();
-
+    expect(xml.match(/<item>/g)).toHaveLength(snapshot.items.length);
+    for (const post of snapshot.items)
+      expect(xml).toContain(`https://arinzeokigbo.com/writing/${post.slug}`);
+    expect(xml).toContain("</rss>");
     expect(xml).not.toContain("www.arinzeokigbo.com");
   });
-
-  test("falls back to the build time for lastBuildDate when nothing is published", () => {
-    const now = new Date("2026-09-11T00:00:00Z");
-
-    expect(buildFeedDocument(now)).toContain(
-      "<lastBuildDate>Fri, 11 Sep 2026 00:00:00 GMT</lastBuildDate>",
-    );
+  test("includes published local archives while keeping each canonical URL unique", () => {
+    const local = vi.spyOn(localWriting, "getPublishedSummaries").mockReturnValue([
+      {
+        slug: "local-archive",
+        title: "Local archive fixture",
+        description: "Test fixture",
+        date: "2026-01-01",
+      },
+      {
+        slug: snapshot.items[0].slug,
+        title: "Duplicate fixture",
+        description: "Test fixture",
+        date: "2026-01-01",
+      },
+    ]);
+    try {
+      const xml = buildFeedDocument();
+      expect(xml).toContain("https://arinzeokigbo.com/writing/local-archive");
+      expect(xml.match(/<item>/g)).toHaveLength(snapshot.items.length + 1);
+      expect(xml).not.toContain("Duplicate fixture");
+    } finally {
+      local.mockRestore();
+    }
+  });
+  test("escapes feed strings instead of injecting markup", () => {
+    const xml = buildFeedDocument(new Date(), [
+      { slug: "safe", title: "A & <B>", subtitle: "A <script> tag", date: "2026-09-01" },
+    ]);
+    expect(xml).toContain("A &amp; &lt;B&gt;");
+    expect(xml).not.toContain("<script>");
+  });
+  test("supports an empty collection without invalid dates", () => {
+    const xml = buildFeedDocument(new Date("2026-09-11T00:00:00Z"), []);
+    expect(xml).not.toContain("<item>");
+    expect(xml).toContain("Fri, 11 Sep 2026 00:00:00 GMT");
   });
 });

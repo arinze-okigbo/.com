@@ -1,0 +1,50 @@
+[
+  {
+    "id": "R1-01",
+    "owner": "queen",
+    "status": "complete",
+    "acceptance_test": "Isolated worktree, brief, task board and reproducible dependencies"
+  },
+  {
+    "id": "R1-02",
+    "owner": "research_content",
+    "status": "complete",
+    "acceptance_test": "Crawled source inventory; provenance for every claim; validated feed snapshots and tests"
+  },
+  {
+    "id": "R1-03",
+    "owner": "frontend_design",
+    "status": "complete",
+    "acceptance_test": "All specified routes return meaningful source-backed content"
+  },
+  {
+    "id": "R1-04",
+    "owner": "frontend_design",
+    "status": "in_progress",
+    "acceptance_test": "Dark/light design reviewed at 375, 768 and 1440 widths"
+  },
+  {
+    "id": "R2-05",
+    "owner": "motion_lab",
+    "status": "complete",
+    "acceptance_test": "All motion interactions keyboard-safe and respect reduced motion"
+  },
+  {
+    "id": "R3-06",
+    "owner": "motion_lab",
+    "status": "complete",
+    "acceptance_test": "Real WebGL hero, lab experiment and truthful build replay"
+  },
+  {
+    "id": "R4-07",
+    "owner": "queen",
+    "status": "in_progress",
+    "acceptance_test": "Build, lint, types, tests, axe, links, browser and Lighthouse gates pass"
+  },
+  {
+    "id": "R4-08",
+    "owner": "queen",
+    "status": "pending",
+    "acceptance_test": "Verified Vercel preview, production deployment and published measured changelog"
+  }
+]
