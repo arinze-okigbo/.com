@@ -37,3 +37,15 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: Final local route suite passes 26/26 and 343 unit tests; candidate2 mobile audit is 95/100/100/100 with CLS0. Production remains unverified until deployment.
 - 2026-09-15: Enable React production profiling for local-only named client-island timings; measure its overhead against the release gate.
 - 2026-09-15: Replace invalid sun/moon path interpolation with fixed-path crossfade plus color wipe; avoid console errors from malformed SVG.
+
+## Production checkpoint and next round
+
+- 2026-09-15: PR4 merged; production commit a118398513ced42889540e45ba0b7a7118aac72b verified on arinzeokigbo.com. All 36 production browser checks pass.
+- 2026-09-15: Production Lighthouse is below target: local-host audit90/100/100/100 and Linux CI69/100/100/100 (TBT1226ms). Preserve both measurements; reduce actual startup work before closing release QA.
+- 2026-09-15: Enable Next's documented experimental inlineCss to remove render-blocking stylesheet round trips. Trade-off: larger HTML and no separate stylesheet caching; verify production benefit before retaining.
+- 2026-09-15: Round5 preparation adds demand-loaded keyboard navigation and verified project media. Branch hive/round-5-navigation; deployment performance remains the priority gate.
+
+- 2026-09-15: Address review P1 with Lighthouse in required PR quality checks before merge. Deployment audit remains independent verification; protected preview authentication prevents unauthenticated CI crawling, so the pre-merge audit runs the exact production build on Linux and manual QA covers Vercel preview.
+- 2026-09-15: Retire obsolete Field-era browser suites; both test:e2e and test:hive use the mounted-site production suite. Preserve equivalent current coverage rather than keeping guaranteed failures for removed markup.
+
+- 2026-09-15: Main now requires the verify status and an up-to-date PR, including administrators; no additional human approval count is required.
