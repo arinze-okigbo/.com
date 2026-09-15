@@ -1,0 +1,54 @@
+name: Production performance audit
+on:
+  deployment_status:
+permissions:
+  contents: write
+jobs:
+  lighthouse:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    concurrency:
+      group: production-audit
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Measure production
+        run: |
+          mkdir -p hive/qa
+          node scripts/verify-deployment.mjs https://arinzeokigbo.com "$DEPLOY_SHA"
+          npx lighthouse https://arinzeokigbo.com --quiet --output=json --output-path=hive/qa/production-mobile.json --chrome-flags='--headless --no-sandbox'
+          node scripts/audit-summary.mjs hive/qa/production-mobile.json hive/qa/latest-production.json "$DEPLOY_SHA"
+        env:
+          DEPLOY_SHA: ${{ github.event.deployment.sha }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: production-lighthouse
+          path: hive/qa/*production*.json
+      - name: Publish dated measurement
+        run: |
+          cp hive/qa/latest-production.json /tmp/hive-latest-production.json
+          git fetch origin hive/metrics || true
+          if git show-ref --verify --quiet refs/remotes/origin/hive/metrics; then
+            git checkout -B hive/metrics origin/hive/metrics
+          else
+            git checkout -B hive/metrics
+          fi
+          mkdir -p hive/qa
+          cp /tmp/hive-latest-production.json hive/qa/latest-production.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hive/qa/latest-production.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore(quality): publish measured production audit'
+            git push origin hive/metrics
+          fi
+      - name: Enforce score thresholds
+        run: ENFORCE_GATES=1 node scripts/audit-summary.mjs hive/qa/production-mobile.json /tmp/gate.json

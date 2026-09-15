@@ -2548,3 +2548,14 @@ svg {
     transform: none;
   }
 }
+/* The activation control occupies the figure's top row; captions retain the bottom row. */
+.hero-visual .hive-orbital-activate {
+  top: 24px;
+  right: 24px;
+  bottom: auto;
+}
+@media (pointer: coarse), (hover: none), (prefers-reduced-motion: reduce) {
+  .sculpture-label span:last-child {
+    display: none;
+  }
+}

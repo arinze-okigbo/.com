@@ -1,0 +1,16 @@
+{
+  "url": "http://localhost:3100/",
+  "auditedAt": "2026-09-15T03:39:38.944Z",
+  "commitSha": "local",
+  "scores": {
+    "performance": 73,
+    "accessibility": 96,
+    "bestPractices": 96,
+    "seo": 100
+  },
+  "metrics": {
+    "lcp": 3185.313,
+    "cls": 0,
+    "tbt": 862.5000000000005
+  }
+}

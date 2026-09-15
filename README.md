@@ -1,153 +1,51 @@
-# ArinzeOkigbo.com
+# Arinze Okigbo
 
-Premium one-page personal website for Arinze Okigbo, built with Next.js App Router and TypeScript.
+The source for [arinzeokigbo.com](https://arinzeokigbo.com): work, projects, writing, and interactive experiments in authentication and motion.
 
-## Stack
+## Develop
 
-- Next.js 15 (App Router)
-- React 19
-- TypeScript 5
-- Tailwind CSS 4
-- Framer Motion
-- Lenis smooth scrolling
-- shadcn-style component patterns (`cn`, variant-based button)
-- Vitest + Testing Library
-- Playwright
-- Vercel Analytics + Speed Insights
+Use Node.js 24.
 
-## Local Development
-
-```bash
-npm install
+```sh
+npm ci
 npm run dev
 ```
 
-Open http://localhost:3000.
+## Verify
 
-## Scripts
-
-```bash
-npm run dev          # Start local dev server
-npm run build        # Production build
-npm run start        # Start production server
-npm run lint         # ESLint checks
-npm run typecheck    # TypeScript checks
-npm run test         # Vitest unit/component tests
-npm run test:watch   # Vitest watch mode
-npm run test:e2e     # Playwright e2e tests
-npm run format       # Prettier check
-npm run format:write # Prettier write
+```sh
+npm run ingest -- --cached  # Validate this round's saved source data
+npm run typecheck
+npm run lint
+npm test
+npm run build              # Refresh public feeds, then build production
+npm run test:hive           # Production browser checks on port 3100
 ```
 
-## Project Structure
+`QA_URL=https://example.vercel.app npm run test:hive` runs the same browser checks against a deployed preview. The suite checks routes, source-backed detail links, accessibility, CSP, browser errors, reduced motion, and JavaScript-disabled content.
 
-```text
-content/
-	writing/            MDX posts (empty at launch — see Writing below)
-src/
-	app/
-		globals.css
-		layout.tsx
-		page.tsx
-		not-found.tsx
-		writing/          /writing and /writing/[slug]
-	components/
-		layout/
-		motion/
-		providers/
-		sections/         one component per page section
-			primitives/     Hero, WorkEntry, ProjectEntry, ContactBlock, …
-		three/
-		ui/               generic primitives
-	content/
-		site-content.ts   public entry point (re-exports the modules below)
-		chrome.ts hero.ts work.ts projects.ts about.ts contact.ts
-		attestation.ts metadata.ts not-found.ts types.ts
-		writing/          MDX pipeline: frontmatter, posts, renderer
-	lib/
-		utils.ts
-tests/
-	e2e/
-```
+## Architecture
 
-## Content Editing
+- Next.js 16 App Router, TypeScript, React, server-rendered content, Tailwind CSS 4.
+- Motion springs, GSAP ScrollTrigger, and Lenis for interaction and scroll choreography.
+- React Three Fiber and drei power the hero after pointer interaction or explicit activation. The initial illustration and reduced-motion view are static SVG.
+- A real WebAuthn lab preserves browser-local credential analysis; no account, credential upload, or tracking transport.
+- Zod validates GitHub, Substack, and curated LinkedIn collections. Public feed refreshes use a six-hour server cache with verified snapshot fallback.
+- A fresh nonce protects scripts on each HTML response. This requires dynamic HTML; data and the RSS/sitemap routes retain timed revalidation.
+- No third-party analytics. LinkedIn embeds load only after the visitor explicitly opens one. Interface sound is off by default.
 
-All website copy and list data live in `src/content/`, exported as typed
-constants. Import them from `@/content/site-content` — that file is the public
-entry point and re-exports every module, so the split can change without
-churning call sites. No copy is written inline in a component.
+## Pages
 
-Every string traces to `docs/05-information-architecture.md`, which cites
-`docs/00-content-inventory.md` for each underlying fact. The copy is
-adjudicated: it is not rewritten, tightened or re-toned in a component.
+`/`, `/about`, `/work`, `/projects`, `/projects/[slug]`, `/lab`, `/lab/changelog`, `/writing`, `/writing/[slug]`, `/now`, `/contact`, `/feed.xml`, `/sitemap.xml`, `/robots.txt`, and `/.well-known/security.txt`.
 
-### Missing facts
+Every published claim has a source. See `content/inventory.json`, the typed editorial collections, and `hive/research/`. Unverified projects or biography details are omitted and recorded in the research decision log.
 
-`docs/05 §11` lists open questions the site owner has not answered. **No
-placeholder ever renders.** Each unanswered slot is typed `| null` (or is simply
-absent from its array) and the renderer omits it — no brackets, no "TBD", no
-invented filler. Each module documents what was omitted and which open question
-unblocks it. Supplying a fact is a one-line change in `src/content/`; no
-component changes.
+## Deployment and measured quality
 
-`src/content/content.test.ts` enforces this: it fails the build if any
-placeholder marker, bracketed stub or unsourced entry reaches a shipped string.
+The GitHub repository is connected to Vercel: development branches produce previews and `main` is production. CI runs build, lint, type, unit, and production browser checks.
 
-## Writing
+The deployment audit verifies the production commit marker, measures Lighthouse, saves an artifact, and publishes a dated compact report on `hive/metrics`. That branch skips Vercel builds to prevent loops. The footer shows a measured score only when a valid report is available.
 
-The MDX pipeline is built and working, but the section ships hidden and
-unlisted — zero posts exist, and an empty writing section reads worse than none.
+## Continue the build
 
-Add posts as `content/writing/<slug>.mdx` with this frontmatter:
-
-```yaml
----
-title: string # becomes the h3 and the per-post <title>
-description: string # <= 20 words, mechanism-first; becomes the meta description
-date: 2026-03-04 # ISO 8601
-published: true # false keeps a draft out of the count, the feed and the routes
----
-```
-
-The switch is one derived boolean — `publishedPosts.length >= 2`, exposed as
-`isWritingEnabled()` in `src/content/writing/posts.ts`. Nothing is hand-edited:
-when the second published post lands, the homepage section, the nav item, the
-sitemap, the feed and the `robots` directives all flip together.
-
-Post bodies render through `src/content/writing/render.tsx`, a server-side
-markdown renderer that ships zero client bytes. It does not evaluate JSX inside
-`.mdx`. If a post ever needs an inline React component, add `next-mdx-remote`
-and replace that one module — nothing else in the pipeline depends on it.
-
-## Images
-
-`public/profile.jpg` is the 4809x4809 original and is referenced by nothing; no
-page ships it to the browser. `public/profile-576.jpg` (576x576, 46 KB) is the
-correctly sized derivative to use if a portrait is ever added. Whether a
-portrait appears at all is `docs/05 §11 Q12`.
-
-## Public Repository Safety
-
-- No private credentials or secrets are committed.
-- No real API keys or hidden admin routes are included.
-- The app is frontend-only for MVP.
-- Environment files are ignored via `.gitignore` (`.env*`).
-
-If future integrations require environment variables, add a `.env.example` with placeholders only.
-
-## Deployment (Vercel)
-
-1. Push this repository to GitHub.
-2. Import the project in Vercel.
-3. Keep framework preset as Next.js.
-4. Deploy from the `main` branch.
-5. Add custom domain `arinzeokigbo.com` in Vercel.
-6. Update IONOS DNS records to point to Vercel.
-7. Verify SSL certificate, Open Graph preview, and Lighthouse metrics.
-
-## Quality Targets
-
-- Lighthouse Performance: 90+
-- Largest Contentful Paint: under 2.5s on modern mobile/desktop
-- Smooth but restrained motion with reduced-motion support
-- Strong readability and responsive behavior
+Read `hive/RESUME.md` and `hive/HIVE.md`. The task board, source cache, acceptance matrix, and per-round changelog live under `hive/`. The full owner brief is preserved in `hive/BRIEF.md`.

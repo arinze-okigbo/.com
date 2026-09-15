@@ -21,7 +21,7 @@
  * Usage: `node scripts/check-bundle-budget.mjs` after `next build`.
  */
 
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { gzipSync } from "node:zlib";
 

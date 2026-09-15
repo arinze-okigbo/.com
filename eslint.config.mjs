@@ -1,16 +1,18 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-];
-
-export default eslintConfig;
+export default defineConfig([
+  ...nextVitals,
+  ...nextTypescript,
+  // Retained legacy navigation synchronizes its disclosure state with a media query.
+  { files: ["src/components/layout/Nav.tsx"], rules: { "react-hooks/set-state-in-effect": "off" } },
+  globalIgnores([
+    ".next/**", "playwright-report/**", "test-results/**", "coverage/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "hive/research/**",
+    "hive/qa/**",
+  ]),
+]);
