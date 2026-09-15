@@ -2559,3 +2559,124 @@ svg {
     display: none;
   }
 }
+/* Above-fold type starts with CSS at first paint, not after React hydration.
+   The transform keyframes sample the bouncy spring; text is never transparent. */
+[data-hive-initial-heading] [data-hive-letter] {
+  animation: hive-type-spring 720ms linear var(--hive-letter-delay, 0ms) backwards;
+}
+@keyframes hive-type-spring {
+  0% {
+    transform: translateY(8px) rotateX(6deg);
+  }
+  10% {
+    transform: translateY(5.077px) rotateX(3.808deg);
+  }
+  20% {
+    transform: translateY(0.611px) rotateX(0.458deg);
+  }
+  30% {
+    transform: translateY(-1.66px) rotateX(-1.245deg);
+  }
+  40% {
+    transform: translateY(-1.56px) rotateX(-1.17deg);
+  }
+  50% {
+    transform: translateY(-0.524px) rotateX(-0.393deg);
+  }
+  60% {
+    transform: translateY(0.246px) rotateX(0.185deg);
+  }
+  70% {
+    transform: translateY(0.414px) rotateX(0.311deg);
+  }
+  80% {
+    transform: translateY(0.221px) rotateX(0.166deg);
+  }
+  90% {
+    transform: translateY(-0.001px) rotateX(-0.001deg);
+  }
+  100% {
+    transform: translateY(0px) rotateX(0deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-hive-initial-heading] [data-hive-letter] {
+    animation: none;
+    transform: none;
+  }
+}
+.project-gallery {
+  padding-block: 48px 64px;
+  border-top: 1px solid var(--line);
+}
+.project-gallery h2 {
+  font-size: var(--type-6);
+  margin-bottom: 32px;
+}
+.project-gallery figure {
+  width: 100%;
+  margin-block: 24px;
+}
+.project-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.project-gallery figcaption {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+.project-gallery figcaption p,
+.gallery-note {
+  font-size: var(--type-2);
+  color: var(--muted);
+}
+@media (max-width: 767px) {
+  .project-gallery figcaption {
+    display: block;
+  }
+  .project-gallery h2 {
+    font-size: var(--type-5);
+  }
+}
+@media print {
+  :root,
+  :root[data-theme="dark"],
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --bg: #fff;
+    --surface: #fff;
+    --surface-raised: #fff;
+    --fg: #111;
+    --muted: #333;
+    --dim: #444;
+    --accent: #173b21;
+    --accent-ink: #fff;
+    --secondary: #403650;
+    --line: #666;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  .hive-scroll-progress,
+  .hive-cursor {
+    display: none !important;
+  }
+}
+/* Keep the spotlight's paint bounds inside the 20px mobile page gutters. */
+@media (max-width: 767px) {
+  .project-grid[data-hive-spotlight]::before,
+  .project-strip[data-hive-spotlight]::before {
+    inset: -16px;
+  }
+}

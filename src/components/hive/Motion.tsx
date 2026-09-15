@@ -3,7 +3,7 @@ import { useReducedMotion } from "./motion/preferences";
 
 import "./motion/interactions.css";
 
-import { useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
+import { useEffect, useRef, type ReactNode, type MouseEvent, type CSSProperties } from "react";
 import { motion, MotionConfig, useMotionValue, useSpring, useInView, animate } from "framer-motion";
 import { usePathname } from "next/navigation";
 
@@ -26,11 +26,22 @@ export function MotionProvider({ children }: { children: ReactNode }) {
     };
     updateScroll();
     addEventListener("scroll", updateScroll, { passive: true });
-    if (!reduced) {
+    let started = false;
+    const startChoreography = () => {
+      if (started || reduced || disposed) return;
+      started = true;
       void import("./motion/choreography").then(({ installChoreography }) => {
         if (!disposed) destroy = installChoreography();
       });
-    }
+    };
+    const onScrollIntent = (event: KeyboardEvent) => {
+      if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key))
+        startChoreography();
+    };
+    addEventListener("wheel", startChoreography, { passive: true, once: true });
+    addEventListener("touchstart", startChoreography, { passive: true, once: true });
+    addEventListener("scroll", startChoreography, { passive: true, once: true });
+    addEventListener("keydown", onScrollIntent);
     const teardown = () => {
       disposed = true;
       destroy?.();
@@ -53,6 +64,10 @@ export function MotionProvider({ children }: { children: ReactNode }) {
       document.removeEventListener("click", beforeNavigation, true);
       removeEventListener("popstate", teardown);
       removeEventListener("scroll", updateScroll);
+      removeEventListener("wheel", startChoreography);
+      removeEventListener("touchstart", startChoreography);
+      removeEventListener("scroll", startChoreography);
+      removeEventListener("keydown", onScrollIntent);
     };
   }, [reduced, pathname]);
   useEffect(() => {
@@ -119,6 +134,18 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/** Native keyframes sample the same k=200, c=12 spring, avoiding a React
+ * animation component and subscription for every character of every heading. */
+const entranceFrames: Keyframe[] = Array.from({ length: 37 }, (_, i) => {
+  const t = i / 50;
+  const displacement =
+    i === 36
+      ? 0
+      : Math.exp(-6 * t) *
+        (Math.cos(Math.sqrt(164) * t) + (6 / Math.sqrt(164)) * Math.sin(Math.sqrt(164) * t));
+  return { transform: `translateY(${displacement * 16}px) rotateX(${displacement * 12}deg)` };
+});
+
 export function Reveal({
   children,
   className,
@@ -129,18 +156,37 @@ export function Reveal({
   delay?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const seen = useInView(ref, { once: true, margin: "0px 0px -32px 0px" });
   const reduced = useReducedMotion();
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || reduced || typeof node.animate !== "function") return;
+    // Content visible at hydration is already painted. Do not move it away from
+    // its final position; scroll entrances enhance only content still below view.
+    if (node.getBoundingClientRect().top < innerHeight) return;
+    let animation: Animation | undefined;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        animation = node.animate(entranceFrames, {
+          duration: 720,
+          delay: delay * 1000,
+          easing: "linear",
+          fill: "backwards",
+        });
+      },
+      { rootMargin: "0px 0px -32px 0px" },
+    );
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      animation?.cancel();
+    };
+  }, [reduced, delay]);
   return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial={false}
-      animate={{ y: seen || reduced ? 0 : 18 }}
-      transition={{ ...snappy, delay: reduced ? 0 : delay }}
-    >
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -157,29 +203,55 @@ export function SplitText({
 }) {
   const Tag = as;
   const ref = useRef<HTMLSpanElement>(null);
-  const seen = useInView(ref, { once: true });
   const reduced = useReducedMotion();
+  const initialHeading = as === "h1" || className === "hero-name";
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || reduced || initialHeading || typeof node.animate !== "function") return;
+    if (node.getBoundingClientRect().top < innerHeight) return;
+    const animations: Animation[] = [];
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      node.querySelectorAll<HTMLElement>("[data-hive-letter]").forEach((letter, index) => {
+        animations.push(
+          letter.animate(entranceFrames, {
+            duration: 720,
+            delay: Math.min(index * 24, 400),
+            easing: "linear",
+            fill: "backwards",
+          }),
+        );
+      });
+    });
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      animations.forEach((animation) => animation.cancel());
+    };
+  }, [reduced, initialHeading, text]);
+  const words = text.split(" ");
   return (
     <Tag className={className}>
       <span className="hive-sr-only">{text}</span>
-      <span ref={ref} aria-hidden="true">
-        {text.split(" ").map((word, wi) => (
+      <span ref={ref} aria-hidden="true" data-hive-initial-heading={initialHeading || undefined}>
+        {words.map((word, wi) => (
           <span key={`${word}-${wi}`} style={{ display: "inline-block", whiteSpace: "nowrap" }}>
-            {(by === "word" ? [word] : Array.from(word)).map((char, ci) => (
-              <motion.span
+            {(by === "word" ? [word] : Array.from(word)).map((letter, ci) => (
+              <span
                 key={ci}
-                initial={false}
-                animate={{ y: seen || reduced ? 0 : 16, rotateX: seen || reduced ? 0 : 12 }}
-                transition={{
-                  ...bouncy,
-                  delay: reduced ? 0 : Math.min(wi * 0.06 + ci * 0.024, 0.55),
-                }}
-                style={{ display: "inline-block" }}
+                data-hive-letter=""
+                style={
+                  {
+                    display: "inline-block",
+                    "--hive-letter-delay": `${Math.min(wi * 60 + ci * 24, 400)}ms`,
+                  } as CSSProperties
+                }
               >
-                {char}
-              </motion.span>
+                {letter}
+              </span>
             ))}
-            {wi < text.split(" ").length - 1 ? "\u00a0" : ""}
+            {wi < words.length - 1 ? "\u00a0" : ""}
           </span>
         ))}
       </span>
@@ -238,31 +310,42 @@ export function TiltCard({ children, className }: { children: ReactNode; classNa
 }
 
 export function ScrambleLabel({ text, className }: { text: string; className?: string }) {
-  const [display, setDisplay] = useState(text);
   const ref = useRef<HTMLSpanElement>(null);
-  const seen = useInView(ref, { once: true });
+  const visual = useRef<HTMLSpanElement>(null);
   const reduced = useReducedMotion();
   useEffect(() => {
-    if (!seen || reduced) return;
-    let frame = 0;
-    const chars = "01/·+";
-    const timer = setInterval(() => {
-      frame++;
-      setDisplay(
-        Array.from(text)
+    const node = ref.current,
+      target = visual.current;
+    if (!node || !target || reduced) return;
+    let timer: ReturnType<typeof setInterval> | undefined;
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      let frame = 0;
+      const chars = "01/·+";
+      timer = setInterval(() => {
+        frame++;
+        target.textContent = Array.from(text)
           .map((char, index) =>
             char === " " || index < frame ? char : chars[(index + frame) % chars.length],
           )
-          .join(""),
-      );
-      if (frame >= text.length) clearInterval(timer);
-    }, 35);
-    return () => clearInterval(timer);
-  }, [seen, reduced, text]);
+          .join("");
+        if (frame >= text.length) clearInterval(timer);
+      }, 35);
+    });
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      clearInterval(timer);
+      target.textContent = text;
+    };
+  }, [reduced, text]);
   return (
     <span ref={ref} className={className}>
       <span className="hive-sr-only">{text}</span>
-      <span aria-hidden="true">{display}</span>
+      <span aria-hidden="true" ref={visual}>
+        {text}
+      </span>
     </span>
   );
 }
