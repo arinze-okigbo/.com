@@ -40,6 +40,7 @@ try {
     target,
     "--quiet",
     "--output=json",
+    "--save-assets",
     `--output-path=${directory}/preflight-mobile.json`,
     "--chrome-flags=--headless --no-sandbox",
   ]);

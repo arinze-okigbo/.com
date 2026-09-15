@@ -56,3 +56,6 @@ next-env.d.ts
 
 /hive/qa/*.jpg
 /work/
+
+hive/qa/*trace.json
+hive/qa/*devtoolslog.json
