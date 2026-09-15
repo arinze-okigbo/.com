@@ -1,1997 +1,2550 @@
-/* ============================================================
-   src/app/globals.css — arinzeokigbo.com
-   Source of truth: docs/04-design-system.md
-   Any value here that is not in that document is a defect.
-
-   Layout of this file:
-     1. Semantic colour            §3.2 §3.3 §3.4 §9.1
-     2. Responsive scalars         §2.3
-     3. @theme (Tailwind surface)  §10
-     4. Non-utility tokens         §2.4 §5 §7
-     5. Base                       §1.1 §9.3
-     6. Focus                      §7.2
-     7. Reveal                     §5.3 §6
-     8. Components                 §8
-     9. Reduced motion             §6  (authored after 7 + 8 so it wins)
-    10. Print                      §9.5
-   ============================================================ */
-
-/* `source(none)` + explicit globs, rather than Tailwind's automatic project
-   scan. The automatic scan walks the whole repository, so it matched class-like
-   strings in PROSE — the markdown under docs/ and the comments in this file —
-   and emitted utilities for them. That shipped `.shadow` (docs/04 §2.6 says
-   is a defect if it exists), `.ring`, `.blur`, `.invert`, `.font-serif`,
-   `.uppercase`, `.italic`, `.h-64`, `.h-72`, `.py-12/14/16/24/36`, `.px-2/4`
-   and `.p-4` — none of which appears on any element — plus three copies of the
-   reserved `.container` utility, scanned out of `--container-prose`.
-
-   Only .ts/.tsx under src/ can legitimately carry a class name, so that is the
-   only thing scanned. Every class authored directly in this file is unaffected;
-   Tailwind does not need to discover those. */
 @import "tailwindcss" source(none);
 @source "../../src/**/*.{ts,tsx}";
-
-/* Tailwind 4 dark variant, driven by the data-theme attribute (§9.1) */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-
-/* ------------------------------------------------------------
-   1. SEMANTIC COLOUR (§3.2, §3.3)
-
-   There is NO default mode (§9.2). prefers-color-scheme decides;
-   the toggle overrides and persists. `:root` carries the light
-   value set only because the cascade needs a base declaration —
-   both paths below fully override it before first paint.
-
-   Precedence:  [data-theme]  >  @media  >  :root
-   ------------------------------------------------------------ */
-:root,
-[data-theme="light"] {
-  color-scheme: light;
-
-  /* Warm ladder (§3.2, DEV-14) — Radix `gold` light steps 1-4. A perfectly
-     neutral greyscale is the enabling half of the "gold reads as highlighter"
-     failure: hue-41 accent on hue-0 ground has nothing to belong to. */
-  --background: #fdfdfc;
-  --surface: #faf9f2;
-  --surface-raised: #f2f0e7;
-  --overlay: #eae6db; /* NOT a body-text surface (§3.2) */
-
-  --foreground-strong: #0a0a0a;
-  --foreground: #1a1a1a;
-  --foreground-secondary: #5c5c5c;
-  --foreground-muted: #696969;
-  --foreground-faint: #bdbdbd;
-
-  --border: #0000001f;
-  --border-subtle: #00000014;
-  --border-interactive: #0000006f;
-
-  /* Deep gold — same hue as the brand (41.1deg vs 40.8deg), lightness
-     lowered so it clears 4.5:1 on every light surface. (§3.4) */
-  --accent: #7c5e1d;
-  --accent-hover: #5f4611;
-  --accent-tint: #f7f1df;
-  /* WHITE here, near-black in dark mode. The pair INVERTS (§3.4).
-     Never hard-code this value on an accent fill. */
-  --accent-foreground: #ffffff;
-
-  --shadow-overlay: 0 8px 32px rgb(0 0 0 / 0.16);
-}
-
-/* OS-preference path, and the ONLY path when JS is unavailable. (§9.3)
-   The :not([data-theme="light"]) guard is what lets an explicit light
-   choice beat a dark OS preference — do not remove it.
-   KEEP IN SYNC with the [data-theme="dark"] block below — same values. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    /* Warm ladder (§3.3, DEV-14) — hue 41, S 6-8%. */
-    --background: #0c0b0a;
-    --surface: #161513;
-    --surface-raised: #1f1e1c;
-    --overlay: #2a2925; /* NOT a body-text surface (§3.3) */
-    --foreground-strong: #f2efe8;
-    --foreground: #ede9e1;
-    --foreground-secondary: #a8a29a;
-    --foreground-muted: #8c877e;
-    --foreground-faint: #423f38;
-    --border: #ffffff1f;
-    --border-subtle: #ffffff14;
-    --border-interactive: #ffffff6f;
-    --accent: #d1a954; /* brand gold, unchanged */
-    --accent-hover: #dbbc7a;
-    --accent-tint: #241c0b;
-    --accent-foreground: #0c0b0a; /* near-black — inverts vs light */
-    --shadow-overlay: 0 8px 32px rgb(0 0 0 / 0.48);
-  }
-}
-
-/* Explicit user choice, written by ThemeScript before first paint.
-   Highest precedence. (§9.3)
-   KEEP IN SYNC with the @media block above — same values. */
-[data-theme="dark"] {
-  color-scheme: dark;
-  /* Warm ladder (§3.3, DEV-14) — hue 41, S 6-8%. */
-  --background: #0c0b0a;
-  --surface: #161513;
-  --surface-raised: #1f1e1c;
-  --overlay: #2a2925; /* NOT a body-text surface (§3.3) */
-  --foreground-strong: #f2efe8;
-  --foreground: #ede9e1;
-  --foreground-secondary: #a8a29a;
-  --foreground-muted: #8c877e;
-  --foreground-faint: #423f38;
-  --border: #ffffff1f;
-  --border-subtle: #ffffff14;
-  --border-interactive: #ffffff6f;
-  --accent: #d1a954; /* brand gold, unchanged */
-  --accent-hover: #dbbc7a;
-  --accent-tint: #241c0b;
-  --accent-foreground: #0c0b0a; /* near-black — inverts vs light */
-  --shadow-overlay: 0 8px 32px rgb(0 0 0 / 0.48);
-}
-
-/* Wide-gamut accent upgrade (§3.4). Hue- and lightness-matched, chroma
-   extended: the sRGB values above remain the basis of every contrast claim. */
-@supports (color: color(display-p3 1 1 1)) {
-  :root,
-  [data-theme="light"] {
-    --accent: color(display-p3 0.47 0.37 0.1);
-    --accent-hover: color(display-p3 0.36 0.27 0.06);
-  }
-  [data-theme="dark"] {
-    --accent: color(display-p3 0.81 0.66 0.3);
-    --accent-hover: color(display-p3 0.85 0.74 0.45);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --accent: color(display-p3 0.81 0.66 0.3);
-      --accent-hover: color(display-p3 0.85 0.74 0.45);
-    }
-  }
-}
-
-/* ------------------------------------------------------------
-   2. RESPONSIVE SCALARS (§2.3)
-   ------------------------------------------------------------ */
 :root {
-  --section-gap: 72px;
-  --gutter: 24px;
-  --header-height: 64px;
-}
-@media (min-width: 48rem) {
-  /* --breakpoint-md */
-  :root {
-    --section-gap: 96px;
-    --gutter: 32px;
-  }
-}
-@media (min-width: 64rem) {
-  /* --breakpoint-lg */
-  :root {
-    --section-gap: 144px;
-    --gutter: 48px;
-  }
-}
-
-/* ------------------------------------------------------------
-   3. @theme — the token surface Tailwind generates utilities from
-   ------------------------------------------------------------ */
-@theme inline {
-  /* --- Colour (§3). `inline` is REQUIRED: it makes utilities emit
-         var(--…) so the runtime theme switch works. --- */
-  --color-background: var(--background);
+  color-scheme: dark;
+  --bg: #0a0c0b;
+  --surface: #121613;
+  --surface-raised: #1a211c;
+  --fg: #f1f3ed;
+  --muted: #a1aaa2;
+  --dim: #78837b;
+  --line: #29302a;
+  --accent: #c2f6bd;
+  --accent-ink: #162317;
+  --secondary: #b4a2d2;
+  --font-sans: var(--font-geist), Arial, sans-serif;
+  --font-serif: var(--font-display), Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --type-1: clamp(0.5625rem, 0.8vw, 0.6875rem);
+  --type-2: 0.8125rem;
+  --type-3: 1rem;
+  --type-4: 1.25rem;
+  --type-5: 1.75rem;
+  --type-6: 2.5rem;
+  --type-7: 4rem;
+  --type-8: 8rem;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-foreground-strong: var(--fg);
+  --color-foreground-secondary: var(--muted);
+  --color-foreground-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-border: var(--line);
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
-  --color-overlay: var(--overlay);
-  --color-foreground-strong: var(--foreground-strong);
-  --color-foreground: var(--foreground);
-  --color-foreground-secondary: var(--foreground-secondary);
-  --color-foreground-muted: var(--foreground-muted);
-  --color-foreground-faint: var(--foreground-faint);
-  --color-border: var(--border);
-  --color-border-subtle: var(--border-subtle);
-  --color-border-interactive: var(--border-interactive);
+  --color-border-interactive: var(--muted);
+  --text-caption: 0.8125rem;
+  --text-body: 1rem;
+  --text-label: 0.6875rem;
+  --text-caption--line-height: 1.6;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --rhythm-meta: 0.75rem;
+  --rhythm-title: 1.5rem;
+  --rhythm-heading: 2rem;
+  --section-gap: 7rem;
+  --radius-md: 1rem;
+  --header-height: 6rem;
+  --panel-elevation: none;
+  --field-ink: var(--bg);
+  --field-text: var(--fg);
+  --field-muted: var(--muted);
+  --field-rule: var(--line);
+  --field-panel: var(--surface);
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3f4ef;
+  --surface: #e8ece4;
+  --surface-raised: #dde4d8;
+  --fg: #17201a;
+  --muted: #566158;
+  --dim: #68746a;
+  --line: #d0d8cc;
+  --accent: #305c38;
+  --accent-ink: #f1f7ed;
+  --secondary: #77618d;
+}
+@theme inline {
+  --font-sans: var(--font-geist);
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-foreground-strong: var(--fg);
+  --color-foreground-secondary: var(--muted);
+  --color-foreground-muted: var(--muted);
   --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-tint: var(--accent-tint);
-  --color-accent-foreground: var(--accent-foreground);
-
-  /* --- Typography (§1) ---
-         `--font-space-grotesk` is emitted by `next/font` onto <html> (see
-         layout.tsx). It already ends in "Space Grotesk Fallback", so this
-         stack does NOT repeat it. The `var()` fallback is belt-and-braces:
-         if the variable class is ever moved off <html> again, the family
-         degrades to the named face instead of invalidating the whole
-         declaration and silently dropping the type system.
-
-         "Space Grotesk Metric Fallback" (§4b) comes after next/font's own
-         fallback and before the system stack: on a platform with Arial the
-         next/font face matches first and this entry is never reached, and on
-         Android or Linux — where `local("Arial")` does not resolve and the
-         next/font face therefore does not exist — this one carries the same
-         metric overrides instead of falling through unadjusted. */
-  --font-sans:
-    var(--font-space-grotesk, "Space Grotesk", "Space Grotesk Fallback"),
-    "Space Grotesk Metric Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
-    sans-serif;
-  --font-mono:
-    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", "Courier New",
-    monospace;
-
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-
-  --text-caption: 0.8125rem; /* 13px */
-  --text-caption--line-height: 1.4;
-  --text-caption--letter-spacing: -0.01em;
-  --text-caption--font-weight: 400;
-
-  --text-label: 0.8125rem; /* 13px, uppercase */
-  --text-label--line-height: 1.3;
-  --text-label--letter-spacing: 0.12em;
-  --text-label--font-weight: 500;
-
-  --text-mono: 0.8125rem; /* 13px */
-  --text-mono--line-height: 1.5;
-  --text-mono--letter-spacing: 0em;
-  --text-mono--font-weight: 400;
-
-  --text-body: 1rem; /* 16px */
-  --text-body--line-height: 1.55;
-  --text-body--letter-spacing: -0.011em;
-  --text-body--font-weight: 400;
-
-  --text-lead: 1.25rem; /* 20px — zero crossing */
-  --text-lead--line-height: 1.45;
-  --text-lead--letter-spacing: 0em;
-  --text-lead--font-weight: 400;
-
-  --text-h3: 1.5625rem; /* 25px — zero crossing */
-  --text-h3--line-height: 1.3;
-  --text-h3--letter-spacing: 0em;
-  --text-h3--font-weight: 500;
-
-  --text-h2: clamp(1.5625rem, 1.5vw + 0.75rem, 1.9375rem); /* 25 → 31px */
-  --text-h2--line-height: 1.2;
-  --text-h2--letter-spacing: -0.01em;
-  --text-h2--font-weight: 500;
-
-  --text-h1: clamp(1.9375rem, 3vw + 0.5rem, 3.0625rem); /* 31 → 49px */
-  --text-h1--line-height: 1.08;
-  --text-h1--letter-spacing: -0.02em;
-  --text-h1--font-weight: 500;
-
-  --text-display: clamp(2.4375rem, 4.5vw + 0.5rem, 4.75rem); /* 39 → 76px */
-  --text-display--line-height: 1.05;
-  --text-display--letter-spacing: -0.028em;
-  --text-display--font-weight: 500;
-
-  /* --- Spacing (§2.1). `--spacing` generates the whole numeric scale
-         from the 4px base unit: p-4 = 16px, gap-8 = 32px, … --- */
-  --spacing: 0.25rem;
-
-  /* --- Containers and measures (§1.5) --- */
-  --container-prose: 42rem; /* 672px */
-  --container-wide: 48rem; /* 768px */
-  --container-shell: 64rem; /* 1024px */
-
-  /* --- Breakpoints (§2.2). Two, not five: the unused Tailwind
-         defaults are removed so no agent can reach for them. --- */
-  --breakpoint-sm: initial;
-  --breakpoint-md: 48rem; /* 768px */
-  --breakpoint-lg: 64rem; /* 1024px */
-  --breakpoint-xl: initial;
-  --breakpoint-2xl: initial;
-
-  /* --- Radius (§2.5) --- */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-  --radius-full: 9999px;
-
-  /* --- Easing (§4). Three. There is no fourth. --- */
-  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-entrance: cubic-bezier(0, 0, 0.2, 1);
-  --ease-glide: cubic-bezier(0.32, 0.72, 0, 1);
-
-  /* Tailwind's own easing defaults, removed the same way the unused
-     breakpoints are (§2.2). docs/04 §4 forbids `ease-in` "in any form — CSS
-     keyword, bezier, or Framer Motion string", but `--ease-in` shipped in the
-     theme layer and `.ease-in` / `.ease-out` / `.ease-in-out` were emitted as
-     utilities, so the forbidden curve was one class name away. No element
-     used any of them; nulling makes that structural rather than lucky. */
-  --ease-in: initial;
-  --ease-out: initial;
-  --ease-in-out: initial;
-  --ease-linear: initial;
+  --color-border: var(--line);
+  --color-surface-raised: var(--surface-raised);
 }
-
-/* ------------------------------------------------------------
-   4. NON-UTILITY TOKENS (§2.4, §5, §7) — referenced from CSS,
-      not turned into Tailwind utilities.
-   ------------------------------------------------------------ */
-:root {
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-12: 48px;
-  --space-16: 64px;
-  --space-24: 96px;
-  --space-36: 144px;
-  --space-48: 192px;
-
-  --rhythm-heading: 48px;
-  --rhythm-entry: 32px;
-  --rhythm-title: 16px;
-  --rhythm-meta: 8px;
-  --rhythm-paragraph: 16px;
-  --rhythm-inline: 8px;
-
-  --measure-prose: 42rem;
-  --measure-lead: 30ch;
-  --measure-intro: 42ch;
-  --measure-display: 14ch;
-  --measure-h1: 20ch;
-  --measure-h2: 28ch;
-  --measure-h3: 32ch;
-  --measure-caption: 48ch;
-  --measure-mono: 72ch;
-
-  --duration-fast: 150ms;
-  --duration-base: 240ms;
-  --duration-reveal: 280ms;
-  --duration-ceiling: 320ms; /* assertion bound, not a usable value */
-
-  --reveal-distance: 8px;
-  --reveal-distance-lg: 16px;
-  --press-translate: 1px;
-  --press-scale: 0.98;
-  --hover-lift: -2px;
-
-  --stagger-step: 50ms;
-  --stagger-max-items: 5;
-
-  /* Stacking order (§2.7). Declared here, NOT in @theme, so no z-* utilities
-     are generated and the token surface above stays exactly as printed.
-     Order: field -> grid -> content (normal flow) -> header -> skip link.
-     The skip link must paint above the sticky header.
-
-     `--z-field` and `--z-grid` index INSIDE `.field-backdrop`, which is the
-     one element that carries them as a stacking context of its own; the
-     backdrop itself sits at `--z-field` in the root context and `main` is
-     `position: relative` so content paints above it. That is what makes the
-     §2.7 order render as written — a bare `z-index: 1` fixed layer in the root
-     context would paint above non-positioned in-flow content, not below it. */
-  --z-field: 0;
-  --z-grid: 1;
-  --z-header: 2;
-  --z-skip: 3;
-  /* NO `--z-hud` STEP, and this is the fix for a shipped defect rather than an
-     omission. `FieldHud` (docs/15 §2.11 / M8.2) was a fixed element that
-     overlaid the whole document, and the only question anyone asked of it was
-     which step it should take — while at every step it painted ON TOP OF
-     section copy at every scroll position. A z-index cannot separate two
-     layers that occupy the same pixels; only layout can. The readout is now
-     the hero's closing block, in flow, and owns no step in this table.
-     Re-introducing a fixed HUD re-opens that defect, not just this token. */
-
-  /* Print pagination minimum. docs/04 §9.5's print block declares no break,
-     orphan or widow control at all, so this value has no token upstream and is
-     named here rather than left as a bare integer inside @media print — the
-     same treatment --z-header got for the same reason (§12.1 C, D12). Three
-     lines is the conventional floor for a paragraph fragment on a sheet.
-     ESCALATE to docs/04 §9.5 for a canonical print scale. */
-  --print-min-lines: 3;
-
-  /* The light source (§2.8, DEV-15). ONE origin. Every lit edge on the page
-     is a radial gradient anchored to it; nothing reads a second position.
-     Frozen at these defaults under reduced motion and with JS disabled — the
-     per-element `--lx`/`--ly` written by LightSourceScript FALL BACK to these,
-     so a JS-off page is lit from top-centre rather than lit not at all. */
-  --light-x: 50%;
-  --light-y: -10%;
-  --glow-near: #d1a95433;
-  --glow-mid: #d1a9541f;
-  /* Every gold glow fades to THIS, never to `transparent` — `transparent` is
-     rgba(0,0,0,0) and interpolates through grey (docs/11 §3 move 5). */
-  --glow-far: #d1a95400;
-  --edge-lit: inset 0 1px 0 #ffffff1f;
-  --shadow-panel: 0 40px 100px -50px #000;
-  --grain-opacity: 0.2;
-
-  /* The attestation field (§3.7, DEV-13). DARK IN BOTH THEMES — the field is
-     a stage the light-mode page enters and leaves (A8.2), so these are NOT
-     redeclared per theme. Not in @theme: no field-* utilities are generated
-     and nothing outside the .stage scope can reach them by accident.
-
-     `--accent-dark` is declared once, unconditionally, so `--field-hot` can
-     reference dark `--color-accent` rather than retyping the hex. Retyping
-     #d1a954 into the shader, the poster or a second CSS rule is a defect
-     under A8.6 — it is how the two surfaces drift apart. */
-  --accent-dark: #d1a954;
-  --field-ink: #0a0908;
-  --field-cold: #3a4655;
-  --field-hot: var(--accent-dark, #d1a954); /* = dark --accent (A8.6) */
-  --field-core: #fff3d2;
-  --field-fg: #ede9e1; /* = dark --foreground */
-  --field-fg-secondary: #b9b4a9; /* body copy over the field */
-  --field-fg-muted: #9c978c;
-  --field-rule: #ffffff14;
-  --field-panel: #ffffff05;
-
-  --focus-ring-width: 2px;
-  --focus-ring-offset: 2px;
-  --focus-ring-color: var(--accent);
-  --focus-ring-style: solid;
+* {
+  box-sizing: border-box;
 }
-
-/* ------------------------------------------------------------
-   4b. METRIC-MATCHED FALLBACK FOR NON-APPLE PLATFORMS (§1.1)
-
-   `next/font`'s `adjustFontFallback: true` emits exactly one fallback face:
-
-     @font-face { font-family: "Space Grotesk Fallback";
-                  src: local("Arial");
-                  ascent-override: 89.71%; descent-override: 26.62%;
-                  line-gap-override: 0%;  size-adjust: 109.69% }
-
-   `local("Arial")` resolves on Windows, macOS and iOS. It does NOT resolve on
-   Android (Roboto / Noto) or on most Linux. Where it fails the face never
-   matches, the overrides and `size-adjust` do not exist, and `--font-sans`
-   falls through UNADJUSTED to the system stack. Measured at 390px: the lede
-   paragraph is 87px tall with the adjusted face and 58px without it — one whole
-   line fewer — so the swap re-flows the paragraph the moment the webfont
-   arrives. The CLS 0.000 result is therefore an Apple-and-Windows result, not a
-   universal one (docs/08-review-crossbrowser-c2 N5).
-
-   This face is the same metric contract with a source list that resolves on the
-   platforms Arial does not. It is a SEPARATE family name on purpose: two
-   `@font-face` rules with the same family and descriptors do not merge their
-   `src` lists — the later definition replaces the earlier one outright — and
-   `next/font` injects its stylesheet independently of this file, so redeclaring
-   "Space Grotesk Fallback" here would be a cascade-order coin toss. A distinct
-   name makes the two faces two entries in `--font-sans`, tried in order, which
-   is deterministic.
-
-   The override percentages are Arial-derived. Roboto, Helvetica Neue and
-   Liberation Sans are close enough that the residual is far smaller than the
-   un-adjusted fall-through this replaces; that is the honest claim, and it is
-   not the same as claiming CLS 0 on Android, which needs one measurement on
-   real hardware (crossbrowser-c2 S4).
-   ------------------------------------------------------------ */
-@font-face {
-  font-family: "Space Grotesk Metric Fallback";
-  src: local("Roboto"), local("Helvetica Neue"), local("Liberation Sans"), local("Arial");
-  ascent-override: 89.71%;
-  descent-override: 26.62%;
-  line-gap-override: 0%;
-  size-adjust: 109.69%;
-}
-
-/* ------------------------------------------------------------
-   5. BASE (§1.1, §9.3)
-   ------------------------------------------------------------ */
 html {
-  /* scroll-behavior: smooth is REMOVED — it fights Lenis (docs/00 Defect 5).
-     Native smooth scrolling and a JS scroll library cannot both drive the
-     same scroll position; Lenis is the chosen mechanism (docs/02 §5). */
-  /* Unprefixed FIRST, prefixed second.
-
-     Gecko rejects `-webkit-text-size-adjust` outright, so the authored 100%
-     never reached one of the three target engines
-     (docs/08-review-crossbrowser-c2 N6). Lightning CSS expands the pair below
-     to all three spellings against the browserslist range — the served
-     document carries
-     `html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%}`,
-     verified in the response body — so Gecko's `-moz-` name is covered too
-     without being hand-authored.
-
-     Measured honesty about what this buys: on DESKTOP Firefox 155 and WebKit
-     26.6 `CSS.supports()` returns false for all three spellings, because
-     font inflation is a mobile behaviour and the property is only implemented
-     where inflation exists. The audience is Firefox for Android and iOS
-     Safari. Firefox for Android additionally suppresses inflation on its own
-     when the document declares `width=device-width, initial-scale=1`, which
-     this one does — so this declaration is belt to that braces, which is
-     exactly why N6 is LOW. */
-  text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 7rem;
 }
-
-/* Lenis' required base rules. The `lenis` class is added to <html> only when
-   an instance is constructed, so under prefers-reduced-motion — where
-   SmoothScrollProvider never constructs one (M12) — none of these match and
-   the browser's native scroll is the whole mechanism. */
-html.lenis,
-html.lenis body {
-  height: auto;
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--type-3);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
 }
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+a {
+  color: inherit;
+  text-decoration: none;
 }
-.lenis.lenis-stopped {
+button,
+input,
+select {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+button:active,
+.button:active {
+  transform: scale(0.97);
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+main:focus {
+  outline: none;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+figure {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.05em;
+}
+p {
+  max-width: 65ch;
+}
+img,
+svg {
+  max-width: 100%;
+}
+.shell {
+  width: min(1328px, calc(100% - 112px));
+  margin-inline: auto;
+}
+.section {
+  padding-block: 112px;
+}
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--type-1);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 16px;
+  z-index: 1000;
+  transform: translateY(-160%);
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 12px 20px;
+  border-radius: 8px;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+.status-dot,
+.swarm-credit i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.hive-header {
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition:
+    background 0.4s var(--ease-out-expo),
+    border-color 0.4s;
+}
+.header-inner {
+  height: 96px;
+  width: min(1328px, calc(100% - 112px));
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  transition: height 0.4s var(--ease-out-expo);
+}
+[data-scrolled="true"] .header-inner {
+  height: 72px;
+}
+[data-scrolled="true"] .hive-header {
+  border-color: var(--line);
+}
+.wordmark {
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: -0.1em;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  min-width: 64px;
+  min-height: 44px;
+}
+.wordmark span {
+  font-size: 1.2rem;
+  color: var(--accent);
+  align-self: flex-start;
+  letter-spacing: 0;
+}
+.desktop-nav {
+  display: flex;
+  gap: 28px;
+  margin-left: 6rem;
+}
+.desktop-nav a {
+  font-size: var(--type-2);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  position: relative;
+}
+.desktop-nav a:hover,
+.desktop-nav a[aria-current="page"] {
+  color: var(--fg);
+}
+.desktop-nav a[aria-current="page"]:after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.header-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.header-actions button {
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  min-width: 44px;
+  min-height: 44px;
+}
+.header-contact {
+  font-size: var(--type-2);
+  border-bottom: 1px solid var(--muted);
+  line-height: 2.1;
+  display: flex;
+  gap: 24px;
+}
+.mobile-toggle,
+.mobile-nav {
+  display: none;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  min-height: 54px;
+  padding: 15px 24px;
+  border-radius: 100px;
+  font-size: var(--type-2);
+  font-weight: 500;
+  border: 1px solid var(--line);
+  transition:
+    transform 0.3s var(--ease-out-expo),
+    background 0.3s;
+}
+.button-primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.button-primary:hover {
+  background: color-mix(in srgb, var(--accent) 86%, var(--fg));
+  transform: translateY(-2px);
+}
+.text-link {
+  font-size: var(--type-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 44px;
+  border-bottom: 1px solid var(--line);
+}
+.text-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.source-link {
+  font-size: var(--type-1);
+  color: var(--muted);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.source-link:hover {
+  color: var(--accent);
+}
+.hero {
+  padding-top: 137px;
+  min-height: min(880px, 100svh);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.hero-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--type-1);
+  letter-spacing: 0.11em;
+  color: var(--muted);
+  gap: 20px;
+}
+.hero-topline > span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-location {
+  font-size: var(--type-1);
+}
+.hero-composition {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  flex: 1;
+  padding: 56px 0 66px;
+}
+.hero-copy {
+  position: relative;
+  z-index: 2;
+}
+.hero-kicker {
+  font-size: var(--type-2);
+  line-height: 1.4;
+  margin-bottom: 28px;
+  color: var(--muted);
+}
+.hero-name {
+  font-size: clamp(var(--type-7), 9vw, var(--type-8));
+  line-height: 0.88;
+  letter-spacing: -0.085em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.hero-surname {
+  font-size: clamp(var(--type-7), 9vw, var(--type-8));
+  line-height: 1.02;
+  letter-spacing: -0.085em;
+  font-weight: 500;
+}
+.name-period {
+  color: var(--accent);
+}
+.hero-description {
+  font-size: var(--type-3);
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 440px;
+  margin: 30px 0 28px;
+}
+.hero-description strong {
+  color: var(--fg);
+  font-weight: 400;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.hero-visual {
+  position: relative;
+  align-self: stretch;
+  min-height: 500px;
+  margin: -30px -32px -10px -44px;
+  pointer-events: auto;
+}
+.hero-visual .hive-orbital {
+  height: 100%;
+  min-height: 500px;
+}
+.sculpture-label {
+  position: absolute;
+  bottom: 9%;
+  left: 12%;
+  right: 3%;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.sculpture-label span:last-child {
+  color: var(--dim);
+}
+.hero-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0 28px;
+  border-top: 1px solid var(--line);
+  gap: 24px;
+}
+.hero-scroll {
+  font-family: var(--font-mono);
+  font-size: var(--type-1);
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.hero-scroll > span {
+  font-size: 1.3rem;
+  color: var(--fg);
+}
+.hero-proof {
+  font-size: var(--type-1);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: var(--muted);
+}
+.hero-proof > span {
+  font-size: 1rem;
+  color: var(--fg);
+}
+.hero-proof:hover {
+  color: var(--fg);
+}
+.now-strip {
+  border-block: 1px solid var(--line);
+  background: var(--surface);
+}
+.now-strip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 90px;
+  font-size: var(--type-2);
+}
+.now-strip-inner > span {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.now-strip-inner > span > span {
+  color: var(--muted);
+}
+.now-strip-inner > a {
+  font-size: var(--type-1);
+  color: var(--muted);
+}
+.now-strip-inner a:hover {
+  color: var(--accent);
+}
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+.section-heading .eyebrow {
+  margin-bottom: 22px;
+}
+.section-heading h2 {
+  font-size: clamp(var(--type-6), 4.3vw, var(--type-7));
+}
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px 32px;
+}
+.project-card {
+  position: relative;
+}
+.project-card-link {
+  display: block;
+  border-radius: 16px;
+}
+.project-art {
+  position: relative;
+  aspect-ratio: 1.38;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  isolation: isolate;
+  color: var(--fg);
+}
+.project-card-copy {
+  position: relative;
+  padding: 24px 0 0;
+}
+.project-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0 10px;
+}
+.project-card-title h3 {
+  font-size: var(--type-5);
+  letter-spacing: -0.045em;
+}
+.project-card-title > span {
+  font-size: 1.5rem;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+.project-card-link:hover .project-card-title > span {
+  transform: translate(4px, -4px);
+  color: var(--accent);
+}
+.project-card-copy > p {
+  font-size: var(--type-2);
+  color: var(--muted);
+  max-width: 90%;
+}
+.project-index {
+  display: none;
+}
+.art-caption {
+  position: absolute;
+  left: 24px;
+  bottom: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.13em;
+  color: var(--muted);
+}
+.art-splita {
+  background: #112b25;
+  color: #f1f5ee;
+}
+.art-splita .art-caption {
+  color: #a7c9ba;
+}
+.art-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#ffffff06 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff06 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: linear-gradient(transparent, #000);
+}
+.payment-phone {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  width: 235px;
+  transform: translate(-50%, -50%) rotate(-9deg);
+  border: 1px solid #68927d;
+  background: #182f27;
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow:
+    12px 22px 0 -2px #0b211b,
+    13px 23px 0 -2px #476651;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.project-card:hover .payment-phone {
+  transform: translate(-50%, -50%) rotate(-4deg) translateY(-6px);
+}
+.phone-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+}
+.phone-top > b {
+  font-size: 1.2rem;
+  letter-spacing: -0.055em;
+}
+.phone-top > b > span {
+  color: #80e3b7;
+}
+.phone-top > i {
+  font-style: normal;
+  font-size: 0.35rem;
+  letter-spacing: 0.12em;
+  color: #b6d0c1;
+}
+.payment-phone > p {
+  font-size: 1.75rem;
+  line-height: 1.08;
+  letter-spacing: -0.06em;
+}
+.payment-avatars {
+  display: flex;
+  margin-top: 24px;
+}
+.payment-avatars > span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid #182f27;
+  background: #a1bea6;
+  color: #233c2d;
+  display: grid;
+  place-content: center;
+  font-size: 0.625rem;
+  margin-left: -6px;
+}
+.payment-avatars > span:nth-child(2) {
+  background: #baa7ca;
+}
+.payment-avatars > span:nth-child(3) {
+  background: #d4caa1;
+}
+.payment-avatars > span:last-child {
+  background: #314d3d;
+  color: #d3e6d5;
+}
+.payment-rule {
+  height: 1px;
+  background: #425c4a;
+  margin: 20px 0 12px;
+}
+.payment-step {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.5rem;
+  color: #c1d0c4;
+}
+.payment-confirm {
+  background: #c3ecc9;
+  color: #163c26;
+  font-size: 0.5rem;
+  padding: 10px;
+  margin-top: 16px;
+  border-radius: 6px;
+}
+.payment-confirm > span {
+  margin-right: 8px;
+}
+.art-auth {
+  background: #191723;
+  color: #c2afdf;
+}
+.auth-orbits {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform: rotate(-24deg);
+}
+.auth-orbits > i {
+  position: absolute;
+  width: 65%;
+  aspect-ratio: 1;
+  border: 1px solid #b4a2d230;
+  border-radius: 50%;
+  transform: scaleY(0.6);
+}
+.auth-orbits > i:nth-child(2) {
+  transform: scaleY(0.6) rotate(60deg);
+}
+.auth-orbits > i:nth-child(3) {
+  transform: scaleY(0.6) rotate(120deg);
+}
+.auth-core {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #aa94c74a;
+  border-radius: 24px;
+  background: #272233;
+  box-shadow: 0 0 70px #a890c91a;
+}
+.auth-core svg {
+  width: 48px;
+}
+.auth-node {
+  position: absolute;
+  border: 1px solid #a894bf47;
+  background: #211c2c;
+  border-radius: 5px;
+  padding: 9px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.4rem;
+  letter-spacing: 0.12em;
+}
+.node-one {
+  top: 21%;
+  left: 13%;
+}
+.node-two {
+  right: 8%;
+  top: 45%;
+}
+.node-three {
+  bottom: 25%;
+  left: 21%;
+}
+.art-auth .art-caption {
+  color: #b3a8c5;
+}
+.art-globe {
+  background: #141e22;
+  color: #c0d7d8;
+}
+.globe {
+  position: absolute;
+  width: 57%;
+  aspect-ratio: 1;
+  left: 50%;
+  top: 47%;
+  transform: translate(-50%, -50%) rotate(-20deg);
+  border-radius: 50%;
+  border: 1px solid #a1c1c77a;
+  background: radial-gradient(ellipse at 30% 30%, #28424a, #0b1319 75%);
+  box-shadow: 0 0 70px #628a8a13;
   overflow: hidden;
 }
-.lenis.lenis-smooth iframe {
-  pointer-events: none;
+.globe:before,
+.globe:after {
+  content: "";
+  position: absolute;
+  border: 1px solid #91b6be40;
+  border-radius: 50%;
+  inset: 0 25%;
 }
-
-body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  /* Referenced by name, not retyped. Tailwind applies these companion
-     properties only through the `text-*` UTILITY; hand-authored CSS that sets
-     `font-size: var(--text-body)` gets no line-height or tracking, so every
-     rule below used to restate the number and would silently not follow an
-     edit to the @theme token. The literal is kept only as a var() fallback. */
-  line-height: var(--text-body--line-height, 1.55);
-  letter-spacing: var(--text-body--letter-spacing, -0.011em);
-  font-weight: var(--font-weight-normal);
-  font-synthesis-weight: none; /* 400/500 only — no faux bold (§1.1) */
-  font-synthesis-style: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100svh;
+.globe:after {
+  inset: 0 42%;
 }
-
-strong,
-b {
-  font-weight: var(--font-weight-medium);
+.globe > i {
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  height: 24%;
+  border: 1px solid #91b6be40;
+  border-radius: 50%;
+  top: 25%;
 }
-
-::selection {
-  background: var(--color-accent-tint); /* allowlist A6 */
-  color: var(--color-foreground-strong);
+.globe > i:nth-child(2) {
+  top: 46%;
 }
-
-/* Scroll offset so the sticky header can never obscure a focus target.
-   WCAG 2.2 SC 2.4.11 Focus Not Obscured (Minimum) — §7.3 */
-:target,
-[id],
-:where(a, button, input, textarea, select, summary, [tabindex]) {
-  scroll-margin-block-start: calc(var(--header-height) + var(--space-4));
+.globe > i:nth-child(3) {
+  top: 67%;
 }
-
-/* ------------------------------------------------------------
-   6. FOCUS (§7.2)
-   ------------------------------------------------------------ */
-/* `outline` and `outline-offset` ONLY.
-
-   `border-radius: inherit` used to be declared here and it collapsed every
-   control's corner the moment it was keyboard-focused: the skip link went from
-   a 9999px pill to a rectangle, `.btn--primary` and `.theme-toggle` from 8px to
-   0. The cause is a cascade-LAYER inversion, not specificity — every component
-   radius is authored inside `@layer components`, this rule is unlayered, and
-   unlayered declarations beat all layered ones regardless of specificity. So
-   even `:where()`'s zero specificity still won, and `inherit` resolved to the
-   parent's 0px. It also bought nothing: `outline` already follows the
-   element's own border-box shape at the offset in every current engine. */
-:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
+.globe > i:nth-child(4) {
+  top: 4%;
 }
-:focus:not(:focus-visible) {
-  outline: none;
+.globe > i:nth-child(5) {
+  width: 90%;
+  height: 160%;
+  top: -40%;
+  left: 20%;
+  transform: rotate(45deg);
+  border-style: dashed;
 }
-
-/* The skip target carries no ring.
-
-   `<main id="main" tabindex="-1">` exists so the skip link can move focus in
-   every engine, not only Chromium. But it is reached by pressing Enter, so
-   `:focus-visible` DOES match it — measured true in Chromium, Firefox and
-   WebKit — and the `[tabindex]` clause above then drew a 2px accent outline
-   around the entire page content. (docs/06-review-accessibility §6 predicted
-   `:focus:not(:focus-visible)` would suppress this; it does not, because the
-   focus is keyboard-initiated.)
-
-   Suppressing it is correct rather than a waiver: WCAG 2.4.7 governs user
-   interface COMPONENTS, and a `tabindex="-1"` reading-position target is not
-   one — it is not in the tab sequence, it cannot be reached except by
-   activating the skip link, and the skip link has its own highly visible
-   focus state. Specificity 0,1,1 beats the zero-specificity `:where()` rule
-   above, and both are unlayered, so this wins without `!important`. */
-main[tabindex="-1"]:focus,
-main[tabindex="-1"]:focus-visible {
-  outline: none;
+.globe b {
+  position: absolute;
+  font-size: 1.1rem;
+  left: 29%;
+  top: 33%;
+  color: #c2f6bd;
 }
-
-/* The same reasoning, and the same narrow scope, for a section reached from
-   the mobile nav sheet.
-
-   `Nav.tsx` sets `tabindex="-1"` on the destination section and focuses it when
-   a sheet link is activated, because closing the sheet applies
-   `visibility: hidden` to the link that held focus and `document.activeElement`
-   would otherwise drop to BODY (SC 2.4.3, accessibility-c2 N2). The section is
-   then a reading-position target reached by pressing Enter, so `:focus-visible`
-   matches it and the `[tabindex]` rule above would draw a 2px accent outline
-   around a whole screenful.
-
-   This is the identical case to `main` above, not a widening of it: a
-   `tabindex="-1"` reading position is not a user interface component, it is not
-   in the tab sequence, and the control that sent focus here — the nav link —
-   has its own visible focus state. The `<section>` element only, not a bare
-   `[tabindex="-1"]`: every real control keeps its ring. */
-section[tabindex="-1"]:focus,
-section[tabindex="-1"]:focus-visible {
-  outline: none;
+.globe b:nth-last-child(2) {
+  left: 66%;
+  top: 65%;
+  font-size: 0.7rem;
 }
-
-/* ------------------------------------------------------------
-   7. REVEAL (§5.3, §6). Scoped to .js so a JS-disabled render
-      never leaves content at opacity: 0 (docs/02 §8.6, R30).
-      Owned by the motion agent at the component layer; the token
-      contract lives here.
-   ------------------------------------------------------------ */
-.js [data-reveal] {
-  opacity: 0;
-  transform: translateY(var(--reveal-distance));
+.globe b:last-child {
+  left: 53%;
+  top: 20%;
+  font-size: 0.7rem;
+}
+.globe-coordinate {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  font-family: var(--font-mono);
+  font-size: 0.45rem;
+  line-height: 1.7;
+  letter-spacing: 0.1em;
+  color: #8aa2a5;
+}
+.globe-cross {
+  position: absolute;
+  color: #759a9f;
+  font-size: 1rem;
+}
+.cross-one {
+  left: 13%;
+  top: 20%;
+}
+.cross-two {
+  right: 11%;
+  bottom: 24%;
+}
+.art-globe .art-caption {
+  color: #a4b9bc;
+}
+.art-hive {
+  background: var(--surface);
+}
+.hive-map {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.hive-root {
+  width: 95px;
+  height: 95px;
+  border: 1px solid var(--accent);
+  background: var(--surface-raised);
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 2rem;
+  color: var(--accent);
+  line-height: 1.2;
+  box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 5%, transparent);
+}
+.hive-root > span {
+  font-family: var(--font-mono);
+  font-size: 0.4rem;
+  letter-spacing: 0.2em;
+}
+.hive-connect {
+  width: 1px;
+  height: 40px;
+  background: var(--line);
+}
+.hive-drones {
+  display: flex;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+  position: relative;
+}
+.hive-drones > span {
+  position: relative;
+  min-width: 68px;
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 0.4rem;
+  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--muted);
+}
+.hive-drones > span:before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 24px;
+  bottom: 100%;
+  left: 50%;
+  background: var(--line);
+}
+.art-large {
+  aspect-ratio: 2.2;
+}
+.art-large .payment-phone {
+  width: 280px;
+}
+.art-large .globe {
+  width: 38%;
+}
+.about-teaser {
+  padding-block: 104px 128px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 2.4fr 0.8fr;
+  gap: 40px;
+}
+.about-teaser-copy h2 {
+  font-size: clamp(var(--type-5), 3.3vw, var(--type-6));
+  max-width: 440px;
+}
+.about-teaser-copy p {
+  margin: 28px 0;
+  color: var(--muted);
+  font-size: var(--type-3);
+  line-height: 1.9;
+  max-width: 480px;
+}
+.about-index {
+  font-family: var(--font-serif);
+  font-size: 10rem;
+  letter-spacing: -0.15em;
+  line-height: 1;
+  color: var(--accent);
+  transform: rotate(-12deg);
+}
+.about-index > span {
+  font-style: italic;
+}
+.lab-teaser {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  padding: 64px;
+  gap: 40px;
+  overflow: hidden;
+}
+.lab-teaser h2 {
+  font-size: clamp(var(--type-5), 3.4vw, var(--type-6));
+  margin: 24px 0;
+}
+.lab-teaser p {
+  color: var(--muted);
+  font-size: var(--type-2);
+  max-width: 370px;
+  margin-bottom: 32px;
+}
+.lab-diagram {
+  position: relative;
+  min-height: 350px;
+  display: grid;
+  place-items: center;
+}
+.lab-orbit {
+  position: absolute;
+  width: 80%;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transform: rotate(30deg) scaleX(0.65);
+}
+.orbit-b {
+  transform: rotate(-30deg) scaleX(0.65);
+}
+.orbit-c {
+  transform: rotate(90deg) scaleX(0.65);
+}
+.lab-center {
+  width: 96px;
+  height: 96px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 2.5rem;
+  box-shadow: 0 0 100px color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.lab-coordinate {
+  position: absolute;
+  bottom: 0;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  color: var(--muted);
+}
+.writing-feature {
+  padding: 40px 0 56px;
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  border-block: 1px solid var(--line);
+}
+.writing-feature h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(var(--type-6), 4.5vw, var(--type-7));
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  margin-top: 24px;
+}
+.writing-arrow {
+  width: 64px;
+  height: 64px;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+.writing-feature:hover .writing-arrow {
+  transform: rotate(45deg);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.contact-banner {
+  position: relative;
+  padding-block: 80px 112px;
+  border-top: 1px solid var(--line);
+}
+.contact-banner h2 {
+  font-size: clamp(var(--type-7), 7.7vw, var(--type-8));
+  margin: 32px 0;
+}
+.contact-banner h2 em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+}
+.contact-banner > p {
+  color: var(--muted);
+  font-size: var(--type-2);
+}
+.round-link {
+  position: absolute;
+  right: 0;
+  top: 42%;
+  width: 110px;
+  height: 110px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 2.6rem;
   transition:
-    opacity var(--duration-reveal) var(--ease-entrance),
-    transform var(--duration-reveal) var(--ease-entrance);
-  transition-delay: calc(min(var(--reveal-index, 0), 4) * var(--stagger-step));
+    transform 0.4s var(--ease-out-expo),
+    background 0.4s;
 }
-.js [data-reveal="lg"] {
-  transform: translateY(var(--reveal-distance-lg));
+.round-link:hover {
+  transform: rotate(45deg);
+  background: var(--accent);
+  color: var(--accent-ink);
 }
-.js [data-reveal][data-revealed] {
-  opacity: 1;
-  transform: none;
+.hive-footer {
+  border-top: 1px solid var(--line);
+  padding-block: 56px 24px;
 }
-.js [data-reveal][data-reveal-instant] {
-  transition: none;
-  transition-delay: 0s;
+.footer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 52px;
 }
-
-/* DELETED: the `@supports (animation-timeline: view())` scroll-driven block for
-   `[data-reveal="decorative"]`, and the `@keyframes reveal` it was the only
-   consumer of (docs/08-review-crossbrowser-c2 N7).
-
-   `RevealDistance` is `"default" | "lg"` (`Reveal.tsx`). Nothing has ever
-   emitted `data-reveal="decorative"`, in any build, so the block was
-   unreachable — and it was also the ONLY genuine three-way engine split in the
-   codebase: `CSS.supports("animation-timeline", "view()")` is true in Chromium
-   153 and WebKit 26.6 and false in Firefox 155. Harmless while dead, and a
-   silent Firefox-only "no reveal at all" the first time a component used it.
-
-   To bring scroll-driven reveals back, three things must land together: the
-   variant in `RevealDistance`, this block, and a
-   `@supports not (animation-timeline: view())` fallback for Firefox. Restoring
-   the CSS alone reinstates the split. */
-
-/* ------------------------------------------------------------
-   8. COMPONENTS (§7.5, §8)
-      Every value below is a token from docs/04. No literals.
-   ------------------------------------------------------------ */
-@layer components {
-  /* --- Container / Section (§1.5, §2.3) ---
-
-     The base class is `.col`, NOT `.container`. `container` is a reserved
-     Tailwind utility name: Tailwind 4 emits its own `.container` into
-     `@layer utilities`, which is declared AFTER `@layer components`, so a
-     hand-authored `.container--prose { max-inline-size: 768px }` lost to
-     `.container { max-width: 64rem }` at every breakpoint >= 768px and every
-     column on the site rendered at the 1024px shell width. This is a cascade
-     LAYER inversion, not a specificity one — no amount of specificity on the
-     component rule can win. Do not rename these back. --- */
-  .col {
-    margin-inline: auto;
-    padding-inline: var(--gutter);
-    inline-size: 100%;
+.footer-name {
+  font-size: var(--type-4);
+  letter-spacing: -0.05em;
+}
+.footer-name > span {
+  margin-left: 20px;
+  color: var(--accent);
+}
+.footer-links {
+  display: flex;
+  gap: 28px;
+  font-size: var(--type-1);
+}
+.footer-links a:hover {
+  color: var(--accent);
+}
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  color: var(--muted);
+  font-size: var(--type-1);
+}
+.footer-location {
+  display: flex;
+  gap: 20px;
+  font-family: var(--font-mono);
+  font-size: var(--type-1);
+  letter-spacing: 0.05em;
+}
+.swarm-credit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-tools {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  border-top: 1px solid var(--line);
+  margin-top: 32px;
+  padding-top: 20px;
+  color: var(--muted);
+  font-size: var(--type-1);
+}
+.footer-tools > button,
+.footer-tools summary {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  font-size: var(--type-1);
+  min-height: 44px;
+}
+.footer-tools > details {
+  flex: 1;
+}
+.footer-tools > a {
+  padding-block: 12px;
+}
+.footer-tools details summary {
+  cursor: pointer;
+}
+.footer-tools details[open] {
+  max-width: 850px;
+}
+.page-intro {
+  padding-top: 185px;
+  padding-bottom: 80px;
+}
+.page-title {
+  font-size: clamp(var(--type-7), 7.5vw, var(--type-8));
+  max-width: 1050px;
+  margin: 32px 0;
+}
+.page-description {
+  font-size: var(--type-3);
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 680px;
+}
+.page-intro .button {
+  margin-top: 28px;
+}
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  padding-block: 64px 96px;
+  border-top: 1px solid var(--line);
+}
+.story-grid h2 {
+  font-size: var(--type-6);
+}
+.prose p,
+.story-body p {
+  color: var(--muted);
+  font-size: var(--type-3);
+  line-height: 1.9;
+  margin-bottom: 24px;
+}
+.story-body p:first-child {
+  color: var(--fg);
+}
+.story-body h3 {
+  margin: 48px 0 20px;
+  font-size: var(--type-5);
+}
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.principle {
+  border-top: 1px solid var(--line);
+  padding: 32px 0;
+}
+.principle > span {
+  font-family: var(--font-mono);
+  font-size: var(--type-1);
+  color: var(--dim);
+}
+.principle h3 {
+  font-size: var(--type-4);
+  margin: 28px 0 20px;
+}
+.principle p {
+  font-size: var(--type-2);
+  color: var(--muted);
+}
+.timeline {
+  position: relative;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 160px 1fr 1.1fr;
+  gap: 32px;
+  padding: 52px 0;
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: var(--type-1);
+  color: var(--muted);
+  padding-top: 5px;
+}
+.timeline-role h2 {
+  font-size: var(--type-5);
+  margin-bottom: 12px;
+}
+.timeline-role p {
+  font-size: var(--type-1);
+  color: var(--muted);
+}
+.timeline-body p {
+  font-size: var(--type-3);
+  color: var(--muted);
+  line-height: 1.8;
+}
+.credential-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.credential {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 32px;
+  background: var(--surface);
+}
+.credential h3 {
+  font-size: var(--type-4);
+  margin: 12px 0 20px;
+}
+.credential p {
+  font-size: var(--type-2);
+  color: var(--muted);
+}
+.project-detail-hero {
+  margin-bottom: 80px;
+}
+.project-details {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  padding-block: 64px;
+  border-top: 1px solid var(--line);
+}
+.project-details h2 {
+  font-size: var(--type-4);
+}
+.project-details p {
+  font-size: var(--type-3);
+  line-height: 1.9;
+  color: var(--muted);
+}
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.tag {
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 6px 13px;
+  font-family: var(--font-mono);
+  font-size: var(--type-1);
+  color: var(--muted);
+}
+.back-link {
+  font-size: var(--type-1);
+  color: var(--muted);
+  display: inline-block;
+  margin-bottom: 24px;
+}
+.lab-section {
+  padding-block: 80px;
+  border-top: 1px solid var(--line);
+}
+.lab-section h2 {
+  font-size: var(--type-6);
+  margin: 20px 0;
+}
+.lab-section > p {
+  color: var(--muted);
+  margin-bottom: 36px;
+}
+.experiment-shell {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 32px;
+  overflow: hidden;
+}
+.experiment-shell button,
+.experiment-shell input,
+.experiment-shell select {
+  accent-color: var(--accent);
+}
+.experiment-shell button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  color: var(--fg);
+  padding: 10px 16px;
+}
+.changelog-entry {
+  border-top: 1px solid var(--line);
+  padding: 40px 0;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 40px;
+}
+.changelog-entry h2 {
+  font-size: var(--type-5);
+  margin-bottom: 24px;
+}
+.changelog-entry li {
+  color: var(--muted);
+  margin-block: 10px;
+}
+.contact-page .page-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(var(--type-7), 9vw, var(--type-8));
+}
+.contact-email {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: clamp(var(--type-4), 4.5vw, var(--type-7));
+  letter-spacing: -0.06em;
+  border-block: 1px solid var(--line);
+  padding: 48px 0;
+  margin-bottom: 24px;
+}
+.contact-email:hover {
+  color: var(--accent);
+}
+.contact-controls {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.contact-controls button {
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--fg);
+  font-size: var(--type-1);
+  padding: 12px 20px;
+}
+.contact-controls p {
+  font-size: var(--type-1);
+  color: var(--muted);
+}
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  padding-block: 80px;
+}
+.contact-links a {
+  border-top: 1px solid var(--line);
+  padding-block: 24px;
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--type-4);
+}
+.contact-links a:hover {
+  color: var(--accent);
+}
+.now-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.now-card {
+  padding: 32px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 12px;
+}
+.now-card h2 {
+  font-size: var(--type-5);
+  margin: 24px 0 20px;
+}
+.now-card p {
+  color: var(--muted);
+  font-size: var(--type-3);
+}
+.now-card .text-link {
+  margin-top: 24px;
+}
+.writing-list {
+  border-top: 1px solid var(--line);
+}
+.writing-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 48px;
+  align-items: start;
+  gap: 32px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--line);
+}
+.writing-row time {
+  font-family: var(--font-mono);
+  font-size: var(--type-1);
+  color: var(--muted);
+  padding-top: 8px;
+}
+.writing-row h2 {
+  font-size: clamp(var(--type-4), 2.3vw, var(--type-6));
+  line-height: 1.2;
+  max-width: 800px;
+}
+.writing-row p {
+  color: var(--muted);
+  font-size: var(--type-2);
+  margin-top: 16px;
+}
+.writing-row > span {
+  font-size: 1.5rem;
+}
+.writing-row:hover h2 {
+  color: var(--accent);
+}
+.writing-notice {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 40px;
+  margin-top: 48px;
+}
+.writing-notice h2 {
+  font-size: var(--type-5);
+  margin-bottom: 20px;
+}
+.writing-notice p {
+  color: var(--muted);
+  font-size: var(--type-2);
+}
+.writing-notice .text-link {
+  margin-top: 16px;
+}
+.article-body {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 0 0 112px;
+  font-size: var(--type-3);
+  line-height: 1.9;
+}
+.article-body p {
+  margin: 0 0 24px;
+}
+.article-body h2 {
+  font-size: var(--type-5);
+  margin: 56px 0 24px;
+}
+.article-body h3 {
+  font-size: var(--type-4);
+  margin: 40px 0 16px;
+}
+.article-body a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--accent);
+}
+.article-body blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 24px;
+  margin: 32px 0;
+  font-family: var(--font-serif);
+  font-size: var(--type-4);
+}
+.article-body img {
+  border-radius: 12px;
+  height: auto;
+  margin: 32px 0;
+}
+.article-body ul,
+.article-body ol {
+  padding-left: 24px;
+}
+.article-body figure {
+  margin: 32px 0;
+}
+.article-body iframe {
+  max-width: 100%;
+  border: 0;
+}
+.article-meta {
+  display: flex;
+  gap: 24px;
+  color: var(--muted);
+  font-size: var(--type-1);
+  margin-top: 24px;
+}
+.article-body hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 40px 0;
+}
+.error-number {
+  font-size: clamp(8rem, 25vw, 20rem);
+  line-height: 1;
+  letter-spacing: -0.1em;
+  color: var(--accent);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 12px 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-raised);
+  color: var(--fg);
+  font-size: var(--type-2);
+}
+.btn--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.panel {
+  border: 1px solid var(--line);
+  padding: 24px;
+  border-radius: 12px;
+  background: var(--surface);
+}
+.link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.ceremony-panel {
+  font-size: var(--type-2);
+}
+.ceremony-panel h3,
+.ceremony-panel h4 {
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+}
+.ceremony-panel button {
+  white-space: normal;
+}
+.ceremony-panel pre {
+  overflow: auto;
+  max-width: 100%;
+  font-size: var(--type-1);
+}
+.ceremony-panel dl {
+  overflow-wrap: anywhere;
+}
+@media (min-width: 1500px) {
+  .hero {
+    min-height: 880px;
   }
-  .col--prose {
-    max-inline-size: calc(var(--container-prose) + var(--gutter) * 2);
+  .hero-composition {
+    padding-block: 80px;
   }
-  .col--wide {
-    max-inline-size: calc(var(--container-wide) + var(--gutter) * 2);
+  .hero-visual {
+    min-height: 560px;
   }
-  .col--shell {
-    max-inline-size: calc(var(--container-shell) + var(--gutter) * 2);
+}
+@media (max-width: 1100px) {
+  .shell,
+  .header-inner {
+    width: calc(100% - 64px);
   }
-
-  /* Gap, not symmetric padding (§2.3 / R14). The last section before the
-     footer adds .section--last for a closing gap. */
-  .section {
-    padding-block-start: var(--section-gap);
-    scroll-margin-block-start: calc(var(--header-height) + var(--space-4));
+  .desktop-nav {
+    gap: 20px;
+    margin-left: 0;
   }
-  .section--last {
-    padding-block-end: var(--section-gap);
+  .hero-name,
+  .hero-surname {
+    font-size: clamp(var(--type-7), 10vw, var(--type-8));
   }
-
-  /* --- SectionHeading (§8.2) --- */
-  .section-heading {
-    color: var(--color-foreground-strong);
-    font-weight: var(--font-weight-medium);
+  .hero-visual {
+    margin-left: -70px;
+    margin-right: -32px;
   }
-  .section-heading--2 {
-    font-size: var(--text-h2);
-    line-height: var(--text-h2--line-height, 1.2);
-    letter-spacing: var(--text-h2--letter-spacing, -0.01em);
-    max-inline-size: var(--measure-h2);
+  .hero-actions {
+    gap: 20px;
   }
-  .section-heading--3 {
-    font-size: var(--text-h3);
-    line-height: var(--text-h3--line-height, 1.3);
-    letter-spacing: var(--text-h3--letter-spacing, 0em);
-    max-inline-size: var(--measure-h3);
+  .hero-actions .button {
+    gap: 20px;
   }
-  .section-heading-intro {
-    margin-block-start: var(--rhythm-title);
-    font-size: var(--text-lead);
-    line-height: var(--text-lead--line-height, 1.45);
-    letter-spacing: var(--text-lead--letter-spacing, 0em);
-    color: var(--color-foreground-secondary);
-    max-inline-size: var(--measure-intro);
+  .sculpture-label {
+    left: 20%;
+    right: 5%;
+    bottom: 12%;
+    font-size: 0.43rem;
   }
-  .section-heading-group {
-    margin-block-end: var(--rhythm-heading);
+  .sculpture-label span:last-child {
+    display: none;
   }
-
-  /* --- VisuallyHidden (§8.4) — stays focusable and readable by AT --- */
-  .visually-hidden {
-    position: absolute;
-    inline-size: 1px;
-    block-size: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: 0;
+  .about-teaser {
+    grid-template-columns: 1fr 2fr;
   }
-
-  /* --- MetaLine (§8.2) --- */
-  .meta-line {
-    font-size: var(--text-caption);
-    line-height: var(--text-caption--line-height, 1.4);
-    letter-spacing: var(--text-caption--letter-spacing, -0.01em);
-    color: var(--color-foreground-muted);
-    max-inline-size: var(--measure-caption);
+  .about-index {
+    display: none;
   }
-  .meta-line-separator {
-    margin-inline: var(--rhythm-inline);
+  .lab-teaser {
+    padding: 40px;
   }
-
-  /* --- InlineLink (§8.3). Rest: 1px border-interactive underline.
-         Hover/focus: 2px accent bar (A1/A2, R-GOLD-1). --- */
-  .link {
-    position: relative;
-    color: var(--color-foreground); /* never accent — F1 */
-    text-decoration: underline;
-    text-decoration-color: var(--color-border-interactive);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
-    text-decoration-skip-ink: auto;
-    transition: transform var(--duration-fast) var(--ease-standard);
+  .timeline-item {
+    grid-template-columns: 110px 1fr 1.2fr;
   }
-  .link::after {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    inset-block-end: -0.2em;
-    block-size: 2px; /* R-GOLD-1: never 1px */
-    background: var(--color-accent);
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform var(--duration-fast) var(--ease-standard);
+  .footer-location {
+    display: none;
   }
-  .link:hover::after,
-  .link:focus-visible::after {
-    transform: scaleX(1);
+}
+@media (max-width: 767px) {
+  .shell,
+  .header-inner {
+    width: calc(100% - 40px);
   }
-  .link:active {
-    transform: translateY(var(--press-translate));
+  .header-inner {
+    height: 76px;
+    gap: 16px;
   }
-
-  /* --- InlineLink emphasis="proof" (§8.3, allowlist A1) ---
-
-     The hero credential sentence's proof nouns carry the 2px accent bar AT
-     REST, not on hover. docs/04 §3.5 D4 settled the contradiction that produced
-     the shipped behaviour: §3.5's allowlist is normative and §8.3's component
-     table was the restatement that got it wrong. A1 and A2 are one row apart in
-     the same table and only A2 carries the words "on hover/focus" — the split
-     is deliberate, because a hover-gated router routes nothing for a reader who
-     is skimming, which is the [03 AP5] peripheral-vision failure R-GOLD-1 was
-     written against.
-
-     Exactly the two declarations §8.3 specifies. `background` is already
-     `--color-accent` from `.link::after`; it is restated because the amendment
-     names it and because it is what makes this rule legible on its own. The
-     text fill stays `--color-foreground` (F1) and the bar stays 2px (F10).
-     F9 caps the page at one such group per viewport — the hero's three
-     underlines ARE that one group. */
-  .link--proof::after {
-    transform: none;
-    background: var(--color-accent);
-  }
-
-  /* --- StandaloneLink (§8.3) --- */
-  .link-standalone {
-    display: inline-flex;
-    align-items: center;
-    min-block-size: var(--space-6); /* 24px — WCAG 2.5.8 */
-    font-size: var(--text-body);
-    font-weight: var(--font-weight-medium);
-    transition:
-      transform var(--duration-fast) var(--ease-standard),
-      color var(--duration-fast) var(--ease-standard);
-  }
-  .link-standalone:hover {
-    transform: translateY(var(--hover-lift));
-  }
-  .link-standalone:active {
-    transform: translateY(var(--press-translate));
-  }
-  @media (pointer: coarse) {
-    .link-standalone {
-      min-block-size: calc(var(--space-8) + var(--space-3)); /* 44px */
-      /* Inline size too, not only block size. Cycle 1 fixed the 16px block
-         size; the footer "X" link stayed 10.1px WIDE, which SC 2.5.8 permits
-         through the spacing exception (60.6px centre-to-centre against a 24px
-         requirement) but which is still a 10px tap target on a phone
-         (docs/08-review-crossbrowser-c2 N9). `padding-inline` widens the hit
-         area without moving the text, so the 24px `gap` on `.footer-links` and
-         therefore the spacing exception both survive unchanged. */
-      padding-inline: var(--space-2);
-    }
-  }
-
-  /* --- Button (§8.3) --- */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    min-block-size: calc(var(--space-8) + var(--space-3)); /* 44px */
-    padding-inline: var(--space-6);
-    border: 1px solid transparent;
-    border-radius: var(--radius-md);
-    font-size: var(--text-body);
-    font-weight: var(--font-weight-medium);
-    line-height: var(--text-body--line-height, 1.55);
-    letter-spacing: var(--text-body--letter-spacing, -0.011em);
-    text-decoration: none;
-    cursor: pointer;
-    transition:
-      background-color var(--duration-fast) var(--ease-standard),
-      border-color var(--duration-fast) var(--ease-standard),
-      color var(--duration-fast) var(--ease-standard),
-      transform var(--duration-fast) var(--ease-standard);
-  }
-  .btn--sm {
-    min-block-size: var(--space-8); /* 32px */
-    padding-inline: var(--space-4);
-    font-size: var(--text-caption);
-  }
-
-  /* A4: the only accent fill on the page. The text colour INVERTS
-     between modes — always the variable, never a literal (F11). */
-  .btn--primary {
-    background: var(--color-accent);
-    color: var(--color-accent-foreground);
-  }
-  .btn--primary:hover {
-    background: var(--color-accent-hover);
-  }
-  .btn--primary:active {
-    transform: scale(var(--press-scale));
-  }
-
-  .btn--secondary {
-    background: transparent;
-    border-color: var(--color-border-interactive);
-    color: var(--color-foreground);
-  }
-  .btn--secondary:hover {
-    background: var(--color-surface);
-  }
-  .btn--secondary:active {
-    background: var(--color-surface-raised);
-    transform: translateY(var(--press-translate));
-  }
-
-  .btn--ghost {
-    background: transparent;
-    color: var(--color-foreground-secondary);
-  }
-  .btn--ghost:hover {
-    background: var(--color-surface);
-    color: var(--color-foreground);
-  }
-  .btn--ghost:active {
-    background: var(--color-surface-raised);
-    transform: translateY(var(--press-translate));
-  }
-
-  .btn[aria-disabled="true"],
-  .btn:disabled {
-    background: var(--color-surface-raised);
-    border-color: transparent;
-    color: var(--color-foreground-faint);
-    cursor: not-allowed;
-    pointer-events: none;
-    transform: none;
-  }
-
-  /* --- SkipLink (§7.5) --- */
-  .skip-link {
-    position: absolute;
-    inset-block-start: var(--space-2);
-    inset-inline-start: var(--gutter);
-    z-index: var(--z-skip);
-    display: inline-flex;
-    align-items: center;
-    min-block-size: calc(var(--space-8) + var(--space-3)); /* 44px */
-    padding-inline: var(--space-6);
-    padding-block: var(--space-3);
-    border-radius: var(--radius-full);
-    background: var(--color-surface);
-    color: var(--color-foreground);
-    font-size: var(--text-body);
-    font-weight: var(--font-weight-medium);
-    text-decoration: none;
-    transform: translateY(calc(var(--space-16) * -1));
-    opacity: 0;
-    pointer-events: none;
-  }
-  /* `:focus` as well as `:focus-visible`: programmatic focus (a script
-     calling .focus(), or some AT focus modes) does not always satisfy
-     `:focus-visible`, and the link would then be focused, in the
-     accessibility tree, and invisible. */
-  .skip-link:focus,
-  .skip-link:focus-visible {
-    transform: none;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* --- SiteHeader / Nav (§8.1) --- */
-  .site-header {
-    position: sticky;
-    inset-block-start: 0;
-    z-index: var(--z-header);
-    /* No `backdrop-filter`. The background is fully opaque
-       (#fcfcfc / #0a0a0a, alpha 1.0), so a backdrop filter had nothing to
-       blur and painted nothing in any engine — and it was unprefixed, which
-       Safari below 18 drops outright. If the frosted effect is ever wanted,
-       give the header a translucent background AND add
-       `-webkit-backdrop-filter` alongside; never one half without the other. */
-    background: var(--color-background);
-    border-block-end: 1px solid var(--color-border-subtle);
-  }
-  .site-header-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-    min-block-size: var(--header-height);
-  }
-  .wordmark {
-    font-size: var(--text-body);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-foreground);
-    text-decoration: none;
+  .desktop-nav,
+  .header-contact {
+    display: none;
   }
   .header-actions {
+    gap: 8px;
+  }
+  .mobile-toggle {
+    display: flex !important;
+    align-items: center;
+    gap: 16px;
+    font-size: var(--type-1);
+  }
+  .mobile-nav {
     display: flex;
-    align-items: center;
-    gap: var(--space-2);
+    flex-direction: column;
+    padding: 16px 24px 32px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    max-height: calc(100svh - 76px);
+    overflow: auto;
   }
-
-  .nav-list {
+  .mobile-nav > a {
+    font-size: var(--type-5);
+    line-height: 1.5;
+    letter-spacing: -0.04em;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-6);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .nav-link {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    min-block-size: calc(var(--space-8) + var(--space-3)); /* 44px */
-    font-size: var(--text-body);
-    color: var(--color-foreground-secondary);
-    text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-standard);
-  }
-  .nav-link:hover {
-    color: var(--color-foreground);
-  }
-  .nav-link[aria-current="true"] {
-    color: var(--color-foreground);
-    font-weight: var(--font-weight-medium);
-  }
-  /* A5: 2px accent marker (R-GOLD-1 — never 1px) */
-  .nav-link[aria-current="true"]::after {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    inset-block-end: var(--space-2);
-    block-size: 2px;
-    background: var(--color-accent);
-    transition: opacity var(--duration-base) var(--ease-standard);
-  }
-  /* --color-foreground-muted, never --color-foreground-faint: docs/04 §3.2
-     forbids the faint token for information-bearing text, and this slot is the
-     only résumé affordance on the site. Faint measured 1.83:1 / 2.23:1. */
-  .nav-pending {
-    display: inline-flex;
-    align-items: center;
-    min-block-size: calc(var(--space-8) + var(--space-3));
-    font-size: var(--text-body);
-    color: var(--color-foreground-muted);
-  }
-
-  /* Disclosure button and sheet exist only when JS does (§9.3 pattern).
-     Without JS the nav list stays inline and fully usable (R30). */
-  .nav-toggle {
-    display: none;
-  }
-  .theme-toggle {
-    display: none;
-  }
-  .js .theme-toggle {
-    display: inline-flex;
-  }
-  .theme-toggle,
-  .nav-toggle {
-    align-items: center;
-    justify-content: center;
-    inline-size: calc(var(--space-8) + var(--space-3)); /* 44px */
-    block-size: calc(var(--space-8) + var(--space-3));
-    padding: 0;
-    border: 0;
-    border-radius: var(--radius-md);
-    background: transparent;
-    color: var(--color-foreground-secondary);
-    cursor: pointer;
-    transition:
-      background-color var(--duration-base) var(--ease-standard),
-      color var(--duration-base) var(--ease-standard);
-  }
-  .theme-toggle:hover,
-  .nav-toggle:hover {
-    background: var(--color-surface);
-    color: var(--color-foreground);
-  }
-  .theme-toggle:active,
-  .nav-toggle:active {
-    background: var(--color-surface-raised);
-  }
-  .theme-toggle-icon {
-    inline-size: var(--space-4);
-    block-size: var(--space-4);
-  }
-  /* Icon and accessible name are chosen in CSS, not in JS state, so the
-     control is correct at first paint and cannot mismatch on hydration. */
-  .theme-toggle-dark,
-  [data-theme="dark"] .theme-toggle-light {
-    display: inline-block;
-  }
-  .theme-toggle-light,
-  [data-theme="dark"] .theme-toggle-dark {
-    display: none;
-  }
-
-  /* Mobile disclosure (<768px). The sheet exists only when JS does: without
-     the `.js` class none of these rules match, the nav list stays inline and
-     every link is reachable [03 R30]. The open/closed state is an attribute,
-     not the `hidden` property, so the desktop row is never affected. */
-  @media not all and (min-width: 48rem) {
-    /* below --breakpoint-md */
-    .nav-list {
-      gap: var(--space-4);
-    }
-    .js .nav-toggle {
-      display: inline-flex;
-    }
-    .js .nav-sheet {
-      position: absolute;
-      inset-inline: var(--gutter);
-      inset-block-start: var(--header-height);
-      padding: var(--space-4);
-      border: 1px solid var(--color-border-interactive);
-      border-radius: var(--radius-md);
-      background: var(--color-surface);
-      box-shadow: var(--shadow-overlay); /* the only shadow on the site */
-      transition:
-        opacity var(--duration-base) var(--ease-entrance),
-        transform var(--duration-base) var(--ease-entrance),
-        visibility 0s linear 0s;
-    }
-    .js .nav-sheet .nav-list {
-      flex-direction: column;
-      align-items: stretch;
-      gap: var(--space-2);
-    }
-    /* Closed: not painted and not focusable. */
-    .js .nav-sheet[data-open="false"] {
-      opacity: 0;
-      transform: translateY(calc(var(--reveal-distance) * -1));
-      visibility: hidden;
-      transition:
-        opacity var(--duration-base) var(--ease-standard),
-        transform var(--duration-base) var(--ease-standard),
-        visibility 0s linear var(--duration-base);
-    }
-  }
-
-  /* --- SiteFooter (§8.1) --- */
-  /* No `margin-block-start` here. docs/04 §2.3 makes the SECTION the owner of
-     the gap, and `.section--last` already supplies it — `ContactSection` now
-     passes `isLast`. Declaring it in both places would double-count it. */
-  .site-footer {
-    /* Asymmetric. The block-end half was sized as WCAG 2.2 SC 2.4.11 clearance
-       for the fixed `FieldHud`, which sat in the bottom-left gutter and landed
-       on `.footer-links` at the foot of the document. The readout is in flow
-       now (see `three/FieldHud.tsx`) and nothing fixed overlays the footer, so
-       this value is a rhythm choice again — kept as it stands because the page
-       height budget [03 R14] is measured against it and the closing breath at
-       the foot of a one-column document is worth the space. */
-    padding-block: var(--space-8) var(--space-16);
-    border-block-start: 1px solid var(--color-border-subtle);
-    font-size: var(--text-caption);
-    line-height: var(--text-caption--line-height, 1.4);
-    letter-spacing: var(--text-caption--letter-spacing, -0.01em);
-    color: var(--color-foreground-muted);
-  }
-  .site-footer-inner {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     justify-content: space-between;
-    gap: var(--space-4);
+  }
+  .mobile-nav > a > span {
+    font-size: 1.25rem;
+    color: var(--muted);
+  }
+  .hero {
+    padding-top: 104px;
+    min-height: auto;
+  }
+  .hero-topline {
+    font-size: var(--type-1);
+  }
+  .hero-location {
+    display: none !important;
+  }
+  .hero-composition {
+    display: block;
+    padding: 44px 0 32px;
+  }
+  .hero-kicker {
+    font-size: var(--type-1);
+    margin-bottom: 24px;
+  }
+  .hero-name,
+  .hero-surname {
+    font-size: clamp(var(--type-7), 20vw, var(--type-8));
+    line-height: 0.95;
+    letter-spacing: -0.075em;
+  }
+  .hero-description {
+    margin: 28px 0 24px;
+    max-width: 100%;
+    font-size: var(--type-2);
+    line-height: 1.8;
+  }
+  .hero-actions {
+    gap: 20px;
+  }
+  .hero-actions .button {
+    font-size: var(--type-1);
+    padding: 13px 18px;
+    min-height: 50px;
+    gap: 22px;
+  }
+  .hero-actions > .text-link {
+    font-size: var(--type-1);
+    gap: 14px;
+  }
+  .hero-visual {
+    height: 330px;
+    min-height: 330px;
+    margin: 4px -20px -8px;
+  }
+  .hero-visual .hive-orbital {
+    min-height: 330px !important;
+    height: 330px !important;
+  }
+  .sculpture-label {
+    bottom: 4%;
+    left: 20px;
+    right: 20px;
+    font-size: 0.43rem;
+  }
+  .sculpture-label span:last-child {
+    display: block;
+  }
+  .hero-bottom {
+    padding: 20px 0;
+    gap: 12px;
+  }
+  .hero-scroll {
+    display: none;
+  }
+  .hero-proof {
+    font-size: var(--type-1);
+    gap: 8px;
+  }
+  .hero-proof > span {
+    margin-left: auto;
+  }
+  .now-strip-inner {
+    padding: 24px 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .now-strip-inner > span {
+    font-size: var(--type-1);
+    gap: 12px;
+  }
+  .now-strip-inner > a {
+    display: none;
+  }
+  .section {
+    padding-block: 72px;
+  }
+  .section-heading {
+    margin-bottom: 32px;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .section-heading h2 {
+    font-size: var(--type-6);
+  }
+  .section-heading .eyebrow {
+    font-size: var(--type-1);
+    margin-bottom: 20px;
+  }
+  .section-heading > .text-link {
+    font-size: var(--type-1);
+    white-space: nowrap;
+    gap: 12px;
+    margin-top: 43px;
+  }
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .project-art {
+    aspect-ratio: 1.22;
+  }
+  .project-card-copy {
+    padding-top: 20px;
+  }
+  .project-card-title h3 {
+    font-size: var(--type-4);
+  }
+  .project-card-copy > .eyebrow {
+    font-size: var(--type-1);
+  }
+  .project-card-copy > p {
+    font-size: var(--type-2);
+    max-width: 96%;
+  }
+  .payment-phone {
+    width: 215px;
+  }
+  .art-caption {
+    left: 20px;
+    bottom: 16px;
+    font-size: 0.42rem;
+  }
+  .auth-node {
+    font-size: 0.35rem;
+    padding: 8px;
+  }
+  .hive-drones {
+    gap: 6px;
+  }
+  .hive-drones > span {
+    min-width: 59px;
+    padding: 10px 4px;
+    font-size: 0.34rem;
+  }
+  .about-teaser {
+    display: block;
+    padding-block: 64px;
+  }
+  .about-teaser-copy h2 {
+    margin: 28px 0 0;
+    font-size: var(--type-6);
+  }
+  .about-teaser-copy p {
+    font-size: var(--type-3);
+    margin-top: 24px;
+  }
+  .lab-teaser {
+    display: block;
+    padding: 32px 24px;
+    border-radius: 14px;
+  }
+  .lab-teaser h2 {
+    font-size: var(--type-6);
+    max-width: 380px;
+  }
+  .lab-diagram {
+    min-height: 280px;
+    margin-top: 32px;
+  }
+  .lab-orbit {
+    width: 84%;
+    max-width: 260px;
+  }
+  .lab-coordinate {
+    font-size: 0.4rem;
+  }
+  .writing-feature {
+    padding: 32px 0;
+  }
+  .writing-feature h3 {
+    font-size: var(--type-6);
+  }
+  .writing-feature .eyebrow {
+    font-size: var(--type-1);
+  }
+  .writing-arrow {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+  }
+  .contact-banner {
+    padding-block: 64px 80px;
+  }
+  .contact-banner h2 {
+    font-size: clamp(var(--type-7), 12vw, var(--type-7));
+    margin-block: 24px;
+  }
+  .contact-banner > p {
+    font-size: var(--type-1);
+    max-width: 230px;
+  }
+  .round-link {
+    width: 56px;
+    height: 56px;
+    top: auto;
+    bottom: 68px;
+    font-size: 1.5rem;
+  }
+  .hive-footer {
+    padding-top: 40px;
+  }
+  .footer-top {
+    display: block;
+    margin-bottom: 36px;
+  }
+  .footer-name {
+    font-size: var(--type-4);
   }
   .footer-links {
-    display: flex;
+    margin-top: 24px;
+    gap: 28px;
+    font-size: var(--type-1);
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: var(--type-1);
+  }
+  .footer-tools {
+    gap: 12px;
     flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-6);
-    list-style: none;
-    margin: 0;
-    padding: 0;
   }
-
-  /* --- Prose (§8.2) — MDX and long-form body copy --- */
-  .prose {
-    max-inline-size: var(--measure-prose);
-    color: var(--color-foreground);
+  .footer-tools > details {
+    min-width: 100%;
   }
-  .prose > * + * {
-    margin-block-start: var(--rhythm-paragraph);
+  .page-intro {
+    padding-top: 132px;
+    padding-bottom: 56px;
   }
-  .prose h2 {
-    margin-block-start: var(--space-12);
-    margin-block-end: var(--rhythm-title);
-    font-size: var(--text-h2);
-    line-height: var(--text-h2--line-height, 1.2);
-    letter-spacing: var(--text-h2--letter-spacing, -0.01em);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-foreground-strong);
+  .page-title {
+    font-size: clamp(var(--type-6), 12vw, var(--type-7));
+    margin-block: 24px;
   }
-  .prose h3 {
-    margin-block-start: var(--space-8);
-    margin-block-end: var(--rhythm-title);
-    font-size: var(--text-h3);
-    line-height: var(--text-h3--line-height, 1.3);
-    letter-spacing: var(--text-h3--letter-spacing, 0em);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-foreground-strong);
+  .page-description {
+    font-size: var(--type-3);
   }
-  .prose ul,
-  .prose ol {
-    padding-inline-start: var(--space-6);
+  .story-grid {
+    display: block;
+    padding-block: 48px;
+    gap: 0;
   }
-  .prose li + li {
-    margin-block-start: var(--space-2);
+  .story-grid h2 {
+    font-size: var(--type-5);
+    margin-bottom: 32px;
   }
-  .prose li::marker {
-    color: var(--color-foreground-muted);
+  .story-body p,
+  .prose p {
+    font-size: var(--type-3);
   }
-  .prose blockquote {
-    padding-inline-start: var(--space-6);
-    border-inline-start: 2px solid var(--color-border-interactive);
-    font-size: var(--text-lead);
-    line-height: var(--text-lead--line-height, 1.45);
-    letter-spacing: var(--text-lead--letter-spacing, 0em);
-    color: var(--color-foreground-secondary);
+  .principles-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
-  .prose code {
-    padding: 0.15em 0.35em; /* optical: sub-4px inline padding on 13px type */
-    border-radius: var(--radius-sm);
-    background: var(--color-surface);
-    font-family: var(--font-mono);
-    font-size: var(--text-mono);
+  .principle h3 {
+    margin-block: 20px 16px;
   }
-  .prose pre {
-    overflow-x: auto;
-    max-inline-size: var(--measure-mono);
-    padding: var(--space-6);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-lg);
-    background: var(--color-surface);
-    font-family: var(--font-mono);
-    font-size: var(--text-mono);
-    line-height: var(--text-mono--line-height, 1.5);
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-block: 36px;
   }
-  .prose pre code {
-    padding: 0;
-    background: transparent;
+  .timeline-role h2 {
+    font-size: var(--type-5);
   }
-  .prose hr {
-    margin-block: var(--space-12);
-    border: 0;
-    border-block-start: 1px solid var(--color-border);
+  .timeline-body p {
+    font-size: var(--type-2);
   }
-  .prose table {
-    inline-size: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-caption);
+  .credential-list {
+    grid-template-columns: 1fr;
   }
-  .prose th,
-  .prose td {
-    padding-block: var(--space-2);
-    border-block-end: 1px solid var(--color-border-subtle);
-    text-align: start;
+  .credential {
+    padding: 24px;
   }
-  .prose img {
-    max-inline-size: 100%;
-    block-size: auto;
-    border-radius: var(--radius-lg);
+  .project-details {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-block: 40px;
   }
-  .prose-table-scroll {
-    overflow-x: auto;
+  .project-details p {
+    font-size: var(--type-3);
   }
-
-  /* --- AttestationPoster ink (§8.4, F4) ---
-
-     This declaration used to live in `POSTER_STYLE`, an inline `style`
-     attribute on the <svg>. That made the `forced-colors: active` override in
-     §11 permanently inert: an inline style beats any stylesheet declaration
-     without `!important`, media query or not, so the rule written to hand the
-     figure back to the system palette had never applied to a single render
-     (docs/08-review-accessibility-c2 N3). Moving the declaration here — the
-     honest fix rather than an `!important` arms race — lets the forced-colours
-     rule win by ordinary cascade.
-
-     NOT accent. The 248 circles inherit this through `fill="currentColor"`,
-     so an accent value here is an 830x466 accent field and an outright F4
-     breach. `runtime/color.ts` reads the same token independently for the live
-     canvas, so the two surfaces cannot diverge. */
-  /* Amended 2026-09-11 [DEV-13 / A8]. This rule previously read
-     `--color-foreground-secondary`, which is the instruction docs/04 §3.5
-     now WITHDRAWS by name: it is what shipped the lattice at 1.44:1 across
-     both the live canvas and the poster. The correct token for the field is
-     `--field-hot`, which references dark `--color-accent` and therefore
-     cannot drift from it (A8.6). `runtime/color.ts` reads the same token, so
-     poster and canvas stay one artifact on two surfaces.
-     A grey field is a regression, not compliance. */
-  [data-attestation-poster] {
-    color: var(--field-hot);
+  .art-large {
+    aspect-ratio: 1.2;
   }
-}
-
-/* ------------------------------------------------------------
-   8b. THE LIGHT SOURCE (§2.8, DEV-15) and the field composition
-       (§2.7, §3.7, docs/15 §2.11, §3).
-
-   docs/11 §3 move 1: the shipped page had NO light source — flat fills,
-   black shadows invisible on a near-black ground, hard edges where masks
-   belong. Everything below is anchored to ONE origin, `--light-x` /
-   `--light-y`, and consumes it through the per-element `--lx` / `--ly`
-   pair that `LightSourceScript` writes.
-
-   THE FALLBACK IS THE CONTRACT. Every consumer reads
-   `var(--lx, var(--light-x))`, so with JavaScript disabled, before the
-   script runs, and under `prefers-reduced-motion` the page is lit from a
-   fixed top-centre lamp rather than not lit at all. There is no render
-   path in which a lit edge disappears.
-
-   Every value here is a docs/04 token. The two locally-named properties
-   `--panel-elevation` and `--panel-ring` are switches, not values: they
-   hold `--edge-lit` / `--shadow-panel` and nothing else, and they exist
-   so §2.6's "the two are a pair and neither ships alone" is structural —
-   there is no selector in this file that can set one without the other.
-   ------------------------------------------------------------ */
-
-/* Content is `position: relative` so it paints ABOVE `.field-backdrop`.
-   Without it the backdrop's `z-index: var(--z-field)` — a POSITIONED layer —
-   would paint above non-positioned in-flow content and the field would cover
-   the page. This one declaration is what makes §2.7's stated order
-   (field -> grid -> content -> header -> skip link) actually render. */
-main,
-.site-footer {
-  position: relative;
-}
-
-/* The one stacking context the field composition lives in. `isolation` keeps
-   `--z-field` / `--z-grid` scoped to its children, so those two steps index
-   inside the backdrop while the backdrop itself sits below `main`.
-   `aria-hidden` and `pointer-events: none` are set on the element (A8.5). */
-.field-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-field);
-  isolation: isolate;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* Grain — ped.ro's recipe, verbatim numbers (docs/11 §1.3): fractalNoise,
-   baseFrequency .8, numOctaves 4, stitchTiles stitch, saturate 0, opacity .2
-   under contrast(60%), on its own compositor layer so it never repaints
-   during scroll.
-
-   PLACEMENT, and why it is here rather than over the page. §2.8 exempts the
-   attestation field from the grain layer: a CSS grain over an additive
-   surface double-dithers and the banding it was added to remove comes back.
-   The only placement that guarantees that exemption WITHOUT a second mask is
-   below the field inside this stacking context — where the field paints it
-   is covered, and where the field masks out (all of light mode's #work,
-   #projects, #about and #contact, and every JS-disabled render) it textures
-   the page ground exactly as intended. Flagged to `design-system`. */
-.field-grain {
-  position: absolute;
-  inset: 0;
-  z-index: var(--z-field);
-  opacity: var(--grain-opacity);
-  filter: contrast(60%) brightness(100%);
-  transform: translateY(0);
-  background-repeat: repeat;
-  background-size: var(--space-48) var(--space-48);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* The blueprint grid (docs/15 §2.11 / M8.2) — CSS, not GL. 96px hairlines in
-   `--field-rule`, radially masked from the light origin so the grid never
-   ends at a hard edge, plus a column rule inset by `--gutter`. This is the
-   move that frames the lattice as something being MEASURED.
-
-   The "empty" stop of each hairline is `--glow-far` (`#d1a95400`), not the
-   keyword `transparent`: §2.8 rule 1, applied even where the stop is hard. */
-.blueprint-grid {
-  position: absolute;
-  inset: 0;
-  z-index: var(--z-grid);
-  background-image:
-    linear-gradient(to right, var(--field-rule) 1px, var(--glow-far) 1px),
-    linear-gradient(to bottom, var(--field-rule) 1px, var(--glow-far) 1px);
-  background-size: var(--space-24) var(--space-24);
-  -webkit-mask-image: radial-gradient(
-    120% 90% at var(--lx, var(--light-x)) var(--ly, var(--light-y)),
-    #000 0%,
-    #0009 38%,
-    #0003 64%,
-    #0000 88%
-  );
-  mask-image: radial-gradient(
-    120% 90% at var(--lx, var(--light-x)) var(--ly, var(--light-y)),
-    #000 0%,
-    #0009 38%,
-    #0003 64%,
-    #0000 88%
-  );
-}
-.blueprint-grid::after {
-  content: "";
-  position: absolute;
-  inset-block: 0;
-  inset-inline: max(var(--gutter), calc((100% - var(--container-shell)) / 2));
-  border-inline: 1px solid var(--field-rule);
-}
-
-/* ----------------------------------------------------------------
-   THE STAGE SCOPE (§3.7) — and the single highest-consequence
-   implementation detail in the field work.
-
-   `.stage` redeclares the foreground, accent and hairline tokens from
-   `--field-*` FOR ITS WHOLE SUBTREE, IN CSS, UNCONDITIONALLY — never from
-   JavaScript. If any part of this were applied by script, a light-mode
-   visitor with JS disabled would get `#1a1a1a` body copy on `#0a0908`:
-   1.14:1, worse than the 1.44:1 failure DEV-13 exists to correct.
-
-   `--color-border-interactive` is deliberately NOT redeclared: `#ffffff6f`
-   already measures 4.26:1 over `--field-ink` (§3.6) and it is the only token
-   permitted to identify a control over the field. `--field-rule` is 1.16:1
-   and is decorative only.
-   ---------------------------------------------------------------- */
-.stage {
-  /* The raw ladder. Tailwind's `@theme inline` makes every colour utility emit
-     `var(--foreground)` rather than `var(--color-foreground)`, so THIS is the
-     half that re-colours `.text-foreground`, `.text-foreground-muted` and
-     every other utility inside the scope. */
-  --background: var(--field-ink);
-  --surface: var(--field-panel);
-  --surface-raised: var(--field-rule);
-  --overlay: var(--field-rule);
-  --foreground-strong: var(--field-fg);
-  /* Body copy is `--field-fg-secondary`, NOT `--field-fg`. §3.7 assigns the
-     three field foregrounds by role and they are not interchangeable:
-     `--field-fg` is "headings and display type over the field",
-     `--field-fg-secondary` is "body copy over the field — the dimmest string
-     the field must carry", `--field-fg-muted` is "the HUD readout, metadata
-     over the field".
-
-     Mapping `--foreground` to `--field-fg` reads as the safe choice because it
-     is brighter, and it is the wrong one: it collapses display, body and
-     secondary prose onto a single value and the stage loses its type
-     hierarchy — which is the flatness this whole port exists to remove,
-     re-introduced one token at a time. The ladder over the field is
-     16.43 : 9.62 : 6.83 [MEAS §3.7], and all three clear 4.5. */
-  --foreground: var(--field-fg-secondary);
-  --foreground-secondary: var(--field-fg-secondary);
-  --foreground-muted: var(--field-fg-muted);
-  --foreground-faint: var(--field-rule);
-  --border: var(--field-rule);
-  --border-subtle: var(--field-rule);
-  --accent: var(--accent-dark);
-  --accent-hover: #dbbc7a;
-  --accent-tint: #241c0b;
-  --accent-foreground: var(--field-ink);
-
-  /* The `--color-*` aliases, redeclared HERE and not left to inherit. This is
-     not belt-and-braces, it is required: `--color-foreground: var(--foreground)`
-     is declared on `:root`, and a `var()` inside a custom property's value is
-     substituted at computed-value time ON THE ELEMENT THAT DECLARES IT. So
-     `:root`'s alias resolves against `:root`'s ladder once, and every
-     descendant inherits that resolved value — overriding `--foreground` alone
-     would leave every hand-written `color: var(--color-foreground)` (the
-     ceremony's panels, `AttestationReadout`, every inline style in §8) still
-     painting the PAGE's ink on the stage. In light mode that is `#1a1a1a` on
-     `#0a0908`: 1.14:1.
-
-     `--color-border-interactive` is deliberately NOT touched: `#ffffff6f`
-     already measures 4.26:1 over `--field-ink` (§3.6) and it is the only token
-     permitted to identify a control over the field. `--field-rule` is 1.16:1
-     and is decorative only. */
-  --color-background: var(--field-ink);
-  --color-surface: var(--field-panel);
-  --color-surface-raised: var(--field-rule);
-  --color-overlay: var(--field-rule);
-  --color-foreground-strong: var(--field-fg);
-  --color-foreground: var(--field-fg-secondary);
-  --color-foreground-secondary: var(--field-fg-secondary);
-  --color-foreground-muted: var(--field-fg-muted);
-  --color-foreground-faint: var(--field-rule);
-  --color-border: var(--field-rule);
-  --color-border-subtle: var(--field-rule);
-  --color-accent: var(--accent-dark);
-  --color-accent-hover: #dbbc7a;
-  --color-accent-tint: #241c0b;
-  --color-accent-foreground: var(--field-ink);
-
-  /* Text that carries no utility class inherits from `body`, which is coloured
-     from `:root`'s already-resolved alias. Re-stating it here is what pulls
-     unclassed prose into the scope. `body` is coloured from
-     `--color-foreground`, which is body copy, so this tracks the body value
-     rather than the heading one. */
-  color: var(--field-fg-secondary);
-}
-
-/* THE NO-SCRIPT GROUND — a correctness rule, measured, and the whole of it
-   is scoped to `html:not(.js)`.
-
-   `.stage` forces the field ladder (`--field-fg` `#ede9e1` and friends) on the
-   premise that the ground under it is `--field-ink`. `FieldStage` holds the
-   field host at `opacity: 0` in LIGHT mode until `data-field-live`, so with
-   JavaScript disabled the host never paints and that premise is false: the
-   hero, `#attestation` and `#ceremony` render `#ede9e1` on `#fdfdfc`.
-   **Measured 1.07:1** on the shipped build — unreadable, and the 1.14:1
-   failure DEV-13 exists to correct with the operands swapped.
-
-   The ground goes on `.field-backdrop`, NOT on `.stage`. `.stage` on the hero
-   is `Container as="section"` — the 672px reading column — so painting it
-   gives a narrow dark strip down the middle of a light page rather than a
-   stage, and the full-bleed trick that would fix that (`width: 100vw` plus a
-   negative inline margin) buys horizontal overflow and a scrollbar. The
-   backdrop is already full-bleed and already behind everything, so it costs
-   one declaration and no layout. The `.over-field` sections and the footer
-   then paint `--color-background` back over it, which is A8.2's light-mode
-   sectioning done with hard edges — acceptable here precisely because on this
-   path there is no feathered mask to preserve: `field/bleed.ts` needs script
-   to read the section rects.
-
-   `--field-ink` is the same value the host paints, and that is what makes
-   this safe in both directions. Today it substitutes for a hidden host. If
-   `field-three-d` later lets the poster render without script — which
-   `docs/15` §5.4 says it should, "the poster is server-rendered inline SVG in
-   the fixed layer behind it" — the poster simply paints on top of an
-   identical colour and this becomes an invisible under-layer. Neither lane
-   has to move first, and neither can break the other by moving.
-
-   Dark mode is excluded throughout: there the host paints with JS off, the
-   page ladder already equals the field ladder, and cutting `.over-field` back
-   to `--color-background` would section a field that A8.2 says runs the full
-   document height uninterrupted.
-
-   `html:not(.js)` needs no `[data-theme]` half: `.js` and `data-theme` are
-   written by the same blocking `ThemeScript`, so if `.js` is absent the
-   attribute is absent too and `prefers-color-scheme` is the only signal that
-   exists. That is why this is four rules and not twelve. */
-html:not(.js) .field-backdrop {
-  background: var(--field-ink);
-}
-html:not(.js) .over-field,
-html:not(.js) .site-footer {
-  background: var(--color-background);
-}
-@media (prefers-color-scheme: dark) {
-  html:not(.js) .field-backdrop {
-    background: none;
+  .art-large .payment-phone {
+    width: 215px;
   }
-  html:not(.js) .over-field,
-  html:not(.js) .site-footer {
-    background: none;
+  .art-large .globe {
+    width: 65%;
+  }
+  .project-detail-hero {
+    margin-bottom: 48px;
+  }
+  .lab-section {
+    padding-block: 56px;
+  }
+  .lab-section h2 {
+    font-size: var(--type-5);
+  }
+  .experiment-shell {
+    padding: 16px;
+  }
+  .changelog-entry {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .contact-email {
+    font-size: clamp(var(--type-4), 6.4vw, var(--type-6));
+    padding: 32px 0;
+  }
+  .contact-controls {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .contact-links {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-block: 56px;
+  }
+  .contact-links a {
+    font-size: var(--type-3);
+  }
+  .now-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .now-card {
+    padding: 24px;
+  }
+  .writing-row {
+    grid-template-columns: 1fr 24px;
+    gap: 16px;
+    padding-block: 32px;
+  }
+  .writing-row time {
+    grid-column: 1/-1;
+  }
+  .writing-row h2 {
+    font-size: var(--type-5);
+  }
+  .writing-row p {
+    font-size: var(--type-2);
+  }
+  .writing-notice {
+    padding: 24px;
+    margin-top: 32px;
+  }
+  .article-body {
+    padding-bottom: 64px;
+    font-size: var(--type-3);
+    width: calc(100% - 40px);
+  }
+  .article-body h2 {
+    font-size: var(--type-5);
+  }
+  .article-meta {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .error-number {
+    font-size: 9rem;
   }
 }
-
-/* `.over-field` is the CONDITIONAL half of A8.2: these sections sit over the
-   field in dark mode and over `--color-background` in light mode, because in
-   light mode the field masks out behind them. In light mode the switches below
-   stay off and §2.6's DEV-3 rule applies unchanged — no shadow, no ring, no
-   gold edge on a surface that is not over the stage.
-
-   `.stage` is the UNCONDITIONAL half: #hero, #attestation and #ceremony are
-   over the field in both themes, so they take the stage scope and the lit
-   recipes with no media query at all.
-
-   ## What used to be here, and why it is gone
-
-   This block briefly also painted `background: var(--color-background)` on
-   `.over-field` and `.site-footer` in light mode. That was a real fix for a
-   real defect — the field host server-rendered opaque `--field-ink` full-bleed
-   in both themes while A8.2's light-mode sectioning lived only in the
-   composite, so light-mode `#work` measured **2.98:1** from first paint, and
-   permanently with JS disabled.
-
-   `field-three-d` has since fixed it at the source, which is the right place:
-   `field/bleed.ts` masks the host from the live `[data-field-section]` rects,
-   feathered, and `FieldStage` holds the host at `opacity: 0` in light mode
-   until `data-field-live`. So in light mode the ground behind these sections
-   really is `--color-background` in every path — before mount, after mount,
-   and with no script at all.
-
-   Keeping the slab on top of that would be worse than redundant: it is
-   opaque and hard-edged, so it would paint over exactly the feathered bleed
-   `docs/15` §2.11 M8.4 asks for and re-introduce the hard terminus the mask
-   exists to remove. A correctness rule that has been fixed upstream stops
-   being a correctness rule and becomes a bug. Re-adding it needs the 2.98:1
-   to come back first.
-
-   `main` and `.site-footer` keep `position: relative` (§8b head): that is a
-   different problem — a non-positioned in-flow footer is painted UNDER the
-   fixed backdrop outright, in both themes. */
-.over-field {
-  --panel-elevation: none;
-  --panel-ring: 0;
-}
-.stage {
-  --panel-elevation: var(--edge-lit), var(--shadow-panel);
-  --panel-ring: 1;
-}
-[data-theme="dark"] .over-field {
-  --panel-elevation: var(--edge-lit), var(--shadow-panel);
-  --panel-ring: 1;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .over-field {
-    --panel-elevation: var(--edge-lit), var(--shadow-panel);
-    --panel-ring: 1;
-  }
-}
-
-/* ----------------------------------------------------------------
-   ELEVATION AS LIGHT (§2.6 amendment) — a lit top edge (`--edge-lit`),
-   a contact ring (the masked `::before` hairline), and an ambient
-   (`--shadow-panel`). A black drop shadow on `--field-ink` is invisible:
-   it costs a composite layer and buys nothing, which is why the pair is
-   indivisible and why `--panel-elevation` carries both or neither.
-   ---------------------------------------------------------------- */
-.panel {
-  position: relative;
-  border-radius: var(--radius-md);
-  /* Asymmetric, and the inline half is a page-budget decision rather than a
-     rhythm one. On a 390px screen the reading column is ~326px, so 24px of
-     padding on each side removes **15%** of the measure and the text reflows
-     taller — measured at 333px of document height across the three work
-     entries, of which only 144px is the padding itself and the rest is the
-     extra lines the narrower measure forces. `docs/03` AP2 is explicit that
-     when a page is over budget the content is cut and the gap is not, so the
-     gap goes first. 16px still holds the lit ring clear of the type.
-     Restored to 24px at `--breakpoint-md`, where the column is wide enough
-     that the inline padding costs nothing. */
-  /* Block padding is `--space-4`, not `--space-6`, and that is a page-budget
-     decision recorded in `docs/05 §12.1` rather than a rhythm one. At the
-     governing 1440×900 the page measured 5.90 vp against R14's 6.00 cap —
-     1.7% headroom, thin enough that a single added paragraph anywhere could
-     breach it. This is the first lever in the order IA recorded, taken
-     because `docs/03` AP2 puts gap before content: −64px, −0.07 vp, and it
-     doubles the margin to 3.3% while leaving `--section-gap` unspent.
-
-     It does NOT break the §2.6 pair — `--edge-lit` and `--shadow-panel` both
-     still ship, and the lit ring still clears the type. Taking this to 0 was
-     offered and refused: that collapses the panel into its own text. */
-  padding-block: var(--space-4);
-  padding-inline: var(--space-4);
-  /* Surfaces are never a flat fill: a two-stop radial between two adjacent
-     ladder steps, anchored at the light origin and ending past 100% so the
-     gradient has no visible terminus. `--field-panel` is a LIT REGION, not
-     a coloured one (§3.7) — it composites to #0f0e0d, 1.03:1. */
-  background: radial-gradient(
-    100% 100% at var(--lx, var(--light-x)) 0%,
-    var(--field-panel) 0%,
-    var(--glow-far) 150%
-  );
-  box-shadow: var(--panel-elevation, none);
-}
-
-/* The contact ring. A border is not a colour — it is a surface catching a
-   light. A 1px gold radial, masked into a ring by `mask-composite: exclude`,
-   brightest where it faces the lamp and fading to `--glow-far` `#d1a95400`
-   (never `transparent`: §2.8 rule 1). The ramp is exactly
-   `--glow-near` -> `--glow-mid` -> `--glow-far`, which is the only gold
-   glow §2.8 permits, and only here — on the lit edge of a panel over the
-   field, under A8.1. Off the field `--panel-ring` is 0 and F7 is unchanged. */
-.panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  opacity: var(--panel-ring, 0);
-  background:
-    radial-gradient(
-      ellipse 84% 300% at var(--lx, var(--light-x)) var(--ly, var(--light-y)),
-      var(--glow-near) 0%,
-      var(--glow-mid) 40%,
-      var(--glow-far) 78%
-    ),
-    linear-gradient(var(--field-rule) 0 0);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-@media (min-width: 48rem) {
-  .panel {
-    padding-inline: var(--space-6);
-  }
-}
-
-/* A hairline that is a lit metal edge rather than a line. Same ramp, same
-   origin, same `--glow-far` terminus; masked at both ends so it never stops
-   abruptly. Used as the divider inside #attestation. */
-.lit-rule {
-  block-size: 1px;
-  border: 0;
-  margin: 0;
-  background: radial-gradient(
-    ellipse 44% 600% at var(--lx, var(--light-x)) 50%,
-    var(--glow-near) 0%,
-    var(--glow-mid) 34%,
-    var(--glow-far) 100%
-  );
-  -webkit-mask-image: linear-gradient(90deg, #0000 0, #000 12%, #000 88%, #0000 100%);
-  mask-image: linear-gradient(90deg, #0000 0, #000 12%, #000 88%, #0000 100%);
-}
-
-/* ----------------------------------------------------------------
-   BACKLIT DISPLAY TYPE (docs/15 §3 row 1). The field brightens directly
-   behind the letterforms, so the name reads as BACKLIT rather than
-   painted: gold at three radii plus one offset in `--field-ink` to hold
-   the type off the ground. Scoped to `.stage` — this is emitted light
-   over the field (A8.1), and off the field it does not exist.
-   ---------------------------------------------------------------- */
-.stage .backlit {
-  text-shadow:
-    0 0 var(--space-2) var(--glow-near),
-    0 0 var(--space-6) var(--glow-mid),
-    0 0 var(--space-16) var(--glow-mid),
-    0 2px 0 var(--field-ink);
-}
-
-/* The eyebrow that titles #attestation. F6: eyebrow text is
-   `--color-foreground-muted`, never accent. It contributes no heading, so
-   the R9 headings chain is preserved (docs/15 §3 row 3). */
-.eyebrow {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-label);
-  line-height: var(--text-label--line-height, 1.3);
-  letter-spacing: var(--text-label--letter-spacing, 0.12em);
-  font-weight: var(--font-weight-medium);
-  text-transform: uppercase;
-  color: var(--color-foreground-muted);
-}
-
-/* ------------------------------------------------------------
-   9. REDUCED MOTION (§6)
-
-   The blanket block is a SAFETY NET only (§6.2). Every row of the
-   §6.1 table gets a real static end state below it — the completed
-   state, never the starting state. No 0.01ms duration hack (DEV-9).
-
-   Authored after §7 and §8 so it wins the cascade.
-   ------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
-  /* §6.2 safety net — catches anything unaudited. */
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    animation-delay: 0ms !important;
-    transition-duration: 1ms !important;
-    transition-delay: 0ms !important;
+    animation: none !important;
+    transition: none !important;
     scroll-behavior: auto !important;
   }
-
-  /* M1 / M2 / M3 — reveals and stagger: final state in the first paint. */
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
-    transition: none !important;
-    transition-delay: 0s !important;
-    animation: none !important;
   }
-
-  /* M-LIGHT (§2.8 rule 3) — the lamp freezes at its declared origin. The
-     script constructs no rAF loop under `reduce`; this block is the CSS half
-     of the same guarantee, so the static end state is reached even if a
-     `--lx`/`--ly` pair was written before the preference was read. Every lit
-     edge is still lit — the page loses the travel, not the light. */
-  [data-lit] {
-    --lx: var(--light-x) !important;
-    --ly: var(--light-y) !important;
+  .project-card:hover .payment-phone {
+    transform: translate(-50%, -50%) rotate(-9deg);
   }
-
-  /* M4 — InlineLink: the underline is permanently present at rest in
-     --color-border-interactive; hover/focus only changes its colour. */
-  .link {
-    text-decoration: none;
-  }
-  .link::after {
-    transform: none;
-    background: var(--color-border-interactive);
-    transition: none;
-  }
-  .link:hover::after,
-  .link:focus-visible::after {
-    background: var(--color-accent);
-  }
-  .link:active {
+  .round-link:hover,
+  .writing-feature:hover .writing-arrow,
+  .button-primary:hover {
     transform: none;
   }
-
-  /* M5 — Button press: no transform; background swaps instantly. */
-  .btn,
-  .btn:active {
-    transform: none;
-    transition: none;
+  .hero-scroll {
+    display: none;
   }
-  .btn--primary:active {
-    background: var(--color-accent-hover);
-  }
-  .btn--secondary:active,
-  .btn--ghost:active {
-    background: var(--color-surface-raised);
-  }
-
-  /* M6 — hover lift: no transform; hover reads as surface + border. */
-  .link-standalone,
-  .link-standalone:hover,
-  .link-standalone:active {
-    transform: none;
-    transition: none;
-  }
-
-  /* M7 — nav sheet: appears at its final position and full opacity in one
-     paint. Visibility still flips, so the closed sheet stays out of the tab
-     order; only the travel and the fade are removed. */
-  .js .nav-sheet,
-  .js .nav-sheet[data-open="false"] {
-    transform: none !important;
-    transition: none !important;
-  }
-
-  /* M8 — theme toggle: instant colour swap. */
-  .theme-toggle,
-  .nav-toggle,
-  .nav-link {
-    transition: none;
-  }
-
-  /* M9 — active-nav marker: appears under the active item instantly. */
-  .nav-link[aria-current="true"]::after {
-    transition: none;
-  }
-
-  /* M10 — focus ring: instant, full opacity, full width. Never suppressed
-     and never delayed; WCAG 2.4.7 applies regardless of motion preference. */
-  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    transition: none;
-  }
-  .skip-link {
-    transition: none;
-  }
-
-  /* M11 — the OGL chunk is never downloaded (gated in JS, docs/02 §8.2).
-     M12 — Lenis is destroy()ed; native scroll (SmoothScrollProvider).
-     M13 — no scroll-linked progress UI ships; if one is added it renders
-           at 100% progress, not 0%.
-     M14 — the scroll-driven `animation-timeline: view()` block this used to
-           have to out-cascade is now DELETED (§7, crossbrowser-c2 N7). The
-           safety net at the top of this block still neutralises any animation
-           a future edit introduces, so M14 holds without it; if scroll-driven
-           reveals ever return, they must be authored ABOVE this block.
-     M15 — no decorative loop, marquee, cursor effect, tilt or magnet
-           exists anywhere in this system (§8.5). */
 }
-
-/* ------------------------------------------------------------
-   10. PRINT (§9.5) — R29
-   ------------------------------------------------------------ */
 @media print {
-  :root {
-    color-scheme: light;
-  }
-  *,
-  *::before,
-  *::after {
-    background: #fff !important;
-    color: #000 !important;
-    box-shadow: none !important;
-  }
-  [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  /* The field is now the page's full-bleed GROUND rather than the boxed
-     figure this block was written for (docs/15 §2.2), and a fixed full-bleed
-     decorative layer prints as a lattice behind the first page of text. It is
-     `aria-hidden` decoration; it does not print. The grain and the blueprint
-     grid go with it, for the same reason. */
-  .field-backdrop {
-    display: none !important;
-  }
-
-  /* The poster is the printable artifact; the canvas rasterises to nothing.
-
-     `runtime/scene.ts` builds the OGL Renderer with the default
-     `preserveDrawingBuffer: false`, so the drawing buffer is undefined after
-     compositing and the print rasteriser's re-snapshot gets an empty frame.
-     Measured, not inferred: `drawImage(canvas)` → `getImageData` returns zero
-     non-transparent pixels in all three engines, and a real Chromium
-     `page.pdf()` of this page came back 77,986 B smaller with WebGL live than
-     with WebGL blocked — the missing bytes are exactly the vector poster
-     (docs/08-review-crossbrowser-c2 N1).
-
-     `!important` is required and is not laziness: `runtime/mount.ts` pins the
-     poster to `opacity: 0` in an INLINE style on the first drawn frame, which
-     no ordinary stylesheet declaration can outrank. `canvas` rather than a
-     narrower selector because there is exactly one on the site and any future
-     one has the same problem. */
-  [data-attestation-poster] {
-    opacity: 1 !important;
-  }
-  canvas {
-    display: none !important;
-  }
-
-  /* URL expansion, made to actually paint.
-
-     `.link::after` is already claimed by the component layer as the 2px accent
-     underline bar: `position: absolute`, `block-size: 2px`,
-     `transform: scaleX(0)`. Replacing only `content` laid the URL out inside a
-     2px-tall box scaled to zero width, so all 16 https anchors carried the
-     right string and painted none of it (crossbrowser-c2 N2). Every geometric
-     property the component layer set has to be given back. */
-  a[href^="https://"]::after,
-  a[href^="mailto:"]::after {
-    content: " (" attr(href) ")";
-    font-size: 11px;
-    position: static;
-    block-size: auto;
-    inset: auto;
-    transform: none;
-    background: none;
-  }
-
-  /* The page's one call to action, still legible as one.
-
-     `.btn` declares `border: 1px solid transparent` and `.btn--primary` carries
-     its whole identity in `background: var(--color-accent)`. The reset above
-     removes the fill and leaves the border transparent, so the CTA printed as
-     undifferentiated body text beside an inert résumé line (crossbrowser-c2
-     N3). `currentColor` rather than a literal: the reset has already forced
-     `color` to black, so this introduces no new value. */
+  .button-primary,
   .btn--primary {
-    border-color: currentColor !important;
+    border-color: currentColor;
+    background: #fff;
+    color: #111;
   }
-
-  /* Pagination. There were zero break, orphan, widow or @page rules anywhere
-     in the compiled stylesheet, so entries split at arbitrary points — a
-     heading could open a sheet with its first paragraph on the previous one,
-     and nothing stopped a sheet break through the middle of the 768x432 figure
-     (crossbrowser-c2 N4). */
+  body {
+    background: #fff;
+    color: #111;
+  }
+  header,
+  .footer-tools,
+  .hero-visual,
+  .lab-diagram,
+  canvas,
+  .contact-banner,
+  .project-art {
+    display: none !important;
+  }
+  .shell {
+    width: 100%;
+  }
+  .hero,
+  .page-intro {
+    padding-top: 20px;
+    min-height: auto;
+  }
+  .hero-composition {
+    display: block;
+  }
+  .hero-description,
+  .project-card-copy > p,
+  p {
+    color: #222;
+  }
+  .section {
+    padding-block: 32px;
+  }
   h1,
   h2,
   h3 {
     break-after: avoid;
   }
   article,
-  figure,
-  .meta-line {
+  .project-card,
+  .timeline-item {
     break-inside: avoid;
   }
-  p {
-    orphans: var(--print-min-lines);
-    widows: var(--print-min-lines);
+  a[href^='https://']::after,a[href^='mailto:']::after
+  {
+    content: " (" attr(href) ")";
+    font-size: var(--type-1);
+    overflow-wrap: anywhere;
   }
-
-  header,
-  .no-print {
-    display: none !important;
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+  .hive-footer {
+    margin-top: 32px;
   }
 }
-
-/* ------------------------------------------------------------
-   11. FORCED COLOURS (Windows High Contrast and equivalents)
-
-   Not a WCAG AA requirement — 1.4.3 / 1.4.11 are measured in the default
-   rendering — but the attestation figure is the one surface the UA cannot
-   fix for itself: its colour arrives as an author `color` on an <svg> whose
-   circles are `fill="currentColor"`, so it would paint at the author value
-   against a forced background at an arbitrary contrast. Hand it back to the
-   system palette. The focus ring and `.btn--primary` are already re-coloured
-   correctly by the UA and are deliberately left alone.
-   ------------------------------------------------------------ */
-@media (forced-colors: active) {
-  [data-attestation-poster] {
-    color: CanvasText;
+.writing-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.writing-tabs {
+  display: flex;
+  gap: 8px;
+}
+.writing-tabs button {
+  padding: 12px 20px;
+  border-radius: 100px;
+  font-size: var(--type-1);
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+.writing-tabs button[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.writing-tabs button > span {
+  margin-left: 8px;
+  opacity: 0.7;
+}
+.writing-filters {
+  display: flex;
+  gap: 12px;
+}
+.writing-filters input,
+.writing-filters select {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--fg);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: var(--type-1);
+  min-height: 44px;
+}
+.writing-sources {
+  display: flex;
+  gap: 32px;
+  margin-top: 40px;
+}
+.empty-results {
+  padding: 56px 0;
+  color: var(--muted);
+}
+.embed-load {
+  margin-top: 24px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-size: var(--type-1);
+}
+.embed-load span {
+  display: block;
+  color: var(--muted);
+  font-size: var(--type-1);
+  margin-top: 8px;
+}
+.linkedin-embed {
+  display: block;
+  width: min(100%, 540px);
+  height: 620px;
+  margin-top: 24px;
+  border: 0;
+  border-radius: 12px;
+  background: white;
+}
+.article-toc {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-block: 1px solid var(--line);
+  padding: 24px 0;
+  margin-bottom: 48px;
+}
+.article-toc a {
+  font-size: var(--type-2);
+  color: var(--muted);
+}
+.article-toc .eyebrow {
+  margin-bottom: 12px;
+}
+.article-end {
+  border-top: 1px solid var(--line);
+  margin-top: 64px;
+  padding-top: 32px;
+}
+.article-end .text-link {
+  margin-right: 24px;
+}
+.contribution-wrap {
+  overflow: auto;
+  padding: 24px 0;
+}
+.contribution-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 11px);
+  grid-auto-columns: 11px;
+  gap: 4px;
+  width: max-content;
+}
+.contribution-grid > span {
+  background: var(--surface-raised);
+  border-radius: 2px;
+}
+.contribution-grid > span[data-level="1"] {
+  background: color-mix(in srgb, var(--accent) 25%, var(--surface));
+}
+.contribution-grid > span[data-level="2"] {
+  background: color-mix(in srgb, var(--accent) 45%, var(--surface));
+}
+.contribution-grid > span[data-level="3"] {
+  background: color-mix(in srgb, var(--accent) 70%, var(--surface));
+}
+.contribution-grid > span[data-level="4"] {
+  background: var(--accent);
+}
+.hive-under-hood {
+  flex: 1;
+}
+.hive-under-hood > button {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  padding: 12px 0;
+  font-size: var(--type-1);
+}
+.hive-runtime-details {
+  border: 1px solid var(--line);
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 740px;
+  background: var(--surface);
+}
+.hive-runtime-details p {
+  margin-bottom: 16px;
+}
+.hive-runtime-details dl > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+.hive-runtime-details small {
+  display: block;
+  margin-top: 16px;
+}
+.footer-audit {
+  font-size: var(--type-1);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+.hero-full-name {
+  font-size: inherit;
+  line-height: inherit;
+}
+.hero-full-name .hero-name {
+  display: block;
+}
+.legacy-anchor {
+  position: absolute;
+  scroll-margin-top: 110px;
+}
+.project-strip {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+}
+.project-strip > .project-card {
+  width: min(44vw, 580px);
+  flex-shrink: 0;
+}
+.project-strip-container {
+  overflow: hidden;
+}
+.work-intro-pin {
+  font-size: var(--type-1);
+  padding: 12px 0;
+  background: var(--bg);
+  z-index: 4;
+}
+.article-body pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--surface);
+  padding: 20px;
+  border-radius: 8px;
+}
+@media (max-width: 767px) {
+  .writing-controls {
+    flex-direction: column;
   }
-
-  /* The light source is expressed entirely in author colours a forced-colours
-     mode cannot reason about: a masked gold ring, a two-stop radial surface,
-     a grain layer and a hairline grid. Every one of them is decorative and
-     carries no information, so they are removed rather than handed back to
-     the system palette — there is no system colour for "a surface catching a
-     light". The panel's structure survives as its own border, which the UA
-     re-colours correctly. `--color-border-interactive` still identifies every
-     control over the field (§3.6). */
-  .field-grain,
-  .blueprint-grid,
-  .panel::before {
+  .writing-filters {
+    flex-wrap: wrap;
+  }
+  .writing-filters input {
+    width: 200px;
+  }
+  .writing-filters select {
+    width: 110px;
+  }
+  .writing-sources {
+    gap: 20px;
+  }
+  .contribution-grid {
+    grid-template-rows: repeat(7, 9px);
+    grid-auto-columns: 9px;
+    gap: 3px;
+  }
+  .project-strip-container {
+    overflow: visible;
+  }
+  .project-strip {
+    display: flex;
+    overflow: auto;
+    max-width: 100%;
+    gap: 20px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 16px;
+  }
+  .project-strip > .project-card {
+    width: 86%;
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+  }
+}
+.latest-home-commit {
+  margin-top: 36px;
+  font-size: var(--type-1);
+  color: var(--muted);
+  line-height: 1.7;
+}
+.latest-home-commit .eyebrow {
+  margin-bottom: 12px;
+}
+.latest-home-commit a:hover {
+  color: var(--accent);
+}
+.writing-home-fallback {
+  min-height: 240px;
+}
+.changelog-copy p {
+  margin: 12px 0;
+  color: var(--muted);
+  font-size: var(--type-2);
+}
+.changelog-copy h3 {
+  font-size: var(--type-4);
+  margin: 32px 0 16px;
+}
+.task-record {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.task-record article {
+  border: 1px solid var(--line);
+  padding: 24px;
+  border-radius: 10px;
+}
+.task-record article p {
+  font-size: var(--type-2);
+  color: var(--muted);
+  margin-top: 12px;
+}
+@media (max-width: 767px) {
+  .task-record {
+    grid-template-columns: 1fr;
+  }
+  .footer-audit {
+    font-size: var(--type-1);
+  }
+}
+.writing-row {
+  position: relative;
+}
+.writing-cover {
+  pointer-events: none;
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-45%) rotate(-5deg) scale(0.94);
+  opacity: 0;
+  width: 240px;
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px #0004;
+  transition:
+    opacity 0.3s var(--ease-out-expo),
+    transform 0.5s var(--ease-out-expo);
+  z-index: 2;
+}
+.writing-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.writing-row:hover .writing-cover {
+  opacity: 1;
+  transform: translateY(-50%) rotate(-5deg) scale(1);
+}
+.repo-count {
+  font-size: var(--type-2);
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.repo-count > span {
+  font-size: var(--type-5);
+  color: var(--accent);
+  margin-right: 8px;
+}
+@media (hover: none), (max-width: 767px) {
+  .writing-cover {
     display: none;
   }
-  .panel {
-    background: Canvas;
-    border: 1px solid CanvasText;
-    box-shadow: none;
+}
+/* A native scroll path remains available before choreography loads. */
+.project-strip-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.project-strip-container[data-hive-choreographed] {
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-strip-container[data-hive-choreographed] {
+    overflow-x: auto;
   }
-  .lit-rule {
-    background: CanvasText;
+}
+.sticky-section-heading {
+  position: sticky;
+  top: 88px;
+  z-index: 5;
+  background: var(--bg);
+}
+.sticky-section-heading h2 {
+  transform-origin: left center;
+  transition: transform 0.45s var(--ease-out-expo);
+  will-change: auto;
+}
+.sticky-section-heading[data-compact="true"] h2 {
+  transform: scale(0.82);
+}
+@media (max-width: 767px) {
+  .sticky-section-heading {
+    top: 80px;
   }
-  .stage .backlit {
-    text-shadow: none;
+  .sticky-section-heading[data-compact="true"] h2 {
+    transform: scale(0.9);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sticky-section-heading[data-compact="true"] h2 {
+    transform: none;
+    transition: none;
+  }
+}
+@media print {
+  .sticky-section-heading {
+    position: static;
+  }
+  .sticky-section-heading h2 {
+    transform: none;
   }
 }
