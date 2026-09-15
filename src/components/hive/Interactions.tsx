@@ -260,25 +260,72 @@ export function CopyButton({ value, label = "Copy email" }: { value: string; lab
   );
 }
 
+// Intl initialization can load timezone data. Defer it until a clock is
+// visible, and share both the formatter and 15-second tick across instances.
+let newYorkFormatter: Intl.DateTimeFormat | undefined;
+let clockTimer: ReturnType<typeof setInterval> | undefined;
+let clockText = "New York · Eastern time";
+const visibleClocks = new Set<(time: string) => void>();
+function subscribeClock(listener: (time: string) => void) {
+  visibleClocks.add(listener);
+  if (!clockTimer) {
+    const update = () => {
+      newYorkFormatter ??= new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+        timeZoneName: "short",
+      });
+      clockText = newYorkFormatter.format(new Date());
+      visibleClocks.forEach((notify) => notify(clockText));
+    };
+    update();
+    clockTimer = setInterval(update, 15000);
+  } else listener(clockText);
+  return () => {
+    visibleClocks.delete(listener);
+    if (!visibleClocks.size) {
+      clearInterval(clockTimer);
+      clockTimer = undefined;
+    }
+  };
+}
+
 export function NYClock() {
   const [time, setTime] = useState("New York · Eastern time");
+  const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
-    const update = () =>
-      setTime(
-        new Intl.DateTimeFormat("en-US", {
-          timeZone: "America/New_York",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZoneName: "short",
-        }).format(new Date()),
-      );
-    update();
-    const timer = setInterval(update, 15000);
-    return () => clearInterval(timer);
+    const node = ref.current;
+    if (!node) return;
+    let inView = false;
+    let unsubscribe: (() => void) | undefined;
+    const reconcile = () => {
+      if (inView && !document.hidden) unsubscribe ??= subscribeClock(setTime);
+      else {
+        unsubscribe?.();
+        unsubscribe = undefined;
+      }
+    };
+    // Display:none ancestors (the mobile hero label) have no intersection.
+    // Zero-area edge contact must not activate the below-fold footer clock.
+    const observer = new IntersectionObserver(([entry]) => {
+      inView =
+        entry.isIntersecting &&
+        entry.intersectionRect.width > 0 &&
+        entry.intersectionRect.height > 0;
+      reconcile();
+    });
+    observer.observe(node);
+    document.addEventListener("visibilitychange", reconcile);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", reconcile);
+      unsubscribe?.();
+    };
   }, []);
   return (
-    <span className="hive-clock" suppressHydrationWarning>
+    <span ref={ref} className="hive-clock">
       {time}
     </span>
   );

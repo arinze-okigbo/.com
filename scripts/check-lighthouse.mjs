@@ -5,6 +5,8 @@ import { computeMedianRun } from "lighthouse/core/lib/median-run.js";
 import { resolve } from "node:path";
 
 const target = process.env.QA_URL || "http://localhost:3100";
+const prefix = process.env.QA_REPORT_PREFIX || "preflight";
+if (!/^[a-z-]+$/.test(prefix)) throw new Error("Invalid audit report prefix");
 const directory = resolve("hive/qa");
 await mkdir(directory, { recursive: true });
 let server;
@@ -41,7 +43,7 @@ try {
   // Never retry until green or select the best score. Keep every raw report.
   const reports = [];
   for (let index = 1; index <= 5; index++) {
-    const output = `${directory}/preflight-run-${index}-mobile.json`;
+    const output = `${directory}/${prefix}-run-${index}-mobile.json`;
     await run("node_modules/lighthouse/cli/index.js", [
       target,
       "--quiet",
@@ -56,8 +58,8 @@ try {
     console.log(`Lighthouse ${index}/5: ${Math.round(report.categories.performance.score * 100)}`);
   }
   const median = computeMedianRun(reports);
-  await writeFile(`${directory}/preflight-mobile.json`, JSON.stringify(median));
-  await writeFile(`${directory}/preflight-series.json`, JSON.stringify({
+  await writeFile(`${directory}/${prefix}-mobile.json`, JSON.stringify(median));
+  await writeFile(`${directory}/${prefix}-series.json`, JSON.stringify({
     method: "Lighthouse computeMedianRun; fixed five sequential runs",
     reference: "https://github.com/GoogleChrome/lighthouse/blob/main/docs/variability.md",
     selectedRun: reports.indexOf(median) + 1,
@@ -70,7 +72,7 @@ try {
       lcp: report.audits["largest-contentful-paint"].numericValue,
     })),
   }, null, 2) + "\n");
-  for (const report of reports) {
+  for (const report of process.env.QA_ENFORCE_GATES === "0" ? [] : reports) {
     if (report.categories.accessibility.score < 0.95 ||
         report.categories["best-practices"].score !== 1 || report.categories.seo.score !== 1)
       throw new Error("A series run failed accessibility, best practices, or SEO");
@@ -78,11 +80,11 @@ try {
   await run(
     "scripts/audit-summary.mjs",
     [
-      `${directory}/preflight-mobile.json`,
-      `${directory}/preflight-summary.json`,
-      process.env.GITHUB_SHA || "local",
+      `${directory}/${prefix}-mobile.json`,
+      `${directory}/${prefix}-summary.json`,
+      process.env.DEPLOY_SHA || process.env.GITHUB_SHA || "local",
     ],
-    { ...process.env, ENFORCE_GATES: "1" },
+    { ...process.env, ENFORCE_GATES: process.env.QA_ENFORCE_GATES === "0" ? "0" : "1" },
   );
 } finally {
   server?.kill("SIGTERM");

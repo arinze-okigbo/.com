@@ -24,8 +24,8 @@ jobs:
         run: |
           mkdir -p hive/qa
           node scripts/verify-deployment.mjs https://arinzeokigbo.com "$DEPLOY_SHA"
-          npx lighthouse https://arinzeokigbo.com --quiet --output=json --output-path=hive/qa/production-mobile.json --chrome-flags='--headless --no-sandbox'
-          node scripts/audit-summary.mjs hive/qa/production-mobile.json hive/qa/latest-production.json "$DEPLOY_SHA"
+          QA_URL=https://arinzeokigbo.com QA_REPORT_PREFIX=production QA_ENFORCE_GATES=0 node scripts/check-lighthouse.mjs
+          cp hive/qa/production-summary.json hive/qa/latest-production.json
         env:
           DEPLOY_SHA: ${{ github.event.deployment.sha }}
       - uses: actions/upload-artifact@v4
