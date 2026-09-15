@@ -6,7 +6,7 @@ Rebuild arinzeokigbo.com as a visually ambitious, technically credible personal 
 
 ## Current session
 
-Rounds 1–4: foundation, motion, signature interactions, and hardening. Source brief: BRIEF.md. Branch: hive/astra-rebuild. Queen coordinates; specialist agents implement research, frontend, and motion.
+Round 5 shipped as 9be233e after required Linux 96/100/100/100 and preview QA. Production verified at 100/100/100/100 using the fixed representative five-run method, with 68 browser checks passing. Branch hive/round-5-audit-publish repairs measurement publication and records the release. Queen coordinates; specialist agents implement research, frontend, and motion.
 
 ## Decisions
 
@@ -63,3 +63,5 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: Clock candidate run34932388400 scored90/92/97/94/94; representative94,TBT183ms,LCP2658ms and other categories100. Exact preview0495eaf passed desktop/mobile search, visible clock updates and zero console errors. New trace shows 724 layout objects/521 styled elements before paint; target offscreen layout and duplicated media-query objects next.
 
 - 2026-09-15: Reduce measured offscreen layout with content-visibility:auto on lower homepage sections, retain responsive intrinsic dimensions and full print layout, and replace initial geometry reads with observer entries. Share one reduced-motion query/listener. Build, types, lint, 358 unit tests and 68 browser checks pass; the contrast test now waits for its theme overlay instead of all legitimately paused offscreen animations.
+
+- 2026-09-15: PR5 merged as 9be233e after required Linux run34933482617 passed96/100/100/100. Custom domain SHA and68 browser checks passed. Production run34933954175 measured71/100/100/100/99, representative100/100/100/100, LCP1228ms, TBT33ms, CLS0; all raw reports retained. Its publish step failed because a generated summary overwrote a tracked historical file. Independently enforce the retained reports, publish exact measurements through a separate metrics worktree, and give subsequent workflow files a distinct production-current prefix.

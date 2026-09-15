@@ -1,12 +1,12 @@
 # Exact resume point
 
-Production runs a118398513ced42889540e45ba0b7a7118aac72b (PR4 merged). Custom-domain marker verified; 36 production browser tests pass. Production performance gate remains open: local audit90 and LinuxCI69.
+Round 5 is live at https://arinzeokigbo.com, commit 9be233ef3b2827882bd9c082b38727d69f1c836c (PR5 merged). Domain marker verified; 68 production browser checks pass with two device-specific skips.
 
-Current branch: hive/round-5-navigation.
-1. Round5 implementation complete: faster headline/scroll startup, keyboard search, verified screenshots, article citations/images, mobile focus and print. Current local build/lint/types/358 unit tests pass; final browser suite68 passed,2 device-specific skips. Latest local mobile Lighthouse98/100/100/100; fresh interaction harness passes with zero errors.
-2. PR5 remains held by required Linux performance. The clock fix improved run 34932388400 to a representative 94 (five runs: 90, 92, 97, 94, 94), with TBT 183 ms, LCP 2658 ms, and other categories 100. Its exact Vercel preview 0495eaf passed desktop/mobile search, live visible clocks, and zero console errors. The next candidate reduces offscreen layout and shares motion-preference subscriptions. Build, types, lint, 358 unit tests and 68 browser checks pass, including new find/focus/geometry/anchor/print coverage. Local five-run audit is 98 in every run (LCP 2475 ms, TBT 8.5 ms, CLS 0). Feature commit ad6b1ef. Next: inspect the required Linux results for the pushed checkpoint, verify its exact preview and ordinary-motion scrolling, and merge only after all gates pass. Keep thresholds unchanged. Production audits now use the same fixed five-run method and publish measured scores before enforcement.
-3. Verify merged production SHA and production Lighthouse. If below95, continue optimizing; never relabel a local score as production.
-4. Publish measured round changelog, refresh acceptance/tasks, preserve clean checkpoint.
+- Required Linux CI34933482617 passed 96/100/100/100. Local fixed five runs all scored98. Build, lint, types and358 unit tests pass; initial JS154–163KiB is below180KiB. Motion harness and both-theme preview checks pass.
+- Production audit34933954175: fixed series71/100/100/100/99, representative run4 at100/100/100/100, LCP1228.402ms, TBT33ms, CLS0. The raw first cold run remains retained. Scores are host measurements, not physical iPhone frame-rate proof.
+- Automatic measurement publication hit a tracked-file collision. Exact retained production measurements were independently enforced and published to hive/metrics as d1fc2a8; the live badge can cache for five minutes.
+- Current branch hive/round-5-audit-publish changes generated production audit filenames to production-current, preserving historical reports, and publishes the round changelog. Next: push this tested checkpoint, open its follow-up PR, wait for required CI, merge, verify the final deployed SHA and successful automated publication. Do not relax gates or bypass branch protection.
+- Then start Round6 with five bounded tasks and one substantive new lab experiment. Suggested theme: an in-browser cryptographic proof lab with generated ephemeral keys and real tamper verification; no account or persistent credential creation. Continue verified media coverage and physical-device timing only when evidence is available.
 
 Worktree: /Users/arinzeokigbo/Documents/Codex/2026-09-14/github-plugin-github-openai-curated-remote/work/astra-site
 Original branch preserved in /Users/arinzeokigbo/arinzeokigbo.

@@ -24,8 +24,8 @@ jobs:
         run: |
           mkdir -p hive/qa
           node scripts/verify-deployment.mjs https://arinzeokigbo.com "$DEPLOY_SHA"
-          QA_URL=https://arinzeokigbo.com QA_REPORT_PREFIX=production QA_ENFORCE_GATES=0 node scripts/check-lighthouse.mjs
-          cp hive/qa/production-summary.json hive/qa/latest-production.json
+          QA_URL=https://arinzeokigbo.com QA_REPORT_PREFIX=production-current QA_ENFORCE_GATES=0 node scripts/check-lighthouse.mjs
+          cp hive/qa/production-current-summary.json hive/qa/latest-production.json
         env:
           DEPLOY_SHA: ${{ github.event.deployment.sha }}
       - uses: actions/upload-artifact@v4
@@ -52,4 +52,4 @@ jobs:
             git push origin hive/metrics
           fi
       - name: Enforce score thresholds
-        run: ENFORCE_GATES=1 node scripts/audit-summary.mjs hive/qa/production-mobile.json /tmp/gate.json
+        run: ENFORCE_GATES=1 node scripts/audit-summary.mjs hive/qa/production-current-mobile.json /tmp/gate.json
