@@ -87,11 +87,13 @@ test("dialog keeps native focus containment, arrow navigation and accessible con
   await expect(links.first()).toBeFocused();
   await page.keyboard.press("ArrowUp");
   await expect(search).toBeFocused();
-  for (let index = 0; index < 24; index++) {
-    await page.keyboard.press("Tab");
-    expect(await page.evaluate(() => Boolean(document.activeElement?.closest("dialog")))).toBe(
-      true,
-    );
+  for (const direction of ["Tab", "Shift+Tab"]) {
+    for (let index = 0; index < 24; index++) {
+      await page.keyboard.press(direction);
+      expect(await page.evaluate(() => Boolean(document.activeElement?.closest("dialog")))).toBe(
+        true,
+      );
+    }
   }
   const audit = await new AxeBuilder({ page })
     .include("dialog")

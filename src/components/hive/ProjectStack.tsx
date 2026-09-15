@@ -1,4 +1,5 @@
 "use client";
+import { Icon } from "./Icon";
 
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -17,9 +18,9 @@ export default function ProjectStack({
       href: "#passkey-lab",
     },
     {
-      title: "Source to screen",
-      description: "Inspect the decisions behind this site.",
-      href: "/lab/changelog",
+      title: "Signature proof",
+      description: "Sign a message, change it, and verify the signature.",
+      href: "/lab#proof",
     },
   ],
 }: {
@@ -37,7 +38,9 @@ export default function ProjectStack({
             <span className="hive-label">0{i + 1}</span>
             <h3>{item.title}</h3>
             <p>{item.description}</p>
-            <a href={item.href}>Open experiment ↗</a>
+            <a href={item.href}>
+              Open experiment <Icon name="arrow-up-right" />
+            </a>
           </article>
         ))}
       </div>
@@ -76,7 +79,9 @@ export default function ProjectStack({
             <span className="hive-label">0{i + 1}</span>
             <h3>{item.title}</h3>
             <p>{item.description}</p>
-            <a href={item.href}>Open experiment ↗</a>
+            <a href={item.href}>
+              Open experiment <Icon name="arrow-up-right" />
+            </a>
           </motion.article>
         ))}
       </div>

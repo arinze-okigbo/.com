@@ -1,3 +1,4 @@
+import { Icon } from "@/components/hive/Icon";
 import Link from "next/link";
 import { SplitText } from "@/components/hive/Motion";
 import { renderArticleInline } from "@/lib/hive/ArticleInline";
@@ -130,10 +131,10 @@ export default async function Article({ params }: Props) {
         <div className="article-end">
           <p>Originally published on Substack.</p>
           <a href={post.url} className="text-link" target="_blank" rel="noreferrer">
-            Read the original ↗
+            Read the original <Icon name="arrow-up-right" />
           </a>
           <Link href="/writing" className="text-link">
-            ← All writing
+            <Icon name="arrow-left" /> All writing
           </Link>
         </div>
       </article>

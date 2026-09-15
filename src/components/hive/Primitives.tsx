@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Icon } from "./Icon";
+import { SplitaLogo } from "./SplitaLogo";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Reveal, ScrambleLabel, SplitText, TiltCard } from "./Motion";
@@ -24,8 +26,12 @@ export function pageMeta(title: string, description: string, path: string): Meta
     },
   };
 }
-export function Arrow({ diagonal = false }: { diagonal?: boolean }) {
-  return <span aria-hidden="true">{diagonal ? "↗" : "↗"}</span>;
+export function Arrow({ diagonal = true }: { diagonal?: boolean }) {
+  return (
+    <span aria-hidden="true">
+      <Icon name={diagonal ? "arrow-up-right" : "arrow-right"} />
+    </span>
+  );
 }
 export function Label({ children }: { children: string }) {
   return <ScrambleLabel text={children} className="eyebrow" />;
@@ -80,15 +86,15 @@ export function SectionHeading({
 export function Source({ href, label = "Source" }: { href: string; label?: string }) {
   return (
     <a className="source-link" href={href} target="_blank" rel="noreferrer">
-      {label} ↗
+      {label} <Icon name="arrow-up-right" />
     </a>
   );
 }
 export function ProjectArt({ kind, large = false }: { kind: Project["visual"]; large?: boolean }) {
   return (
     <div
-      className={`project-art art-${kind}${large ? " art-large" : ""}`}
-      aria-label={`${kind === "splita" ? "Group payment flow" : kind === "auth" ? "Authentication protocol" : kind === "globe" ? "Geospatial globe" : "Agent collaboration"} illustration`}
+      className={`project-art art-${kind}${kind === "hive" ? " system-art" : ""}${large ? " art-large" : ""}`}
+      aria-label={`${kind === "splita" ? "Splita group payment flow" : kind === "auth" ? "Authentication protocol" : kind === "globe" ? "Geospatial globe" : "Systems architecture"} illustration`}
       data-hive-cursor="view"
       role="img"
     >
@@ -97,9 +103,7 @@ export function ProjectArt({ kind, large = false }: { kind: Project["visual"]; l
           <div className="art-grid" />
           <div className="payment-phone">
             <div className="phone-top">
-              <b>
-                splita<span>•</span>
-              </b>
+              <SplitaLogo />
               <i>GROUP PAYMENT</i>
             </div>
             <p>
@@ -116,10 +120,10 @@ export function ProjectArt({ kind, large = false }: { kind: Project["visual"]; l
             <div className="payment-rule" />
             <div className="payment-step">
               <span>Collect together</span>
-              <b>↗</b>
+              <Icon name="arrow-up-right" />
             </div>
             <div className="payment-confirm">
-              <span>✓</span> Everyone in. Move forward.
+              <Icon name="check" /> Everyone in. Move forward.
             </div>
           </div>
           <span className="art-caption">CONCEPTUAL PRODUCT FLOW</span>
@@ -132,19 +136,7 @@ export function ProjectArt({ kind, large = false }: { kind: Project["visual"]; l
             <i />
           </div>
           <div className="auth-core">
-            <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <rect
-                x="13"
-                y="21"
-                width="22"
-                height="18"
-                rx="5"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <path d="M18 21v-6a6 6 0 0 1 12 0v6" stroke="currentColor" strokeWidth="2" />
-              <circle cx="24" cy="29" r="2" fill="currentColor" />
-            </svg>
+            <Icon name="lock" size={40} />
           </div>
           <span className="auth-node node-one">BROWSER</span>
           <span className="auth-node node-two">AUTHENTICATOR</span>
@@ -159,12 +151,22 @@ export function ProjectArt({ kind, large = false }: { kind: Project["visual"]; l
             <i />
             <i />
             <i />
-            <b>✦</b>
-            <b>✦</b>
-            <b>✦</b>
+            <b>
+              <Icon name="sparkle" />
+            </b>
+            <b>
+              <Icon name="sparkle" />
+            </b>
+            <b>
+              <Icon name="sparkle" />
+            </b>
           </div>
-          <div className="globe-cross cross-one">+</div>
-          <div className="globe-cross cross-two">+</div>
+          <div className="globe-cross cross-one">
+            <Icon name="plus" />
+          </div>
+          <div className="globe-cross cross-two">
+            <Icon name="plus" />
+          </div>
           <span className="globe-coordinate">
             40.7128° N<br />
             74.0060° W
@@ -175,17 +177,18 @@ export function ProjectArt({ kind, large = false }: { kind: Project["visual"]; l
         <>
           <div className="hive-map">
             <span className="hive-root">
-              A<span>QUEEN</span>
+              <Icon name="code" />
+              <span>SYSTEM</span>
             </span>
             <div className="hive-connect" />
             <div className="hive-drones">
-              <span>RESEARCH</span>
-              <span>DESIGN</span>
-              <span>BUILD</span>
-              <span>VERIFY</span>
+              <span>INPUT</span>
+              <span>PROCESS</span>
+              <span>OUTPUT</span>
+              <span>CHECKS</span>
             </div>
           </div>
-          <span className="art-caption">ONE SHARED GOAL. SPECIALIST AGENTS.</span>
+          <span className="art-caption">CONNECTED PARTS. A WORKING SYSTEM.</span>
         </>
       )}
     </div>

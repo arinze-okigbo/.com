@@ -1,6 +1,8 @@
 "use client";
+import { Icon } from "./Icon";
 
 import Link from "next/link";
+import { getFocusableElements } from "@/lib/a11y/focusable";
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent } from "react";
 import {
   isNavigationItem,
@@ -126,6 +128,21 @@ export default function QuickNavigationDialog({ onDismiss }: QuickNavigationDial
           event.preventDefault();
           event.stopPropagation();
           dismiss();
+          return;
+        }
+        if (event.key !== "Tab" || event.ctrlKey || event.metaKey || event.altKey) return;
+        // Native dialog focus containment can include browser chrome at the ends.
+        // Keep sequential keyboard navigation cycling through the live modal controls.
+        const controls = getFocusableElements(event.currentTarget);
+        const first = controls[0];
+        const last = controls.at(-1);
+        const current = document.activeElement;
+        if (event.shiftKey && (current === first || current === event.currentTarget)) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && (current === last || current === event.currentTarget)) {
+          event.preventDefault();
+          first?.focus();
         }
       }}
       onClose={(event) => {
@@ -155,7 +172,7 @@ export default function QuickNavigationDialog({ onDismiss }: QuickNavigationDial
           onClick={() => dismiss()}
           aria-label="Close navigation"
         >
-          Esc <span aria-hidden="true">×</span>
+          Esc <Icon name="close" />
         </button>
       </div>
       <div className="quick-navigation-search" role="search">
@@ -202,7 +219,7 @@ export default function QuickNavigationDialog({ onDismiss }: QuickNavigationDial
               setAttempt((value) => value + 1);
             }}
           >
-            Try again ↻
+            Try again <Icon name="refresh" />
           </button>
         </div>
       )}
@@ -222,7 +239,7 @@ export default function QuickNavigationDialog({ onDismiss }: QuickNavigationDial
                 <span>{item.description}</span>
               </span>
               <span aria-hidden="true" className="quick-navigation-arrow">
-                ↗
+                <Icon name="arrow-up-right" />
               </span>
             </Link>
           </li>

@@ -1,9 +1,10 @@
+import { Icon } from "@/components/hive/Icon";
 import Link from "next/link";
 import { Suspense } from "react";
 import HeroScene from "@/components/hive/HeroScene";
 import { Magnetic, Reveal, SplitText } from "@/components/hive/Motion";
 import { getHiveContent } from "@/lib/hive/feeds";
-import { NYClock, ProfiledIsland } from "@/components/hive/Interactions";
+import { NYClock } from "@/components/hive/Interactions";
 import { ContactBanner, Label, ProjectCard, SectionHeading } from "@/components/hive/Primitives";
 import { projects } from "@/content/editorial";
 import { Portrait } from "@/components/hive/Portrait";
@@ -33,7 +34,10 @@ export default function Home() {
               </span>
             </h1>
             <p className="portrait-role">
-              <span aria-hidden="true">↗</span> People. Systems. Possibility.
+              <span aria-hidden="true">
+                <Icon name="arrow-up-right" />
+              </span>{" "}
+              People. Systems. Possibility.
             </p>
           </div>
           <div className="portrait-hero-image">
@@ -43,17 +47,23 @@ export default function Home() {
             <Reveal>
               <p className="hero-description">
                 I build at the intersection of <strong>security, identity,</strong> and{" "}
-                <strong>AI.</strong> From browser-native authentication to products shipped with
-                agent swarms.
+                <strong>AI.</strong> From browser-native authentication to tools that help people
+                work and pay together.
               </p>
               <div className="hero-actions">
                 <Magnetic>
                   <Link href="/projects" className="button button-primary">
-                    Explore my work <span aria-hidden="true">↗</span>
+                    Explore my work{" "}
+                    <span aria-hidden="true">
+                      <Icon name="arrow-up-right" />
+                    </span>
                   </Link>
                 </Magnetic>
                 <Link href="/about" className="text-link">
-                  A bit about me <span aria-hidden="true">↗</span>
+                  A bit about me{" "}
+                  <span aria-hidden="true">
+                    <Icon name="arrow-up-right" />
+                  </span>
                 </Link>
               </div>
             </Reveal>
@@ -61,11 +71,16 @@ export default function Home() {
         </div>
         <div className="hero-bottom portrait-hero-bottom">
           <span className="hero-scroll" data-hive-scroll-cue>
-            <span>↓</span> SCROLL TO DISCOVER
+            <span>
+              <Icon name="arrow-down" />
+            </span>{" "}
+            SCROLL TO DISCOVER
           </span>
           <Link href="/lab" className="hero-proof">
-            <i className="status-dot" /> This site is Exhibit A. Built by an agent swarm.{" "}
-            <span aria-hidden="true">↗</span>
+            <i className="status-dot" /> Try a signature. Test a spring.{" "}
+            <span aria-hidden="true">
+              <Icon name="arrow-up-right" />
+            </span>
           </Link>
         </div>
       </section>
@@ -76,7 +91,9 @@ export default function Home() {
           <span>
             <b>Splita</b> <span>Group payments, before the group purchase.</span>
           </span>
-          <Link href="/now">Now, in more detail ↗</Link>
+          <Link href="/now">
+            Now, in more detail <Icon name="arrow-up-right" />
+          </Link>
         </div>
       </section>
       <section className="section shell portrait-work" id="projects">
@@ -109,7 +126,7 @@ export default function Home() {
             can use.
           </p>
           <Link className="text-link" href="/about">
-            The story so far ↗
+            The story so far <Icon name="arrow-up-right" />
           </Link>
         </div>
         <div className="about-index" aria-hidden="true">
@@ -121,17 +138,18 @@ export default function Home() {
           <Label>03 / THE LABORATORY</Label>
           <SplitText as="h2" text="Don’t take my word for it. Play with it." by="word" />
           <p>
-            Inspect an authentication ceremony. Replay an agent build. Pull on a spring. A space for
-            systems you can get your hands on.
+            Inspect an authentication ceremony. Test a digital signature. Pull on a spring. A space
+            for systems you can get your hands on.
           </p>
           <Link className="button button-primary" href="/lab">
-            Enter the lab <span>↗</span>
+            Enter the lab{" "}
+            <span>
+              <Icon name="arrow-up-right" />
+            </span>
           </Link>
         </div>
         <div className="portrait-lab-sculpture">
-          <ProfiledIsland name="Orbital sculpture">
-            <HeroScene />
-          </ProfiledIsland>
+          <HeroScene />
           <p className="portrait-sculpture-caption">FIG. 01 / CONNECTED INTELLIGENCE</p>
         </div>
       </section>
@@ -146,7 +164,7 @@ export default function Home() {
           fallback={
             <div className="writing-home-fallback">
               <Link className="text-link" href="/writing">
-                Read the essays on identity, security, and building ↗
+                Read the essays on identity, security, and building <Icon name="arrow-up-right" />
               </Link>
             </div>
           }
@@ -160,7 +178,7 @@ export default function Home() {
 }
 
 async function HomeWriting() {
-  const { substack, github } = await getHiveContent();
+  const { substack } = await getHiveContent();
   return (
     <>
       <div className="writing-list">
@@ -183,18 +201,12 @@ async function HomeWriting() {
               <SplitText as="h2" text={p.title} by="word" />
               <p>{p.subtitle}</p>
             </div>
-            <span>↗</span>
+            <span>
+              <Icon name="arrow-up-right" />
+            </span>
           </Link>
         ))}
       </div>
-      {github.latestCommit && (
-        <p className="latest-home-commit">
-          <span className="eyebrow">LATEST CAPTURED COMMIT</span>
-          <a href={github.latestCommit.url} target="_blank" rel="noreferrer">
-            {github.latestCommit.repo} — {github.latestCommit.message} ↗
-          </a>
-        </p>
-      )}
     </>
   );
 }

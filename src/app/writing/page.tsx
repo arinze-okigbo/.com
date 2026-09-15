@@ -1,3 +1,4 @@
+import { Icon } from "@/components/hive/Icon";
 import { getPublishedPosts } from "@/content/writing/posts";
 import { PageIntro, pageMeta } from "@/components/hive/Primitives";
 import { WritingFeed } from "@/components/hive/WritingFeed";
@@ -52,10 +53,10 @@ export default async function Writing() {
             target="_blank"
             rel="noreferrer"
           >
-            Subscribe on Substack ↗
+            Subscribe on Substack <Icon name="arrow-up-right" />
           </a>
           <a href="/feed.xml" className="text-link">
-            Follow via RSS ↗
+            Follow via RSS <Icon name="arrow-up-right" />
           </a>
         </div>
       </section>

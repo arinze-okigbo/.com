@@ -63,22 +63,6 @@ export const projects: Project[] = [
     source: "https://github.com/arinze-okigbo/sky-view",
     visual: "globe",
   },
-  {
-    slug: "astra-hive",
-    name: "This site, in public",
-    eyebrow: "AI ORCHESTRATION / OPEN SOURCE",
-    description: "A personal site. A working demonstration of an agent swarm.",
-    problem:
-      "A portfolio can describe technical work. It can also make its own construction inspectable.",
-    build:
-      "Specialist agents divide research, design, motion, implementation, and verification. Shared tasks, decisions, and a public changelog record the build. Next.js server components carry content; client boundaries carry interaction.",
-    lesson:
-      "Autonomy needs evidence: sourced content, readable changes, and verification recorded alongside the work.",
-    stack: ["Next.js", "TypeScript", "Motion", "React Three Fiber"],
-    url: "https://github.com/arinze-okigbo/.com",
-    source: "https://github.com/arinze-okigbo/.com",
-    visual: "hive",
-  },
 ];
 export const experience = [
   {

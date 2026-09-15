@@ -31,8 +31,8 @@
 .portrait-name .hero-surname {
   display: block;
   font-size: clamp(var(--type-7), 10.2vw, var(--type-8));
-  line-height: 0.91;
-  letter-spacing: -0.08em;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
   font-weight: 500;
 }
 .portrait-name .hero-surname {
@@ -289,7 +289,7 @@
   font-size: clamp(var(--type-6), 5.8vw, var(--type-7));
   max-width: 12ch;
   line-height: 1.02;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.04em;
   margin: 32px 0;
 }
 .portrait-about-copy > p {
@@ -347,7 +347,7 @@
   color: var(--accent);
   font-size: var(--type-6);
   font-weight: 400;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.03em;
 }
 @media (max-width: 1199px) {
   .portrait-hero-composition {
@@ -381,7 +381,7 @@
   .portrait-topline {
     padding-bottom: 20px;
     font-size: var(--type-1);
-    letter-spacing: 0.07em;
+    letter-spacing: 0.035em;
   }
   .portrait-hero-composition {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.07fr);
@@ -402,9 +402,9 @@
   }
   .portrait-name .hero-name,
   .portrait-name .hero-surname {
-    font-size: clamp(var(--type-6), 14vw, var(--type-7));
-    line-height: 0.94;
-    letter-spacing: -0.085em;
+    font-size: clamp(var(--type-6), 13.2vw, var(--type-7));
+    line-height: 1;
+    letter-spacing: -0.045em;
   }
   .portrait-name .hero-surname {
     margin-top: 4px;
@@ -414,7 +414,7 @@
     line-height: 1.6;
     margin-top: 20px;
     gap: 8px;
-    max-width: 16ch;
+    max-width: 18ch;
   }
   .portrait-role > span {
     font-size: var(--type-3);
@@ -448,7 +448,12 @@
     margin-bottom: 24px;
   }
   .portrait-hero-summary .hero-actions {
-    gap: 24px;
+    gap: 20px 24px;
+    flex-wrap: wrap;
+  }
+  .portrait-hero-summary .hero-actions .button,
+  .portrait-hero-summary .hero-actions .text-link {
+    font-size: var(--type-2);
   }
   .portrait-hero-summary .button {
     padding: 14px 22px;
@@ -558,9 +563,9 @@
     grid-column: 1;
     grid-row: 2;
     font-size: clamp(var(--type-5), 8.6vw, var(--type-6));
-    line-height: 1.08;
+    line-height: 1.14;
     margin: 0;
-    letter-spacing: -0.055em;
+    letter-spacing: -0.04em;
   }
   .portrait-about-copy > .eyebrow {
     grid-column: 1;

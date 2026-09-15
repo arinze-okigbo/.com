@@ -6,7 +6,7 @@ Rebuild arinzeokigbo.com as a visually ambitious, technically credible personal 
 
 ## Current session
 
-Round 7 — Portrait, composition and motion. The user explicitly prioritizes visual representation, a headshot, layout and more animation over the planned audio experiment. Implement that direction now; retain the open R6 performance evidence and unchanged release gates. Five scoped tasks cover portrait provenance, responsive design, motion, QA and deployment. Branch hive/round-7-portrait-design.
+Round8 — editorial polish. The owner requests better typography and icons, the supplied Splita logo, and removal of all public references to the site being built by a swarm. This supersedes the original public build-process showcase. Internal coordination/evidence stays in the repository. Three specialists own typography/motion text, SVG icons/brand, and public content cleanup. Queen owns independent QA and gated release. Branch hive/round-8-editorial-polish.
 
 ## Decisions
 
@@ -83,3 +83,9 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: Round7 restores the authentic portrait from Git history, promotes editorial home/About layouts, and adds native spring portrait depth, hover light and decorative frame entrances. Local fixed-five97/100/100/100 versus controlled baseline98, with CLS0 and all bundle gates passing. Keep the measured one-point tradeoff explicit; do not attribute old Linux variance to the portrait or claim it resolved.
 
 - 2026-09-15: PR8 required Linux34978867809 blocked merge at94/100/100/100 (91/94/94/97/92,LCP2662ms,TBT161ms,CLS0.00313). Build/unit/browser/bundle checks passed; exact preview b852228 is visually verified. Preserve reports and investigate the recorded185ms startup task plus portrait-introduction layout shift.
+
+- 2026-09-15: Revised PR8 required Linux34980406593 passed96/100/100/100 (64/95/96/98/96), CLS0. Keep the slow first run and environment variation; measured startup geometry reads fell1→0, but this does not establish the cause of score variance. Exact preview a2430f1 verified, then merged as4fd1c6c. Production and final main checks are pending.
+
+- 2026-09-15: Production4fd1c6c verified, all87 browserchecks passed after one local-network infrastructure retry, and audit34981175312 published/enforced99/100/100/100 (95/97/99/99/99,LCP1666ms,TBT111ms,CLS0). Final mainCI34981068899 subsequently measured93 (91/94/97/92/93). Keep R7-04 open and preserve all evidence; production passed, while Linux startup consistency remains unresolved. Portrait is already SSR-preloaded, so no duplicate preload or speculative image change.
+
+- 2026-09-15: Owner explicitly requests agents to polish typography/icons, use the provided Splita logo, and remove visitor-facing swarm/site-build messaging. Remove public build records/replays/credits and the unused profiling showcase; preserve old URLs and factual projects. Internal coordination is not visitor content.

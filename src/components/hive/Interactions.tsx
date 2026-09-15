@@ -1,5 +1,6 @@
 "use client";
 import { useReducedMotion } from "./motion/preferences";
+import { Icon } from "./Icon";
 
 import {
   useEffect,
@@ -7,14 +8,12 @@ import {
   useState,
   useSyncExternalStore,
   ViewTransition,
-  Profiler,
   type ReactNode,
   type MouseEvent,
 } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { springKeyframes } from "./motion/native-spring";
-import { getIslandTimings, recordIslandRender, type IslandTiming } from "./motion/profiler";
 
 type TransitionDocument = Document & {
   startViewTransition?: (update: () => void | Promise<void>) => {
@@ -251,7 +250,13 @@ export function CopyButton({ value, label = "Copy email" }: { value: string; lab
           timer.current = setTimeout(() => setMessage(""), 4000);
         }}
       >
-        {message === "Copied to clipboard" ? "Copied ✓" : label}
+        {message === "Copied to clipboard" ? (
+          <>
+            Copied <Icon name="check" />
+          </>
+        ) : (
+          label
+        )}
       </button>
       <span className="hive-copy-status" role="status">
         {message}
@@ -328,158 +333,6 @@ export function NYClock() {
     <span ref={ref} className="hive-clock">
       {time}
     </span>
-  );
-}
-
-export function ProfiledIsland({
-  name,
-  children,
-  className,
-}: {
-  name: string;
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <div data-hive-boundary={name} className={className} style={{ display: "contents" }}>
-      <Profiler id={name} onRender={recordIslandRender}>
-        {children}
-      </Profiler>
-    </div>
-  );
-}
-
-export function UnderTheHood() {
-  const [open, setOpen] = useState(false);
-  const [islands, setIslands] = useState<IslandTiming[]>([]);
-  const [boundaries, setBoundaries] = useState<string[]>([]);
-  useEffect(
-    () => () => {
-      delete document.documentElement.dataset.hiveDebug;
-    },
-    [],
-  );
-  const [timings, setTimings] = useState<{
-    response: number;
-    dom: number;
-    paints: { name: string; value: number }[];
-  } | null>(null);
-  const refresh = () => {
-    const names = Array.from(document.querySelectorAll<HTMLElement>("[data-hive-boundary]")).map(
-      (element) => element.dataset.hiveBoundary || "",
-    );
-    setBoundaries(names);
-    setIslands(getIslandTimings(new Set(names)));
-    const navigation = performance.getEntriesByType("navigation")[0] as
-      | PerformanceNavigationTiming
-      | undefined;
-    if (navigation)
-      setTimings({
-        response: Math.round(navigation.responseStart),
-        dom: Math.round(navigation.domContentLoadedEventEnd),
-        paints: performance
-          .getEntriesByType("paint")
-          .map((entry) => ({ name: entry.name, value: Math.round(entry.startTime) })),
-      });
-  };
-  const toggle = () => {
-    const next = !open;
-    setOpen(next);
-    document.documentElement.dataset.hiveDebug = String(next);
-    if (next) refresh();
-  };
-  return (
-    <div className="hive-under-hood">
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-controls="hive-runtime-details"
-        onClick={toggle}
-      >
-        Under the hood <span aria-hidden="true">{open ? "−" : "+"}</span>
-      </button>
-      {open && (
-        <div id="hive-runtime-details" className="hive-runtime-details">
-          <p>
-            Server-rendered pages. Client islands for motion, the orbital sculpture, and the lab.
-          </p>
-          <p>Next.js · React · TypeScript · Motion · GSAP · React Three Fiber</p>
-          {timings ? (
-            <dl>
-              <div>
-                <dt>Response start</dt>
-                <dd>{timings.response} ms</dd>
-              </div>
-              <div>
-                <dt>DOM ready</dt>
-                <dd>
-                  {timings.dom || "Pending"}
-                  {timings.dom ? " ms" : ""}
-                </dd>
-              </div>
-              {timings.paints.map((paint) => (
-                <div key={paint.name}>
-                  <dt>{paint.name}</dt>
-                  <dd>{paint.value} ms</dd>
-                </div>
-              ))}
-            </dl>
-          ) : (
-            <p>Navigation timing is unavailable in this browser.</p>
-          )}
-          <section className="hive-profiler-panel" aria-label="Client component render timings">
-            <div className="hive-profiler-heading">
-              <h3>Client islands</h3>
-              <button type="button" onClick={refresh}>
-                Refresh measurements ↻
-              </button>
-            </div>
-            <p>
-              Outlined boundaries on this page:{" "}
-              {boundaries.length ? boundaries.join(" · ") : "No named islands on this page."}
-            </p>
-            {islands.length ? (
-              <div className="hive-profiler-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <th scope="col">Island</th>
-                      <th scope="col">Last render</th>
-                      <th scope="col">Base estimate</th>
-                      <th scope="col">Commits</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {islands.map((island) => (
-                      <tr key={island.name}>
-                        <th scope="row">{island.name}</th>
-                        <td>{island.actualDuration.toFixed(2)} ms</td>
-                        <td>{island.baseDuration.toFixed(2)} ms</td>
-                        <td>{island.commits}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <p>
-                React render measurements are unavailable in this build. The named component
-                boundaries remain inspectable.
-              </p>
-            )}
-            <small>
-              Actual client render CPU time reported by React Profiler. Base is React’s estimate for
-              rendering the full island without optimizations. Counts accumulate during this visit.
-              Browser timer precision applies. No server timings or telemetry.
-            </small>
-          </section>
-          <small>
-            Measured in your browser for this document load. These are navigation timings, not
-            Lighthouse scores or individual component render timings.
-          </small>
-        </div>
-      )}
-    </div>
   );
 }
 
@@ -587,7 +440,7 @@ export function ContactComposer({ email = "arinze@splita.co" }: { email?: string
         Opens a draft in your email app. You decide when to send it.
       </p>
       <button className="button button-primary" type="submit">
-        Open email draft <span aria-hidden="true">↗</span>
+        Open email draft <Icon name="arrow-up-right" />
       </button>
       <p className="hive-compose-status" role="status">
         {status}

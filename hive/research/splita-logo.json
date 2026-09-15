@@ -1,0 +1,12 @@
+{
+  "source": "Owner-supplied attachment 1.jpg, September15 2026",
+  "file": "public/brand/splita-supplied.jpg",
+  "sha256": "2a78e532fb462d2af43dbb9259cb7f6da34ad92a22e9cff2270abf0e2c75fb0e",
+  "bytes": 403861,
+  "dimensions": {
+    "width": 3024,
+    "height": 3024
+  },
+  "processing": "Source bytes preserved; a CSS overflow window shows the logo within its original white field. Next Image provides responsive delivery.",
+  "authorization": "Owner explicitly requested adding this supplied Splita logo to the site."
+}

@@ -17,8 +17,8 @@
 }
 .hive-label {
   font-family: var(--font-mono, monospace);
-  font-size: 0.625rem;
-  letter-spacing: 0.1em;
+  font-size: var(--type-1);
+  letter-spacing: 0.06em;
   color: var(--muted);
   line-height: 1.6;
 }
@@ -49,14 +49,14 @@
 .hive-copy-status {
   display: block;
   max-width: 32ch;
-  font-size: 0.7rem;
+  font-size: var(--type-1);
   color: var(--muted);
   min-height: 1.4em;
 }
 .hive-runtime-details {
   max-width: 650px;
   padding: 24px 0;
-  font-size: 0.75rem;
+  font-size: var(--type-2);
   line-height: 1.8;
 }
 .hive-runtime-details p + p {
@@ -69,7 +69,7 @@
   margin-block: 24px;
 }
 .hive-runtime-details dt {
-  font-size: 0.625rem;
+  font-size: var(--type-1);
   color: var(--muted);
 }
 .hive-runtime-details dd {
@@ -78,7 +78,7 @@
   font-family: var(--font-mono, monospace);
 }
 .hive-runtime-details small {
-  font-size: 0.625rem;
+  font-size: var(--type-1);
 }
 .hive-spring-lab {
   border: 1px solid var(--line);
@@ -100,7 +100,7 @@
   padding: 8px 28px 24px;
 }
 .hive-lab-controls label {
-  font-size: 0.75rem;
+  font-size: var(--type-2);
   color: var(--muted);
 }
 .hive-lab-controls output {
@@ -129,7 +129,7 @@
   color: var(--fg);
   border: 1px solid var(--line);
   border-radius: 8px;
-  font-size: 0.75rem;
+  font-size: var(--type-2);
   transition: background 0.25s var(--ease-out-expo);
 }
 .hive-lab-actions button:hover,
@@ -139,7 +139,7 @@
   color: var(--accent-ink);
 }
 .hive-lab-caption {
-  font-size: 0.75rem !important;
+  font-size: var(--type-2) !important;
   line-height: 1.8;
   color: var(--muted);
 }
@@ -155,7 +155,7 @@
   color: var(--fg);
   border: 1px solid var(--line);
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: var(--type-2);
   white-space: nowrap;
   user-select: none;
   min-height: 44px;
@@ -177,13 +177,13 @@
   margin-block: 12px;
 }
 .hive-stack-card p {
-  font-size: 0.75rem;
+  font-size: var(--type-2);
   color: var(--muted);
 }
 .hive-stack-card a {
   display: inline-block;
   margin-top: 16px;
-  font-size: 0.75rem;
+  font-size: var(--type-2);
   color: var(--accent);
   min-height: 36px;
 }
@@ -197,7 +197,7 @@
   margin: 20px 0 16px;
 }
 .hive-build-replay p {
-  font-size: 0.875rem;
+  font-size: var(--type-2);
   color: var(--muted);
 }
 .hive-build-replay a {
@@ -254,7 +254,7 @@
     background 0.22s var(--ease-out-expo);
   color: var(--accent-ink);
   font-family: var(--font-mono, monospace);
-  font-size: 9px;
+  font-size: var(--type-1);
 }
 .hive-cursor[data-state="link"] > span,
 .hive-cursor[data-state="magnetic"] > span {
@@ -377,7 +377,7 @@
   min-height: 44px;
   padding: 10px 14px;
   font-family: var(--font-mono, monospace);
-  font-size: 0.625rem;
+  font-size: var(--type-1);
   color: var(--muted);
   background: var(--surface);
   border: 1px solid var(--line);
@@ -394,7 +394,7 @@
   margin-top: 40px;
 }
 .hive-contact-composer label {
-  font-size: 0.75rem;
+  font-size: var(--type-2);
   color: var(--muted);
 }
 .hive-contact-composer input,
@@ -421,7 +421,7 @@
 }
 .hive-compose-status {
   min-height: 3em;
-  font-size: 0.8125rem;
+  font-size: var(--type-2);
   color: var(--accent);
 }
 html[data-hive-debug="true"] [data-hive-boundary] > * {
@@ -449,7 +449,7 @@ html[data-hive-debug="true"] [data-hive-boundary] > * {
   color: var(--accent);
   border: 0;
   min-height: 44px;
-  font-size: 0.7rem;
+  font-size: var(--type-1);
 }
 .hive-profiler-table {
   max-width: 100%;
@@ -460,7 +460,7 @@ html[data-hive-debug="true"] [data-hive-boundary] > * {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 0.7rem;
+  font-size: var(--type-1);
 }
 .hive-profiler-table th,
 .hive-profiler-table td {

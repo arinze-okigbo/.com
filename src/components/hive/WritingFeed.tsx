@@ -1,4 +1,5 @@
 "use client";
+import { Icon } from "./Icon";
 import Link from "next/link";
 import { SplitText } from "./Motion";
 import Image from "next/image";
@@ -105,7 +106,9 @@ export function WritingFeed({ articles, posts }: { articles: Article[]; posts: P
                     ))}
                   </div>
                 </div>
-                <span aria-hidden="true">↗</span>
+                <span aria-hidden="true">
+                  <Icon name="arrow-up-right" />
+                </span>
                 {a.cover && (
                   <span className="writing-cover" data-hive-cursor="view">
                     <Image src={a.cover} alt="" width={240} height={150} unoptimized />
@@ -131,7 +134,7 @@ export function WritingFeed({ articles, posts }: { articles: Article[]; posts: P
                     </div>
                     {p.embedUrl && <LinkedInEmbed url={p.embedUrl} title={p.title} />}
                     <a href={p.url} className="text-link" target="_blank" rel="noreferrer">
-                      View on LinkedIn ↗
+                      View on LinkedIn <Icon name="arrow-up-right" />
                     </a>
                   </div>
                 </div>
@@ -159,7 +162,8 @@ function LinkedInEmbed({ url, title }: { url: string; title: string }) {
     />
   ) : (
     <button className="embed-load" onClick={() => setLoaded(true)}>
-      Load official LinkedIn embed ↗<span>Connects to LinkedIn when opened.</span>
+      Load official LinkedIn embed <Icon name="arrow-up-right" />
+      <span>Connects to LinkedIn when opened.</span>
     </button>
   );
 }

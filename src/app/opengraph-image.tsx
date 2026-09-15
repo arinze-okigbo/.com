@@ -1,3 +1,4 @@
+import { Icon } from "@/components/hive/Icon";
 import { ImageResponse } from "next/og";
 export const runtime = "edge";
 export const alt = "Arinze Okigbo — Founder. Engineer. Builder.";
@@ -32,7 +33,10 @@ export default function Image() {
         >
           <span>Arinze</span>
           <div style={{ display: "flex" }}>
-            Okigbo<span style={{ color: "#c2f6bd" }}>↗</span>
+            Okigbo
+            <span style={{ color: "#c2f6bd" }}>
+              <Icon name="arrow-up-right" size={64} style={{ display: "flex" }} />
+            </span>
           </div>
         </div>
         <div style={{ display: "flex", fontSize: 24, color: "#c2f6bd" }}>

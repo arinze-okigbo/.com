@@ -1,5 +1,5 @@
+import { Icon } from "@/components/hive/Icon";
 import Link from "next/link";
-import { ProfiledIsland } from "@/components/hive/Interactions";
 import {
   ContactBanner,
   Label,
@@ -34,14 +34,19 @@ export default function About() {
             the systems people depend on.
           </p>
           <Link href="/work" className="text-link">
-            Follow the work <span aria-hidden="true">↗</span>
+            Follow the work{" "}
+            <span aria-hidden="true">
+              <Icon name="arrow-up-right" />
+            </span>
           </Link>
         </div>
         <div className="portrait-about-image">
           <Portrait variant="about" />
         </div>
         <div className="portrait-about-note">
-          <span aria-hidden="true">↗</span>
+          <span aria-hidden="true">
+            <Icon name="arrow-up-right" />
+          </span>
           <p>
             The tools change.
             <br />
@@ -96,16 +101,13 @@ export default function About() {
           </div>
           <div className="principle">
             <span>03</span>
-            <h3>Orchestrate. Then verify.</h3>
+            <h3>Test the assumptions.</h3>
             <p>
-              This site uses specialist AI agents for research, design, implementation, and
-              verification. The build record is public.
+              A useful result should stand up to questions. Check the details, try the edge cases,
+              and keep learning from what happens.
             </p>
           </div>
         </div>
-        <Link href="/lab/changelog" className="text-link">
-          Inspect the build ↗
-        </Link>
       </section>
       <section className="story-grid shell">
         <div>
@@ -130,20 +132,18 @@ export default function About() {
             <br />
             The curiosity stays.
           </h3>
-          <ProfiledIsland name="Skill physics">
-            <PhysicsTags
-              tags={[
-                "WebAuthn",
-                "TypeScript",
-                "Product",
-                "FIDO2",
-                "Identity",
-                "AI systems",
-                "PKI",
-                "3D web",
-              ]}
-            />
-          </ProfiledIsland>
+          <PhysicsTags
+            tags={[
+              "WebAuthn",
+              "TypeScript",
+              "Product",
+              "FIDO2",
+              "Identity",
+              "AI systems",
+              "PKI",
+              "3D web",
+            ]}
+          />
         </div>
       </section>
       <ContactBanner />

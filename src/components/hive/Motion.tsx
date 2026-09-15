@@ -342,41 +342,31 @@ export function TiltCard({ children, className }: { children: ReactNode; classNa
   );
 }
 
+/** Retains the label API while keeping every character readable throughout its reveal. */
 export function ScrambleLabel({ text, className }: { text: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const visual = useRef<HTMLSpanElement>(null);
   const reduced = useReducedMotion();
   useEffect(() => {
-    const node = ref.current,
-      target = visual.current;
-    if (!node || !target || reduced) return;
-    let timer: ReturnType<typeof setInterval> | undefined;
-    const observer = new IntersectionObserver((entries) => {
-      if (!entries.some((entry) => entry.isIntersecting)) return;
+    const node = ref.current;
+    if (!node || reduced || typeof node.animate !== "function") return;
+    let animation: Animation | undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
       observer.disconnect();
-      let frame = 0;
-      const chars = "01/·+";
-      timer = setInterval(() => {
-        frame++;
-        target.textContent = Array.from(text)
-          .map((char, index) =>
-            char === " " || index < frame ? char : chars[(index + frame) % chars.length],
-          )
-          .join("");
-        if (frame >= text.length) clearInterval(timer);
-      }, 35);
+      animation = node.animate([{ transform: "translateY(4px)" }, { transform: "translateY(0)" }], {
+        duration: 420,
+        easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+      });
     });
     observer.observe(node);
     return () => {
       observer.disconnect();
-      clearInterval(timer);
-      target.textContent = text;
+      animation?.cancel();
     };
   }, [reduced, text]);
   return (
-    <span ref={ref} className={className}>
-      <span className="hive-sr-only">{text}</span>
-      <span aria-hidden="true" ref={visual}>
+    <span className={className}>
+      <span ref={ref} style={{ display: "inline-block" }}>
         {text}
       </span>
     </span>
