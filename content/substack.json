@@ -16,535 +16,1296 @@
           "type": "heading",
           "text": "Abstract",
           "id": "section-0",
-          "level": 2
+          "level": 2,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Abstract"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The rapid growth of non-human identities, such as service accounts, API keys, workload tokens, and autonomous AI agents, has already surpassed the number of human entities in many systems. At the same time, advances in generative AI are reducing trust in perceptual evidence through deepfakes and synthetic media. Together, these trends challenge our assumptions about identity, authentication, and trust online.",
           "id": "section-1",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The rapid growth of non-human identities, such as service accounts, API keys, workload tokens, and autonomous AI agents, has already surpassed the number of human entities in many systems. At the same time, advances in generative AI are reducing trust in perceptual evidence through deepfakes and synthetic media. Together, these trends challenge our assumptions about identity, authentication, and trust online."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "In this paper, I claim that these pressures will lead to a shift toward what I call conditional anonymity . In this emerging model, zero-knowledge proofs (ZKPs) enable individuals to authenticate properties about themselves while preserving privacy, whereas non-human actors are increasingly required to produce cryptographic evidence linking their actions to accountable human principals. This asymmetry is not accidental but reflects deeper technical, legal, and economic constraints that shape identity systems.",
+          "text": "In this paper, I claim that these pressures will lead to a shift toward what I call conditional anonymity. In this emerging model, zero-knowledge proofs (ZKPs) enable individuals to authenticate properties about themselves while preserving privacy, whereas non-human actors are increasingly required to produce cryptographic evidence linking their actions to accountable human principals. This asymmetry is not accidental but reflects deeper technical, legal, and economic constraints that shape identity systems.",
           "id": "section-2",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "In this paper, I claim that these pressures will lead to a shift toward what I call "
+            },
+            {
+              "type": "text",
+              "text": "conditional anonymity",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ". In this emerging model, zero-knowledge proofs (ZKPs) enable individuals to authenticate properties about themselves while preserving privacy, whereas non-human actors are increasingly required to produce cryptographic evidence linking their actions to accountable human principals. This asymmetry is not accidental but reflects deeper technical, legal, and economic constraints that shape identity systems."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Thanks for reading! Subscribe for free to receive new posts and support my work.",
           "id": "section-3",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Thanks for reading! Subscribe for free to receive new posts and support my work."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "I examine the technical foundations of this shift, particularly ZKPs and the identity establishment problem, and analyze how non-human identities and AI systems create new risks. I then lay out a plausible 2036 framework and discuss core issues, including metadata leakage, platform control, and inequality. Ultimately, conditional anonymity demonstrates a more extensive rebalancing between privacy, accountability, and control in modern digital systems.",
           "id": "section-4",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "I examine the technical foundations of this shift, particularly ZKPs and the identity establishment problem, and analyze how non-human identities and AI systems create new risks. I then lay out a plausible 2036 framework and discuss core issues, including metadata leakage, platform control, and inequality. Ultimately, conditional anonymity demonstrates a more extensive rebalancing between privacy, accountability, and control in modern digital systems."
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "1. Introduction: The Collapsing Perimeter of Human Identity",
           "id": "section-5",
-          "level": 2
+          "level": 2,
+          "inline": [
+            {
+              "type": "text",
+              "text": "1. Introduction: The Collapsing Perimeter of Human Identity"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Digital identity systems were historically designed around the assumption that humans were the only users. In the 1990s and early 2000s, identity models were largely anthropocentric: credentials, passwords, authentication sessions, fraud detection, and compliance processes all centered on individuals. This assumption is no longer valid.",
           "id": "section-6",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Digital identity systems were historically designed around the assumption that humans were the only users. In the 1990s and early 2000s, identity models were largely anthropocentric: credentials, passwords, authentication sessions, fraud detection, and compliance processes all centered on individuals. This assumption is no longer valid."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Recent data suggests that identity-based attacks have overtaken traditional software exploits as the primary threat vector. Attackers are increasingly relying on valid credentials obtained through phishing, infostealers, or token theft rather than exploiting software vulnerabilities. At the same time, non-human identities (NHIs), including service accounts, API keys, and autonomous agents, now outnumber human users by a significant margin, in some cases by more than an order of magnitude.",
           "id": "section-7",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Recent data suggests that identity-based attacks have overtaken traditional software exploits as the primary threat vector. Attackers are increasingly relying on valid credentials obtained through phishing, infostealers, or token theft rather than exploiting software vulnerabilities. At the same time, non-human identities (NHIs), including service accounts, API keys, and autonomous agents, now outnumber human users by a significant margin, in some cases by more than an order of magnitude."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "From a systems perspective, this shift fundamentally changes the threat model. Instead of asking whether a user is legitimate at login time, systems must now continuously reason about whether actions made after authentication remain trustworthy. This is consistent with a key theme in this course: authentication is not a one-time event, but part of an ongoing process of authorization, trust evaluation, and risk management.",
           "id": "section-8",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "From a systems perspective, this shift fundamentally changes the threat model. Instead of asking whether a user is legitimate at login time, systems must now continuously reason about whether actions made after authentication remain trustworthy. This is consistent with a key theme in this course: authentication is not a one-time event, but part of an ongoing process of authorization, trust evaluation, and risk management."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Modern credential systems reinforce this gap. While they are effective at verifying user presence and intent at the start of authentication, they offer limited guarantees about what happens afterward. It is straightforward to construct a scenario in which an agent leverages an already-authenticated session to act on a user’s behalf without any further verification. This illustrates a wider issue: identity systems authenticate humans, but then implicitly trust software acting in their name.",
           "id": "section-9",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Modern credential systems reinforce this gap. While they are effective at verifying user presence and intent at the start of authentication, they offer limited guarantees about what happens afterward. It is straightforward to construct a scenario in which an agent leverages an already-authenticated session to act on a user’s behalf without any further verification. This illustrates a wider issue: identity systems authenticate humans, but then implicitly trust software acting in their name."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "At the same time, advances in generative AI are undermining traditional forms of identity verification. Deepfakes and synthetic media make it increasingly difficult to rely on visual or auditory evidence. As Chesney and Citron describe, this creates a “liar’s dividend,” where even authentic recordings can be dismissed as fabricated.",
           "id": "section-10",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "At the same time, advances in generative AI are undermining traditional forms of identity verification. Deepfakes and synthetic media make it increasingly difficult to rely on visual or auditory evidence. As Chesney and Citron describe, this creates a “liar’s dividend,” where even authentic recordings can be dismissed as fabricated."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "When both credentials and perceptual evidence become unreliable, the fundamental question becomes: how can identity be established and verified in a way that sustains a balance of privacy, security, and utility?",
           "id": "section-11",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "When both credentials and perceptual evidence become unreliable, the fundamental question becomes: how can identity be established and verified in a way that sustains a balance of privacy, security, and utility?"
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "Thesis",
           "id": "section-12",
-          "level": 2
+          "level": 2,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Thesis"
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "This paper argues that by 2036, digital identity systems will likely evolve toward a model of conditional anonymity , in which humans gain stronger privacy protections through the use of zero-knowledge proofs and anonymous credentials, while non-human actors are subject to stricter forms of cryptographic accountability. This shift is driven by three converging factors: the rise of non-human identities as a dominant attack surface, the erosion of trust in perceptual and credential-based authentication, and the shortcomings of existing identity infrastructures.",
+          "text": "This paper argues that by 2036, digital identity systems will likely evolve toward a model of conditional anonymity, in which humans gain stronger privacy protections through the use of zero-knowledge proofs and anonymous credentials, while non-human actors are subject to stricter forms of cryptographic accountability. This shift is driven by three converging factors: the rise of non-human identities as a dominant attack surface, the erosion of trust in perceptual and credential-based authentication, and the shortcomings of existing identity infrastructures.",
           "id": "section-13",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "This paper argues that by 2036, digital identity systems will likely evolve toward a model of "
+            },
+            {
+              "type": "text",
+              "text": "conditional anonymity",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ", in which humans gain stronger privacy protections through the use of zero-knowledge proofs and anonymous credentials, while non-human actors are subject to stricter forms of cryptographic accountability. This shift is driven by three converging factors: the rise of non-human identities as a dominant attack surface, the erosion of trust in perceptual and credential-based authentication, and the shortcomings of existing identity infrastructures."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "In this model, anonymity is not absolute but context-dependent. Humans can authenticate properties about themselves, such as age, citizenship, or authorization, without revealing their full identities, in accordance with the privacy-enhancing technologies discussed in this course. In contrast, software agents and AI systems are required to produce verifiable evidence linking their actions to accountable principals, reflecting the need for stronger guarantees of integrity and responsibility.",
           "id": "section-14",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "In this model, anonymity is not absolute but context-dependent. Humans can authenticate properties about themselves, such as age, citizenship, or authorization, without revealing their full identities, in accordance with the privacy-enhancing technologies discussed in this course. In contrast, software agents and AI systems are required to produce verifiable evidence linking their actions to accountable principals, reflecting the need for stronger guarantees of integrity and responsibility."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The following sections develop this argument by examining the technical foundations of zero-knowledge proofs, the challenges of identity establishment, the growing risks posed by non-human actors, and the broader system-level trade-offs between privacy, accountability, and control.",
           "id": "section-15",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The following sections develop this argument by examining the technical foundations of zero-knowledge proofs, the challenges of identity establishment, the growing risks posed by non-human actors, and the broader system-level trade-offs between privacy, accountability, and control."
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "2. The Technical Bedrock: ZKPs and the Identity Establishment Problem",
           "id": "section-16",
-          "level": 2
+          "level": 2,
+          "inline": [
+            {
+              "type": "text",
+              "text": "2. The Technical Bedrock: ZKPs and the Identity Establishment Problem"
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "2.1 The Three Properties",
           "id": "section-17",
-          "level": 3
+          "level": 3,
+          "inline": [
+            {
+              "type": "text",
+              "text": "2.1 The Three Properties"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Zero-knowledge proofs (ZKPs) are a class of cryptographic frameworks that allow one party (the prover) to convince another party (the verifier) that a statement is true without revealing any more information beyond the validity of the statement itself. Originally formalized by Goldwasser, Micali, and Rackoff in 1989, ZKPs are now a central element of modern privacy-enhancing technologies.",
           "id": "section-18",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Zero-knowledge proofs (ZKPs) are a class of cryptographic frameworks that allow one party (the prover) to convince another party (the verifier) that a statement is true without revealing any more information beyond the validity of the statement itself. Originally formalized by Goldwasser, Micali, and Rackoff in 1989, ZKPs are now a central element of modern privacy-enhancing technologies."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "ZKPs satisfy three core properties:",
           "id": "section-19",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "ZKPs satisfy three core properties:"
+            }
+          ]
         },
         {
           "type": "list-item",
           "text": "Completeness: If the statement is true and both parties follow the protocol honestly, the verifier will accept the proof. For example, if a Trinity student proves their enrollment status, the verifier will accept this claim with high probability.",
           "id": "section-20",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Completeness: If the statement is true and both parties follow the protocol honestly, the verifier will accept the proof. For example, if a Trinity student proves their enrollment status, the verifier will accept this claim with high probability."
+            },
+            {
+              "type": "break"
+            }
+          ]
         },
         {
           "type": "list-item",
           "text": "Soundness: If the statement is false, a dishonest prover cannot convince the verifier except with negligible probability. This makes certain that false claims, such as pretending to be a student, are rejected.",
           "id": "section-21",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Soundness: If the statement is false, a dishonest prover cannot convince the verifier except with negligible probability. This makes certain that false claims, such as pretending to be a student, are rejected."
+            },
+            {
+              "type": "break"
+            }
+          ]
         },
         {
           "type": "list-item",
           "text": "Zero-knowledge: The verifier learns nothing beyond the truth of the statement itself. This is the defining property and directly supports the goal of limiting unnecessary data disclosure, a core concern in handling sensitive information.",
           "id": "section-22",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Zero-knowledge: The verifier learns nothing beyond the truth of the statement itself. This is the defining property and directly supports the goal of limiting unnecessary data disclosure, a core concern in handling sensitive information."
+            },
+            {
+              "type": "break"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Modern implementations of ZKPs, such as zk-SNARKs and zk-STARKs, significantly improve efficiency by compressing interactive proofs into short, non-interactive messages that can be quickly verified. In many cases, proofs are only a few hundred bytes and can be verified in milliseconds.",
           "id": "section-23",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Modern implementations of ZKPs, such as zk-SNARKs and zk-STARKs, significantly improve efficiency by compressing interactive proofs into short, non-interactive messages that can be quickly verified. In many cases, proofs are only a few hundred bytes and can be verified in milliseconds."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "From a systems perspective, ZKPs serve as anonymous credentials, letting users to prove attributes without revealing their identities. This is consistent with our course concepts, such as authentication versus identification: ZKPs enable systems to verify whether a user is who they claim to be without necessarily knowing who the user is .",
+          "text": "From a systems perspective, ZKPs serve as anonymous credentials, letting users to prove attributes without revealing their identities. This is consistent with our course concepts, such as authentication versus identification: ZKPs enable systems to verify whether a user is who they claim to be without necessarily knowing who the user is.",
           "id": "section-24",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "From a systems perspective, ZKPs serve as anonymous credentials, letting users to prove attributes without revealing their identities. This is consistent with our course concepts, such as authentication versus identification: ZKPs enable systems to verify whether a user "
+            },
+            {
+              "type": "text",
+              "text": "is who they claim to be",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": " without necessarily knowing "
+            },
+            {
+              "type": "text",
+              "text": "who the user is",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": "."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "This ability directly supports the first component of conditional anonymity. By supporting selective disclosure, ZKPs allow identity systems to reduce the amount of sensitive information disclosed during interactions, thereby lowering the risk of misuse, breach, or secondary inference. However, as the next section will show, ZKPs do not eliminate the need for trusted issuers or solve the more extensive problem of identity establishment.",
           "id": "section-25",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "This ability directly supports the first component of conditional anonymity. By supporting selective disclosure, ZKPs allow identity systems to reduce the amount of sensitive information disclosed during interactions, thereby lowering the risk of misuse, breach, or secondary inference. However, as the next section will show, ZKPs do not eliminate the need for trusted issuers or solve the more extensive problem of identity establishment."
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "2.2 Issuance vs. Proving, and Why the Distinction Matters",
           "id": "section-26",
-          "level": 2
+          "level": 2,
+          "inline": [
+            {
+              "type": "text",
+              "text": "2.2 Issuance vs. Proving, and Why the Distinction Matters",
+              "emphasis": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "A large part of the misunderstanding about ZKPs in identification stems from conflating two distinct steps. Firstly, issuance is the process by which an authority, a governmental body, a university registrar or a bank authenticates the user’s attributes, links them to the user’s public key and issues a signature. The signed statement itself is the credential; it is not a ZKP and relies on a verification process to prove the user’s identity. This is where the base for future proofs is set. Secondly, the user, sometimes years later, creates a ZKP to satisfy the verification’s predicate. The issuer does not need to be available online, and the verifier does not even see the original attributes, the credential, or the identifiers. Rather, what one sees serves as cryptographic proof of the authority’s signature on the statement in question. This is especially important for a verifier such as a group-payments platform, which need never see personal details such as legal names, birthdays, or account balances.",
           "id": "section-27",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "A large part of the misunderstanding about ZKPs in identification stems from conflating two distinct steps. Firstly, issuance is the process by which an authority, a governmental body, a university registrar or a bank authenticates the user’s attributes, links them to the user’s public key and issues a signature. The signed statement itself is the credential; it is not a ZKP and relies on a verification process to prove the user’s identity. This is where the base for future proofs is set. Secondly, the user, sometimes years later, creates a ZKP to satisfy the verification’s predicate. The issuer does not need to be available online, and the verifier does not even see the original attributes, the credential, or the identifiers. Rather, what one sees serves as cryptographic proof of the authority’s signature on the statement in question. This is especially important for a verifier such as a group-payments platform, which need never see personal details such as legal names, birthdays, or account balances."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Knowledge of the identity remains with the KYC partners, while the verifier holds only the proof. The critical part is that identity verification doesn’t happen through cryptography but instead at the point where the identity is issued, and some parts of the identity can be kept secret only during the generation of the proof. What this results in is something I call “blast radius reduction.” A verifier that retains full bank-linkage information---data that may never be queried again---assumes unnecessary risk. The better design is to retain only the token and the predicate at the time of settlement.",
           "id": "section-28",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Knowledge of the identity remains with the KYC partners, while the verifier holds only the proof. The critical part is that identity verification doesn’t happen through cryptography but instead at the point where the identity is issued, and some parts of the identity can be kept secret only during the generation of the proof. What this results in is something I call “blast radius reduction.” A verifier that retains full bank-linkage information---data that may never be queried again---assumes unnecessary risk. The better design is to retain only the token and the predicate at the time of settlement."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "2.3 The Identity Establishment Problem",
           "id": "section-29",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "2.3 The Identity Establishment Problem"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "In this case, I explain what ZKPs cannot do. Firstly, they do not generate any form of identity but help to preserve anonymity around them. Every zero-knowledge proof can work only with the help of the issuer’s credibility -- no matter whether it was a government agency, bank, or some other organization. If a proof states that someone is over 18 years old, then the issuer of that credential should be trusted -- either the government or mobile operators. If the proof concerns the bank account balance, it should be trusted as well, including the bank itself and the regulatory body that oversees it. All of these things are true for all 2036, and there are three main consequences: first, ZKPs are unlikely to undermine the power of the state and financial issuers but merely redistribute it. Second, fragmentation will persist. American users have credentials issued by the Social Security Administration, state DMVs, banks, employers, and universities, none of which operate on a single schema. The wallet of 2036 needs to be able to link all these together, or the system collapses. Third, vulnerable people who lack good issuers, such as undocumented immigrants, citizens of failed states, or refugees, run into new problems of exclusion because they lack the proofs that the system requires. Typically, privacy gains from zero-knowledge proofs tend to favor people who already have powerful state IDs.",
           "id": "section-30",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "In this case, I explain what ZKPs cannot do. Firstly, they do not generate any form of identity but help to preserve anonymity around them. Every zero-knowledge proof can work only with the help of the issuer’s credibility -- no matter whether it was a government agency, bank, or some other organization. If a proof states that someone is over 18 years old, then the issuer of that credential should be trusted -- either the government or mobile operators. If the proof concerns the bank account balance, it should be trusted as well, including the bank itself and the regulatory body that oversees it. All of these things are true for all 2036, and there are three main consequences: first, ZKPs are unlikely to undermine the power of the state and financial issuers but merely redistribute it. Second, fragmentation will persist. American users have credentials issued by the Social Security Administration, state DMVs, banks, employers, and universities, none of which operate on a single schema. The wallet of 2036 needs to be able to link all these together, or the system collapses. Third, vulnerable people who lack good issuers, such as undocumented immigrants, citizens of failed states, or refugees, run into new problems of exclusion because they lack the proofs that the system requires. Typically, privacy gains from zero-knowledge proofs tend to favor people who already have powerful state IDs."
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "3. The Identity Crisis of Non-Human Actors",
           "id": "section-31",
-          "level": 1
+          "level": 1,
+          "inline": [
+            {
+              "type": "text",
+              "text": "3. The Identity Crisis of Non-Human Actors"
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "3.1 Logging In, Not Hacking In",
           "id": "section-32",
-          "level": 2
+          "level": 2,
+          "inline": [
+            {
+              "type": "text",
+              "text": "3.1 Logging In, Not Hacking In",
+              "emphasis": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "An inflection point is recorded in the IBM 2025 Index. Identity theft surpasses software exploits as the primary attack vector against systems. Credentials have become stolen or spoofed in major operations by attackers: stolen by infostealers on GitHub, created from API keys found publicly on GitHub, generated as tokens that were improperly scoped during development without being pared down later, generated as service accounts which were deployed once for a migration job and then left running, or as machine identity credential sets added to directory services by attackers who already had a beachhead within organizations (IBM, 2025). The Cloud Security Alliance and Astrix Security jointly conducted a survey that showed an estimated ratio of non-human identity accounts to human identity accounts was 20:1 (CSA & Astrix, 2024). The latest telemetry for 2025 shows a ratio of 144:1 (Entro Labs, 2025).",
           "id": "section-33",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "An inflection point is recorded in the IBM 2025 Index. Identity theft surpasses software exploits as the primary attack vector against systems. Credentials have become stolen or spoofed in major operations by attackers: stolen by infostealers on GitHub, created from API keys found publicly on GitHub, generated as tokens that were improperly scoped during development without being pared down later, generated as service accounts which were deployed once for a migration job and then left running, or as machine identity credential sets added to directory services by attackers who already had a beachhead within organizations (IBM, 2025). The Cloud Security Alliance and Astrix Security jointly conducted a survey that showed an estimated ratio of non-human identity accounts to human identity accounts was 20:1 (CSA & Astrix, 2024). The latest telemetry for 2025 shows a ratio of 144:1 (Entro Labs, 2025)."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The issue here is not simply scale but asymmetry. While people have inherent accountability, NHIs do not. When an individual moves from one company to another, their HR department begins deprovisioning them. A service user has no corresponding HR department. If a person tries to log in 3 times with an incorrect password, they get locked out. APIs never try to log in incorrectly. An autonomous actor cannot be asked retrospectively whether they intended a specific course of action unless that intent was embedded in their operations. My policy recommendation is that the 2036 specification must enforce what I will term human-level controls on NHIs. Indeed, precisely because the playbook for attackers has blurred the line between attacks on humans and attacks on machines. The authenticated-session scenario described earlier is just one example of the issue at hand. Extend this same logic to apply to multiple microservices, an LLM agent making chain calls using the user’s APIs, and a couple of external applications, and you have a live identity management system that cannot tell the difference between a logged-in human user, his delegated agent, and an attacker who has compromised his session.",
           "id": "section-34",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The issue here is not simply scale but asymmetry. While people have inherent accountability, NHIs do not. When an individual moves from one company to another, their HR department begins deprovisioning them. A service user has no corresponding HR department. If a person tries to log in 3 times with an incorrect password, they get locked out. APIs never try to log in incorrectly. An autonomous actor cannot be asked retrospectively whether they intended a specific course of action unless that intent was embedded in their operations. My policy recommendation is that the 2036 specification must enforce what I will term human-level controls on NHIs. Indeed, precisely because the playbook for attackers has blurred the line between attacks on humans and attacks on machines. The authenticated-session scenario described earlier is just one example of the issue at hand. Extend this same logic to apply to multiple microservices, an LLM agent making chain calls using the user’s APIs, and a couple of external applications, and you have a live identity management system that cannot tell the difference between a logged-in human user, his delegated agent, and an attacker who has compromised his session."
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "3.2 LLMs as a New Kind of NHI",
           "id": "section-35",
-          "level": 2
+          "level": 2,
+          "inline": [
+            {
+              "type": "text",
+              "text": "3.2 LLMs as a New Kind of NHI",
+              "emphasis": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "LLMs bring a fresh class of non-human actors that negotiate, persuade, and make claims as part of their fundamental functionality. Two kinds of threats demonstrate how identity presumptions break down when LLMs are at play. First, there is the threat of training-data leakage via prompt crafting, as shown by Carlini et al. (2021), who prompted LLMs to disclose sensitive data such as emails, phone numbers, private keys, and copyrighted texts. The problem here is one of scale: rare data in the training set is memorized accurately, so rare and sensitive data that occur once in a document would be extracted rather than frequent, common phrases. Data extraction by LLMs occurs in domains where sensitivity is highest, and it stems from how these models memorize long-tail data, not from a bug that could be easily fixed. In other words, training an LLM on corporate data is more than just using it as a productivity tool; it’s a repository of data that can only be accessed through clever prompt crafting. However, traditional forms of identity controls, such as RBAC and least privilege, assume the use of small query sets. This can be circumvented through prompt engineering. The remedy is to ensure that critical identities are not included in the training dataset for manipulable models and to encourage the use of retrieval-augmentation approaches.",
           "id": "section-36",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "LLMs bring a fresh class of non-human actors that negotiate, persuade, and make claims as part of their fundamental functionality. Two kinds of threats demonstrate how identity presumptions break down when LLMs are at play. First, there is the threat of training-data leakage via prompt crafting, as shown by Carlini et al. (2021), who prompted LLMs to disclose sensitive data such as emails, phone numbers, private keys, and copyrighted texts. The problem here is one of scale: rare data in the training set is memorized accurately, so rare and sensitive data that occur once in a document would be extracted rather than frequent, common phrases. Data extraction by LLMs occurs in domains where sensitivity is highest, and it stems from how these models memorize long-tail data, not from a bug that could be easily fixed. In other words, training an LLM on corporate data is more than just using it as a productivity tool; it’s a repository of data that can only be accessed through clever prompt crafting. However, traditional forms of identity controls, such as RBAC and least privilege, assume the use of small query sets. This can be circumvented through prompt engineering. The remedy is to ensure that critical identities are not included in the training dataset for manipulable models and to encourage the use of retrieval-augmentation approaches."
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "4. The 2036 Framework: Conditional Anonymity",
           "id": "section-37",
-          "level": 1
+          "level": 1,
+          "inline": [
+            {
+              "type": "text",
+              "text": "4. The 2036 Framework: Conditional Anonymity"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "4.1 The Inversion",
           "id": "section-38",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "4.1 The Inversion",
+              "emphasis": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The framework needs to be described in relation to the prevailing paradigm. Currently, online humans are heavily surveilled but are barely identified. Users are monitored across ad networks through thousands of signals, but can also sign up anonymously or with fake names. Software, on the other hand, operates anonymously, where API keys act as bearer tokens not directly linked to any real identity, and LLM responses lack cryptographically signed provenance. In the 2036 model, these roles would be reversed: users would have strong privacy through the use of ZKPs for everyday activities, while software would be expected to have provable identity behind every action.",
           "id": "section-39",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The framework needs to be described in relation to the prevailing paradigm. Currently, online humans are heavily surveilled but are barely identified. Users are monitored across ad networks through thousands of signals, but can also sign up anonymously or with fake names. Software, on the other hand, operates anonymously, where API keys act as bearer tokens not directly linked to any real identity, and LLM responses lack cryptographically signed provenance. In the 2036 model, these roles would be reversed: users would have strong privacy through the use of ZKPs for everyday activities, while software would be expected to have provable identity behind every action."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "This is what we call Conditional anonymity. Anonymity is never guaranteed; it depends on whether one is human, whether the interaction is habitual, and whether there has been no subsequent fraud or harm that would warrant de-anonymizing the individual under the law. This is achieved not by surveillance but by selective disclosure techniques encoded in the credential.",
           "id": "section-40",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "This is what we call Conditional anonymity. Anonymity is never guaranteed; it depends on whether one is human, whether the interaction is habitual, and whether there has been no subsequent fraud or harm that would warrant de-anonymizing the individual under the law. This is achieved not by surveillance but by selective disclosure techniques encoded in the credential."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "",
+          "id": "section-41",
+          "level": 0,
+          "inline": [
+            {
+              "type": "image",
+              "src": "https://substackcdn.com/image/fetch/$s_!9Y71!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2e6ebcf2-a1bd-4e06-b9b1-14be8ad7698a_2400x1440.png",
+              "alt": "",
+              "href": "https://substackcdn.com/image/fetch/$s_!9Y71!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2e6ebcf2-a1bd-4e06-b9b1-14be8ad7698a_2400x1440.png",
+              "width": 1456,
+              "height": 874
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "4.2 Parkerian Hexad",
           "id": "section-42",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "4.2 Parkerian Hexad"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The Parkerian Hexad (Parker, 1998) extends the classic CIA triad of Confidentiality, Integrity, and Availability by introducing Possession, Authenticity, and Utility. This system is important to me because the concept of Conditional anonymity is a balancing act between these attributes.",
           "id": "section-43",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The Parkerian Hexad (Parker, 1998) extends the classic CIA triad of Confidentiality, Integrity, and Availability by introducing Possession, Authenticity, and Utility. This system is important to me because the concept of Conditional anonymity is a balancing act between these attributes."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "For example, an age proof using a zero-knowledge proof improves privacy, as the verifier knows less than in existing solutions. The issuer’s signature ensures the proof stays authentic. Possession is significant because the holder decides whether and to whom to present the proof, although the credential itself resides in a wallet whose private keys are protected by hardware enclaves that do not fall under the holder’s control. Utility is the main challenge: the proof that merely states “over eighteen” is very useful for controlling age-restricted access but less helpful in fraud investigations, as it eliminates any linkage necessary for the investigation process.",
           "id": "section-44",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "For example, an age proof using a zero-knowledge proof improves privacy, as the verifier knows less than in existing solutions. The issuer’s signature ensures the proof stays authentic. Possession is significant because the holder decides whether and to whom to present the proof, although the credential itself resides in a wallet whose private keys are protected by hardware enclaves that do not fall under the holder’s control. Utility is the main challenge: the proof that merely states “over eighteen” is very useful for controlling age-restricted access but less helpful in fraud investigations, as it eliminates any linkage necessary for the investigation process."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The Hexad also sheds light on our loss when choosing surveillance over evidence. Facial recognition employed in many American and Chinese cities turns faces into numbers (typically 128-dimensional vectors) and compares them against huge databases with millions of entries, enabling mass surveillance, retro-surveillance, and identification at protests. In computer vision, this approach is referred to as 1:N matching, which involves checking one face among many. ZKP identity solutions work through 1:1 matching, proving that the person presenting the proof is indeed the owner of the credentials without any database lookups or linkages. Despite being highly authentic and useful, 1:N mass surveillance compromises confidentiality, reverses the possession property, and diminishes integrity because vectors may be manipulated adversarially. Meanwhile, ZKPs allow retaining authentication and utility while restoring possession and confidentiality. What is even more interesting is that ZKP-based identities cannot support 1:N surveillance due to limitations in the underlying cryptography.",
           "id": "section-45",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The Hexad also sheds light on our loss when choosing surveillance over evidence. Facial recognition employed in many American and Chinese cities turns faces into numbers (typically 128-dimensional vectors) and compares them against huge databases with millions of entries, enabling mass surveillance, retro-surveillance, and identification at protests. In computer vision, this approach is referred to as 1:N matching, which involves checking one face among many. ZKP identity solutions work through 1:1 matching, proving that the person presenting the proof is indeed the owner of the credentials without any database lookups or linkages. Despite being highly authentic and useful, 1:N mass surveillance compromises confidentiality, reverses the possession property, and diminishes integrity because vectors may be manipulated adversarially. Meanwhile, ZKPs allow retaining authentication and utility while restoring possession and confidentiality. What is even more interesting is that ZKP-based identities cannot support 1:N surveillance due to limitations in the underlying cryptography."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "",
+          "id": "section-46",
+          "level": 0,
+          "inline": [
+            {
+              "type": "image",
+              "src": "https://substackcdn.com/image/fetch/$s_!wrRP!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F86a122ae-06c5-4a52-b57b-4cac57b7ea19_2000x1880.png",
+              "alt": "",
+              "href": "https://substackcdn.com/image/fetch/$s_!wrRP!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F86a122ae-06c5-4a52-b57b-4cac57b7ea19_2000x1880.png",
+              "width": 1456,
+              "height": 1369
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "4.3 Mandatory Provenance for Non-Human Actors",
-          "id": "section-46",
-          "level": 0
+          "id": "section-47",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "4.3 Mandatory Provenance for Non-Human Actors",
+              "emphasis": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The second condition is mandatory provenance for AI agents and other non-human entities. All autonomous activities of a minimum magnitude, such as a transaction performed by an agent, an action taken by a bot, or media content generated by a model, should be traceable via a cryptographic chain of provenance back to their responsible principals. The development of the media component of this chain began with C2PA (2025), in which large camera manufacturers and platforms pledged to include signed provenance metadata in their photos and videos. In terms of identity, this will come from an agent credential system, in which LLM-based agents provide a zero-knowledge proof (ZKP) of their principals’ authorization and acceptance of liability after each notable action.",
-          "id": "section-47",
-          "level": 0
+          "id": "section-48",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The second condition is mandatory provenance for AI agents and other non-human entities. All autonomous activities of a minimum magnitude, such as a transaction performed by an agent, an action taken by a bot, or media content generated by a model, should be traceable via a cryptographic chain of provenance back to their responsible principals. The development of the media component of this chain began with C2PA (2025), in which large camera manufacturers and platforms pledged to include signed provenance metadata in their photos and videos. In terms of identity, this will come from an agent credential system, in which LLM-based agents provide a zero-knowledge proof (ZKP) of their principals’ authorization and acceptance of liability after each notable action."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Notice the asymmetry between these two systems: humans prove predicates about themselves without identifying, whereas agents identify themselves without hiding. This does not stem from any fear of AI but from a basic realization that autonomous code lacks agency of any kind -- moral and legal alike. Accountability thus becomes linked to the principal rather than the agent, and mandatory provenance is the only crypto-based solution.",
-          "id": "section-48",
-          "level": 0
+          "id": "section-49",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Notice the asymmetry between these two systems: humans prove predicates about themselves without identifying, whereas agents identify themselves without hiding. This does not stem from any fear of AI but from a basic realization that autonomous code lacks agency of any kind -- moral and legal alike. Accountability thus becomes linked to the principal rather than the agent, and mandatory provenance is the only crypto-based solution."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "4.4 Legal and Economic Logic",
-          "id": "section-49",
-          "level": 0
+          "id": "section-50",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "4.4 Legal and Economic Logic"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "But why would they do that? First, legally speaking, they have their justification for adopting the concept. Since every decision by an AI can be traced back to its source, liability is appropriately assigned. In the absence of the same, disputes arise and become expensive when claims are made. The transparency rules in the EU AI Act indicate that this is the direction the legislation is taking (European Union, 2024). Ten years down the line, the US will definitely have such guidelines governing its sectors.",
-          "id": "section-50",
-          "level": 0
+          "id": "section-51",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "But why would they do that? First, legally speaking, they have their justification for adopting the concept. Since every decision by an AI can be traced back to its source, liability is appropriately assigned. In the absence of the same, disputes arise and become expensive when claims are made. The transparency rules in the EU AI Act indicate that this is the direction the legislation is taking (European Union, 2024). Ten years down the line, the US will definitely have such guidelines governing its sectors."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Economically speaking, the concept will improve the insurability of organizations. Since 2022, underwriters have been tightening the cyber insurance market and demanding much more than multi-factor authentication. Only those firms that have proven their ZKP and provenance will pay significantly reduced insurance premiums.",
-          "id": "section-51",
-          "level": 0
+          "id": "section-52",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Economically speaking, the concept will improve the insurability of organizations. Since 2022, underwriters have been tightening the cyber insurance market and demanding much more than multi-factor authentication. Only those firms that have proven their ZKP and provenance will pay significantly reduced insurance premiums."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Nevertheless, there is a system-level problem referred to as the “composability risk.” With the rising trend of using credentials as blocks linked into a chain (for instance, identity verification via KYC, which ultimately results in loan approval and finally actions performed on-chain), a security flaw at any point involving the issuer’s signature or revocation operations will affect the rest of the chain. The Terra-Luna crisis that occurred in 2022 can serve as an illustrative example of how this works. Given that once a series of DeFi protocols are created on the faulty premise (e.g., an algorithmic stablecoin is dependable), it is not long before it collapses. If the issuer’s signing key turns out to have been compromised, all validators that rely on proofs issued by this entity must recognize all other issuances from the issuer as invalid.",
-          "id": "section-52",
-          "level": 0
+          "id": "section-53",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Nevertheless, there is a system-level problem referred to as the “composability risk.” With the rising trend of using credentials as blocks linked into a chain (for instance, identity verification via KYC, which ultimately results in loan approval and finally actions performed on-chain), a security flaw at any point involving the issuer’s signature or revocation operations will affect the rest of the chain. The Terra-Luna crisis that occurred in 2022 can serve as an illustrative example of how this works. Given that once a series of DeFi protocols are created on the faulty premise (e.g., an algorithmic stablecoin is dependable), it is not long before it collapses. If the issuer’s signing key turns out to have been compromised, all validators that rely on proofs issued by this entity must recognize all other issuances from the issuer as invalid."
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "5. Systemic Risks and Infrastructure Dependencies",
-          "id": "section-53",
-          "level": 1
+          "id": "section-54",
+          "level": 1,
+          "inline": [
+            {
+              "type": "text",
+              "text": "5. Systemic Risks and Infrastructure Dependencies"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "5.1 Metadata Shortfall: The Inadequacy of Using Only Cryptography",
-          "id": "section-54",
-          "level": 0
+          "id": "section-55",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "5.1 Metadata Shortfall: The Inadequacy of Using Only Cryptography"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "One clear-cut case from 2013 demonstrates why the use of only ZKPs is inadequate. Eldo Kim, a Harvard University student, sought to postpone taking an examination by sending a threatening email anonymously through the use of Tor and Guerrilla Mail services. Though the email message was indeed anonymous, metadata about his connection to the Tor network, including his university MAC address at a particular point in time, helped identify him quickly (U.S. District Court for the District of Massachusetts, 2013, Case 1:13-mj-05134-JGD).",
-          "id": "section-55",
-          "level": 0
+          "id": "section-56",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "One clear-cut case from 2013 demonstrates why the use of only ZKPs is inadequate. Eldo Kim, a Harvard University student, sought to postpone taking an examination by sending a threatening email anonymously through the use of Tor and Guerrilla Mail services. Though the email message was indeed anonymous, metadata about his connection to the Tor network, including his university MAC address at a particular point in time, helped identify him quickly (U.S. District Court for the District of Massachusetts, 2013, Case 1:13-mj-05134-JGD)."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The current lesson can be directly applied to ZKP-based identities. A proof for “I am an adult resident of Connecticut” provides no information about its content, whereas metadata such as IP addresses, timing signatures, TLS fingerprints, and actions performed afterward can easily tie that user down. Network deep packet inspection by Internet service providers, governments, or corporate proxies requires no crypto-breaking; only the ability to match the flow to the user. Thus, Conditional Anonymity requires network anonymizing services such as Tor, Mixnets, or equivalent systems. It is also important to use wallet clients that do not leak via fingerprinting via TLS signature unification, equal-proof-size padding, and randomized proof-sending timing. My peers and I have observed multiple times that layer seven cryptography strength is undermined by layer three observability time and again. The 2036 standard would fail if it assumes that Zero-Knowledge proofs provide sufficient privacy protection, disregarding the need for layered privacy defenses.",
-          "id": "section-56",
-          "level": 0
+          "id": "section-57",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The current lesson can be directly applied to ZKP-based identities. A proof for “I am an adult resident of Connecticut” provides no information about its content, whereas metadata such as IP addresses, timing signatures, TLS fingerprints, and actions performed afterward can easily tie that user down. Network deep packet inspection by Internet service providers, governments, or corporate proxies requires no crypto-breaking; only the ability to match the flow to the user. Thus, Conditional Anonymity requires network anonymizing services such as Tor, Mixnets, or equivalent systems. It is also important to use wallet clients that do not leak via fingerprinting via TLS signature unification, equal-proof-size padding, and randomized proof-sending timing. My peers and I have observed multiple times that layer seven cryptography strength is undermined by layer three observability time and again. The 2036 standard would fail if it assumes that Zero-Knowledge proofs provide sufficient privacy protection, disregarding the need for layered privacy defenses."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "5.2 Technofeudalism and the Erasure of Digital Identity",
-          "id": "section-57",
-          "level": 0
+          "id": "section-58",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "5.2 Technofeudalism and the Erasure of Digital Identity"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The other problem lies at the level of platforms and censorship, dubbed Technofeudalism by Yanis Varoufakis (2023). He explains that there is an elite few who run the clouds and platforms where user identity holds economic weight, allowing them to shadow-ban, deplatform, demonetize, and suppress identities algorithmically. A ZKP-based credential will be rendered useless if the platform chooses not to authenticate it, while a provenance-signed post is meaningless if algorithms choose not to display it. Conditional Anonymity does not solve the problem but may be used against it. If the issuer’s infrastructure controlling the process is dominated by a state or platform, it can dictate which predicates can be proven. For instance, if a dissident does not have a credential saying he is a “resident in good standing,” then his identity will be deleted in ways no passport system can achieve since the exclusion will be cryptographic and universal for all verifiers. The definitive solution is the diversification of issuers; that is, there should be many competing issuers in academia, civil society, and the private sector, assuring no one can arbitrarily deny the capability to prove fundamental predicates.",
-          "id": "section-58",
-          "level": 0
+          "id": "section-59",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The other problem lies at the level of platforms and censorship, dubbed Technofeudalism by Yanis Varoufakis (2023). He explains that there is an elite few who run the clouds and platforms where user identity holds economic weight, allowing them to shadow-ban, deplatform, demonetize, and suppress identities algorithmically. A ZKP-based credential will be rendered useless if the platform chooses not to authenticate it, while a provenance-signed post is meaningless if algorithms choose not to display it. Conditional Anonymity does not solve the problem but may be used against it. If the issuer’s infrastructure controlling the process is dominated by a state or platform, it can dictate which predicates can be proven. For instance, if a dissident does not have a credential saying he is a “resident in good standing,” then his identity will be deleted in ways no passport system can achieve since the exclusion will be cryptographic and universal for all verifiers. The definitive solution is the diversification of issuers; that is, there should be many competing issuers in academia, civil society, and the private sector, assuring no one can arbitrarily deny the capability to prove fundamental predicates."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "5.3 Quantum and Cryptographic Agility",
-          "id": "section-59",
-          "level": 0
+          "id": "section-60",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "5.3 Quantum and Cryptographic Agility"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Predictions about the future have to take post-quantum cryptography into account. At the moment, zk-SNARKS rely on elliptic curve assumptions that can be easily broken by quantum computers. zk-STARKS, which are based on hash commitments, are thought to be post-quantum cryptography-friendly (Ben-Sasson, Bentov, Horesh, & Riabzev, 2018). It is expected that the ZKP infrastructure in 2036 will be based on STARKS or lattices, and switching from existing SNARKS systems, which will have been implemented in 2026, will not be easy.",
-          "id": "section-60",
-          "level": 0
+          "id": "section-61",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Predictions about the future have to take post-quantum cryptography into account. At the moment, zk-SNARKS rely on elliptic curve assumptions that can be easily broken by quantum computers. zk-STARKS, which are based on hash commitments, are thought to be post-quantum cryptography-friendly (Ben-Sasson, Bentov, Horesh, & Riabzev, 2018). It is expected that the ZKP infrastructure in 2036 will be based on STARKS or lattices, and switching from existing SNARKS systems, which will have been implemented in 2026, will not be easy."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "5.4 Social and Distributive Risks",
-          "id": "section-61",
-          "level": 0
+          "id": "section-62",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "5.4 Social and Distributive Risks"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The systemic risks raised in Section 2.3 must be highlighted at this point. A system that rewards individuals with good state credentials is bound to uphold existing hierarchies. Refugees, undocumented workers, the unbanked, and people from dysfunctional civil states will have difficulty demonstrating the predicates required by Conditional Anonymity. In the absence of deliberate policies such as issuing of credentials from communities, Issuer programs designed to help refugees, and proof-of-personhood schemes that are independent of state IDs, Conditional Anonymity could simply perpetuate pre-Internet inequality within cryptographic terms.",
-          "id": "section-62",
-          "level": 0
+          "id": "section-63",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The systemic risks raised in Section 2.3 must be highlighted at this point. A system that rewards individuals with good state credentials is bound to uphold existing hierarchies. Refugees, undocumented workers, the unbanked, and people from dysfunctional civil states will have difficulty demonstrating the predicates required by Conditional Anonymity. In the absence of deliberate policies such as issuing of credentials from communities, Issuer programs designed to help refugees, and proof-of-personhood schemes that are independent of state IDs, Conditional Anonymity could simply perpetuate pre-Internet inequality within cryptographic terms."
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "6. Conclusion: From Document to Living Identity",
-          "id": "section-63",
-          "level": 1
+          "id": "section-64",
+          "level": 1,
+          "inline": [
+            {
+              "type": "text",
+              "text": "6. Conclusion: From Document to Living Identity"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The identity architecture expected to emerge in 2036 will be different from that in 2026 due to multiple pressures modifying its development. On one hand, synthetic media and autonomous agents diminish the credibility of online interactions, whereas, on another, Zero-Knowledge Proofs (ZKP) evolve rapidly and approach mainstream adoption. The described model of conditional anonymity may be understood as not only an improvement in technology, but a purposeful attempt to move privacy rights away from software and back to human individuals.",
-          "id": "section-64",
-          "level": 0
+          "id": "section-65",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The identity architecture expected to emerge in 2036 will be different from that in 2026 due to multiple pressures modifying its development. On one hand, synthetic media and autonomous agents diminish the credibility of online interactions, whereas, on another, Zero-Knowledge Proofs (ZKP) evolve rapidly and approach mainstream adoption. The described model of conditional anonymity may be understood as not only an improvement in technology, but a purposeful attempt to move privacy rights away from software and back to human individuals."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "What is important about the concept being presented is that identity is shifting from being treated as a document to being considered as a continuous interaction. Traditional identification means, such as passports, driver’s licenses, or database entries, identify a person’s status at a given point in time. Conditional anonymity based on ZKP, network-level anonymity, mandatory provenance of NHIs, and the credential pool represents a continuous cryptography operation. Every important interaction requires a human user to produce a unique, unlinkable ZKP, whereas every autonomous agent performing actions on behalf of a human should leave a tamper-proof audit trail to an accountable entity. Thus, identity becomes a constant cryptographic activity.",
-          "id": "section-65",
-          "level": 0
+          "id": "section-66",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "What is important about the concept being presented is that identity is shifting from being treated as a document to being considered as a continuous interaction. Traditional identification means, such as passports, driver’s licenses, or database entries, identify a person’s status at a given point in time. Conditional anonymity based on ZKP, network-level anonymity, mandatory provenance of NHIs, and the credential pool represents a continuous cryptography operation. Every important interaction requires a human user to produce a unique, unlinkable ZKP, whereas every autonomous agent performing actions on behalf of a human should leave a tamper-proof audit trail to an accountable entity. Thus, identity becomes a constant cryptographic activity."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Achieving the presented vision is possible with three prerequisites: (i) having enough issuers of credentials so that conditional anonymity does not become a tool for governments to control populations, (ii) having sufficient network-level anonymity so that ZKP does not become just yet another type of metadata leaks, and (iii) willingness of governments to enforce the provenance requirement for NHIs despite objections by software engineers designing AI systems. None of the listed goals is guaranteed to come true; however, all are achievable.",
-          "id": "section-66",
-          "level": 0
+          "id": "section-67",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Achieving the presented vision is possible with three prerequisites: (i) having enough issuers of credentials so that conditional anonymity does not become a tool for governments to control populations, (ii) having sufficient network-level anonymity so that ZKP does not become just yet another type of metadata leaks, and (iii) willingness of governments to enforce the provenance requirement for NHIs despite objections by software engineers designing AI systems. None of the listed goals is guaranteed to come true; however, all are achievable."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "From my experience, there is a considerable correlation between technology advancements and business needs. Implementing a ZKP identity system may reduce both compliance costs and breach-related risks while improving cross-border user onboarding. The introduction of the NHIs’ provenance gives companies additional responsibility that could not be enforced via reliable logs before. Conditional anonymity takes the idea behind the identification systems of the early 2000s further by recognizing the differences in the roles of humans and software and making the latter accountable.",
-          "id": "section-67",
-          "level": 0
+          "id": "section-68",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "From my experience, there is a considerable correlation between technology advancements and business needs. Implementing a ZKP identity system may reduce both compliance costs and breach-related risks while improving cross-border user onboarding. The introduction of the NHIs’ provenance gives companies additional responsibility that could not be enforced via reliable logs before. Conditional anonymity takes the idea behind the identification systems of the early 2000s further by recognizing the differences in the roles of humans and software and making the latter accountable."
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "References",
-          "id": "section-68",
-          "level": 1
+          "id": "section-69",
+          "level": 1,
+          "inline": [
+            {
+              "type": "text",
+              "text": "References"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Ben-Sasson, E., Chiesa, A., Tromer, E., & Virza, M. (2014). Succinct non-interactive zero knowledge for a von Neumann architecture. In Proceedings of the 23rd USENIX Security Symposium (pp. 781--796). USENIX Association.",
-          "id": "section-69",
-          "level": 0
+          "id": "section-70",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Ben-Sasson, E., Chiesa, A., Tromer, E., & Virza, M. (2014). Succinct non-interactive zero knowledge for a von Neumann architecture. In "
+            },
+            {
+              "type": "text",
+              "text": "Proceedings of the 23rd USENIX Security Symposium",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": " (pp. 781--796). USENIX Association."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "Ben-Sasson, E., Bentov, I., Horesh, Y., & Riabzev, M. (2018). Scalable, transparent, and post-quantum secure computational integrity. IACR Cryptology ePrint Archive , Report 2018/046.",
-          "id": "section-70",
-          "level": 0
+          "text": "Ben-Sasson, E., Bentov, I., Horesh, Y., & Riabzev, M. (2018). Scalable, transparent, and post-quantum secure computational integrity. IACR Cryptology ePrint Archive, Report 2018/046.",
+          "id": "section-71",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Ben-Sasson, E., Bentov, I., Horesh, Y., & Riabzev, M. (2018). Scalable, transparent, and post-quantum secure computational integrity. "
+            },
+            {
+              "type": "text",
+              "text": "IACR Cryptology ePrint Archive",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ", Report 2018/046."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Carlini, N., Tramer, F., Wallace, E., Jagielski, M., Herbert-Voss, A., Lee, K., Roberts, A., Brown, T., Song, D., Erlingsson, U., Oprea, A., & Raffel, C. (2021). Extracting training data from large language models. In Proceedings of the 30th USENIX Security Symposium (pp. 2633--2650). USENIX Association.",
-          "id": "section-71",
-          "level": 0
-        },
-        {
-          "type": "paragraph",
-          "text": "Chesney, R., & Citron, D. K. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. California Law Review, 107 (6), 1753--1820.",
           "id": "section-72",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Carlini, N., Tramer, F., Wallace, E., Jagielski, M., Herbert-Voss, A., Lee, K., Roberts, A., Brown, T., Song, D., Erlingsson, U., Oprea, A., & Raffel, C. (2021). Extracting training data from large language models. In "
+            },
+            {
+              "type": "text",
+              "text": "Proceedings of the 30th USENIX Security Symposium",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": " (pp. 2633--2650). USENIX Association."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "Cloud Security Alliance & Astrix Security. (2024). The state of non-human identity security survey report . Cloud Security Alliance. https://cloudsecurityalliance.org/artifacts/state-of-non-human-identity-security-survey-report",
+          "text": "Chesney, R., & Citron, D. K. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. California Law Review, 107(6), 1753--1820.",
           "id": "section-73",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Chesney, R., & Citron, D. K. (2019). Deep fakes: A looming challenge for privacy, democracy, and national security. "
+            },
+            {
+              "type": "text",
+              "text": "California Law Review, 107",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": "(6), 1753--1820."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "Coalition for Content Provenance and Authenticity. (2025). C2PA technical specification, version 2.2 . https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html",
+          "text": "Cloud Security Alliance & Astrix Security. (2024). The state of non-human identity security survey report. Cloud Security Alliance. https://cloudsecurityalliance.org/artifacts/state-of-non-human-identity-security-survey-report",
           "id": "section-74",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Cloud Security Alliance & Astrix Security. (2024). "
+            },
+            {
+              "type": "text",
+              "text": "The state of non-human identity security survey report",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ". Cloud Security Alliance. "
+            },
+            {
+              "type": "text",
+              "text": "https://cloudsecurityalliance.org/artifacts/state-of-non-human-identity-security-survey-report",
+              "href": "https://cloudsecurityalliance.org/artifacts/state-of-non-human-identity-security-survey-report"
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "Electronic Frontier Foundation. (2024). Street-level surveillance: Face recognition .",
+          "text": "Coalition for Content Provenance and Authenticity. (2025). C2PA technical specification, version 2.2. https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html",
           "id": "section-75",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Coalition for Content Provenance and Authenticity. (2025). "
+            },
+            {
+              "type": "text",
+              "text": "C2PA technical specification, version 2.2",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ". "
+            },
+            {
+              "type": "text",
+              "text": "https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html",
+              "href": "https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Electronic Frontier Foundation. (2024). Street-level surveillance: Face recognition.",
+          "id": "section-76",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Electronic Frontier Foundation. (2024). "
+            },
+            {
+              "type": "text",
+              "text": "Street-level surveillance: Face recognition",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ". "
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "https://sls.eff.org/",
-          "id": "section-76",
-          "level": 0
-        },
-        {
-          "type": "paragraph",
-          "text": "Entro Labs. (2025). NHI & secrets risk report -- H1 2025 . Entro Security.",
           "id": "section-77",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "https://sls.eff.org/"
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "European Commission. (2024). Regulation (EU) 2024/1183 on establishing the European Digital Identity Framework (eIDAS 2.0) . Official Journal of the European Union.",
+          "text": "Entro Labs. (2025). NHI & secrets risk report -- H1 2025. Entro Security.",
           "id": "section-78",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Entro Labs. (2025). "
+            },
+            {
+              "type": "text",
+              "text": "NHI & secrets risk report -- H1 2025",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ". Entro Security."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "European Union. (2024). Regulation (EU) 2024/1689 laying down harmonized rules on artificial intelligence (the Artificial Intelligence Act) . Official Journal of the European Union.",
+          "text": "European Commission. (2024). Regulation (EU) 2024/1183 on establishing the European Digital Identity Framework (eIDAS 2.0). Official Journal of the European Union.",
           "id": "section-79",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "European Commission. (2024). "
+            },
+            {
+              "type": "text",
+              "text": "Regulation (EU) 2024/1183 on establishing the European Digital Identity Framework (eIDAS 2.0)",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ". Official Journal of the European Union."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "Goldwasser, S., Micali, S., & Rackoff, C. (1989). The knowledge complexity of interactive proof systems. SIAM Journal on Computing, 18 (1), 186--208.",
+          "text": "European Union. (2024). Regulation (EU) 2024/1689 laying down harmonized rules on artificial intelligence (the Artificial Intelligence Act). Official Journal of the European Union.",
           "id": "section-80",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "European Union. (2024). "
+            },
+            {
+              "type": "text",
+              "text": "Regulation (EU) 2024/1689 laying down harmonized rules on artificial intelligence (the Artificial Intelligence Act)",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ". Official Journal of the European Union."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "IBM Security. (2025). X-Force threat intelligence index 2025 . IBM Corporation.",
+          "text": "Goldwasser, S., Micali, S., & Rackoff, C. (1989). The knowledge complexity of interactive proof systems. SIAM Journal on Computing, 18(1), 186--208.",
           "id": "section-81",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Goldwasser, S., Micali, S., & Rackoff, C. (1989). The knowledge complexity of interactive proof systems. "
+            },
+            {
+              "type": "text",
+              "text": "SIAM Journal on Computing, 18",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": "(1), 186--208."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "Parker, D. B. (1998). Fighting computer crime: A new framework for protecting information . John Wiley & Sons.",
+          "text": "IBM Security. (2025). X-Force threat intelligence index 2025. IBM Corporation.",
           "id": "section-82",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "IBM Security. (2025). "
+            },
+            {
+              "type": "text",
+              "text": "X-Force threat intelligence index 2025",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ". IBM Corporation."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "U.S. District Court for the District of Massachusetts. (2013). Affidavit of Special Agent Thomas M. Dalton in support of criminal complaint, United States v. Eldo Kim , Case No. 1:13-mj-05134-JGD.",
+          "text": "Parker, D. B. (1998). Fighting computer crime: A new framework for protecting information. John Wiley & Sons.",
           "id": "section-83",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Parker, D. B. (1998). "
+            },
+            {
+              "type": "text",
+              "text": "Fighting computer crime: A new framework for protecting information",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ". John Wiley & Sons."
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "Varoufakis, Y. (2023). Technofeudalism: What killed capitalism . Bodley Head.",
+          "text": "U.S. District Court for the District of Massachusetts. (2013). Affidavit of Special Agent Thomas M. Dalton in support of criminal complaint, United States v. Eldo Kim, Case No. 1:13-mj-05134-JGD.",
           "id": "section-84",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "U.S. District Court for the District of Massachusetts. (2013). "
+            },
+            {
+              "type": "text",
+              "text": "Affidavit of Special Agent Thomas M. Dalton in support of criminal complaint, United States v. Eldo Kim",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ", Case No. 1:13-mj-05134-JGD."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "Varoufakis, Y. (2023). Technofeudalism: What killed capitalism. Bodley Head.",
+          "id": "section-85",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Varoufakis, Y. (2023). "
+            },
+            {
+              "type": "text",
+              "text": "Technofeudalism: What killed capitalism",
+              "emphasis": true
+            },
+            {
+              "type": "text",
+              "text": ". Bodley Head."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Anthropic. (2026). Claude 4.6 Opus [Large language model].",
-          "id": "section-85",
-          "level": 0
+          "id": "section-86",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Anthropic. (2026). Claude 4.6 Opus [Large language model]."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Grammarly. (2026). Grammarly [Computer software].",
-          "id": "section-86",
-          "level": 0
+          "id": "section-87",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Grammarly. (2026). Grammarly [Computer software]. "
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "https://www.grammarly.com/",
-          "id": "section-87",
-          "level": 0
+          "id": "section-88",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "https://www.grammarly.com/"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "OpenClaw. (2026). OpenClaw [AI agent software running on ollama - qwen3.5]",
-          "id": "section-88",
-          "level": 0
+          "id": "section-89",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "OpenClaw. (2026). OpenClaw [AI agent software running on ollama - qwen3.5]"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Thanks for reading! Subscribe for free to receive new posts and support my work.",
-          "id": "section-89",
-          "level": 0
+          "id": "section-90",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Thanks for reading! Subscribe for free to receive new posts and support my work."
+            }
+          ]
         }
       ],
       "readingMinutes": 20,
@@ -564,87 +1325,187 @@
       "blocks": [
         {
           "type": "paragraph",
+          "text": "",
+          "id": "section-0",
+          "level": 0,
+          "inline": [
+            {
+              "type": "image",
+              "src": "https://substackcdn.com/image/fetch/$s_!mOjp!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8fc9133-81a2-42f5-b754-bb7e02404521_1152x1322.jpeg",
+              "alt": "",
+              "href": "https://substackcdn.com/image/fetch/$s_!mOjp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8fc9133-81a2-42f5-b754-bb7e02404521_1152x1322.jpeg",
+              "width": 246,
+              "height": 282
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
           "text": "I was in a Nigerian classroom some years ago, daydreaming about what I would do in college. Nigeria is bursting at the seams with raw talent, great minds, and daunting challenges. It’s the ideal environment for technology to make a difference. And when we talk about change-making technology today, nothing looms larger than Artificial Intelligence.",
           "id": "section-1",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "I was in a Nigerian classroom some years ago, daydreaming about what I would do in college. Nigeria is bursting at the seams with raw talent, great minds, and daunting challenges. It’s the ideal environment for technology to make a difference. And when we talk about change-making technology today, nothing looms larger than Artificial Intelligence."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Now, as a student at an American university, I’m seeing the global AI education push up close. No hype—it’s a race. There are real AI courses in American universities bringing coding, ethics, and applications together. Even in India, AI is now a standard feature in technical education, thanks to proactive government policy. But in Nigeria, it’s a different ball game altogether.",
           "id": "section-2",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Now, as a student at an American university, I’m seeing the global AI education push up close. No hype—it’s a race. There are real AI courses in American universities bringing coding, ethics, and applications together. Even in India, AI is now a standard feature in technical education, thanks to proactive government policy. But in Nigeria, it’s a different ball game altogether."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Most Nigerian universities barely mention AI in their curricula. And where they do, it is an introductory course delivered with stale curriculum. Forget about deep machine learning projects—most departments don’t have GPUs, cloud credits, or even a reliable internet. Lecturers are overworked. Infrastructure is dying. So, how do we expect such institutions to teach one of the most resource-intensive fields in modern computing?",
           "id": "section-3",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Most Nigerian universities barely mention AI in their curricula. And where they do, it is an introductory course delivered with stale curriculum. Forget about deep machine learning projects—most departments don’t have GPUs, cloud credits, or even a reliable internet. Lecturers are overworked. Infrastructure is dying. So, how do we expect such institutions to teach one of the most resource-intensive fields in modern computing?"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "I recall the computer science courses I took in Nigeria, which were on obsolete programming languages and esoteric theory. My friends who are still in Nigerian universities tell me that not much has changed. With the rest of the world surging forward with AI-driven systems and niche tools, students are stuck studying obsolete code from many decades ago.",
           "id": "section-4",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "I recall the computer science courses I took in Nigeria, which were on obsolete programming languages and esoteric theory. My friends who are still in Nigerian universities tell me that not much has changed. With the rest of the world surging forward with AI-driven systems and niche tools, students are stuck studying obsolete code from many decades ago."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Ironically, Nigeria is already consuming AI-powered tools. AI learning systems or AI tutors are used in some schools. However, these tools assist students only to learn other subjects—these do not teach students how to create or comprehend AI itself. We’re raising a generation of consumers, not creators. It’s like using a calculator every day without ever understanding the mathematics behind it.",
           "id": "section-5",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Ironically, Nigeria is already consuming AI-powered tools. AI learning systems or AI tutors are used in some schools. However, these tools assist students only to learn other subjects—these do not teach students how to create or comprehend AI itself. We’re raising a generation of consumers, not creators. It’s like using a calculator every day without ever understanding the mathematics behind it."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "I recall learning AI fundamentals from YouTube and online courses, coping with poor internet connections and broken laptops. A few of us were fortunate enough to learn libraries such as TensorFlow and PyTorch independently. For most Nigerian students, however, the digital divide is too broad. It’s only a privileged minority that can even attempt to learn independently.",
           "id": "section-6",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "I recall learning AI fundamentals from YouTube and online courses, coping with poor internet connections and broken laptops. A few of us were fortunate enough to learn libraries such as TensorFlow and PyTorch independently. For most Nigerian students, however, the digital divide is too broad. It’s only a privileged minority that can even attempt to learn independently."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "As I sit here in the U.S., I can see how crippling this will be to Nigeria’s future. We like to refer to ourselves as the giant of Africa and an emerging tech hub. But how do we hope to compete when our universities are graduating students ill-equipped for the biggest tech revolution of our era? While other nations are churning out AI engineers, ethicists, and researchers, we are still holding on to an era that no longer serves us.",
           "id": "section-7",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "As I sit here in the U.S., I can see how crippling this will be to Nigeria’s future. We like to refer to ourselves as the giant of Africa and an emerging tech hub. But how do we hope to compete when our universities are graduating students ill-equipped for the biggest tech revolution of our era? While other nations are churning out AI engineers, ethicists, and researchers, we are still holding on to an era that no longer serves us."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The stakes are enormous. Without an AI education ecosystem, we will never have tools created for Nigeria’s unique context—our languages, our healthcare system, or our agricultural climate. We will use LLMs developed elsewhere that will not understand our needs. Worse still, we will continue to lose our best minds to foreign universities. Our top students pursue opportunities abroad, and many never return. We export our best and keep our challenges.",
           "id": "section-8",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The stakes are enormous. Without an AI education ecosystem, we will never have tools created for Nigeria’s unique context—our languages, our healthcare system, or our agricultural climate. We will use LLMs developed elsewhere that will not understand our needs. Worse still, we will continue to lose our best minds to foreign universities. Our top students pursue opportunities abroad, and many never return. We export our best and keep our challenges."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "What is required is obvious: an ambitious, national AI policy for Nigerian universities. The National Universities Commission and the Ministry of Education must work together to establish an AI curriculum framework for everyone to adhere to. This cannot be an afterthought. Core competencies, infrastructure requirements, and lecturer training programs must be embedded in every computer science department nationwide.",
           "id": "section-9",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "What is required is obvious: an ambitious, national AI policy for Nigerian universities. The National Universities Commission and the Ministry of Education must work together to establish an AI curriculum framework for everyone to adhere to. This cannot be an afterthought. Core competencies, infrastructure requirements, and lecturer training programs must be embedded in every computer science department nationwide."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The public sector must also pursue partnerships with international tech giants, such as Google and Microsoft, as well as local champions like Flutterwave and Paystack. These entities can assist by donating hardware, providing cloud access, and offering hands-on training. This is not charity—it is astute investment in future talent pipelines.",
           "id": "section-10",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The public sector must also pursue partnerships with international tech giants, such as Google and Microsoft, as well as local champions like Flutterwave and Paystack. These entities can assist by donating hardware, providing cloud access, and offering hands-on training. This is not charity—it is astute investment in future talent pipelines."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Outside the classrooms, we require innovation hubs, such as national AI hackathons that solve issues unique to Nigeria, government-sponsored research grants, and fellowships that inspire and retain the finest minds. Let us make it desirable to remain, to construct, and to innovate in Nigeria.",
           "id": "section-11",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Outside the classrooms, we require innovation hubs, such as national AI hackathons that solve issues unique to Nigeria, government-sponsored research grants, and fellowships that inspire and retain the finest minds. Let us make it desirable to remain, to construct, and to innovate in Nigeria."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Why this needs to occur now is straightforward: the AI revolution is already underway. It’s transforming economies and rewriting the equation for how nations prosper. If we wait, the price of catch-up will be too great, or it may not be feasible at all. We could become perpetual consumers of AI developed elsewhere, stuck on the sidelines in a future in which we ought to be helping shape.",
           "id": "section-12",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Why this needs to occur now is straightforward: the AI revolution is already underway. It’s transforming economies and rewriting the equation for how nations prosper. If we wait, the price of catch-up will be too great, or it may not be feasible at all. We could become perpetual consumers of AI developed elsewhere, stuck on the sidelines in a future in which we ought to be helping shape."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "AI education isn’t a technological issue—it’s about survival. It’s an issue of sovereignty, opportunity, and innovation. It’s about positioning Nigeria’s young people to occupy their rightful position, not just fantasize about it. We have the talent. What we need now is the vision—and the will to act before it’s actually too late.",
           "id": "section-13",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "AI education isn’t a technological issue—it’s about survival. It’s an issue of sovereignty, opportunity, and innovation. It’s about positioning Nigeria’s young people to occupy their rightful position, not just fantasize about it. We have the talent. What we need now is the vision—and the will to act before it’s actually too late."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "(Arinze D. Okigbo is a computer science major currently interning with a startup addressing emerging cybersecurity challenges in an AI-powered world)",
           "id": "section-14",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "(Arinze D. Okigbo is a computer science major currently interning with a startup addressing emerging cybersecurity challenges in an AI-powered world)"
+            }
+          ]
         }
       ],
       "readingMinutes": 4,
@@ -664,63 +1525,141 @@
       "blocks": [
         {
           "type": "paragraph",
+          "text": "",
+          "id": "section-0",
+          "level": 0,
+          "inline": [
+            {
+              "type": "image",
+              "src": "https://substackcdn.com/image/fetch/$s_!_Drq!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F58aef8b3-9385-4884-bac9-bd33507f599a_711x400.jpeg",
+              "alt": "",
+              "href": "https://substackcdn.com/image/fetch/$s_!_Drq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F58aef8b3-9385-4884-bac9-bd33507f599a_711x400.jpeg",
+              "width": 711,
+              "height": 400
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
           "text": "I first heard about Global Warming when I was about ten years old. I thought that it was just smoke in the air emitted from car exhausts and factories. Fast forward two years, and I heard about oil spills that killed marine life, disturbed the pH levels in the oceans, and affected the people that lived in the Niger Delta of Nigeria. Today I hear of the Great Pacific Garbage Patch, also known as the Pacific trash vortex. 1.6 million Square kilometres (three times the size of Spain) of plastic and trash floating around harming wildlife and the ecosystem. Who should be blamed for such a catastrophe? My answer is every one of us.",
           "id": "section-1",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "I first heard about Global Warming when I was about ten years old. I thought that it was just smoke in the air emitted from car exhausts and factories. Fast forward two years, and I heard about oil spills that killed marine life, disturbed the pH levels in the oceans, and affected the people that lived in the Niger Delta of Nigeria. Today I hear of the Great Pacific Garbage Patch, also known as the Pacific trash vortex. 1.6 million Square kilometres (three times the size of Spain) of plastic and trash floating around harming wildlife and the ecosystem. Who should be blamed for such a catastrophe? My answer is every one of us."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Thanks for reading! Subscribe for free to receive new posts and support my work.",
           "id": "section-2",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Thanks for reading! Subscribe for free to receive new posts and support my work."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "We all have a carbon footprint. It is like a real fingerprint. It is how much carbon dioxide is released into the air because of the activities you carry out every day. So, if you travel all the time, you are making your carbon footprint higher, and you are harming the environment. So, the aim is to use environmentally friendly means of transportation. For example, Teslas help the environment by producing electric cars. Another environmentally friendly means of transportation is cycling or carpooling.",
           "id": "section-3",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "We all have a carbon footprint. It is like a real fingerprint. It is how much carbon dioxide is released into the air because of the activities you carry out every day. So, if you travel all the time, you are making your carbon footprint higher, and you are harming the environment. So, the aim is to use environmentally friendly means of transportation. For example, Teslas help the environment by producing electric cars. Another environmentally friendly means of transportation is cycling or carpooling."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Despite the science of it, some people do not believe in climate change. For instance, Donald Trump, the President of the United States. He says things like, “We are the cleanest we have ever been” and “We should be focused on magnificently clean and healthy air and not distracted by the expensive hoax that is global warming!” He is the most powerful person in the world, and he is giving people the wrong impression that Global Warming is a joke. People like Greta Thunberg are taking the initiative to voice the truth that Global Warming is hurting the world.",
           "id": "section-4",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Despite the science of it, some people do not believe in climate change. For instance, Donald Trump, the President of the United States. He says things like, “We are the cleanest we have ever been” and “We should be focused on magnificently clean and healthy air and not distracted by the expensive hoax that is global warming!” He is the most powerful person in the world, and he is giving people the wrong impression that Global Warming is a joke. People like Greta Thunberg are taking the initiative to voice the truth that Global Warming is hurting the world."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Technology has played a massive role in trying to clean up the air and the oceans. Nevertheless, it was the same technology that made the plastic bottles that are in the Pacific trash vortex. It is the same technology that is used to drill the land to get crude oil. It is the same technology that is used to burn coal, thus releasing smoke into the air and harming the ozone layer.",
           "id": "section-5",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Technology has played a massive role in trying to clean up the air and the oceans. Nevertheless, it was the same technology that made the plastic bottles that are in the Pacific trash vortex. It is the same technology that is used to drill the land to get crude oil. It is the same technology that is used to burn coal, thus releasing smoke into the air and harming the ozone layer."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "However, we should not always dwell on the bad. Look out for the positive in everything. In 2013, a 19-year-old Dutch boy, Boyan Slat, created a device that floats in the Pacific Ocean and collects all the plastic in the water. Another example of technology that helps solve the pollution of the environment is Cristal’s TiO2 that converts damaging gases into water vapour and nitrogen, which are harmless.",
           "id": "section-6",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "However, we should not always dwell on the bad. Look out for the positive in everything. In 2013, a 19-year-old Dutch boy, Boyan Slat, created a device that floats in the Pacific Ocean and collects all the plastic in the water. Another example of technology that helps solve the pollution of the environment is Cristal’s TiO2 that converts damaging gases into water vapour and nitrogen, which are harmless."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The ozone layer is what protects us from the harmful radioactive rays from the sun. It is made up of oxygen atoms (O3). The more it depletes, the more the earth warms up. A potential solution is to have a device or machine that flies up to the ozone layer and patches it up by releasing O3 into the air. I do not know if anyone has had this idea before. I am not sure if it would work, but it is just a thought of mine.",
           "id": "section-7",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The ozone layer is what protects us from the harmful radioactive rays from the sun. It is made up of oxygen atoms (O3). The more it depletes, the more the earth warms up. A potential solution is to have a device or machine that flies up to the ozone layer and patches it up by releasing O3 into the air. I do not know if anyone has had this idea before. I am not sure if it would work, but it is just a thought of mine."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "In all, I feel that we should use technology to help the environment, and not destroy it: reduce your carbon footprint, change your daily habits, save the world for future generations.",
           "id": "section-8",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "In all, I feel that we should use technology to help the environment, and not destroy it: reduce your carbon footprint, change your daily habits, save the world for future generations."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Okigbo is a 15 years old tech-enthusiast. He writes about tech and how it affects the world around us.",
           "id": "section-9",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Okigbo is a 15 years old tech-enthusiast. He writes about tech and how it affects the world around us.",
+              "strong": true,
+              "emphasis": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Thanks for reading! Subscribe for free to receive new posts and support my work.",
           "id": "section-10",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Thanks for reading! Subscribe for free to receive new posts and support my work."
+            }
+          ]
         }
       ],
       "readingMinutes": 3,
@@ -739,88 +1678,191 @@
       "bodyHtml": "<div class=\"captioned-image-container\"><figure><a class=\"image-link image2 is-viewable-img\" target=\"_blank\" href=\"https://substackcdn.com/image/fetch/$s_!Wlfk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg\" data-component-name=\"Image2ToDOM\"><div class=\"image2-inset\"><picture><source type=\"image/webp\" srcset=\"https://substackcdn.com/image/fetch/$s_!Wlfk!,w_424,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg 424w, https://substackcdn.com/image/fetch/$s_!Wlfk!,w_848,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg 848w, https://substackcdn.com/image/fetch/$s_!Wlfk!,w_1272,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!Wlfk!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg 1456w\" sizes=\"100vw\"><img src=\"https://substackcdn.com/image/fetch/$s_!Wlfk!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg\" width=\"1456\" height=\"971\" data-attrs=\"{&quot;src&quot;:&quot;https://substack-post-media.s3.amazonaws.com/public/images/8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg&quot;,&quot;srcNoWatermark&quot;:null,&quot;fullscreen&quot;:null,&quot;imageSize&quot;:null,&quot;height&quot;:971,&quot;width&quot;:1456,&quot;resizeWidth&quot;:null,&quot;bytes&quot;:340962,&quot;alt&quot;:null,&quot;title&quot;:null,&quot;type&quot;:&quot;image/jpeg&quot;,&quot;href&quot;:null,&quot;belowTheFold&quot;:false,&quot;topImage&quot;:true,&quot;internalRedirect&quot;:&quot;https://arinzeokigbo.substack.com/i/184011169?img=https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg&quot;,&quot;isProcessing&quot;:false,&quot;align&quot;:null,&quot;offset&quot;:false}\" class=\"sizing-normal\" alt=\"\" srcset=\"https://substackcdn.com/image/fetch/$s_!Wlfk!,w_424,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg 424w, https://substackcdn.com/image/fetch/$s_!Wlfk!,w_848,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg 848w, https://substackcdn.com/image/fetch/$s_!Wlfk!,w_1272,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg 1272w, https://substackcdn.com/image/fetch/$s_!Wlfk!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg 1456w\" sizes=\"100vw\" fetchpriority=\"high\"></picture><div class=\"image-link-expand\"><div class=\"pencraft pc-display-flex pc-gap-8 pc-reset\"><button tabindex=\"0\" type=\"button\" class=\"pencraft pc-reset pencraft icon-container restack-image\"><svg aria-hidden=\"true\" width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" stroke-width=\"1.5\" stroke=\"var(--color-fg-primary)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" xmlns=\"http://www.w3.org/2000/svg\"><g><path d=\"M2.53001 7.81595C3.49179 4.73911 6.43281 2.5 9.91173 2.5C13.1684 2.5 15.9537 4.46214 17.0852 7.23684L17.6179 8.67647M17.6179 8.67647L18.5002 4.26471M17.6179 8.67647L13.6473 6.91176M17.4995 12.1841C16.5378 15.2609 13.5967 17.5 10.1178 17.5C6.86118 17.5 4.07589 15.5379 2.94432 12.7632L2.41165 11.3235M2.41165 11.3235L1.5293 15.7353M2.41165 11.3235L6.38224 13.0882\"></path></g></svg></button><button tabindex=\"0\" type=\"button\" class=\"pencraft pc-reset pencraft icon-container view-image\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-maximize2 lucide-maximize-2\"><polyline points=\"15 3 21 3 21 9\"></polyline><polyline points=\"9 21 3 21 3 15\"></polyline><line x1=\"21\" x2=\"14\" y1=\"3\" y2=\"10\"></line><line x1=\"3\" x2=\"10\" y1=\"21\" y2=\"14\"></line></svg></button></div></div></div></a></figure></div><p></p><h2><strong>Our dealings with the ozone crisis provide a roadmap for future successes.</strong></h2><p></p><p>The Bluedot Institute features conversations with middle and high school students about the environmental projects and research at their schools. Arinze Okigbo attends Thacher School in Ojai, California and recently completed a research project about the depletion of the ozone layer and how advances in technology are being used to replenish ozone and mitigate further damage.</p><p></p><p><strong>&#8220;I want people to know that, although technology has played a big part in the depletion of the ozone layer, it&#8217;s also working to solve that problem &#8230;&#8221;</strong></p><p><strong>Arinze Okigbo</strong></p><p></p><p>Q: You chose to write about the depletion of the ozone layer and how this problem can be mitigated and corrected with technology. Why did you choose this particular topic?</p><p>A: I have been reading a lot about global warming and pollution. I started to research how technology is helping reduce the effects of carbon monoxide and other harmful gasses that are destroying the ozone. I think this problem is really important to consider because it&#8217;s very hard to get ozone back once it&#8217;s lost &#8212; however, it&#8217;s not impossible. Also, there are areas that are more severely affected by ozone depletion, like areas that have significant amounts of air pollution, and we need to help those communities in any way we can.</p><p>Q: What did you set out to learn at the beginning of your work?</p><p>A: I was looking for weather trends, specific events that caused a significant increase in the depletion of the ozone layer. I also looked at specific policies or treaties that have been put in place to help limit the depletion of the ozone layer. Some places are limiting carbon emissions released from factories, and communities are taking on other initiatives to reduce the amount of greenhouse gasses that are released into the atmosphere.</p><p>Q: What were some surprising things you learned while doing your research?</p><p>A:  I was surprised that a lot of people don&#8217;t know about the Montreal Protocol, signed in 1987, which phased out the production of a number of substances responsible for ozone depletion. That forced companies to really hold themselves accountable for any harmful emissions they put out. I was also pretty shocked to learn how the depletion of the ozone is often more severe in certain areas due to the amount of environmental pollution being produced.</p><p>Q: What do you hope people take away from reading your piece?</p><p>A: I want people to know that, although technology has played a big part in the depletion of the ozone layer, technology is also working to solve that problem and to reverse those effects. Current day tech is reducing the amount of pollution that is released from production and processing, and alternative energies like solar and wind are starting to cut down our reliance on fossil fuels. There are also impressive monitoring systems we are using to ensure that companies are complying with the Montreal Protocol and other regulations related to ozone depleting substances.</p><p>Editorial summary: </p><p>Arinze&#8217;s project on the role technology plays in ozone depletion, and how current advances in tech are mitigating further damage, relied on intensive research related to cause and effect. Arinze sought to illustrate how technological leaps created viable alternatives to fossil fuels, sophisticated atmospheric monitoring systems, and the ability to turn ozone depleting substances into non-toxic materials. In the end Arinze found that, although technology still contributes to ozone depletion and other aspects of environmental degradation, humanity is utilizing tech to prevent and even reverse these changes.</p>",
       "blocks": [
         {
+          "type": "paragraph",
+          "text": "",
+          "id": "section-0",
+          "level": 0,
+          "inline": [
+            {
+              "type": "image",
+              "src": "https://substackcdn.com/image/fetch/$s_!Wlfk!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg",
+              "alt": "",
+              "href": "https://substackcdn.com/image/fetch/$s_!Wlfk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg",
+              "width": 1456,
+              "height": 971
+            }
+          ]
+        },
+        {
           "type": "heading",
           "text": "Our dealings with the ozone crisis provide a roadmap for future successes.",
           "id": "section-1",
-          "level": 2
+          "level": 2,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Our dealings with the ozone crisis provide a roadmap for future successes.",
+              "strong": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The Bluedot Institute features conversations with middle and high school students about the environmental projects and research at their schools. Arinze Okigbo attends Thacher School in Ojai, California and recently completed a research project about the depletion of the ozone layer and how advances in technology are being used to replenish ozone and mitigate further damage.",
-          "id": "section-3",
-          "level": 0
+          "id": "section-2",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The Bluedot Institute features conversations with middle and high school students about the environmental projects and research at their schools. Arinze Okigbo attends Thacher School in Ojai, California and recently completed a research project about the depletion of the ozone layer and how advances in technology are being used to replenish ozone and mitigate further damage."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "“I want people to know that, although technology has played a big part in the depletion of the ozone layer, it’s also working to solve that problem …”",
-          "id": "section-5",
-          "level": 0
+          "id": "section-3",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "“I want people to know that, although technology has played a big part in the depletion of the ozone layer, it’s also working to solve that problem …”",
+              "strong": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Arinze Okigbo",
-          "id": "section-6",
-          "level": 0
+          "id": "section-4",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Arinze Okigbo",
+              "strong": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Q: You chose to write about the depletion of the ozone layer and how this problem can be mitigated and corrected with technology. Why did you choose this particular topic?",
-          "id": "section-8",
-          "level": 0
+          "id": "section-5",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Q: You chose to write about the depletion of the ozone layer and how this problem can be mitigated and corrected with technology. Why did you choose this particular topic?"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "A: I have been reading a lot about global warming and pollution. I started to research how technology is helping reduce the effects of carbon monoxide and other harmful gasses that are destroying the ozone. I think this problem is really important to consider because it’s very hard to get ozone back once it’s lost — however, it’s not impossible. Also, there are areas that are more severely affected by ozone depletion, like areas that have significant amounts of air pollution, and we need to help those communities in any way we can.",
-          "id": "section-9",
-          "level": 0
+          "id": "section-6",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "A: I have been reading a lot about global warming and pollution. I started to research how technology is helping reduce the effects of carbon monoxide and other harmful gasses that are destroying the ozone. I think this problem is really important to consider because it’s very hard to get ozone back once it’s lost — however, it’s not impossible. Also, there are areas that are more severely affected by ozone depletion, like areas that have significant amounts of air pollution, and we need to help those communities in any way we can."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Q: What did you set out to learn at the beginning of your work?",
-          "id": "section-10",
-          "level": 0
+          "id": "section-7",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Q: What did you set out to learn at the beginning of your work?"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "A: I was looking for weather trends, specific events that caused a significant increase in the depletion of the ozone layer. I also looked at specific policies or treaties that have been put in place to help limit the depletion of the ozone layer. Some places are limiting carbon emissions released from factories, and communities are taking on other initiatives to reduce the amount of greenhouse gasses that are released into the atmosphere.",
-          "id": "section-11",
-          "level": 0
+          "id": "section-8",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "A: I was looking for weather trends, specific events that caused a significant increase in the depletion of the ozone layer. I also looked at specific policies or treaties that have been put in place to help limit the depletion of the ozone layer. Some places are limiting carbon emissions released from factories, and communities are taking on other initiatives to reduce the amount of greenhouse gasses that are released into the atmosphere."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Q: What were some surprising things you learned while doing your research?",
-          "id": "section-12",
-          "level": 0
+          "id": "section-9",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Q: What were some surprising things you learned while doing your research?"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "A: I was surprised that a lot of people don’t know about the Montreal Protocol, signed in 1987, which phased out the production of a number of substances responsible for ozone depletion. That forced companies to really hold themselves accountable for any harmful emissions they put out. I was also pretty shocked to learn how the depletion of the ozone is often more severe in certain areas due to the amount of environmental pollution being produced.",
-          "id": "section-13",
-          "level": 0
+          "id": "section-10",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "A:  I was surprised that a lot of people don’t know about the Montreal Protocol, signed in 1987, which phased out the production of a number of substances responsible for ozone depletion. That forced companies to really hold themselves accountable for any harmful emissions they put out. I was also pretty shocked to learn how the depletion of the ozone is often more severe in certain areas due to the amount of environmental pollution being produced."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Q: What do you hope people take away from reading your piece?",
-          "id": "section-14",
-          "level": 0
+          "id": "section-11",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Q: What do you hope people take away from reading your piece?"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "A: I want people to know that, although technology has played a big part in the depletion of the ozone layer, technology is also working to solve that problem and to reverse those effects. Current day tech is reducing the amount of pollution that is released from production and processing, and alternative energies like solar and wind are starting to cut down our reliance on fossil fuels. There are also impressive monitoring systems we are using to ensure that companies are complying with the Montreal Protocol and other regulations related to ozone depleting substances.",
-          "id": "section-15",
-          "level": 0
+          "id": "section-12",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "A: I want people to know that, although technology has played a big part in the depletion of the ozone layer, technology is also working to solve that problem and to reverse those effects. Current day tech is reducing the amount of pollution that is released from production and processing, and alternative energies like solar and wind are starting to cut down our reliance on fossil fuels. There are also impressive monitoring systems we are using to ensure that companies are complying with the Montreal Protocol and other regulations related to ozone depleting substances."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Editorial summary:",
-          "id": "section-16",
-          "level": 0
+          "id": "section-13",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Editorial summary: "
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Arinze’s project on the role technology plays in ozone depletion, and how current advances in tech are mitigating further damage, relied on intensive research related to cause and effect. Arinze sought to illustrate how technological leaps created viable alternatives to fossil fuels, sophisticated atmospheric monitoring systems, and the ability to turn ozone depleting substances into non-toxic materials. In the end Arinze found that, although technology still contributes to ozone depletion and other aspects of environmental degradation, humanity is utilizing tech to prevent and even reverse these changes.",
-          "id": "section-17",
-          "level": 0
+          "id": "section-14",
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Arinze’s project on the role technology plays in ozone depletion, and how current advances in tech are mitigating further damage, relied on intensive research related to cause and effect. Arinze sought to illustrate how technological leaps created viable alternatives to fossil fuels, sophisticated atmospheric monitoring systems, and the ability to turn ozone depleting substances into non-toxic materials. In the end Arinze found that, although technology still contributes to ozone depletion and other aspects of environmental degradation, humanity is utilizing tech to prevent and even reverse these changes."
+            }
+          ]
         }
       ],
       "readingMinutes": 3,
@@ -840,99 +1882,232 @@
       "blocks": [
         {
           "type": "paragraph",
+          "text": "",
+          "id": "section-0",
+          "level": 0,
+          "inline": [
+            {
+              "type": "image",
+              "src": "https://substackcdn.com/image/fetch/$s_!cUbC!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F18041e0e-fd01-4df2-928b-411456d23ded_2560x1709.jpeg",
+              "alt": "",
+              "href": "https://substackcdn.com/image/fetch/$s_!cUbC!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F18041e0e-fd01-4df2-928b-411456d23ded_2560x1709.jpeg",
+              "width": 582,
+              "height": 389
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
           "text": "Subscribe now",
           "id": "section-1",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Subscribe now",
+              "href": "https://arinzeokigbo.substack.com/subscribe?"
+            }
+          ]
         },
         {
           "type": "heading",
           "text": "Creative solutions — from new tanning techniques to biofabricated leather and automation — are changing the leather industry for the better.",
           "id": "section-2",
-          "level": 2
+          "level": 2,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Creative solutions — from new tanning techniques to biofabricated leather and automation — are changing the leather industry for the better.",
+              "strong": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "As one of the most versatile materials in the fashion and furniture sectors, leather has grown in popularity. But many people need to understand that producing leather has serious environmental consequences. Not only is the production of leather inefficient, but it also uses several dangerous chemicals that harm the environment. In this article, we’ll examine the environmental effects of leather production and how technology is helping to find solutions.",
           "id": "section-3",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "As one of the most versatile materials in the fashion and furniture sectors, leather has grown in popularity. But many people need to understand that producing leather has serious environmental consequences. Not only is the production of leather inefficient, but it also uses several dangerous chemicals that harm the environment. In this article, we’ll examine the environmental effects of leather production and how technology is helping to find solutions."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Leather production begins with farming and moves on to slaughtering, tanning, and finishing. Water usage throughout the leather-making process (soaking hides, removing tanning chemicals, and rinsing leather) is one of the industry’s most significant environmental issues. Research by Queen Mary University of London estimates that, on average, 16,600 liters of water are required to produce one kilogram of leather.",
           "id": "section-4",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Leather production begins with farming and moves on to slaughtering, tanning, and finishing. Water usage throughout the leather-making process (soaking hides, removing tanning chemicals, and rinsing leather) is one of the industry’s most significant environmental issues. Research by Queen Mary University of London estimates that, on average, 16,600 liters of water are required to produce one kilogram of leather."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The amount of energy used in manufacturing leather is another environmental concern. Energy is needed to heat the water required to make leather and power the machinery. This energy is frequently produced from non-renewable resources such as coal and oil, which release greenhouse gases into the atmosphere.",
           "id": "section-5",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The amount of energy used in manufacturing leather is another environmental concern. Energy is needed to heat the water required to make leather and power the machinery. This energy is frequently produced from non-renewable resources such as coal and oil, which release greenhouse gases into the atmosphere."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "In addition to harming the environment, the chemicals used in leather manufacturing also pose several health hazards. Many of these chemicals are poisonous and can damage the liver, kidneys, and skin, and can cause respiratory issues.",
           "id": "section-6",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "In addition to harming the environment, the chemicals used in leather manufacturing also pose several health hazards. Many of these chemicals are poisonous and can damage the liver, kidneys, and skin, and can cause respiratory issues."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "But technology is addressing many of the adverse environmental and health effects of leather production. New tanning techniques that employ less water and chemical agents are one example. Some businesses are also exploring alternatives to leather, such as plant-based materials.",
           "id": "section-7",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "But technology is addressing many of the adverse environmental and health effects of leather production. New tanning techniques that employ less water and chemical agents are one example. Some businesses are also exploring alternatives to leather, such as plant-based materials."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The use of biotechnology also has a considerable impact on the leather industry. Living things such as bacteria, fungi, and algae are used in biotechnology to produce goods. In the case of leather, biotechnology is being used to create an eco-friendly, sustainable biofabricated leather.",
           "id": "section-8",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The use of biotechnology also has a considerable impact on the leather industry. Living things such as bacteria, fungi, and algae are used in biotechnology to produce goods. In the case of leather, biotechnology is being used to create an eco-friendly, sustainable biofabricated leather."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Collagen, the protein that gives biofabricated leather its strength and durability, is grown in a lab as part of the process. To create a material that resembles leather in appearance and feel but causes considerably less environmental damage, this collagen is blended with plant-based elements such as pineapple leaves or mushrooms. Compared with conventional leather production, this method uses much less energy and water and no hazardous chemicals.",
           "id": "section-9",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Collagen, the protein that gives biofabricated leather its strength and durability, is grown in a lab as part of the process. To create a material that resembles leather in appearance and feel but causes considerably less environmental damage, this collagen is blended with plant-based elements such as pineapple leaves or mushrooms. Compared with conventional leather production, this method uses much less energy and water and no hazardous chemicals."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Automation is a different type of technology that helps mitigate the negative effects of leather production.",
           "id": "section-10",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Automation is a different type of technology that helps mitigate the negative effects of leather production."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Automation reduces the amount of energy and water consumed in manufacturing leather. For instance, some businesses use automated systems to regulate humidity and temperature throughout the tanning process, reducing the energy needed to heat the water.",
           "id": "section-11",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Automation reduces the amount of energy and water consumed in manufacturing leather. For instance, some businesses use automated systems to regulate humidity and temperature throughout the tanning process, reducing the energy needed to heat the water."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "In conclusion, there are serious environmental challenges associated with manufacturing leather. However, technology is helping address many of these problems. Creative solutions are being developed to build a more sustainable, environmentally friendly leather industry — from new tanning techniques to biofabricated leather and automation. It is up to businesses and customers to adopt these technologies and change the world.",
           "id": "section-12",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "In conclusion, there are serious environmental challenges associated with manufacturing leather. However, technology is helping address many of these problems. Creative solutions are being developed to build a more sustainable, environmentally friendly leather industry — from new tanning techniques to biofabricated leather and automation. It is up to businesses and customers to adopt these technologies and change the world."
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "​Sources:",
           "id": "section-13",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "​Sources:",
+              "emphasis": true
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "The Queen Mary University of London BioLeather",
           "id": "section-14",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "The Queen Mary University of London",
+              "emphasis": true
+            },
+            {
+              "type": "break"
+            },
+            {
+              "type": "text",
+              "text": "BioLeather",
+              "emphasis": true
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "text": "First published on Jul 5, 2023 ( BlueDot Institute )",
+          "text": "First published on Jul 5, 2023 (BlueDot Institute)",
           "id": "section-15",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": " First published on Jul 5, 2023 ("
+            },
+            {
+              "type": "text",
+              "text": "BlueDot Institute",
+              "href": "https://bluedot-institute.org/how-tech-is-tackling-the-environmental-impact-of-leather-production-by-arinze-okigbo/"
+            },
+            {
+              "type": "text",
+              "text": ")"
+            }
+          ]
         },
         {
           "type": "paragraph",
           "text": "Thanks for reading Arinze Okigbo! Subscribe for free to receive new posts and support my work.",
           "id": "section-16",
-          "level": 0
+          "level": 0,
+          "inline": [
+            {
+              "type": "text",
+              "text": "Thanks for reading Arinze Okigbo! Subscribe for free to receive new posts and support my work."
+            }
+          ]
         }
       ],
       "readingMinutes": 3,

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SplitText } from "@/components/hive/Motion";
+import { renderArticleInline } from "@/lib/hive/ArticleInline";
 import { notFound } from "next/navigation";
 import { getHiveContent } from "@/lib/hive/feeds";
 import { getPublishedPost, getPublishedPosts } from "@/content/writing/posts";
@@ -93,25 +94,37 @@ export default async function Article({ params }: Props) {
           b.type === "heading" ? (
             b.level <= 2 ? (
               <h2 id={b.id} key={index}>
-                <SplitText text={b.text} by="word" />
+                {b.inline?.some(
+                  (node) => node.type === "image" || (node.type === "text" && node.href),
+                ) ? (
+                  renderArticleInline(b.inline, b.text)
+                ) : (
+                  <SplitText text={b.text} by="word" />
+                )}
               </h2>
             ) : (
               <h3 id={b.id} key={index}>
-                <SplitText text={b.text} by="word" />
+                {b.inline?.some(
+                  (node) => node.type === "image" || (node.type === "text" && node.href),
+                ) ? (
+                  renderArticleInline(b.inline, b.text)
+                ) : (
+                  <SplitText text={b.text} by="word" />
+                )}
               </h3>
             )
           ) : b.type === "quote" ? (
-            <blockquote key={index}>{b.text}</blockquote>
+            <blockquote key={index}>{renderArticleInline(b.inline, b.text)}</blockquote>
           ) : b.type === "code" ? (
             <pre key={index}>
-              <code>{b.text}</code>
+              <code>{renderArticleInline(b.inline, b.text)}</code>
             </pre>
           ) : b.type === "list-item" ? (
             <p className="article-list-item" key={index}>
-              • {b.text}
+              • {renderArticleInline(b.inline, b.text)}
             </p>
           ) : (
-            <p key={index}>{b.text}</p>
+            <p key={index}>{renderArticleInline(b.inline, b.text)}</p>
           ),
         )}
         <div className="article-end">
