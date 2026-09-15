@@ -23,8 +23,15 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      - run: npm run check:bundle
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:hive
+      - run: npm run test:e2e
+      - name: Enforce mobile performance before merge
+        id: performance
+        run: npm run check:performance
+      - name: Diagnose failed startup performance
+        if: failure() && steps.performance.outcome == 'failure'
+        run: PROFILE_CHANNEL=chrome node scripts/profile-startup.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -32,3 +39,5 @@ jobs:
           path: |
             playwright-report/
             test-results/
+            hive/qa/preflight*
+            hive/qa/startup/

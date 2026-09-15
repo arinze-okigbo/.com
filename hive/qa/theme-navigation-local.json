@@ -1,0 +1,62 @@
+{
+  "scope": "Localproduction diagnostic; no feature files edited",
+  "baseline": {
+    "locatorThemeThenLabMs": 963,
+    "locatorFreshLabMs": 125,
+    "rawImmediateClickTarget": "HTML",
+    "rawRetryAfter750ms": "navigated"
+  },
+  "injectedCss": "::view-transition { pointer-events: none; }",
+  "injectedCssResult": {
+    "navigated": false,
+    "url": "http://localhost:3100/",
+    "events": [
+      {
+        "target": "svg"
+      },
+      {
+        "target": "HTML"
+      }
+    ],
+    "errors": []
+  },
+  "phaseDiagnostic": {
+    "initialNativeTransition": "finished before theme click in every case",
+    "pseudoElementsForcedToPointerEventsNone": [
+      "::view-transition",
+      "::view-transition-group(*)",
+      "::view-transition-image-pair(*)",
+      "::view-transition-old(*)",
+      "::view-transition-new(*)"
+    ],
+    "cases": [
+      {
+        "delayMs": 0,
+        "clickMsAfterThemeStart": 7,
+        "hitTarget": "HTML",
+        "navigated": false
+      },
+      {
+        "delayMs": 100,
+        "clickMsAfterThemeStart": 106,
+        "hitTarget": "HTML",
+        "navigated": false
+      },
+      {
+        "delayMs": 250,
+        "clickMsAfterThemeStart": 257,
+        "hitTarget": "HTML",
+        "navigated": false
+      },
+      {
+        "delayMs": 550,
+        "clickMsAfterThemeStart": 557,
+        "hitTarget": "A",
+        "navigated": true
+      }
+    ],
+    "conclusion": "The native captured-root transition disables underlying subtree hit testing during its animation. CSS pointer-events:none on pseudo-elements does not make the captured link interactive. This reproduces a transient theme-animation input window, not the reported persistent preview navigation failure.",
+    "source": "https://www.w3.org/TR/css-view-transitions-1/"
+  },
+  "changes": "Diagnostic artifact only; no feature CSS or behavior changes."
+}

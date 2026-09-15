@@ -1,0 +1,18 @@
+{
+  "url": "http://localhost:3100/",
+  "auditedAt": "2026-09-15T04:41:49.465Z",
+  "commitSha": "0c8b6140a23d3a486b4f0a3d98525dc9748973aa",
+  "scores": {
+    "performance": 70,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "lcp": 3177.0730000000003,
+    "cls": 0,
+    "tbt": 1096
+  },
+  "workflowRun": 34929619920,
+  "headCommit": "15cd201eb11f71eb4a651eeb01fcedcc6fcd7ea0"
+}

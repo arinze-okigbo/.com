@@ -8,6 +8,13 @@ const result = {
   url: audit.finalDisplayedUrl || audit.finalUrl,
   auditedAt: audit.fetchTime,
   commitSha: sha,
+  environment: {
+    browser: audit.environment?.hostUserAgent,
+    benchmarkIndex: audit.environment?.benchmarkIndex,
+    throttlingMethod: audit.configSettings?.throttlingMethod,
+    cpuSlowdownMultiplier: audit.configSettings?.throttling?.cpuSlowdownMultiplier,
+    screen: audit.configSettings?.screenEmulation,
+  },
   scores: {
     performance: score("performance"),
     accessibility: score("accessibility"),

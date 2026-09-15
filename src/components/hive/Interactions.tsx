@@ -13,7 +13,7 @@ import {
 } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, useAnimationControls } from "framer-motion";
+import { springKeyframes } from "./motion/native-spring";
 import { getIslandTimings, recordIslandRender, type IslandTiming } from "./motion/profiler";
 
 type TransitionDocument = Document & {
@@ -64,10 +64,56 @@ function subscribeTheme(callback: () => void) {
 export function ThemeToggle() {
   const light = useSyncExternalStore(subscribeTheme, readTheme, () => false);
   const reduced = useReducedMotion();
+  const pathname = usePathname();
+  const cancelWipe = useRef<(() => void) | null>(null);
+  useEffect(() => {
+    const cancel = () => cancelWipe.current?.();
+    const onNavigation = (event: globalThis.MouseEvent) => {
+      if (event.target instanceof Element && event.target.closest("a[href]")) cancel();
+    };
+    document.addEventListener("click", onNavigation, true);
+    document.addEventListener("visibilitychange", cancel);
+    addEventListener("popstate", cancel);
+    return () => {
+      cancel();
+      document.removeEventListener("click", onNavigation, true);
+      document.removeEventListener("visibilitychange", cancel);
+      removeEventListener("popstate", cancel);
+    };
+  }, [pathname, reduced]);
   useEffect(() => {
     document.documentElement.dataset.theme = light ? "light" : "dark";
     document.documentElement.classList.toggle("light", light);
   }, [light]);
+  const glyph = useRef<SVGSVGElement>(null);
+  const previousLight = useRef(light);
+  useEffect(() => {
+    const previous = previousLight.current;
+    previousLight.current = light;
+    const node = glyph.current;
+    if (!node || reduced || previous === light || typeof node.animate !== "function") return;
+    const animations = [
+      node.animate(
+        springKeyframes(previous ? 90 : 0, light ? 90 : 0, (angle) => ({
+          transform: `rotate(${angle}deg)`,
+        })),
+        { duration: 600, easing: "linear" },
+      ),
+    ];
+    node.querySelectorAll<SVGGElement>("[data-theme-glyph]").forEach((group) => {
+      const show = group.dataset.themeGlyph === (light ? "sun" : "moon");
+      animations.push(
+        group.animate(
+          springKeyframes(show ? 0 : 1, show ? 1 : 0, (value) => ({
+            opacity: value,
+            transform: `scale(${0.8 + 0.2 * value})`,
+          })),
+          { duration: 600, easing: "linear" },
+        ),
+      );
+    });
+    return () => animations.forEach((animation) => animation.cancel());
+  }, [light, reduced]);
   const toggle = (event: MouseEvent<HTMLButtonElement>) => {
     const next = !light;
     const update = () => {
@@ -81,29 +127,31 @@ export function ThemeToggle() {
       }
       dispatchEvent(new Event("hive-theme-change"));
     };
-    const doc = document as TransitionDocument;
-    if (!reduced && doc.startViewTransition) {
-      const x = event.clientX || innerWidth / 2,
-        y = event.clientY || 40;
-      const transition = doc.startViewTransition(update);
-      void transition.ready
-        .then(() => {
-          document.documentElement.animate(
-            {
-              clipPath: [
-                `circle(0px at ${x}px ${y}px)`,
-                `circle(${Math.hypot(innerWidth, innerHeight)}px at ${x}px ${y}px)`,
-              ],
-            },
-            {
-              duration: 480,
-              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-              pseudoElement: "::view-transition-new(root)",
-            },
-          );
-        })
-        .catch(() => {});
-    } else update();
+    cancelWipe.current?.();
+    update();
+    if (reduced || typeof Element.prototype.animate !== "function") return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = event.detail === 0 ? bounds.x + bounds.width / 2 : event.clientX;
+    const y = event.detail === 0 ? bounds.y + bounds.height / 2 : event.clientY;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    const overlay = document.createElement("div");
+    overlay.className = "hive-theme-wipe";
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.append(overlay);
+    const animation = overlay.animate(
+      springKeyframes(0, 1, (progress) => ({
+        clipPath: `circle(${Math.max(0, progress) * radius}px at ${x}px ${y}px)`,
+        opacity: 0.16 * Math.max(0, 1 - progress),
+      })),
+      { duration: 600, easing: "linear" },
+    );
+    const cleanup = () => {
+      animation.cancel();
+      overlay.remove();
+      if (cancelWipe.current === cleanup) cancelWipe.current = null;
+    };
+    cancelWipe.current = cleanup;
+    void animation.finished.then(cleanup, cleanup);
   };
   return (
     <button
@@ -113,7 +161,8 @@ export function ThemeToggle() {
       aria-label={`Switch to ${light ? "dark" : "light"} mode`}
       title={`Switch to ${light ? "dark" : "light"} mode`}
     >
-      <motion.svg
+      <svg
+        ref={glyph}
         viewBox="0 0 24 24"
         width="20"
         height="20"
@@ -121,28 +170,34 @@ export function ThemeToggle() {
         stroke="currentColor"
         strokeWidth="1.5"
         aria-hidden="true"
-        animate={{ rotate: light ? 90 : 0 }}
+        style={{ transform: `rotate(${light ? 90 : 0}deg)` }}
       >
-        <motion.g
-          initial={false}
-          animate={{ opacity: light ? 0 : 1, scale: light ? 0.8 : 1 }}
-          style={{ transformOrigin: "12px 12px" }}
+        <g
+          data-theme-glyph="moon"
+          style={{
+            transformOrigin: "12px 12px",
+            opacity: light ? 0 : 1,
+            transform: `scale(${light ? 0.8 : 1})`,
+          }}
         >
           <path d="M18 16 C14.5 20 8 18 6 14 C4 10 6 5 10 4 C8 8 9 12 12 14 C14 16 16 16 18 16 Z" />
-        </motion.g>
-        <motion.g
-          initial={false}
-          animate={{ opacity: light ? 1 : 0, scale: light ? 1 : 0.8 }}
-          style={{ transformOrigin: "12px 12px" }}
+        </g>
+        <g
+          data-theme-glyph="sun"
+          style={{
+            transformOrigin: "12px 12px",
+            opacity: light ? 1 : 0,
+            transform: `scale(${light ? 1 : 0.8})`,
+          }}
         >
           <path d="M12 5 C15.866 5 19 8.134 19 12 C19 15.866 15.866 19 12 19 C8.134 19 5 15.866 5 12 C5 8.134 8.134 5 12 5 Z" />
-        </motion.g>
-        <motion.g animate={{ opacity: light ? 1 : 0 }}>
+        </g>
+        <g data-theme-glyph="sun" style={{ opacity: light ? 1 : 0, transformOrigin: "12px 12px" }}>
           {Array.from({ length: 8 }, (_, i) => (
             <path key={i} d="M12 1v2" transform={`rotate(${i * 45} 12 12)`} />
           ))}
-        </motion.g>
-      </motion.svg>
+        </g>
+      </svg>
     </button>
   );
 }
@@ -205,25 +260,72 @@ export function CopyButton({ value, label = "Copy email" }: { value: string; lab
   );
 }
 
+// Intl initialization can load timezone data. Defer it until a clock is
+// visible, and share both the formatter and 15-second tick across instances.
+let newYorkFormatter: Intl.DateTimeFormat | undefined;
+let clockTimer: ReturnType<typeof setInterval> | undefined;
+let clockText = "New York · Eastern time";
+const visibleClocks = new Set<(time: string) => void>();
+function subscribeClock(listener: (time: string) => void) {
+  visibleClocks.add(listener);
+  if (!clockTimer) {
+    const update = () => {
+      newYorkFormatter ??= new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/New_York",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+        timeZoneName: "short",
+      });
+      clockText = newYorkFormatter.format(new Date());
+      visibleClocks.forEach((notify) => notify(clockText));
+    };
+    update();
+    clockTimer = setInterval(update, 15000);
+  } else listener(clockText);
+  return () => {
+    visibleClocks.delete(listener);
+    if (!visibleClocks.size) {
+      clearInterval(clockTimer);
+      clockTimer = undefined;
+    }
+  };
+}
+
 export function NYClock() {
   const [time, setTime] = useState("New York · Eastern time");
+  const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
-    const update = () =>
-      setTime(
-        new Intl.DateTimeFormat("en-US", {
-          timeZone: "America/New_York",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZoneName: "short",
-        }).format(new Date()),
-      );
-    update();
-    const timer = setInterval(update, 15000);
-    return () => clearInterval(timer);
+    const node = ref.current;
+    if (!node) return;
+    let inView = false;
+    let unsubscribe: (() => void) | undefined;
+    const reconcile = () => {
+      if (inView && !document.hidden) unsubscribe ??= subscribeClock(setTime);
+      else {
+        unsubscribe?.();
+        unsubscribe = undefined;
+      }
+    };
+    // Display:none ancestors (the mobile hero label) have no intersection.
+    // Zero-area edge contact must not activate the below-fold footer clock.
+    const observer = new IntersectionObserver(([entry]) => {
+      inView =
+        entry.isIntersecting &&
+        entry.intersectionRect.width > 0 &&
+        entry.intersectionRect.height > 0;
+      reconcile();
+    });
+    observer.observe(node);
+    document.addEventListener("visibilitychange", reconcile);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", reconcile);
+      unsubscribe?.();
+    };
   }, []);
   return (
-    <span className="hive-clock" suppressHydrationWarning>
+    <span ref={ref} className="hive-clock">
       {time}
     </span>
   );
@@ -411,17 +513,36 @@ export function TransitionLink({
 export function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const reduced = useReducedMotion();
-  const controls = useAnimationControls();
+  const ref = useRef<HTMLDivElement>(null);
+  const previousPath = useRef(pathname);
   useEffect(() => {
-    if (reduced || (document as TransitionDocument).startViewTransition) return;
-    controls.set({ y: 10 });
-    void controls.start({ y: 0, transition: { type: "spring", stiffness: 400, damping: 30 } });
-  }, [pathname, reduced, controls]);
+    const changed = previousPath.current !== pathname;
+    previousPath.current = pathname;
+    const node = ref.current;
+    if (
+      !changed ||
+      reduced ||
+      (document as TransitionDocument).startViewTransition ||
+      !node?.animate
+    )
+      return;
+    const animation = node.animate(
+      springKeyframes(10, 0, (y) => ({ transform: `translateY(${y}px)` })),
+      { duration: 600, easing: "linear" },
+    );
+    return () => animation.cancel();
+  }, [pathname, reduced]);
   return (
-    <ViewTransition enter="hive-page-enter" exit="hive-page-exit">
-      <motion.div initial={false} animate={controls}>
-        {children}
-      </motion.div>
+    <ViewTransition
+      key={pathname}
+      default="none"
+      update="none"
+      enter="hive-page-enter"
+      exit="hive-page-exit"
+    >
+      {/* Streamed content updates stay immediate; only a route-key change
+          creates the exit/enter pair. No hydration-time wrapper replacement. */}
+      <div ref={ref}>{children}</div>
     </ViewTransition>
   );
 }

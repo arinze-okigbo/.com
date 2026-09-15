@@ -1,0 +1,16 @@
+{
+  "url": "https://arinzeokigbo.com/",
+  "auditedAt": "2026-09-15T04:09:06.131Z",
+  "commitSha": "a118398513ced42889540e45ba0b7a7118aac72b",
+  "scores": {
+    "performance": 90,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "lcp": 2862.279,
+    "cls": 0,
+    "tbt": 0
+  }
+}

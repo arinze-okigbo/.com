@@ -19,7 +19,7 @@ const instrument = Instrument_Serif({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  preload: true,
+  preload: false,
 });
 export const metadata: Metadata = {
   metadataBase: new URL("https://arinzeokigbo.com"),

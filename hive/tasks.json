@@ -20,7 +20,7 @@
   {
     "id": "R1-04",
     "owner": "frontend_design",
-    "status": "in_progress",
+    "status": "complete",
     "acceptance_test": "Dark/light design reviewed at 375, 768 and 1440 widths"
   },
   {
@@ -44,7 +44,43 @@
   {
     "id": "R4-08",
     "owner": "queen",
-    "status": "pending",
+    "status": "in_progress",
     "acceptance_test": "Verified Vercel preview, production deployment and published measured changelog"
+  },
+  {
+    "id": "R5-01",
+    "owner": "frontend_design",
+    "status": "in_progress",
+    "acceptance_test": "Production mobile Lighthouse reaches95/95/100/100 after reducing startup work"
+  },
+  {
+    "id": "R5-02",
+    "owner": "motion_lab",
+    "status": "complete",
+    "acceptance_test": "Quick navigation loads on demand, finds real content, restores focus and sends no search query"
+  },
+  {
+    "id": "R5-03",
+    "owner": "research_content",
+    "status": "complete",
+    "acceptance_test": "Verified screenshots retain source links, native bytes and factual alt text"
+  },
+  {
+    "id": "R5-04",
+    "owner": "research_content",
+    "status": "complete",
+    "acceptance_test": "Safe article rendering preserves source citations/images and passes ingestion tests"
+  },
+  {
+    "id": "R5-05",
+    "owner": "frontend_design",
+    "status": "complete",
+    "acceptance_test": "Mobile menu, command dialog and print pass keyboard/contrast/browser checks"
+  },
+  {
+    "id": "R5-06",
+    "owner": "queen",
+    "status": "in_progress",
+    "acceptance_test": "Required pre-merge performance checks, preview QA, verified production audit and checkpoint"
   }
 ]

@@ -53,3 +53,13 @@ next-env.d.ts
 /hive/qa/*.zip
 
 /hive/qa/*.log
+
+/hive/qa/*.jpg
+/work/
+
+hive/qa/*trace.json
+hive/qa/*devtoolslog.json
+
+hive/qa/*.cpuprofile
+
+hive/qa/startup*/
