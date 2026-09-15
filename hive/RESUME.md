@@ -1,16 +1,19 @@
 # Exact resume point
 
-Round 6 signature lab is implemented on hive/round-6-proof-lab. Production remains Round 5 commit a4cb9962d202dedbc38edb3a2cf9368381186ec8 until all release gates pass.
+Round 6 is complete and live at https://arinzeokigbo.com/lab#proof. Production commit: dee660fbd3e6c4f911b083078537ab13db48c026, merged through PR 7. All R6 tasks are complete. This post-release checkpoint adds evidence; the live changelog contains the implementation and pre-release checks, and will receive this final audit appendix with the next gated release.
 
-## Verified locally
-- Build, lint, types, 371 unit tests and 78 browser checks pass;2 device-specific skips. The final accessibility refinement was rebuilt and all 10 proof-lab checks rerun successfully.
-- Real P-256/SHA-256 signing, tamper rejection, restored-message success, empty/Unicode limits, unavailable crypto, reset races, unchanged storage, no challenge transmission and close focus pass on desktop/mobile emulation.
-- Manual Chrome desktop dark and 390px light review confirms readable controls and genuine success/tamper/reset behavior. Physical iPhone frame rate remains unverified.
-- Home initial JavaScript remains 154.3KiB; all budgeted routes remain under 180KiB. No new dependencies, trackers, stored credentials or challenge requests.
+## Verified release
+- Required Linux CI 34974009657 passed: build, lint, types, 371 unit tests, 78 browser checks (2 device-specific skips), bundle budget, representative mobile Lighthouse 96/100/100/100. Series 80/96/96/99/95 retained; one earlier test-only Node error-name failure was corrected.
+- Exact Vercel preview 978ef20 and production dee660f verified. All 78 browser checks passed against production; real signatures, tampering, reset races, limits, unavailable crypto, privacy, focus, reduced motion and themes are covered.
+- Production audit 34974650171 automatically published and enforced 99/100/100/100. Series 82/99/99/99/99, representative run 4, LCP 1986ms,TBT 61ms,CLS 0. Metrics branch 146d3ed records the exact production SHA. The footer refreshes its dated report on a five-minute cache.
+- Local fixed-five home 98/100/100/100; lab 96/100/100/100. Homepage initial JS 154.3KiB remains unchanged; all budgeted routes below 180KiB. Manual Chrome desktop dark and 390px light/dark layouts passed. Physical iPhone frame rate remains unverified; verified project screenshots remain limited to two projects.
 
 ## Next action
-Local fixed-five mobile Lighthouse passed 98/100/100/100 (series98/97/97/98/98, LCP 2500ms,TBT 11.5ms,CLS 0). PR 7 is open; preview d8a6bf8 was verified. Linux run 34973658216 failed a Node 24/25 native export-error name assertion while correctly rejecting private-key export. Apply the test portability fix, push and wait for fresh required CI. Lab fixed-five also passed 96/100/100/100 throughout. Required Linux verify must pass before merge; inspect the exact Vercel preview and custom-domain production commit. Publish measured production audit, update changelog/tasks and checkpoint. Do not bypass branch protection or choose the best audit run.
+Create a fresh branch from origin/main and carry this post-release checkpoint forward. Plan five scoped R7 tasks around a local audio-reactive visualization: primary Web Audio references and provenance; real analyser/renderer; polished demand-loaded interface; privacy/playback/reduced-motion/error QA; gated preview/production release. Use explicit playback only. Do not upload files, request microphone access, persist audio, add invented music credits, or load work on the homepage before requested. Research first, then freeze the contract and assign separate owners.
+
+Preserve source-backed copy, contact methods, strict CSP and all unchanged gates. Avoid new dependencies unless justified. Run the full fixed-five audit method; do not retry completed measurements until green. Always inspect exact preview/production commits. No feature code for R7 has started.
 
 Worktree: /Users/arinzeokigbo/Documents/Codex/2026-09-14/github-plugin-github-openai-curated-remote/work/astra-site
+Current branch: hive/round-6-proof-lab (post-release checkpoint follows merged main).
 Original branch preserved in /Users/arinzeokigbo/arinzeokigbo.
 Daily09:00 America/New_York heartbeat: astra-hive-site-improvement (active; continue from this file).

@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T13:13:28.274Z",
+  "capturedAt": "2026-09-15T13:26:28.196Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "511673c670fe31c883baec5a9bed54cfcc10d9dc",
+  "headCommit": "dee660fbd3e6c4f911b083078537ab13db48c026",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -874,6 +874,62 @@
       "subject": "feat(lab): demonstrate real ephemeral browser signatures",
       "changedFiles": [
         "hive/research/proof-lab.json",
+        "src/app/lab/page.tsx",
+        "src/components/hive/ProofLab.tsx",
+        "src/components/hive/ProofLabMount.tsx",
+        "src/components/hive/proof-lab.css",
+        "src/lib/hive/proof.test.ts",
+        "src/lib/hive/proof.ts",
+        "tests/hive/proof-lab.spec.ts"
+      ]
+    },
+    {
+      "commitSHA": "d8a6bf825c574e29545b32fe6ae4c46aecf56881",
+      "timestamp": "2026-09-15T09:13:28-04:00",
+      "subject": "docs(hive): record signature lab validation and release checkpoint",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/build-history.json",
+        "hive/changelog/round-6.md",
+        "hive/qa/round-six-series.json",
+        "hive/qa/round-six-summary.json",
+        "hive/tasks.json"
+      ]
+    },
+    {
+      "commitSHA": "978ef20154c5e19bdc6e32537fda0ca2fd5944d4",
+      "timestamp": "2026-09-15T09:16:59-04:00",
+      "subject": "test(crypto): handle native private-export error names across Node versions",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/changelog/round-6.md",
+        "hive/qa/round-six-lab-series.json",
+        "hive/qa/round-six-lab-summary.json",
+        "src/lib/hive/proof.test.ts"
+      ]
+    },
+    {
+      "commitSHA": "dee660fbd3e6c4f911b083078537ab13db48c026",
+      "timestamp": "2026-09-15T09:22:12-04:00",
+      "subject": "Merge pull request #7 from arinze-okigbo/hive/round-6-proof-lab",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/acceptance.md",
+        "hive/build-history.json",
+        "hive/changelog/round-5.md",
+        "hive/changelog/round-6.md",
+        "hive/qa/round-six-lab-series.json",
+        "hive/qa/round-six-lab-summary.json",
+        "hive/qa/round-six-series.json",
+        "hive/qa/round-six-summary.json",
+        "hive/qa/round5-final-production-series.json",
+        "hive/qa/round5-final-production-summary.json",
+        "hive/qa/round5-publish-preflight-summary.json",
+        "hive/research/proof-lab.json",
+        "hive/tasks.json",
         "src/app/lab/page.tsx",
         "src/components/hive/ProofLab.tsx",
         "src/components/hive/ProofLabMount.tsx",

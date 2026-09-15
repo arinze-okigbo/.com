@@ -111,12 +111,12 @@
     "id": "R6-04",
     "owner": "queen",
     "acceptance_test": "Validate success, tampered payload, stale state, resets, keyboard focus and no network transmission; run unit/browser and unchanged performance gates",
-    "status": "in_progress"
+    "status": "complete"
   },
   {
     "id": "R6-05",
     "owner": "queen",
     "acceptance_test": "Verify preview and production SHA, publish measured audits and a truthful round-six changelog, then checkpoint",
-    "status": "in_progress"
+    "status": "complete"
   }
 ]

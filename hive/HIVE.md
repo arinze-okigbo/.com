@@ -6,7 +6,7 @@ Rebuild arinzeokigbo.com as a visually ambitious, technically credible personal 
 
 ## Current session
 
-Round 6 — Ephemeral cryptographic proof lab. Five scoped tasks in tasks.json: primary-source validation, real browser signing/verification, accessible lazy-loaded interface, privacy and behavior tests, and gated preview/production release. Work on hive/round-6-proof-lab. Production remains the verified Round5 release a4cb996 until this round clears all gates.
+Round 6 is complete and live at dee660f. The real ephemeral signature lab passed required Linux CI, manual preview review,78 production browser checks and production mobile Lighthouse99/100/100/100. Final evidence is in the round-six QA summaries and changelog. Next bounded round: local audio-reactive visualization, with explicit playback and no uploads or microphone capture.
 
 ## Decisions
 
@@ -73,3 +73,5 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: Resume with one bounded signature experiment. Use real ECDSA P-256/SHA-256, non-extractable in-memory private keys, a public SPKI fingerprint and deliberate message tampering. This demonstrates integrity and key possession, with no account, identity assertion, persistent credential or outbound challenge data.
 
 - 2026-09-15: Round6 local homepage fixed-five passed98/100/100/100; lab passed96/100/100/100 in all five runs. Exact Vercel preview d8a6bf8 passed real sign/verify/tamper,390px dark layout and close-focus checks. Linux34973658216 blocked release on one test-only Node24/25 private-export error-name difference; both runtimes correctly refuse export. Preserve rejection assertions and accept the two observed native names.
+
+- 2026-09-15: PR7 passed required Linux96/100/100/100 and merged as dee660f. Domain SHA and78 browser checks pass; production audit34974650171 published/enforced99/100/100/100 (series82/99/99/99/99,LCP1986ms,TBT61ms,CLS0). Preserve every measurement; checkpoint before beginning another feature.
