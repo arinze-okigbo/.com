@@ -1,0 +1,32 @@
+.footer-tools.has-quick-navigation {
+  flex-wrap: wrap;
+}
+.quick-navigation-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  white-space: nowrap;
+  padding: 8px 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+}
+.quick-navigation-trigger:hover {
+  color: var(--accent);
+}
+.quick-navigation-trigger kbd {
+  padding: 2px 5px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6rem;
+  line-height: 1.4;
+}
+.quick-navigation-notice {
+  align-self: center;
+  max-width: 36ch;
+  font-size: 0.7rem;
+  color: var(--muted);
+}

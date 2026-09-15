@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { QualityBadge, AuditLink } from "./QualityBadge";
 import { contactEmail } from "@/content/contact";
 import { NYClock, SoundToggle, UnderTheHood } from "./Interactions";
+import { QuickNavigation } from "./QuickNavigation";
 export function Footer() {
   return (
     <footer className="hive-footer shell">
@@ -29,12 +30,13 @@ export function Footer() {
           <i /> Built by a swarm. Directed by Arinze.
         </Link>
       </div>
-      <div className="footer-tools">
+      <div className="footer-tools has-quick-navigation">
         <UnderTheHood />
         <Suspense fallback={<AuditLink />}>
           <QualityBadge />
         </Suspense>
         <SoundToggle />
+        <QuickNavigation />
         <Link href="/feed.xml">RSS ↗</Link>
       </div>
     </footer>
