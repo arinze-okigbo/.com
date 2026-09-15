@@ -49,3 +49,7 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: Retire obsolete Field-era browser suites; both test:e2e and test:hive use the mounted-site production suite. Preserve equivalent current coverage rather than keeping guaranteed failures for removed markup.
 
 - 2026-09-15: Main now requires the verify status and an up-to-date PR, including administrators; no additional human approval count is required.
+
+- 2026-09-15: Repair the historical 180KiB bundle gate for Next16 manifests; measured initial JS is202–210KiB, so isolate eager motion rather than raising the existing budget. Enforce the repaired check in CI.
+
+- 2026-09-15: PR5 firstLinux run34929619920 failedperformance70/TBT1096; gate preventedmerge. Removed eagerFramer using exact analytic springs for small controls and a separate optionalstack. Local97/100/100/100,TBT19,CLS0; all355unit/61browserchecks and motionharnesspass.

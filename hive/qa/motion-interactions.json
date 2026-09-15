@@ -1,14 +1,14 @@
 {
-  "spring": "99.18897135479939",
+  "spring": "98.85717544818307",
   "pauseLabel": 1,
   "cardSelectors": 3,
   "activeCards": 1,
   "profiler": {
     "rows": 3,
     "records": [
-      "Navigation2.90 ms2.80 ms1",
-      "Passkey lab0.50 ms0.30 ms4",
-      "Spring lab0.20 ms0.20 ms3"
+      "Navigation0.50 ms0.50 ms1",
+      "Passkey lab0.40 ms0.20 ms4",
+      "Spring lab0.10 ms0.10 ms3"
     ],
     "outlines": "true"
   },
