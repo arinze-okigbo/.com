@@ -475,3 +475,19 @@ html[data-hive-debug="true"] [data-hive-boundary] > * {
 .hive-profiler-table td {
   font-family: var(--font-mono, monospace);
 }
+
+/* Decorative theme feedback leaves the live page available for pointer input. */
+.hive-theme-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  background: var(--accent);
+  opacity: 0;
+  contain: strict;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hive-theme-wipe {
+    display: none;
+  }
+}

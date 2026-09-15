@@ -64,6 +64,23 @@ function subscribeTheme(callback: () => void) {
 export function ThemeToggle() {
   const light = useSyncExternalStore(subscribeTheme, readTheme, () => false);
   const reduced = useReducedMotion();
+  const pathname = usePathname();
+  const cancelWipe = useRef<(() => void) | null>(null);
+  useEffect(() => {
+    const cancel = () => cancelWipe.current?.();
+    const onNavigation = (event: globalThis.MouseEvent) => {
+      if (event.target instanceof Element && event.target.closest("a[href]")) cancel();
+    };
+    document.addEventListener("click", onNavigation, true);
+    document.addEventListener("visibilitychange", cancel);
+    addEventListener("popstate", cancel);
+    return () => {
+      cancel();
+      document.removeEventListener("click", onNavigation, true);
+      document.removeEventListener("visibilitychange", cancel);
+      removeEventListener("popstate", cancel);
+    };
+  }, [pathname, reduced]);
   useEffect(() => {
     document.documentElement.dataset.theme = light ? "light" : "dark";
     document.documentElement.classList.toggle("light", light);
@@ -110,29 +127,31 @@ export function ThemeToggle() {
       }
       dispatchEvent(new Event("hive-theme-change"));
     };
-    const doc = document as TransitionDocument;
-    if (!reduced && doc.startViewTransition) {
-      const x = event.clientX || innerWidth / 2,
-        y = event.clientY || 40;
-      const transition = doc.startViewTransition(update);
-      void transition.ready
-        .then(() => {
-          document.documentElement.animate(
-            {
-              clipPath: [
-                `circle(0px at ${x}px ${y}px)`,
-                `circle(${Math.hypot(innerWidth, innerHeight)}px at ${x}px ${y}px)`,
-              ],
-            },
-            {
-              duration: 480,
-              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-              pseudoElement: "::view-transition-new(root)",
-            },
-          );
-        })
-        .catch(() => {});
-    } else update();
+    cancelWipe.current?.();
+    update();
+    if (reduced || typeof Element.prototype.animate !== "function") return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = event.detail === 0 ? bounds.x + bounds.width / 2 : event.clientX;
+    const y = event.detail === 0 ? bounds.y + bounds.height / 2 : event.clientY;
+    const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    const overlay = document.createElement("div");
+    overlay.className = "hive-theme-wipe";
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.append(overlay);
+    const animation = overlay.animate(
+      springKeyframes(0, 1, (progress) => ({
+        clipPath: `circle(${Math.max(0, progress) * radius}px at ${x}px ${y}px)`,
+        opacity: 0.16 * Math.max(0, 1 - progress),
+      })),
+      { duration: 600, easing: "linear" },
+    );
+    const cleanup = () => {
+      animation.cancel();
+      overlay.remove();
+      if (cancelWipe.current === cleanup) cancelWipe.current = null;
+    };
+    cancelWipe.current = cleanup;
+    void animation.finished.then(cleanup, cleanup);
   };
   return (
     <button
@@ -467,7 +486,15 @@ export function PageTransition({ children }: { children: ReactNode }) {
     return () => animation.cancel();
   }, [pathname, reduced]);
   return (
-    <ViewTransition enter="hive-page-enter" exit="hive-page-exit">
+    <ViewTransition
+      key={pathname}
+      default="none"
+      update="none"
+      enter="hive-page-enter"
+      exit="hive-page-exit"
+    >
+      {/* Streamed content updates stay immediate; only a route-key change
+          creates the exit/enter pair. No hydration-time wrapper replacement. */}
       <div ref={ref}>{children}</div>
     </ViewTransition>
   );
