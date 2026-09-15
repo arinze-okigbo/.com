@@ -4,7 +4,7 @@ import { useReducedMotion } from "./motion/preferences";
 import "./motion/interactions.css";
 
 import { useEffect, useRef, type ReactNode, type MouseEvent, type CSSProperties } from "react";
-import { motion, MotionConfig, useMotionValue, useSpring, useInView, animate } from "framer-motion";
+import { createPointerSpring, stepSnappy } from "./motion/native-spring";
 import { usePathname } from "next/navigation";
 
 export const snappy = { type: "spring" as const, stiffness: 400, damping: 30 };
@@ -94,7 +94,7 @@ export function MotionProvider({ children }: { children: ReactNode }) {
     };
   }, [reduced]);
   return (
-    <MotionConfig reducedMotion="user" transition={snappy}>
+    <>
       <div
         ref={progress}
         className="hive-scroll-progress"
@@ -130,7 +130,7 @@ export function MotionProvider({ children }: { children: ReactNode }) {
           <span />
         </div>
       )}
-    </MotionConfig>
+    </>
   );
 }
 
@@ -259,53 +259,72 @@ export function SplitText({
   );
 }
 
-export function Magnetic({ children, className }: { children: ReactNode; className?: string }) {
+function usePointerSpring<T extends HTMLElement>(kind: "magnetic" | "tilt") {
+  const ref = useRef<T>(null);
+  const spring = useRef<ReturnType<typeof createPointerSpring> | null>(null);
   const reduced = useReducedMotion();
-  const x = useSpring(0, snappy),
-    y = useSpring(0, snappy);
+  useEffect(() => {
+    return () => {
+      spring.current?.stop();
+      spring.current = null;
+    };
+  }, [reduced]);
+  const set = (x: number, y: number) => {
+    const node = ref.current;
+    if (!node || reduced || !matchMedia("(pointer: fine)").matches) return;
+    spring.current ??= createPointerSpring((a, b) => {
+      node.style.transform =
+        kind === "magnetic" ? `translate3d(${a}px,${b}px,0)` : `rotateX(${a}deg) rotateY(${b}deg)`;
+    });
+    spring.current.set(x, y);
+  };
+  useEffect(() => {
+    if (reduced && ref.current) ref.current.style.transform = "none";
+  }, [reduced]);
+  return { ref, set };
+}
+
+export function Magnetic({ children, className }: { children: ReactNode; className?: string }) {
+  const { ref, set } = usePointerSpring<HTMLSpanElement>("magnetic");
   const move = (event: MouseEvent<HTMLSpanElement>) => {
-    if (reduced || !matchMedia("(pointer: fine)").matches) return;
     const rect = event.currentTarget.getBoundingClientRect();
-    x.set((event.clientX - rect.left - rect.width / 2) * 0.14);
-    y.set((event.clientY - rect.top - rect.height / 2) * 0.14);
+    set(
+      (event.clientX - rect.left - rect.width / 2) * 0.14,
+      (event.clientY - rect.top - rect.height / 2) * 0.14,
+    );
   };
   return (
-    <motion.span
+    <span
+      ref={ref}
       className={className}
-      style={{ display: "inline-flex", x, y }}
+      style={{ display: "inline-flex" }}
       onMouseMove={move}
-      onMouseLeave={() => {
-        x.set(0);
-        y.set(0);
-      }}
+      onMouseLeave={() => set(0, 0)}
       data-hive-cursor="magnetic"
     >
       {children}
-    </motion.span>
+    </span>
   );
 }
 
 export function TiltCard({ children, className }: { children: ReactNode; className?: string }) {
-  const reduced = useReducedMotion();
-  const rotateX = useSpring(0, snappy),
-    rotateY = useSpring(0, snappy);
+  const { ref, set } = usePointerSpring<HTMLDivElement>("tilt");
   return (
-    <motion.div
+    <div
+      ref={ref}
       className={className}
-      style={{ perspective: 1000, rotateX, rotateY, transformStyle: "preserve-3d" }}
+      style={{ perspective: 1000, transformStyle: "preserve-3d" }}
       onMouseMove={(event) => {
-        if (reduced || !matchMedia("(pointer: fine)").matches) return;
         const rect = event.currentTarget.getBoundingClientRect();
-        rotateY.set(((event.clientX - rect.left - rect.width / 2) / rect.width) * 7);
-        rotateX.set((-(event.clientY - rect.top - rect.height / 2) / rect.height) * 7);
+        set(
+          (-(event.clientY - rect.top - rect.height / 2) / rect.height) * 7,
+          ((event.clientX - rect.left - rect.width / 2) / rect.width) * 7,
+        );
       }}
-      onMouseLeave={() => {
-        rotateX.set(0);
-        rotateY.set(0);
-      }}
+      onMouseLeave={() => set(0, 0)}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -360,21 +379,30 @@ export function AnimatedCounter({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const seen = useInView(ref, { once: true });
   const reduced = useReducedMotion();
-  const counter = useMotionValue(value);
   useEffect(() => {
-    if (!seen || reduced) return;
-    counter.set(0);
-    const unsubscribe = counter.on("change", (latest) => {
-      if (ref.current) ref.current.textContent = `${Math.round(latest).toLocaleString()}${suffix}`;
+    const node = ref.current;
+    if (!node || reduced) return;
+    let raf = 0;
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      const start = performance.now();
+      const tick = (time: number) => {
+        const seconds = (time - start) / 1000;
+        const current = seconds >= 0.6 ? value : stepSnappy(0, 0, value, seconds).value;
+        node.textContent = `${Math.round(current).toLocaleString()}${suffix}`;
+        if (seconds < 0.6) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
     });
-    const animation = animate(counter, value, { ...snappy });
+    observer.observe(node);
     return () => {
-      animation.stop();
-      unsubscribe();
+      observer.disconnect();
+      cancelAnimationFrame(raf);
+      node.textContent = `${value.toLocaleString()}${suffix}`;
     };
-  }, [seen, reduced, value, suffix, counter]);
+  }, [reduced, value, suffix]);
   return (
     <span className={className}>
       <span className="hive-sr-only">

@@ -13,7 +13,7 @@ import {
 } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, useAnimationControls } from "framer-motion";
+import { springKeyframes } from "./motion/native-spring";
 import { getIslandTimings, recordIslandRender, type IslandTiming } from "./motion/profiler";
 
 type TransitionDocument = Document & {
@@ -68,6 +68,35 @@ export function ThemeToggle() {
     document.documentElement.dataset.theme = light ? "light" : "dark";
     document.documentElement.classList.toggle("light", light);
   }, [light]);
+  const glyph = useRef<SVGSVGElement>(null);
+  const previousLight = useRef(light);
+  useEffect(() => {
+    const previous = previousLight.current;
+    previousLight.current = light;
+    const node = glyph.current;
+    if (!node || reduced || previous === light || typeof node.animate !== "function") return;
+    const animations = [
+      node.animate(
+        springKeyframes(previous ? 90 : 0, light ? 90 : 0, (angle) => ({
+          transform: `rotate(${angle}deg)`,
+        })),
+        { duration: 600, easing: "linear" },
+      ),
+    ];
+    node.querySelectorAll<SVGGElement>("[data-theme-glyph]").forEach((group) => {
+      const show = group.dataset.themeGlyph === (light ? "sun" : "moon");
+      animations.push(
+        group.animate(
+          springKeyframes(show ? 0 : 1, show ? 1 : 0, (value) => ({
+            opacity: value,
+            transform: `scale(${0.8 + 0.2 * value})`,
+          })),
+          { duration: 600, easing: "linear" },
+        ),
+      );
+    });
+    return () => animations.forEach((animation) => animation.cancel());
+  }, [light, reduced]);
   const toggle = (event: MouseEvent<HTMLButtonElement>) => {
     const next = !light;
     const update = () => {
@@ -113,7 +142,8 @@ export function ThemeToggle() {
       aria-label={`Switch to ${light ? "dark" : "light"} mode`}
       title={`Switch to ${light ? "dark" : "light"} mode`}
     >
-      <motion.svg
+      <svg
+        ref={glyph}
         viewBox="0 0 24 24"
         width="20"
         height="20"
@@ -121,28 +151,34 @@ export function ThemeToggle() {
         stroke="currentColor"
         strokeWidth="1.5"
         aria-hidden="true"
-        animate={{ rotate: light ? 90 : 0 }}
+        style={{ transform: `rotate(${light ? 90 : 0}deg)` }}
       >
-        <motion.g
-          initial={false}
-          animate={{ opacity: light ? 0 : 1, scale: light ? 0.8 : 1 }}
-          style={{ transformOrigin: "12px 12px" }}
+        <g
+          data-theme-glyph="moon"
+          style={{
+            transformOrigin: "12px 12px",
+            opacity: light ? 0 : 1,
+            transform: `scale(${light ? 0.8 : 1})`,
+          }}
         >
           <path d="M18 16 C14.5 20 8 18 6 14 C4 10 6 5 10 4 C8 8 9 12 12 14 C14 16 16 16 18 16 Z" />
-        </motion.g>
-        <motion.g
-          initial={false}
-          animate={{ opacity: light ? 1 : 0, scale: light ? 1 : 0.8 }}
-          style={{ transformOrigin: "12px 12px" }}
+        </g>
+        <g
+          data-theme-glyph="sun"
+          style={{
+            transformOrigin: "12px 12px",
+            opacity: light ? 1 : 0,
+            transform: `scale(${light ? 1 : 0.8})`,
+          }}
         >
           <path d="M12 5 C15.866 5 19 8.134 19 12 C19 15.866 15.866 19 12 19 C8.134 19 5 15.866 5 12 C5 8.134 8.134 5 12 5 Z" />
-        </motion.g>
-        <motion.g animate={{ opacity: light ? 1 : 0 }}>
+        </g>
+        <g data-theme-glyph="sun" style={{ opacity: light ? 1 : 0, transformOrigin: "12px 12px" }}>
           {Array.from({ length: 8 }, (_, i) => (
             <path key={i} d="M12 1v2" transform={`rotate(${i * 45} 12 12)`} />
           ))}
-        </motion.g>
-      </motion.svg>
+        </g>
+      </svg>
     </button>
   );
 }
@@ -411,17 +447,28 @@ export function TransitionLink({
 export function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const reduced = useReducedMotion();
-  const controls = useAnimationControls();
+  const ref = useRef<HTMLDivElement>(null);
+  const previousPath = useRef(pathname);
   useEffect(() => {
-    if (reduced || (document as TransitionDocument).startViewTransition) return;
-    controls.set({ y: 10 });
-    void controls.start({ y: 0, transition: { type: "spring", stiffness: 400, damping: 30 } });
-  }, [pathname, reduced, controls]);
+    const changed = previousPath.current !== pathname;
+    previousPath.current = pathname;
+    const node = ref.current;
+    if (
+      !changed ||
+      reduced ||
+      (document as TransitionDocument).startViewTransition ||
+      !node?.animate
+    )
+      return;
+    const animation = node.animate(
+      springKeyframes(10, 0, (y) => ({ transform: `translateY(${y}px)` })),
+      { duration: 600, easing: "linear" },
+    );
+    return () => animation.cancel();
+  }, [pathname, reduced]);
   return (
     <ViewTransition enter="hive-page-enter" exit="hive-page-exit">
-      <motion.div initial={false} animate={controls}>
-        {children}
-      </motion.div>
+      <div ref={ref}>{children}</div>
     </ViewTransition>
   );
 }
