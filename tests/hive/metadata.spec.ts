@@ -90,10 +90,9 @@ for (const route of ["/", "/writing", "/lab"]) {
     await page.getByRole("button", { name: "Switch to light mode" }).click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
     await expect(page.getByRole("button", { name: "Switch to dark mode" })).toBeVisible();
-    // Let the real browser color-wipe finish before auditing contrast.
-    await page.evaluate(async () => {
-      await Promise.allSettled(document.getAnimations().map(animation => animation.finished));
-    });
+    // Wait for this theme wipe. Offscreen contained animations legitimately
+    // pause until their content is visible and must not block a contrast audit.
+    await expect(page.locator(".hive-theme-wipe")).toHaveCount(0);
     const audit = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
     expect(audit.violations.map(violation => ({ id: violation.id, impact: violation.impact, targets: violation.nodes.map(node => node.target) }))).toEqual([]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

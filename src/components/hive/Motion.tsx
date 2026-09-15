@@ -160,14 +160,17 @@ export function Reveal({
   useEffect(() => {
     const node = ref.current;
     if (!node || reduced || typeof node.animate !== "function") return;
-    // Content visible at hydration is already painted. Do not move it away from
-    // its final position; scroll entrances enhance only content still below view.
-    if (node.getBoundingClientRect().top < innerHeight) return;
+    // Observer geometry avoids forcing layout inside offscreen contained sections.
+    // The first visible notification represents already-painted content.
+    let firstNotification = true;
     let animation: Animation | undefined;
     const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return;
+      ([entry]) => {
+        const alreadyVisible = firstNotification && entry.isIntersecting;
+        firstNotification = false;
+        if (!entry.isIntersecting) return;
         observer.disconnect();
+        if (alreadyVisible) return;
         animation = node.animate(entranceFrames, {
           duration: 720,
           delay: delay * 1000,
@@ -208,11 +211,14 @@ export function SplitText({
   useEffect(() => {
     const node = ref.current;
     if (!node || reduced || initialHeading || typeof node.animate !== "function") return;
-    if (node.getBoundingClientRect().top < innerHeight) return;
+    let firstNotification = true;
     const animations: Animation[] = [];
-    const observer = new IntersectionObserver((entries) => {
-      if (!entries.some((entry) => entry.isIntersecting)) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      const alreadyVisible = firstNotification && entry.isIntersecting;
+      firstNotification = false;
+      if (!entry.isIntersecting) return;
       observer.disconnect();
+      if (alreadyVisible) return;
       node.querySelectorAll<HTMLElement>("[data-hive-letter]").forEach((letter, index) => {
         animations.push(
           letter.animate(entranceFrames, {

@@ -2680,3 +2680,53 @@ svg {
     inset: -16px;
   }
 }
+
+/* Below-fold homepage rendering containment. The browser keeps content in the
+   DOM, accessibility tree, find-in-page and tab order. Approximate reservations
+   become each section's remembered actual height after its first render. */
+.hero ~ .section,
+.hero ~ .about-teaser,
+.hero ~ .lab-teaser,
+.hero ~ .contact-banner {
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto var(--home-section-size, 720px);
+}
+.hero ~ #projects {
+  --home-section-size: 1400px;
+}
+.hero ~ .about-teaser {
+  --home-section-size: 240px;
+}
+.hero ~ .lab-teaser {
+  --home-section-size: 350px;
+}
+.hero ~ .contact-banner {
+  --home-section-size: 340px;
+}
+@media (max-width: 767px) {
+  .hero ~ #projects {
+    --home-section-size: calc(570px + 350vw);
+  }
+  .hero ~ .section:not(#projects) {
+    --home-section-size: clamp(690px, calc(1560px - 150vw), 1090px);
+  }
+  .hero ~ .about-teaser {
+    --home-section-size: clamp(275px, calc(725px - 90vw), 410px);
+  }
+  .hero ~ .lab-teaser {
+    --home-section-size: 655px;
+  }
+  .hero ~ .contact-banner {
+    --home-section-size: clamp(230px, calc(655px - 90vw), 365px);
+  }
+}
+@media print {
+  .hero ~ .section,
+  .hero ~ .about-teaser,
+  .hero ~ .lab-teaser,
+  .hero ~ .contact-banner {
+    content-visibility: visible;
+    contain: none;
+    contain-intrinsic-block-size: none;
+  }
+}
