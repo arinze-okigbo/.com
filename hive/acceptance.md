@@ -1,6 +1,6 @@
 # ASTRA HIVE acceptance matrix
 
-Audit updated: **2026-09-15, R5**. Targeted evidence refresh from Queen’s current build/browser/deployment summary, saved Lighthouse reports, and direct article/changelog inspection. PR #4 production revision is verified; **R5 release acceptance remains incomplete**. Pending fixes and reruns are not certified.
+Audit updated: **2026-09-15, R5**. Targeted evidence refresh from Queen’s current build/browser/deployment summary, saved Lighthouse reports, and direct article/changelog inspection. PR #4 production revision is verified; **R5 release acceptance remains incomplete**. The final local production-build browser suite is verified; pending deployed Linux performance checks are not certified.
 
 ## Status definitions
 
@@ -9,7 +9,7 @@ Audit updated: **2026-09-15, R5**. Targeted evidence refresh from Queen’s curr
 - **Deferred**: absent, incomplete, or intentionally substituted; required follow-up is stated.
 - **Blocked**: depends on missing public evidence, an inaccessible provider, or an unmet release gate.
 
-An implemented component is not proof of 60fps or accessibility across every state. Evidence is revision-specific: PR #4 production passed 36 browser tests; current R5 local checks have 58 passes, three palette failures and one mobile PDF-print skip. The fresh R5 motion harness completed without errors. Production Lighthouse performance remains below the required threshold.
+An implemented component is not proof of 60fps or accessibility across every state. Evidence is revision-specific: PR #4 production passed 36 browser tests; the final R5 local production-build browser suite has **61 passes, 1 mobile PDF-print skip, zero failures (27.2s)**. The fresh R5 motion harness completed without errors. Production Lighthouse performance remains below the required threshold.
 
 R5 motion evidence: `hive/qa/round5-motion.log` and `hive/qa/motion-interactions.json` verify the fresh built localhost:3100 spring and paused state, **3 populated profiler rows**, native View Transition ready, **8 physics tags**, **3 static reduced-motion stack links**, and no errors. Integrated lint/types passed after removal of an obsolete Field test assertion against a deleted test file.
 
@@ -21,14 +21,14 @@ R5 motion evidence: `hive/qa/round5-motion.log` and `hive/qa/motion-interactions
 | Build passes | Verified | Current R5 production build completed successfully; Queen also reports 350 unit tests passing. Final changes still require the release pipeline. |
 | Strict TypeScript and lint | Verified | Current R5 integrated typecheck and lint pass. Article renderer and changelog scoped lint/typechecks also passed. |
 | Lighthouse performance ≥95 | Blocked | PR #4 deployed homepage measured **90 on Mac** (`hive/qa/production-summary.json`) and **69 in Linux CI** (Queen-reported deployment audit): both miss 95. R5 local preflight is **95/100/100/100** (`hive/qa/preflight-summary.json`); this does not clear the production gate. |
-| Lighthouse accessibility ≥95 | Verified | PR #4 production Lighthouse and R5 local preflight both report **100**. This score does not supersede the three failing R5 browser palette checks. |
+| Lighthouse accessibility ≥95 | Verified | PR #4 production Lighthouse and R5 local preflight both report **100**. The final R5 browser suite also passes the previously failing palette checks. |
 | Lighthouse best practices 100 | Verified | PR #4 production and R5 local preflight both report **100**. Pending R5 deployment still needs its own audit. |
 | Lighthouse SEO 100 | Verified | PR #4 production and R5 local preflight both report **100**. Pending R5 deployment still needs its own audit. |
-| Zero browser console errors | Verified | The 36-test PR #4 production run passed. Fresh R5 motion harness recorded no errors. R5 browser acceptance remains incomplete while three palette tests fail; no blanket R5 pass is claimed. |
-| All route accessibility, desktop/mobile, JS-off | Blocked | Latest R5 browser run: **58 passed, 3 palette checks failed, 1 mobile PDF-print check skipped**, as reported by Queen. Fixes are in progress; pending reruns are not certified. Earlier PR #4 production run passed 36 tests. |
+| Zero browser console errors | Verified | The 36-test PR #4 production run passed. Fresh R5 motion harness recorded no errors. The final R5 browser suite passed 61 tests with one mobile PDF-print skip and zero failures, including the existing console-error assertions. |
+| All route accessibility, desktop/mobile, JS-off | Verified | Final fresh R5 local production-build browser run: **61 passed, 1 mobile PDF-print check skipped, zero failures (27.2s)**. Synchronous Escape dismissal passed the unchanged regression tests. Earlier PR #4 deployed production run passed 36 tests. |
 | Zero confirmed broken external links | Verified | `hive/qa/external-links.json`: 31 accessible from cached GETs or HTTP checks, 0 confirmed broken, **1 unverified LinkedIn profile (999)**. This is not proof every external link is accessible. |
 | Zero broken internal links | Verified | Fresh desktop/mobile Playwright run passes enumeration of internal page, project and article destinations. Scope is discoverable rendered links in that snapshot. |
-| Mobile and reduced-motion verification | Implemented | Earlier route/motion checks and 36 PR #4 production tests passed their tested scope. Current R5 browser run has three palette failures and one mobile PDF-print skip. Physical devices and full visual/state coverage remain outstanding. |
+| Mobile and reduced-motion verification | Implemented | Earlier route/motion checks and 36 PR #4 production tests passed their tested scope. Final R5 browser suite passes 61 tests with zero failures; one mobile PDF-print check remains skipped. Physical devices and full visual/state coverage remain outstanding. |
 | Production is measurably as fast or faster | Blocked | Production performance gate remains unmet: PR #4 Mac 90 and Linux CI 69. Local R5 preflight 95 is evidence for a candidate only; final production comparison and threshold pass are outstanding. |
 | Signature claims substantiated within five seconds | Implemented | Hero explicitly names security, identity, AI, and agent swarms. No timed independent comprehension study was performed. |
 
@@ -138,7 +138,7 @@ R5 motion evidence: `hive/qa/round5-motion.log` and `hive/qa/motion-interactions
 | 5c. Animated sourced counters | Implemented | `AnimatedCounter` is now mounted for actual public repository count on `/now`; no invented vanity metrics. |
 | 6a. View Transitions API with Motion fallback | Verified | Fresh R5 built-server motion harness verifies native View Transition ready with no errors; navigation succeeded. Motion fallback remains implemented. Physical-device visual acceptance remains separate. |
 | 6b. Shared project-card/detail element transition | Verified | Updated fresh-production interaction record shows successful project navigation and no duplicate-name/DOM removal errors; matching `SharedElement` names remain in code. Cross-browser visual acceptance is outstanding. |
-| 7a. Morphing sun/moon and color wipe | Verified | Final motion diagnostic exercised the fixed-path sun/moon crossfade, spring rotation and native circular color wipe without errors; reduced motion disables the wipe. Literal path-shape morphing was substituted. R5 palette failures remain a separate unresolved gate. |
+| 7a. Morphing sun/moon and color wipe | Verified | Final motion diagnostic exercised the fixed-path sun/moon crossfade, spring rotation and native circular color wipe without errors; reduced motion disables the wipe. Literal path-shape morphing was substituted. The final R5 browser run also clears the prior palette failures. |
 | 7b. Navigation shrinks and blurs on scroll | Implemented | Fixed translucent header, 96→72px inner height after scroll threshold. |
 | 7c. Copy confirmations | Implemented | Clipboard success/error status and cleanup; no success message before the promise resolves. |
 | 7d. Toast on form submit | Implemented | Contact draft composer has an accessible status message. It is an inline status, not a floating toast; it truthfully describes opening a draft rather than sending. |
@@ -183,7 +183,7 @@ R5 motion evidence: `hive/qa/round5-motion.log` and `hive/qa/motion-interactions
 
 ## Concrete follow-up ordering
 
-1. Resolve the three R5 palette failures and rerun the affected browser checks; retain the mobile PDF-print limitation explicitly. Do not certify the pending fixes.
+1. Preserve the final R5 browser result: 61 passed, one mobile PDF-print skip, zero failures (27.2s). Synchronous Escape dismissal is verified by unchanged regression tests; retain the mobile PDF-print limitation explicitly.
 2. Preserve R5 local preflight 95/100/100/100 and the passing build, lint, types and 350 unit tests. Deploy and verify the candidate, then clear the **Linux production performance ≥95** gate; PR #4 scored 69 there and 90 on Mac.
 3. Keep real round records, task/resume state and this matrix aligned with evidence. Current trace includes Round 1 and Round 5, and source articles retain all 10 destinations and 6 images.
 4. Complete screenshot/demo coverage for the eight unsupported projects; only two projects currently have visually verified imported screenshots. Add missing personal/build facts only from identified public sources; LinkedIn profile access remains blocked.

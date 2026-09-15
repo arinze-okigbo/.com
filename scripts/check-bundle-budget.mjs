@@ -41,41 +41,117 @@ function fail(message) {
 function readJson(relativePath) {
   const full = path.join(NEXT_DIR, relativePath);
   if (!existsSync(full)) fail(`${relativePath} not found — run \`next build\` first.`);
-  return JSON.parse(readFileSync(full, "utf8"));
+  try {
+    return JSON.parse(readFileSync(full, "utf8"));
+  } catch (error) {
+    fail(`${relativePath} is not valid JSON: ${error.message}`);
+  }
+}
+
+function chunkFile(chunkPath) {
+  let decoded;
+  try {
+    // Manifest URLs encode dynamic route brackets; emitted filenames do not.
+    decoded = decodeURIComponent(chunkPath);
+  } catch {
+    fail(`Invalid encoded chunk path: ${chunkPath}`);
+  }
+  const full = path.resolve(NEXT_DIR, decoded);
+  if (!full.startsWith(`${NEXT_DIR}${path.sep}`)) fail(`Invalid chunk path: ${chunkPath}`);
+  return full;
 }
 
 function gzipBytes(chunkPath) {
-  const full = path.join(NEXT_DIR, chunkPath);
+  const full = chunkFile(chunkPath);
   if (!existsSync(full)) return null;
   return gzipSync(readFileSync(full), { level: 9 }).length;
 }
 
-const appManifest = readJson("app-build-manifest.json");
-// `app-build-manifest.json` lists only the route's own chunks. The framework
-// runtime entries (`webpack`, the React/Next shared chunks, `main-app`) are in
-// `build-manifest.json` under `rootMainFiles` and are requested by every
-// document, so both lists must be summed to match the served page.
-const rootMainFiles = readJson("build-manifest.json").rootMainFiles ?? [];
-// The ROOT LAYOUT's own client chunk is listed under "/layout" and NOT under
-// any "/…/page" entry, yet every document requests it. This is precisely the
-// omission that made Next's build table undercount `/` by 37,501 B: the dead
-// Framer Motion boundary lived in exactly this chunk and the table could not
-// see it.
-const layoutChunks = appManifest.pages["/layout"] ?? [];
+function chunkList(value, label, allowEmpty = false) {
+  if (!Array.isArray(value) || value.some((item) => typeof item !== "string"))
+    fail(`${label} must be an array of chunk paths.`);
+  if (!allowEmpty && !value.some((item) => item.endsWith(".js")))
+    fail(`${label} contains no JavaScript chunks.`);
+  for (const chunk of value) {
+    const resolved = chunkFile(chunk);
+    if (!existsSync(resolved)) fail(`chunk named in ${label} is missing: ${chunk}`);
+  }
+  return value;
+}
+
+// Next 16's Webpack build no longer emits app-build-manifest.json. Its
+// per-page client-reference manifest merges parent layout and route entries;
+// each client module lists [chunk ID, chunk path, ...] for its required chunks.
+// Union those paths, including shared layout/fallback boundaries, with the
+// framework runtime. This conservatively budgets every referenced boundary,
+// without pulling in on-demand imports absent from the manifest.
+// See next/dist/build/webpack/plugins/flight-manifest-plugin.js.
+const rootMainFiles = chunkList(readJson("build-manifest.json").rootMainFiles, "rootMainFiles");
+const legacy = existsSync(path.join(NEXT_DIR, "app-build-manifest.json"))
+  ? readJson("app-build-manifest.json")
+  : null;
+const appPaths = legacy ? null : readJson("server/app-paths-manifest.json");
+const layoutChunks = legacy ? chunkList(legacy.pages?.["/layout"], "/layout") : [];
+
+function routeFiles(route) {
+  if (legacy) return chunkList(legacy.pages?.[route], route);
+  const appPath = appPaths[route];
+  if (typeof appPath !== "string" || !appPath.startsWith("app/") || !appPath.endsWith(".js"))
+    fail(`${route} is missing from server/app-paths-manifest.json.`);
+  chunkList([`server/${appPath}`], `${route} server entry`);
+  const manifestPath = `server/${appPath.replace(/\.js$/, "_client-reference-manifest.js")}`;
+  const full = path.join(NEXT_DIR, manifestPath);
+  if (!existsSync(full)) fail(`${manifestPath} not found — run \`next build\` first.`);
+  const source = readFileSync(full, "utf8");
+  const assignment = `globalThis.__RSC_MANIFEST[${JSON.stringify(route)}]=`;
+  const offset = source.indexOf(assignment);
+  if (offset === -1) fail(`${manifestPath} does not declare ${route}.`);
+  let manifest;
+  try {
+    // The generated file wraps a JSON object in an assignment. Parse the data
+    // only; do not execute build output to inspect its bundle references.
+    manifest = JSON.parse(
+      source
+        .slice(offset + assignment.length)
+        .trim()
+        .replace(/;$/, ""),
+    );
+  } catch (error) {
+    fail(`${manifestPath} has invalid manifest data: ${error.message}`);
+  }
+  const modules = manifest.clientModules;
+  if (
+    !modules ||
+    typeof modules !== "object" ||
+    Array.isArray(modules) ||
+    !Object.keys(modules).length
+  )
+    fail(`${manifestPath} has no client module entries.`);
+  const files = [];
+  for (const [name, entry] of Object.entries(modules)) {
+    if (!entry || !Array.isArray(entry.chunks) || entry.chunks.length % 2 !== 0)
+      fail(`${manifestPath}: malformed required chunks for ${name}.`);
+    for (let index = 0; index < entry.chunks.length; index += 2) {
+      const id = entry.chunks[index];
+      const file = entry.chunks[index + 1];
+      if (
+        !["string", "number"].includes(typeof id) ||
+        typeof file !== "string" ||
+        !file.endsWith(".js")
+      )
+        fail(`${manifestPath}: invalid chunk pair for ${name}.`);
+      files.push(file);
+    }
+  }
+  return chunkList([...new Set(files)], `${route} client references`);
+}
 
 let worst = 0;
 let worstRoute = "";
 let failed = false;
 
 for (const route of ROUTES) {
-  const routeChunks = appManifest.pages[route];
-  const chunks = routeChunks
-    ? [...new Set([...rootMainFiles, ...layoutChunks, ...routeChunks])]
-    : null;
-  if (!chunks) {
-    console.log(`  ${route.padEnd(22)} (not in manifest, skipped)`);
-    continue;
-  }
+  const chunks = [...new Set([...rootMainFiles, ...layoutChunks, ...routeFiles(route)])];
 
   // This is a JAVASCRIPT budget. The manifests also list the route's
   // stylesheet, which `experimental.inlineCss` folds into the document rather
