@@ -24,7 +24,9 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:hive
+      - run: npm run test:e2e
+      - name: Enforce mobile performance before merge
+        run: npm run check:performance
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -32,3 +34,4 @@ jobs:
           path: |
             playwright-report/
             test-results/
+            hive/qa/preflight*

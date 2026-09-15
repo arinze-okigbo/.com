@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   reactProductionProfiling: true,
-  experimental: { optimizePackageImports: ["@react-three/drei", "framer-motion"] },
+  experimental: { inlineCss: true, optimizePackageImports: ["@react-three/drei", "framer-motion"] },
   async headers() {
     return [
       {

@@ -35,6 +35,7 @@ jobs:
       - name: Publish dated measurement
         run: |
           cp hive/qa/latest-production.json /tmp/hive-latest-production.json
+          rm hive/qa/latest-production.json
           git fetch origin hive/metrics || true
           if git show-ref --verify --quiet refs/remotes/origin/hive/metrics; then
             git checkout -B hive/metrics origin/hive/metrics

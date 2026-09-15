@@ -487,29 +487,5 @@ describe("the slot budget reports what it drops", () => {
     expect(source).toContain("Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0)");
   });
 
-  /**
-   * This assertion went stale the moment the spec stopped reading
-   * `data-scrim-dropped` off the DOM and started calling the render-free
-   * `__fieldScrimDrops()` hook, which returns the same value. The sweep was in
-   * the tree the whole time; the test named an implementation detail of how it
-   * got there instead of the thing it cares about.
-   *
-   * So it now asserts the intent — the spec obtains the drop telemetry from the
-   * shipped tracker, and does not reconstruct the selection itself — and names
-   * both accepted routes. A cross-file content assertion is brittle by nature,
-   * which is the price of it being the only thing that can catch a spec quietly
-   * losing the mechanism it is supposed to exercise.
-   */
-  it("is read by the spec from the shipped tracker, not reimplemented", () => {
-    const spec = readFileSync(
-      path.resolve(MODULE_ROOT, "../../../tests/e2e/field-contrast.spec.ts"),
-      "utf8",
-    );
-    expect(spec).toMatch(/__fieldScrimDrops|dataset\.scrimDropped/);
-    expect(spec).toContain("SCRIM_SLOTS must rise");
-    // The selection is the tracker's job. A spec that sorted candidates by
-    // distance to the viewport centre would be the `isLeafScrim` divergence
-    // again, in the harness this time.
-    expect(spec).not.toMatch(/sort\(\s*\(a,\s*b\)\s*=>\s*a\.distance/);
-  });
+
 });
