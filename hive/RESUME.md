@@ -1,16 +1,23 @@
 # Exact resume point
 
-Round 6 signature lab is implemented on hive/round-6-proof-lab. Production remains Round 5 commit a4cb9962d202dedbc38edb3a2cf9368381186ec8 until all release gates pass.
+Round 7 — portrait, composition and motion. Local implementation and revised QA complete; release held pending a new required Linux run on hive/round-7-portrait-design. Production remains dee660fbd3e6c4f911b083078537ab13db48c026.
 
-## Verified locally
-- Build, lint, types, 371 unit tests and 78 browser checks pass;2 device-specific skips. The final accessibility refinement was rebuilt and all 10 proof-lab checks rerun successfully.
-- Real P-256/SHA-256 signing, tamper rejection, restored-message success, empty/Unicode limits, unavailable crypto, reset races, unchanged storage, no challenge transmission and close focus pass on desktop/mobile emulation.
-- Manual Chrome desktop dark and 390px light review confirms readable controls and genuine success/tamper/reset behavior. Physical iPhone frame rate remains unverified.
-- Home initial JavaScript remains 154.3KiB; all budgeted routes remain under 180KiB. No new dependencies, trackers, stored credentials or challenge requests.
+## Implemented and verified
 
-## Next action
-Local fixed-five mobile Lighthouse passed 98/100/100/100 (series98/97/97/98/98, LCP 2500ms,TBT 11.5ms,CLS 0). PR 7 is open; preview d8a6bf8 was verified. Linux run 34973658216 failed a Node 24/25 native export-error name assertion while correctly rejecting private-key export. Apply the test portability fix, push and wait for fresh required CI. Lab fixed-five also passed 96/100/100/100 throughout. Required Linux verify must pass before merge; inspect the exact Vercel preview and custom-domain production commit. Publish measured production audit, update changelog/tasks and checkpoint. Do not bypass branch protection or choose the best audit run.
+- Real owner portrait recovered from site Git history; 1280×1280 WebP, 197684 bytes, provenance in hive/research/portrait.json.
+- Home and About recomposed around the portrait; larger editorial selected work; orbital scene moved to laboratory teaser.
+- Spring pointer depth, bounded scroll offset, hover light and decorative frame entrance; static accessible photo, reduced-motion/no-JavaScript and visibility safeguards.
+- Build/lint/types/371 unit tests pass; full browser suite87 passed/3 skips; final focused portrait suite7 passed/1 mobile pointer skip. Desktop and390px light/dark manually reviewed.
+- Fixed-five local final97/100/100/100 (98/97/97/97/97), LCP2626ms,TBT21ms,CLS0. Same-host baseline98; first portrait candidate97. All three compact reports retained. Homepage160.5KiB initial JS versus154.3 before; unchanged180KiB gate passes.
+
+## Exact next action
+
+PR8 is open: https://github.com/arinze-okigbo/.com/pull/8. First Linux34978867809 failed performance94; all otherchecks passed. The exact b852228 preview was visually verified. A targeted mobile top-alignment fix prevents streamed content recentering the name; MotionProvider skips the startup page-height read and coalesces scroll events. Revised build/fullbrowser87pass3skip and localfixedfive97allruns/CLS0pass; mobilelayout manually rechecked. Push this revised commit and wait for its fresh required Linux run. Do not rerun the failed unchanged candidate. Wait required Linux verify, inspect its complete fixed-five results, visually verify the exact Vercel preview commit, then merge with matching head only after all gates pass. Verify production domain SHA, full production browser suite, independent production audit and final main CI. Record actual results and failures; update tasks/changelog/this checkpoint.
+
+## Retained prior evidence
+
+Round6 pre-merge CI34974009657 passed96 and production audit34974650171 published99/100/100/100. Later main CI34974556397 failed94 (77/94/94/95/93,TBT213ms). Its reports remain in hive/qa/round-six-postmerge-linux-\*.json. The unthrottled profile did not establish the cause; R6-04 stays open. Do not retry completed measurements until green or claim a cause was fixed. The user explicitly prioritizes the portrait/design round over the prior investigation and planned audio experiment; all release gates remain unchanged.
 
 Worktree: /Users/arinzeokigbo/Documents/Codex/2026-09-14/github-plugin-github-openai-curated-remote/work/astra-site
-Original branch preserved in /Users/arinzeokigbo/arinzeokigbo.
-Daily09:00 America/New_York heartbeat: astra-hive-site-improvement (active; continue from this file).
+Original checkout preserved: /Users/arinzeokigbo/arinzeokigbo.
+Daily09:00 America/New_York heartbeat: astra-hive-site-improvement. Continue from this file.

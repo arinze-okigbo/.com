@@ -80,7 +80,7 @@ test("RSS, sitemap, robots and security disclosure agree on canonical destinatio
   expect(Date.parse(expiry!)).toBeGreaterThan(Date.now());
 });
 
-for (const route of ["/", "/writing", "/lab"]) {
+for (const route of ["/", "/about", "/writing", "/lab"]) {
   test(`${route} stays accessible after switching to light mode`, async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", error => errors.push(error.message));

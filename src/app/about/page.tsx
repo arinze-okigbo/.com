@@ -3,13 +3,15 @@ import { ProfiledIsland } from "@/components/hive/Interactions";
 import {
   ContactBanner,
   Label,
-  PageIntro,
   SectionHeading,
   Source,
   pageMeta,
 } from "@/components/hive/Primitives";
 import { PhysicsTags } from "@/components/hive/Experiments";
 import { profile, sources } from "@/content/hive";
+import { SplitText } from "@/components/hive/Motion";
+import { Portrait } from "@/components/hive/Portrait";
+import "@/components/hive/portrait-design.css";
 export const metadata = pageMeta(
   "About",
   "The person behind the systems: Arinze Okigbo, founder and Computer Science student at NYU.",
@@ -17,12 +19,36 @@ export const metadata = pageMeta(
 );
 export default function About() {
   return (
-    <>
-      <PageIntro
-        label="THE PERSON BEHIND THE WORK"
-        title="Always asking. Always building."
-        description="I’m Arinze. I work across software, security, and products—with a particular interest in the systems people depend on."
-      />
+    <div className="portrait-about-page">
+      <section className="portrait-about-intro shell" data-portrait-stage>
+        <div className="portrait-about-copy">
+          <Label>THE PERSON BEHIND THE WORK</Label>
+          <SplitText
+            as="h1"
+            text="Always asking. Always building."
+            by="word"
+            className="portrait-about-title"
+          />
+          <p>
+            I’m Arinze. I work across software, security, and products—with a particular interest in
+            the systems people depend on.
+          </p>
+          <Link href="/work" className="text-link">
+            Follow the work <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
+        <div className="portrait-about-image">
+          <Portrait variant="about" />
+        </div>
+        <div className="portrait-about-note">
+          <span aria-hidden="true">↗</span>
+          <p>
+            The tools change.
+            <br />
+            The curiosity stays.
+          </p>
+        </div>
+      </section>
       <section className="story-grid shell">
         <div>
           <Label>01 / THE STORY</Label>
@@ -121,6 +147,6 @@ export default function About() {
         </div>
       </section>
       <ContactBanner />
-    </>
+    </div>
   );
 }

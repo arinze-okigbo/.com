@@ -6,7 +6,7 @@ Rebuild arinzeokigbo.com as a visually ambitious, technically credible personal 
 
 ## Current session
 
-Round 6 — Ephemeral cryptographic proof lab. Five scoped tasks in tasks.json: primary-source validation, real browser signing/verification, accessible lazy-loaded interface, privacy and behavior tests, and gated preview/production release. Work on hive/round-6-proof-lab. Production remains the verified Round5 release a4cb996 until this round clears all gates.
+Round 7 — Portrait, composition and motion. The user explicitly prioritizes visual representation, a headshot, layout and more animation over the planned audio experiment. Implement that direction now; retain the open R6 performance evidence and unchanged release gates. Five scoped tasks cover portrait provenance, responsive design, motion, QA and deployment. Branch hive/round-7-portrait-design.
 
 ## Decisions
 
@@ -73,3 +73,13 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: Resume with one bounded signature experiment. Use real ECDSA P-256/SHA-256, non-extractable in-memory private keys, a public SPKI fingerprint and deliberate message tampering. This demonstrates integrity and key possession, with no account, identity assertion, persistent credential or outbound challenge data.
 
 - 2026-09-15: Round6 local homepage fixed-five passed98/100/100/100; lab passed96/100/100/100 in all five runs. Exact Vercel preview d8a6bf8 passed real sign/verify/tamper,390px dark layout and close-focus checks. Linux34973658216 blocked release on one test-only Node24/25 private-export error-name difference; both runtimes correctly refuse export. Preserve rejection assertions and accept the two observed native names.
+
+- 2026-09-15: PR7 passed required Linux96/100/100/100 and merged as dee660f. Domain SHA and78 browser checks pass; production audit34974650171 published/enforced99/100/100/100 (series82/99/99/99/99,LCP1986ms,TBT61ms,CLS0). Preserve every measurement; checkpoint before beginning another feature.
+
+- 2026-09-15: Late main CI34974556397 measured94/100/100/100 (series77/94/94/95/93) after pre-merge96 and production99 passed. Reopen R6-04 and retain every report. No direct homepage feature changes or bundle growth were identified; avoid an unsupported causal claim, rollback or retry-until-green. Investigate the captured startup profile before the next feature.
+
+- 2026-09-15: User requests resuming the hive around layout, design, personal representation/headshot and more effects. This supersedes the earlier no-portrait preference and planned audio round. Pair a real portrait with editorial composition and bounded motion; performance remains a ship gate.
+
+- 2026-09-15: Round7 restores the authentic portrait from Git history, promotes editorial home/About layouts, and adds native spring portrait depth, hover light and decorative frame entrances. Local fixed-five97/100/100/100 versus controlled baseline98, with CLS0 and all bundle gates passing. Keep the measured one-point tradeoff explicit; do not attribute old Linux variance to the portrait or claim it resolved.
+
+- 2026-09-15: PR8 required Linux34978867809 blocked merge at94/100/100/100 (91/94/94/97/92,LCP2662ms,TBT161ms,CLS0.00313). Build/unit/browser/bundle checks passed; exact preview b852228 is visually verified. Preserve reports and investigate the recorded185ms startup task plus portrait-introduction layout shift.

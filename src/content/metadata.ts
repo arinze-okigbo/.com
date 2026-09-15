@@ -8,8 +8,9 @@
  * Fixes `docs/00` Defect 8 (the `www.` inconsistency between `openGraph.url` and
  * `metadataBase`/`canonical`) and Defects 3 + 9 (OG pointing at a 4.9 MB square
  * portrait while declaring 1200×630). The OG image is generated at
- * `/opengraph-image`. The portrait has been deleted: the site is type-only and
- * `public/` now holds nothing but `logos/`.
+ * `/opengraph-image`. A resized portrait recovered from repository history
+ * is available separately at `/portrait.webp`; provenance is recorded in
+ * `hive/research/portrait.json`.
  */
 
 const TITLE = "Arinze Okigbo — group payments and browser-native authentication";

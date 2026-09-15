@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T13:13:28.274Z",
+  "capturedAt": "2026-09-15T14:14:54.206Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "511673c670fe31c883baec5a9bed54cfcc10d9dc",
+  "headCommit": "b8522282f5adbdf88a5d49172341fbceec88c8ff",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -881,6 +881,128 @@
         "src/lib/hive/proof.test.ts",
         "src/lib/hive/proof.ts",
         "tests/hive/proof-lab.spec.ts"
+      ]
+    },
+    {
+      "commitSHA": "d8a6bf825c574e29545b32fe6ae4c46aecf56881",
+      "timestamp": "2026-09-15T09:13:28-04:00",
+      "subject": "docs(hive): record signature lab validation and release checkpoint",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/build-history.json",
+        "hive/changelog/round-6.md",
+        "hive/qa/round-six-series.json",
+        "hive/qa/round-six-summary.json",
+        "hive/tasks.json"
+      ]
+    },
+    {
+      "commitSHA": "978ef20154c5e19bdc6e32537fda0ca2fd5944d4",
+      "timestamp": "2026-09-15T09:16:59-04:00",
+      "subject": "test(crypto): handle native private-export error names across Node versions",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/changelog/round-6.md",
+        "hive/qa/round-six-lab-series.json",
+        "hive/qa/round-six-lab-summary.json",
+        "src/lib/hive/proof.test.ts"
+      ]
+    },
+    {
+      "commitSHA": "dee660fbd3e6c4f911b083078537ab13db48c026",
+      "timestamp": "2026-09-15T09:22:12-04:00",
+      "subject": "Merge pull request #7 from arinze-okigbo/hive/round-6-proof-lab",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/acceptance.md",
+        "hive/build-history.json",
+        "hive/changelog/round-5.md",
+        "hive/changelog/round-6.md",
+        "hive/qa/round-six-lab-series.json",
+        "hive/qa/round-six-lab-summary.json",
+        "hive/qa/round-six-series.json",
+        "hive/qa/round-six-summary.json",
+        "hive/qa/round5-final-production-series.json",
+        "hive/qa/round5-final-production-summary.json",
+        "hive/qa/round5-publish-preflight-summary.json",
+        "hive/research/proof-lab.json",
+        "hive/tasks.json",
+        "src/app/lab/page.tsx",
+        "src/components/hive/ProofLab.tsx",
+        "src/components/hive/ProofLabMount.tsx",
+        "src/components/hive/proof-lab.css",
+        "src/lib/hive/proof.test.ts",
+        "src/lib/hive/proof.ts",
+        "tests/hive/proof-lab.spec.ts"
+      ]
+    },
+    {
+      "commitSHA": "5d0b4dcf86b0522cb6c852bfc8fb88b99ea3cc71",
+      "timestamp": "2026-09-15T09:26:52-04:00",
+      "subject": "docs(hive): checkpoint verified round-six production release",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/build-history.json",
+        "hive/changelog/round-6.md",
+        "hive/qa/round-six-linux-series.json",
+        "hive/qa/round-six-linux-summary.json",
+        "hive/qa/round-six-production-series.json",
+        "hive/qa/round-six-production-summary.json",
+        "hive/tasks.json"
+      ]
+    },
+    {
+      "commitSHA": "2046f33230a7629e28484c40aca7385982de1cf3",
+      "timestamp": "2026-09-15T09:31:31-04:00",
+      "subject": "docs(quality): preserve post-merge performance failure and diagnostic checkpoint",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/changelog/round-6.md",
+        "hive/qa/round-six-postmerge-linux-series.json",
+        "hive/qa/round-six-postmerge-linux-summary.json",
+        "hive/tasks.json"
+      ]
+    },
+    {
+      "commitSHA": "3b098755ac3752507496dea548a2408e1426a450",
+      "timestamp": "2026-09-15T09:55:17-04:00",
+      "subject": "feat(design): bring portrait and editorial motion into the portfolio",
+      "changedFiles": [
+        "hive/research/portrait.json",
+        "public/portrait.webp",
+        "src/app/about/page.tsx",
+        "src/app/page.tsx",
+        "src/components/hive/Portrait.tsx",
+        "src/components/hive/PortraitMotion.tsx",
+        "src/components/hive/portrait-design.css",
+        "src/components/hive/portrait-motion.css",
+        "src/content/metadata.ts",
+        "tests/hive/metadata.spec.ts",
+        "tests/hive/portrait-design.spec.ts"
+      ]
+    },
+    {
+      "commitSHA": "b8522282f5adbdf88a5d49172341fbceec88c8ff",
+      "timestamp": "2026-09-15T10:01:14-04:00",
+      "subject": "perf(motion): keep the portrait stable during its frame entrance",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/build-history.json",
+        "hive/changelog/round-7.md",
+        "hive/qa/portrait-baseline-series.json",
+        "hive/qa/portrait-baseline-summary.json",
+        "hive/qa/portrait-candidate-series.json",
+        "hive/qa/portrait-candidate-summary.json",
+        "hive/qa/portrait-final-series.json",
+        "hive/qa/portrait-final-summary.json",
+        "hive/tasks.json",
+        "src/components/hive/PortraitMotion.tsx"
       ]
     }
   ]

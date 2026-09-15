@@ -18,14 +18,21 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let disposed = false;
     let destroy: (() => void) | undefined;
+    let scrollFrame = 0;
     const updateScroll = () => {
-      const range = document.documentElement.scrollHeight - innerHeight;
+      scrollFrame = 0;
+      const position = scrollY;
+      // At the top, progress is known without asking the browser to lay out the page.
+      const range = position > 0 ? document.documentElement.scrollHeight - innerHeight : 0;
       if (progress.current)
-        progress.current.style.transform = `scaleX(${range > 0 ? scrollY / range : 0})`;
-      document.documentElement.dataset.scrolled = String(scrollY > 32);
+        progress.current.style.transform = `scaleX(${range > 0 ? position / range : 0})`;
+      document.documentElement.dataset.scrolled = String(position > 32);
+    };
+    const scheduleScroll = () => {
+      if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScroll);
     };
     updateScroll();
-    addEventListener("scroll", updateScroll, { passive: true });
+    addEventListener("scroll", scheduleScroll, { passive: true });
     let started = false;
     const startChoreography = () => {
       if (started || reduced || disposed) return;
@@ -63,7 +70,8 @@ export function MotionProvider({ children }: { children: ReactNode }) {
       teardown();
       document.removeEventListener("click", beforeNavigation, true);
       removeEventListener("popstate", teardown);
-      removeEventListener("scroll", updateScroll);
+      cancelAnimationFrame(scrollFrame);
+      removeEventListener("scroll", scheduleScroll);
       removeEventListener("wheel", startChoreography);
       removeEventListener("touchstart", startChoreography);
       removeEventListener("scroll", startChoreography);

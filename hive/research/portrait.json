@@ -1,0 +1,60 @@
+{
+  "round": "R7-01",
+  "checkedAt": "2026-09-15T13:45:41.561739+00:00",
+  "status": "recovered-and-visually-verified",
+  "source": {
+    "kind": "existing-public-repository-history",
+    "repository": "https://github.com/arinze-okigbo/.com",
+    "path": "public/profile.jpg",
+    "commit": "c347819a267428512da1dafe77906f05b182eaf1",
+    "blob": "4d6ad20ab5cc1081bd1c1c8503c221014f663eb4",
+    "url": "https://github.com/arinze-okigbo/.com/blob/c347819a267428512da1dafe77906f05b182eaf1/public/profile.jpg",
+    "introducedCommit": "ee55ea605e17ada2c798a036dca49b55f7efd32a",
+    "removedCommit": "3f0b76858ac6d3446a45780b8119cfe54521d3cd",
+    "removalReason": "Historical commit describes an unused 4.9 MB portrait being removed along with dead application assets.",
+    "width": 4809,
+    "height": 4809,
+    "format": "jpeg",
+    "bytes": 5131528,
+    "sha256": "edbb9957592bf1d54fa45b7f74e840626188d5b96515c84f88c2b8b0b2ccb41f",
+    "identityProvenance": {
+      "path": "src/components/sections/HeroSection.tsx",
+      "commit": "c347819a267428512da1dafe77906f05b182eaf1",
+      "sourceLines": [
+        73,
+        74
+      ],
+      "sourceUsage": "src=\"/profile.jpg\"; alt=\"Portrait of Arinze Okigbo\"",
+      "basis": "Identity attributed by the existing personal-site source, not inferred from face recognition."
+    }
+  },
+  "asset": {
+    "localPath": "/portrait.webp",
+    "repositoryPath": "public/portrait.webp",
+    "width": 1280,
+    "height": 1280,
+    "format": "webp",
+    "bytes": 197684,
+    "sha256": "5b3fb7db8d21b7ee1f0d8c6b74efc768390b9829cbfc0fcc04d6b60c1c2bb9a5",
+    "alt": "Portrait of Arinze Okigbo",
+    "processing": "Sharp resize to1280\u00d71280 preserving original square framing; WebP quality84 effort6. No crop, retouching, generative edits, background replacement or appearance changes.",
+    "originalRetention": "Original full-resolution bytes remain recoverable from the exact Git blob recorded above; temporary public original removed to avoid publishing duplicate 5 MB asset."
+  },
+  "visualReview": {
+    "sourceInspected": true,
+    "webAssetInspected": true,
+    "observations": "Centered head-and-shoulders portrait in a dark suit, light shirt and blue patterned tie against a neutral dark background. Face and original square composition remain clear in the encoded asset.",
+    "reviewMethod": "view_image on recovered4809\u00d74809 source and final1280\u00d71280 WebP."
+  },
+  "integrationGuidance": {
+    "intrinsicDimensions": [
+      1280,
+      1280
+    ],
+    "imageComponent": "Use next/image with real dimensions or static import, plus sizes matching the final responsive layout.",
+    "aboveFold": "Installed Next16 docs recommend loading=eager or fetchPriority=high for most above-fold uses; do not combine preload with loading/fetchPriority. Priority prop is deprecated.",
+    "layout": "Reserve intrinsic aspect ratio to avoid layout shift. Preserve original headroom and eye placement when choosing CSS display framing.",
+    "docPath": "node_modules/next/dist/docs/01-app/03-api-reference/02-components/image.md",
+    "scope": "No component/layout change or deployed image-load/performance claim made by this asset task."
+  }
+}
