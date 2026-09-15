@@ -1,3 +1,4 @@
+import { Icon } from "@/components/hive/Icon";
 import Link from "next/link";
 import { SpringLab } from "@/components/hive/Experiments";
 export default function NotFound() {
@@ -9,7 +10,7 @@ export default function NotFound() {
         This page has wandered off. While you’re here, give the spring a nudge.
       </p>
       <Link href="/" className="button button-primary">
-        Back to familiar ground ↗
+        Back to familiar ground <Icon name="arrow-up-right" />
       </Link>
       <div className="experiment-shell" style={{ margin: "56px 0", maxWidth: 640 }}>
         <SpringLab />

@@ -18,8 +18,8 @@
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
-  --type-1: clamp(0.5625rem, 0.8vw, 0.6875rem);
-  --type-2: 0.8125rem;
+  --type-1: 0.75rem;
+  --type-2: 0.875rem;
   --type-3: 1rem;
   --type-4: 1.25rem;
   --type-5: 1.75rem;
@@ -153,8 +153,8 @@ h2,
 h3,
 h4 {
   font-weight: 500;
-  line-height: 1.06;
-  letter-spacing: -0.05em;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
 }
 p {
   max-width: 65ch;
@@ -175,8 +175,8 @@ svg {
   font-family: var(--font-mono);
   font-size: var(--type-1);
   font-weight: 400;
-  letter-spacing: 0.12em;
-  line-height: 1.7;
+  letter-spacing: 0.07em;
+  line-height: 1.6;
   color: var(--muted);
   text-transform: uppercase;
 }
@@ -392,14 +392,14 @@ svg {
 .hero-name {
   font-size: clamp(var(--type-7), 9vw, var(--type-8));
   line-height: 0.88;
-  letter-spacing: -0.085em;
+  letter-spacing: -0.055em;
   font-weight: 500;
   white-space: nowrap;
 }
 .hero-surname {
   font-size: clamp(var(--type-7), 9vw, var(--type-8));
   line-height: 1.02;
-  letter-spacing: -0.085em;
+  letter-spacing: -0.055em;
   font-weight: 500;
 }
 .name-period {
@@ -556,7 +556,7 @@ svg {
 }
 .project-card-title h3 {
   font-size: var(--type-5);
-  letter-spacing: -0.045em;
+  letter-spacing: -0.035em;
 }
 .project-card-title > span {
   font-size: 1.5rem;
@@ -569,7 +569,8 @@ svg {
 .project-card-copy > p {
   font-size: var(--type-2);
   color: var(--muted);
-  max-width: 90%;
+  max-width: 48ch;
+  line-height: 1.75;
 }
 .project-index {
   display: none;
@@ -579,8 +580,8 @@ svg {
   left: 24px;
   bottom: 20px;
   font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.13em;
+  font-size: var(--type-1);
+  letter-spacing: 0.05em;
   color: var(--muted);
 }
 .art-splita {
@@ -1095,7 +1096,7 @@ svg {
 }
 .footer-name {
   font-size: var(--type-4);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.025em;
 }
 .footer-name > span {
   margin-left: 20px;
@@ -1103,7 +1104,8 @@ svg {
 }
 .footer-links {
   display: flex;
-  gap: 28px;
+  flex-wrap: wrap;
+  gap: 16px 28px;
   font-size: var(--type-1);
 }
 .footer-links a:hover {
@@ -1725,7 +1727,7 @@ svg {
   .hero-surname {
     font-size: clamp(var(--type-7), 20vw, var(--type-8));
     line-height: 0.95;
-    letter-spacing: -0.075em;
+    letter-spacing: -0.035em;
   }
   .hero-description {
     margin: 28px 0 24px;

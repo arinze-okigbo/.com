@@ -1,3 +1,4 @@
+import { Icon } from "@/components/hive/Icon";
 import Link from "next/link";
 import { Label, PageIntro, Source, pageMeta } from "@/components/hive/Primitives";
 import { AnimatedCounter, SplitText } from "@/components/hive/Motion";
@@ -11,8 +12,7 @@ export const metadata = pageMeta(
 );
 export default async function Now() {
   const { github, substack } = await getHiveContent();
-  const commit = github.latestCommit,
-    post = substack.items[0];
+  const post = substack.items[0];
   return (
     <>
       <PageIntro
@@ -27,7 +27,7 @@ export default async function Now() {
             <SplitText as="h2" text="Payments. Identity. Security." by="word" />
             <p>{profile.description}</p>
             <Link className="text-link" href="/work">
-              Explore the work ↗
+              Explore the work <Icon name="arrow-up-right" />
             </Link>
           </article>
           <article className="now-card">
@@ -39,24 +39,14 @@ export default async function Now() {
             <p style={{ marginTop: 16 }}>{profile.education}</p>
             <Source href={profile.educationSource} />
           </article>
-          {commit && (
-            <article className="now-card">
-              <Label>LATEST CAPTURED COMMIT</Label>
-              <SplitText as="h2" text={commit.repo} by="word" />
-              <p>{commit.message}</p>
-              <Source
-                href={commit.url}
-                label={`View commit · ${new Date(commit.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })}`}
-              />
-            </article>
-          )}
+
           {post && (
             <article className="now-card">
               <Label>LATEST WRITING</Label>
               <SplitText as="h2" text={post.title} by="word" />
               <p>{post.subtitle}</p>
               <Link className="text-link" href={`/writing/${post.slug}`}>
-                Read the article ↗
+                Read the article <Icon name="arrow-up-right" />
               </Link>
             </article>
           )}

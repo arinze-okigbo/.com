@@ -1,17 +1,12 @@
 import { SplitText } from "@/components/hive/Motion";
-import Link from "next/link";
-import { ProfiledIsland } from "@/components/hive/Interactions";
-import tasks from "../../../hive/tasks.json";
-import history from "../../../hive/build-history.json";
-import { BuildHistory } from "@/components/hive/BuildHistory";
-import { BuildReplay, SpringLab, ProjectStack } from "@/components/hive/Experiments";
+import { SpringLab, ProjectStack } from "@/components/hive/Experiments";
 import { CeremonyMount } from "@/components/ceremony/CeremonyMount";
 import { Label, PageIntro, pageMeta } from "@/components/hive/Primitives";
 import { projects } from "@/content/editorial";
 import { ProofLabMount } from "@/components/hive/ProofLabMount";
 export const metadata = pageMeta(
   "Lab",
-  "Interactive experiments in authentication, motion, and AI-assisted building. Try the systems in your browser.",
+  "Interactive experiments in authentication, digital signatures, and motion. Try the systems in your browser.",
   "/lab",
 );
 export default function Lab() {
@@ -31,9 +26,7 @@ export default function Lab() {
             and watch the solver respond.
           </p>
           <div className="experiment-shell">
-            <ProfiledIsland name="Spring lab">
-              <SpringLab />
-            </ProfiledIsland>
+            <SpringLab />
           </div>
         </section>
         <section className="lab-section" id="proof">
@@ -55,41 +48,14 @@ export default function Lab() {
             sample to explore the protocol; creating a real credential always requires your action.
           </p>
           <div className="experiment-shell ceremony-panel">
-            <ProfiledIsland name="Passkey lab">
-              <CeremonyMount
-                loadLabel="Load authentication lab"
-                loadHint="Runs in your browser. No account required."
-              />
-            </ProfiledIsland>
-          </div>
-        </section>
-        <section className="lab-section">
-          <Label>04 / HOW THIS SITE IS BUILT</Label>
-          <SplitText as="h2" text="One direction. Many specialists." by="word" />
-          <p>
-            A Queen coordinates research, design, motion, and implementation. Each specialist works
-            against an explicit task. The sequence below explains the process; the changelog records
-            actual changes.
-          </p>
-          <div className="experiment-shell">
-            <BuildReplay
-              events={tasks.map((t) => ({
-                id: t.id,
-                title: t.owner.replaceAll("_", " "),
-                detail: t.acceptance_test,
-                status: t.status as "complete" | "in_progress" | "pending",
-              }))}
+            <CeremonyMount
+              loadLabel="Load authentication lab"
+              loadHint="Runs in your browser. No account required."
             />
           </div>
-          <div className="experiment-shell" style={{ marginTop: 24 }}>
-            <BuildHistory history={history} />
-          </div>
-          <Link href="/lab/changelog" className="text-link" style={{ marginTop: 24 }}>
-            Read the build log ↗
-          </Link>
         </section>
         <section className="lab-section">
-          <Label>05 / PHYSICAL INTERFACES</Label>
+          <Label>04 / PHYSICAL INTERFACES</Label>
           <SplitText as="h2" text="Pick up an idea." by="word" />
           <p>
             Drag the cards to explore the stack. A small experiment in direct manipulation, with

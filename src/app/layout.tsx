@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import { Header } from "@/components/hive/Header";
 import { Footer } from "@/components/hive/Footer";
-import { PageTransition, ProfiledIsland } from "@/components/hive/Interactions";
+import { PageTransition } from "@/components/hive/Interactions";
 import { MotionProvider } from "@/components/hive/Motion";
 const geist = Geist({
   subsets: ["latin"],
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   other: { "hive:commit": process.env.VERCEL_GIT_COMMIT_SHA || "local" },
   title: { default: "Arinze Okigbo — Founder. Engineer. Builder.", template: "%s — Arinze Okigbo" },
   description:
-    "Founder and engineer working across browser-native authentication, group payments, and AI agent systems. Explore the work, and the systems behind it.",
+    "Founder and engineer working across browser-native authentication, group payments, and AI. Explore projects, research, and writing.",
   alternates: { canonical: "/", types: { "application/rss+xml": "/feed.xml" } },
   openGraph: { type: "website", siteName: "Arinze Okigbo", locale: "en_US" },
   twitter: { card: "summary_large_image" },
@@ -57,9 +57,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
           <a className="skip-link" href="#main">
             Skip to content
           </a>
-          <ProfiledIsland name="Navigation">
-            <Header />
-          </ProfiledIsland>
+          <Header />
           <main id="main" tabIndex={-1}>
             <PageTransition>{children}</PageTransition>
           </main>

@@ -33,7 +33,7 @@ export const navigationPages: NavigationItem[] = [
     title: "Projects",
     href: "/projects",
     kind: "Page",
-    description: "The build index",
+    description: "Selected software projects",
     keywords: "portfolio software",
   },
   {
@@ -63,13 +63,6 @@ export const navigationPages: NavigationItem[] = [
     kind: "Page",
     description: "Start a conversation",
     keywords: "email message hello",
-  },
-  {
-    title: "Build log",
-    href: "/lab/changelog",
-    kind: "Page",
-    description: "Recorded changes to this site",
-    keywords: "changelog hive agents",
   },
 ];
 

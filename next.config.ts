@@ -3,7 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
-  reactProductionProfiling: true,
   experimental: { inlineCss: true, optimizePackageImports: ["@react-three/drei", "framer-motion"] },
   async headers() {
     return [

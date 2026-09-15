@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { Icon } from "./Icon";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { getFocusableElements } from "@/lib/a11y/focusable";
@@ -125,7 +126,10 @@ function Navigation({ pathname }: { pathname: string }) {
           aria-label="ao — Arinze Okigbo home"
           onClick={() => setOpen(false)}
         >
-          ao<span>↗</span>
+          ao
+          <span>
+            <Icon name="arrow-up-right" />
+          </span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map(([label, href]) => (
@@ -139,7 +143,10 @@ function Navigation({ pathname }: { pathname: string }) {
         <div className="header-actions">
           <ThemeToggle />
           <Link href="/contact" className="header-contact">
-            Let’s talk <span aria-hidden="true">↗</span>
+            Let’s talk{" "}
+            <span aria-hidden="true">
+              <Icon name="arrow-up-right" />
+            </span>
           </Link>
           <button
             ref={toggle}
@@ -149,7 +156,10 @@ function Navigation({ pathname }: { pathname: string }) {
             aria-controls="mobile-menu"
             onClick={() => setOpen(!open)}
           >
-            {open ? "Close" : "Menu"} <span aria-hidden="true">{open ? "−" : "+"}</span>
+            {open ? "Close" : "Menu"}{" "}
+            <span aria-hidden="true">
+              <Icon name={open ? "close" : "menu"} />
+            </span>
           </button>
         </div>
       </div>
@@ -163,7 +173,9 @@ function Navigation({ pathname }: { pathname: string }) {
               aria-current={pathname === href ? "page" : undefined}
             >
               {label}
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true">
+                <Icon name="arrow-up-right" />
+              </span>
             </Link>
           ))}
         </nav>

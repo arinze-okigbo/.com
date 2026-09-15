@@ -1,3 +1,4 @@
+import { Icon } from "@/components/hive/Icon";
 import { PageIntro, pageMeta } from "@/components/hive/Primitives";
 import { CopyButton, ContactComposer } from "@/components/hive/Interactions";
 import { contactEmail } from "@/content/contact";
@@ -18,7 +19,9 @@ export default function Contact() {
       <section className="shell">
         <a className="contact-email" href={`mailto:${contactEmail}`}>
           {contactEmail}
-          <span>↗</span>
+          <span>
+            <Icon name="arrow-up-right" />
+          </span>
         </a>
         <div className="contact-controls">
           <CopyButton value={contactEmail} />
@@ -31,7 +34,9 @@ export default function Contact() {
             .map((l) => (
               <a key={l.label} href={l.url} target="_blank" rel="noreferrer">
                 {l.label}
-                <span>↗</span>
+                <span>
+                  <Icon name="arrow-up-right" />
+                </span>
               </a>
             ))}
         </div>

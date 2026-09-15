@@ -14,13 +14,17 @@ describe("sitemap", () => {
       "/work",
       "/projects",
       "/lab",
-      "/lab/changelog",
       "/writing",
       "/now",
       "/contact",
       ...projects.map((p) => `/projects/${p.slug}`),
     ])
       expect(urls).toContain(`https://arinzeokigbo.com${route}`);
+  });
+  test("excludes retired pages that redirect to the lab", async () => {
+    const urls = (await sitemap()).map((entry) => entry.url);
+    expect(urls).not.toContain("https://arinzeokigbo.com/lab/changelog");
+    expect(urls).not.toContain("https://arinzeokigbo.com/projects/astra-hive");
   });
   test("includes exactly the sourced article routes", async () => {
     const urls = (await sitemap()).map((e) => e.url).filter((u) => u.includes("/writing/"));

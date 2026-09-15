@@ -1,5 +1,6 @@
+import { Icon } from "@/components/hive/Icon";
 import { SplitText } from "@/components/hive/Motion";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import mediaInventory from "../../../../hive/research/project-media.json";
@@ -18,11 +19,13 @@ export function generateStaticParams() {
 }
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
+  if (slug === "astra-hive") permanentRedirect("/lab");
   const p = projects.find((p) => p.slug === slug);
   return p ? pageMeta(p.name, p.description, `/projects/${slug}`) : { title: "Project not found" };
 }
 export default async function ProjectDetail({ params }: Props) {
   const { slug } = await params;
+  if (slug === "astra-hive") permanentRedirect("/lab");
   const p = projects.find((p) => p.slug === slug);
   if (!p) notFound();
   const screenshots =
@@ -40,7 +43,10 @@ export default async function ProjectDetail({ params }: Props) {
           ))}
         </div>
         <a className="button button-primary" href={p.url} target="_blank" rel="noreferrer">
-          {p.url.includes("github") ? "View source" : "Visit project"} <span>↗</span>
+          {p.url.includes("github") ? "View source" : "Visit project"}{" "}
+          <span>
+            <Icon name="arrow-up-right" />
+          </span>
         </a>
       </PageIntro>
       <div className="shell project-detail-hero">
@@ -97,7 +103,7 @@ export default async function ProjectDetail({ params }: Props) {
           </section>
         )}
         <Link href="/projects" className="text-link" style={{ marginBottom: 80 }}>
-          ← Back to all projects
+          <Icon name="arrow-left" /> Back to all projects
         </Link>
       </div>
       <ContactBanner />

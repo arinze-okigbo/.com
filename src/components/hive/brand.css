@@ -1,0 +1,36 @@
+/* Window coordinates in the unmodified 3024px-square supplied artwork:
+   x=700, y=1220, width=1700, height=640. Keep its white field in either theme. */
+.splita-logo {
+  display: inline-block;
+  position: relative;
+  flex: 0 0 auto;
+  overflow: hidden;
+  width: 126px;
+  aspect-ratio: 1700 / 640;
+  background: #fff;
+  border-radius: 3px;
+  line-height: 0;
+}
+.splita-logo > .splita-logo-image {
+  position: absolute;
+  max-width: none;
+  width: 177.882353%;
+  height: auto;
+  left: -41.176471%;
+  top: -190.625%;
+}
+.phone-top .splita-logo {
+  width: 104px;
+}
+.payment-step .site-icon {
+  width: 12px;
+  height: 12px;
+}
+.payment-confirm .site-icon {
+  margin-right: 6px;
+}
+.system-art .hive-root .site-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 7px;
+}

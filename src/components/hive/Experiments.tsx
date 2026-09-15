@@ -3,6 +3,7 @@ import { useReducedMotion } from "./motion/preferences";
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import { Icon } from "./Icon";
 import { springStep, resolveCollision, type Body } from "./lab/physics";
 import { visibleLoop } from "./motion/visible-loop";
 
@@ -138,10 +139,10 @@ export function SpringLab() {
       </div>
       <div className="hive-lab-actions">
         <button type="button" onClick={() => setTarget(target > 240 ? 100 : 380)}>
-          Move target ↔
+          Move target <Icon name="arrows-horizontal" />
         </button>
         <button type="button" aria-pressed={!playing} onClick={() => setPlaying(!playing)}>
-          {playing ? "Pause" : "Resume"}
+          {playing ? "Pause" : "Resume"} <Icon name={playing ? "pause" : "play"} />
         </button>
         <button
           type="button"
@@ -152,7 +153,7 @@ export function SpringLab() {
             body.current = { x: 120, y: 150, vx: 0, vy: 0 };
           }}
         >
-          Reset
+          Reset <Icon name="refresh" />
         </button>
       </div>
       <p className="hive-lab-caption">
@@ -295,50 +296,3 @@ export function PhysicsTags({ tags = defaultTags }: { tags?: string[] }) {
 /** The optional drag runtime is requested only when this stack is rendered.
  * Keep SSR enabled so the lab retains its real links and keyboard controls. */
 export const ProjectStack = dynamic(() => import("./ProjectStack"));
-
-export type BuildEvent = {
-  id: string;
-  title: string;
-  detail: string;
-  status: "complete" | "in_progress" | "pending";
-};
-export function BuildReplay({ events = [] }: { events?: BuildEvent[] }) {
-  const [selected, setSelected] = useState(0);
-  if (!events.length)
-    return (
-      <div className="hive-build-replay">
-        <h3>Built in the open.</h3>
-        <p>
-          The build decisions, verification results, and remaining work live in the public
-          changelog.
-        </p>
-        <a href="/lab/changelog">Read the actual build record ↗</a>
-      </div>
-    );
-  const event = events[Math.min(selected, events.length - 1)];
-  return (
-    <div className="hive-build-replay">
-      <p className="hive-label">HIVE TASK RECORD · BUILD-TIME SNAPSHOT</p>
-      <div className="hive-replay-tabs" role="group" aria-label="Build tasks">
-        {events.map((item, i) => (
-          <button
-            type="button"
-            key={item.id}
-            aria-pressed={i === selected}
-            onClick={() => setSelected(i)}
-          >
-            {item.id}
-          </button>
-        ))}
-      </div>
-      <div aria-live="polite">
-        <p className="hive-label">{event.status.replaceAll("_", " ")}</p>
-        <h3>{event.title}</h3>
-        <p>{event.detail}</p>
-      </div>
-      <p className="hive-lab-caption">
-        Inspect recorded task states. This is a saved build record, not a live agent feed.
-      </p>
-    </div>
-  );
-}

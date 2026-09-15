@@ -6,7 +6,10 @@ const canonicalOrigin = "https://arinzeokigbo.com";
 function metadata(html: string, key: string) {
   for (const tag of html.matchAll(/<meta\b[^>]*>/gi)) {
     const attrs = Object.fromEntries(
-      Array.from(tag[0].matchAll(/([\w:-]+)=["']([^"']*)["']/g)).map(match => [match[1], match[2]]),
+      Array.from(tag[0].matchAll(/([\w:-]+)=["']([^"']*)["']/g)).map((match) => [
+        match[1],
+        match[2],
+      ]),
     );
     if (attrs.property === key || attrs.name === key)
       return attrs.content?.replaceAll("&amp;", "&").replaceAll("&quot;", '"');
@@ -25,9 +28,10 @@ test("every sitemap page serves its own valid Open Graph PNG", async ({ request 
   const sitemap = await request.get("/sitemap.xml");
   expect(sitemap.status()).toBe(200);
   const urls = sitemapUrls(await sitemap.text());
-  expect(urls).toContain(`${canonicalOrigin}/lab/changelog`);
-  expect(urls.some(url => url.includes("/projects/"))).toBe(true);
-  expect(urls.some(url => url.includes("/writing/"))).toBe(true);
+  expect(urls).not.toContain(`${canonicalOrigin}/lab/changelog`);
+  expect(urls).not.toContain(`${canonicalOrigin}/projects/astra-hive`);
+  expect(urls.some((url) => url.includes("/projects/"))).toBe(true);
+  expect(urls.some((url) => url.includes("/writing/"))).toBe(true);
   const distinctImages = new Set<string>();
   for (const canonicalUrl of urls) {
     const target = new URL(canonicalUrl);
@@ -38,7 +42,9 @@ test("every sitemap page serves its own valid Open Graph PNG", async ({ request 
     const image = metadata(html, "og:image");
     expect(image, `${target.pathname} has an Open Graph image`).toBeTruthy();
     const imageUrl = new URL(image!, canonicalOrigin);
-    expect(imageUrl.origin, `Image for ${target.pathname} is served by this site`).toBe(canonicalOrigin);
+    expect(imageUrl.origin, `Image for ${target.pathname} is served by this site`).toBe(
+      canonicalOrigin,
+    );
     distinctImages.add(imageUrl.href);
     const asset = await request.get(`${imageUrl.pathname}${imageUrl.search}`);
     expect(asset.status(), `${target.pathname}: ${imageUrl.pathname}`).toBe(200);
@@ -48,14 +54,23 @@ test("every sitemap page serves its own valid Open Graph PNG", async ({ request 
     expect(bytes.readUInt32BE(16)).toBe(1200);
     expect(bytes.readUInt32BE(20)).toBe(630);
   }
-  expect(distinctImages.size, "Each sitemap page should advertise its own page-specific image").toBe(urls.length);
+  expect(
+    distinctImages.size,
+    "Each sitemap page should advertise its own page-specific image",
+  ).toBe(urls.length);
 });
 
-test("RSS, sitemap, robots and security disclosure agree on canonical destinations", async ({ request }) => {
+test("RSS, sitemap, robots and security disclosure agree on canonical destinations", async ({
+  request,
+}) => {
   const [feed, sitemap, robots, security] = await Promise.all([
-    request.get("/feed.xml"), request.get("/sitemap.xml"), request.get("/robots.txt"), request.get("/.well-known/security.txt"),
+    request.get("/feed.xml"),
+    request.get("/sitemap.xml"),
+    request.get("/robots.txt"),
+    request.get("/.well-known/security.txt"),
   ]);
-  for (const response of [feed, sitemap, robots, security]) expect(response.status(), response.url()).toBe(200);
+  for (const response of [feed, sitemap, robots, security])
+    expect(response.status(), response.url()).toBe(200);
   expect(feed.headers()["content-type"]).toContain("xml");
   expect(sitemap.headers()["content-type"]).toContain("xml");
   const xml = await feed.text();
@@ -67,7 +82,9 @@ test("RSS, sitemap, robots and security disclosure agree on canonical destinatio
   for (const item of items) {
     expect(item.title).toBeTruthy();
     expect(Number.isFinite(Date.parse(item.pubDate))).toBe(true);
-    expect(siteUrls.has(item.link), `RSS article ${item.link} is discoverable in the sitemap`).toBe(true);
+    expect(siteUrls.has(item.link), `RSS article ${item.link} is discoverable in the sitemap`).toBe(
+      true,
+    );
   }
   const robotsText = await robots.text();
   expect(robotsText).toMatch(/User-Agent:\s*\*/i);
@@ -83,8 +100,10 @@ test("RSS, sitemap, robots and security disclosure agree on canonical destinatio
 for (const route of ["/", "/about", "/writing", "/lab"]) {
   test(`${route} stays accessible after switching to light mode`, async ({ page }) => {
     const errors: string[] = [];
-    page.on("pageerror", error => errors.push(error.message));
-    page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
+    page.on("pageerror", (error) => errors.push(error.message));
+    page.on("console", (message) => {
+      if (message.type() === "error") errors.push(message.text());
+    });
     await page.goto(route, { waitUntil: "networkidle" });
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
     await page.getByRole("button", { name: "Switch to light mode" }).click();
@@ -93,9 +112,19 @@ for (const route of ["/", "/about", "/writing", "/lab"]) {
     // Wait for this theme wipe. Offscreen contained animations legitimately
     // pause until their content is visible and must not block a contrast audit.
     await expect(page.locator(".hive-theme-wipe")).toHaveCount(0);
-    const audit = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
-    expect(audit.violations.map(violation => ({ id: violation.id, impact: violation.impact, targets: violation.nodes.map(node => node.target) }))).toEqual([]);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    const audit = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      .analyze();
+    expect(
+      audit.violations.map((violation) => ({
+        id: violation.id,
+        impact: violation.impact,
+        targets: violation.nodes.map((node) => node.target),
+      })),
+    ).toEqual([]);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+      true,
+    );
     expect(errors).toEqual([]);
   });
 }

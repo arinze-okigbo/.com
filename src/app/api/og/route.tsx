@@ -1,3 +1,4 @@
+import { Icon } from "@/components/hive/Icon";
 import { ImageResponse } from "next/og";
 export const runtime = "edge";
 export async function GET(request: Request) {
@@ -38,7 +39,9 @@ export async function GET(request: Request) {
           }}
         >
           {title}
-          <span style={{ color: "#c2f6bd" }}>↗</span>
+          <span style={{ color: "#c2f6bd" }}>
+            <Icon name="arrow-up-right" size={64} style={{ display: "flex" }} />
+          </span>
         </div>
         <div
           style={{
