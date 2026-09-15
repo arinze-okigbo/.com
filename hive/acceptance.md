@@ -190,3 +190,6 @@ R5 motion evidence: `hive/qa/round5-motion.log` and `hive/qa/motion-interactions
 3. Keep real round records, task/resume state and this matrix aligned with evidence. Current trace includes Round 1 and Round 5, and source articles retain all 10 destinations and 6 images.
 4. Complete screenshot/demo coverage for the eight unsupported projects; only two projects currently have visually verified imported screenshots. Add missing personal/build facts only from identified public sources; LinkedIn profile access remains blocked.
 5. Record laptop/iPhone frame timing and final both-theme/reduced-motion visual checks. Desktop emulation is not a physical iPhone measurement. Literal every-headline and strict token requirements remain incomplete.
+
+## Final round-five release follow-up
+Production a4cb996, PR6 merged. Audit34934773759 attempt2 passed automatic publication and gates; attempt1 failed before measurement at Chrome startup. Fixed series97/100/98/99/100, all category gates passed in all five runs, representative100/100/100/100 at05:59:32 UTC, LCP1667.894ms/TBT60.5ms/CLS0. Metrics a6e010a matches the deployed SHA. Final main quality CI34934719974 passed. Round-five release and publication tasks are complete; physical-device verification remains open.

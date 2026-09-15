@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T05:49:39.917Z",
+  "capturedAt": "2026-09-15T06:01:35.701Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "5c772dbbae31f7dabeadced4856a7f4f75362120",
+  "headCommit": "a4cb9962d202dedbc38edb3a2cf9368381186ec8",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -816,6 +816,33 @@
         "hive/HIVE.md",
         "hive/RESUME.md",
         "hive/acceptance.md",
+        "hive/changelog/round-5.md",
+        "hive/qa/motion-interactions.json",
+        "hive/qa/round5-linux-contained-series.json",
+        "hive/qa/round5-linux-contained-summary.json",
+        "hive/qa/round5-production-series.json",
+        "hive/qa/round5-production-summary.json",
+        "hive/tasks.json"
+      ]
+    },
+    {
+      "commitSHA": "5bbe6445b8e6f0c8c7f60053a1d09f12f571710d",
+      "timestamp": "2026-09-15T01:49:39-04:00",
+      "subject": "docs(hive): refresh recorded build history",
+      "changedFiles": [
+        "hive/build-history.json"
+      ]
+    },
+    {
+      "commitSHA": "a4cb9962d202dedbc38edb3a2cf9368381186ec8",
+      "timestamp": "2026-09-15T01:55:27-04:00",
+      "subject": "Merge pull request #6 from arinze-okigbo/hive/round-5-audit-publish",
+      "changedFiles": [
+        ".github/workflows/deployment-audit.yml",
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/acceptance.md",
+        "hive/build-history.json",
         "hive/changelog/round-5.md",
         "hive/qa/motion-interactions.json",
         "hive/qa/round5-linux-contained-series.json",
