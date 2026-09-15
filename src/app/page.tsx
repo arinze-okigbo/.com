@@ -6,11 +6,13 @@ import { getHiveContent } from "@/lib/hive/feeds";
 import { NYClock, ProfiledIsland } from "@/components/hive/Interactions";
 import { ContactBanner, Label, ProjectCard, SectionHeading } from "@/components/hive/Primitives";
 import { projects } from "@/content/editorial";
+import { Portrait } from "@/components/hive/Portrait";
+import "@/components/hive/portrait-design.css";
 export default function Home() {
   return (
     <>
-      <section className="hero shell" id="top">
-        <div className="hero-topline">
+      <section className="hero portrait-hero shell" id="top" data-portrait-stage>
+        <div className="hero-topline portrait-topline">
           <span>
             <i className="status-dot" /> FOUNDER · ENGINEER · EXPLORER
           </span>
@@ -18,19 +20,27 @@ export default function Home() {
             NEW YORK, NY <NYClock />
           </span>
         </div>
-        <div className="hero-composition">
-          <div className="hero-copy" data-parallax="0.08">
-            <p className="hero-kicker">
+        <div className="portrait-hero-composition">
+          <div className="portrait-introduction">
+            <p className="portrait-kicker">
               A little curiosity.
               <br />A lot of building.
             </p>
-            <h1 className="hero-full-name" aria-label="Arinze Okigbo">
+            <h1 className="hero-full-name portrait-name" aria-label="Arinze Okigbo">
               <SplitText as="span" text="Arinze" className="hero-name" />
-              <span className="hero-surname" style={{ display: "block" }}>
+              <span className="hero-surname">
                 Okigbo<span className="name-period">.</span>
               </span>
             </h1>
-            <Reveal delay={0.3}>
+            <p className="portrait-role">
+              <span aria-hidden="true">↗</span> People. Systems. Possibility.
+            </p>
+          </div>
+          <div className="portrait-hero-image">
+            <Portrait />
+          </div>
+          <div className="portrait-hero-summary">
+            <Reveal>
               <p className="hero-description">
                 I build at the intersection of <strong>security, identity,</strong> and{" "}
                 <strong>AI.</strong> From browser-native authentication to products shipped with
@@ -39,32 +49,23 @@ export default function Home() {
               <div className="hero-actions">
                 <Magnetic>
                   <Link href="/projects" className="button button-primary">
-                    Explore my work <span>↗</span>
+                    Explore my work <span aria-hidden="true">↗</span>
                   </Link>
                 </Magnetic>
                 <Link href="/about" className="text-link">
-                  A bit about me <span>↗</span>
+                  A bit about me <span aria-hidden="true">↗</span>
                 </Link>
               </div>
             </Reveal>
           </div>
-          <div className="hero-visual" data-parallax="0.15">
-            <ProfiledIsland name="Orbital sculpture">
-              <HeroScene />
-            </ProfiledIsland>
-            <div className="sculpture-label" data-parallax="0.24">
-              <span>FIG. 01 — CONNECTED INTELLIGENCE</span>
-              <span>MOVE TO EXPLORE ↗</span>
-            </div>
-          </div>
         </div>
-        <div className="hero-bottom">
+        <div className="hero-bottom portrait-hero-bottom">
           <span className="hero-scroll" data-hive-scroll-cue>
             <span>↓</span> SCROLL TO DISCOVER
           </span>
           <Link href="/lab" className="hero-proof">
             <i className="status-dot" /> This site is Exhibit A. Built by an agent swarm.{" "}
-            <span>↗</span>
+            <span aria-hidden="true">↗</span>
           </Link>
         </div>
       </section>
@@ -78,14 +79,18 @@ export default function Home() {
           <Link href="/now">Now, in more detail ↗</Link>
         </div>
       </section>
-      <section className="section shell" id="projects">
+      <section className="section shell portrait-work" id="projects">
         <SectionHeading
           label="01 / SELECTED WORK"
           title="Ideas, made real."
           href="/projects"
           link="All projects"
         />
-        <div className="project-grid" data-hive-spotlight>
+        <p className="portrait-work-intro">
+          Products, protocols, and experiments. Different starting points. The same impulse to build
+          something useful.
+        </p>
+        <div className="project-grid portrait-project-grid" data-hive-spotlight>
           {projects.slice(0, 4).map((project, index) => (
             <Reveal key={project.slug} delay={(index % 2) * 0.08}>
               <ProjectCard project={project} index={index} />
@@ -93,7 +98,7 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <section className="about-teaser shell" id="about">
+      <section className="about-teaser shell portrait-throughline" id="about">
         <span id="achievements" className="legacy-anchor" />
         <Label>02 / THE THROUGHLINE</Label>
         <div className="about-teaser-copy">
@@ -107,11 +112,11 @@ export default function Home() {
             The story so far ↗
           </Link>
         </div>
-        <div className="about-index">
+        <div className="about-index" aria-hidden="true">
           a<span>o</span>
         </div>
       </section>
-      <section className="lab-teaser shell">
+      <section className="lab-teaser shell portrait-lab-teaser">
         <div>
           <Label>03 / THE LABORATORY</Label>
           <SplitText as="h2" text="Don’t take my word for it. Play with it." by="word" />
@@ -123,15 +128,14 @@ export default function Home() {
             Enter the lab <span>↗</span>
           </Link>
         </div>
-        <div className="lab-diagram" aria-hidden="true">
-          <span className="lab-orbit orbit-a" />
-          <span className="lab-orbit orbit-b" />
-          <span className="lab-orbit orbit-c" />
-          <span className="lab-center">↗</span>
-          <span className="lab-coordinate">EXPERIMENT / INTERACT / UNDERSTAND</span>
+        <div className="portrait-lab-sculpture">
+          <ProfiledIsland name="Orbital sculpture">
+            <HeroScene />
+          </ProfiledIsland>
+          <p className="portrait-sculpture-caption">FIG. 01 / CONNECTED INTELLIGENCE</p>
         </div>
       </section>
-      <section className="section shell">
+      <section className="section shell portrait-writing">
         <SectionHeading
           label="04 / NOTES & SIGNALS"
           title="Thinking in public."
