@@ -1,7 +1,7 @@
 {
-  "capturedAt": "2026-09-15T05:20:28.968Z",
+  "capturedAt": "2026-09-15T05:36:34.373Z",
   "baseCommit": "aed7ac2bda315f66620ae24b1df0a499173d9e46",
-  "headCommit": "4ca4b4e28379c1899f972d3a5438465d1fa70b78",
+  "headCommit": "ad6b1efb11f3eb84954c010af2931e3bb6da4379",
   "commits": [
     {
       "commitSHA": "e811d357a43da99bbef17aca0f12a7e9785eeb18",
@@ -657,6 +657,36 @@
         "scripts/check-lighthouse.mjs",
         "src/components/hive/Interactions.tsx",
         "src/components/hive/NYClock.test.tsx"
+      ]
+    },
+    {
+      "commitSHA": "0495eaf08a2709f86d896e3773d23b960d9c3194",
+      "timestamp": "2026-09-15T01:21:05-04:00",
+      "subject": "docs(hive): checkpoint clock optimization and verified audit series",
+      "changedFiles": [
+        "hive/HIVE.md",
+        "hive/RESUME.md",
+        "hive/acceptance.md",
+        "hive/build-history.json",
+        "hive/changelog/round-5.md",
+        "hive/qa/preflight-series.json",
+        "hive/qa/preflight-summary.json"
+      ]
+    },
+    {
+      "commitSHA": "ad6b1efb11f3eb84954c010af2931e3bb6da4379",
+      "timestamp": "2026-09-15T01:36:33-04:00",
+      "subject": "perf(rendering): contain offscreen sections and share motion preferences",
+      "changedFiles": [
+        "content/github.json",
+        "content/substack.json",
+        "src/app/globals.css",
+        "src/components/hive/Motion.tsx",
+        "src/components/hive/SectionMotion.tsx",
+        "src/components/hive/motion/preferences.test.tsx",
+        "src/components/hive/motion/preferences.ts",
+        "tests/hive/content-visibility.spec.ts",
+        "tests/hive/metadata.spec.ts"
       ]
     }
   ]

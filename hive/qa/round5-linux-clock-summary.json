@@ -1,10 +1,10 @@
 {
   "url": "http://localhost:3100/",
-  "auditedAt": "2026-09-15T05:35:35.427Z",
-  "commitSha": "local",
+  "auditedAt": "2026-09-15T05:25:21.928Z",
+  "commitSha": "714534960587d97713496812ef9153bcbbe9f5ef",
   "environment": {
-    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
-    "benchmarkIndex": 3898,
+    "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "benchmarkIndex": 2352.5,
     "throttlingMethod": "simulate",
     "cpuSlowdownMultiplier": 4,
     "screen": {
@@ -16,14 +16,14 @@
     }
   },
   "scores": {
-    "performance": 98,
+    "performance": 94,
     "accessibility": 100,
     "bestPractices": 100,
     "seo": 100
   },
   "metrics": {
-    "lcp": 2475.143,
+    "lcp": 2658.0041,
     "cls": 0,
-    "tbt": 8.5
+    "tbt": 183
   }
 }
