@@ -1,0 +1,50 @@
+{
+  "url": "https://www.linkedin.com/posts/arinzeokigbo_africatech-fintech-nigeria-activity-7496142499061633024-taaQ",
+  "retrievedAt": "2026-09-16T01:03:16.718284+00:00",
+  "jsonld": [
+    {
+      "@context": "http://schema.org",
+      "@type": "SocialMediaPosting",
+      "@id": "https://www.linkedin.com/posts/arinzeokigbo_africatech-fintech-nigeria-activity-7496142499061633024-taaQ",
+      "datePublished": "2026-08-20T09:54:03.349Z",
+      "headline": "Had coffee with Abdelaziz Saidu this morning.",
+      "image": {
+        "url": "https://media.licdn.com/dms/image/v2/D4E22AQHJG1zdzFKP4A/feedshare-image-high-res/B4EaAel4DEHkAY-/0/1787219641287?e=2147483647&v=beta&t=K8HPwQIOHROPxd5M2MAhKbYrGbNvcoZs2gFRSJaIhkA",
+        "@type": "ImageObject"
+      },
+      "articleBody": "Had coffee with Abdelaziz Saidu this morning. He\u2019s the General Manager for Cisco across Nigeria and Ghana, and it was refreshing being able to catch up on what is happening in the West African tech/policy space. \n\nWe covered a lot of topics: digital sovereignty, local data centres, compliance frameworks, and where Nigeria and Ghana are across the board. As you can imagine, the current realities are different from what the headlines report. \n\nI learn a lot every time I get to talk with Mr Saidu. I did not realise that, often, when someone sends money in Nigeria, the transaction record does not stay in Nigeria. Instead, it sits in the cloud, on a server that is usually abroad. These Nigerian companies and fintechs simply rent the space. The Central Bank of Nigeria, in a memorandum released in June, has instructed that this must change, on or before January 2027. \n\nThis new policy is much harder to implement than it sounds. Most companies cannot pinpoint exactly where, who and what touches their data. The detail is lost in the verbiage and legalese of the contracts. This challenge is exciting for me because it is a core part of my work in Governance, Risk, and Compliance (GRC) and security at Cyera, where we scan the data a company holds, classify its sensitivity, and show who can access it. \n\nRegarding the infrastructure, these companies need data centres to migrate their data to. The data centres must be built. They need power that stays on a 100% of the time. Someone must fund these requirements years before the people realise they need them. Rules can be written in a month, but the build-out takes money and time. \n\nIn truth, a country of 200 million people should not keep its most important records in someone else's house. But the solution requires deeper thinking, planning and resourcing.\n\nAs always, grateful for the time and mentoring, Mr. Saidu. \n\n#africatech #fintech #nigeria #ghana #cybersecurity",
+      "author": {
+        "name": "Arinze Okigbo",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+          "@type": "ImageObject"
+        },
+        "url": "https://www.linkedin.com/in/arinzeokigbo",
+        "@type": "Person",
+        "interactionStatistic": {
+          "@type": "InteractionCounter",
+          "interactionType": "http://schema.org/FollowAction",
+          "userInteractionCount": 2703
+        }
+      },
+      "hasPart": {
+        "@type": "WebPageElement",
+        "isAccessibleForFree": false,
+        "cssSelector": ".details"
+      }
+    }
+  ],
+  "embedUrns": [
+    "urn:li:share:7497766813221560320",
+    "urn:li:share:7496520347584733184",
+    "urn:li:share:7496120563493625858",
+    "urn:li:share:7501703704476319745",
+    "urn:li:share:7503435627057692672",
+    "urn:li:share:7496245599562862593",
+    "urn:li:ugcPost:7496989686272401409",
+    "urn:li:share:7496859154913988608",
+    "urn:li:share:7496142497597919233",
+    "urn:li:ugcPost:7496563947412766720",
+    "urn:li:share:7503022804053929985"
+  ]
+}

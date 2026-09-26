@@ -3,7 +3,12 @@ import { SplitText } from "@/components/hive/Motion";
 import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import mediaInventory from "../../../../hive/research/project-media.json";
+import {
+  getProjectMedia,
+  hasProjectMedia,
+  ProjectMedia,
+  ProjectRuntimeNote,
+} from "@/components/hive/ProjectMedia";
 import { SharedElement } from "@/components/hive/Interactions";
 import { projects } from "@/content/editorial";
 import {
@@ -28,10 +33,7 @@ export default async function ProjectDetail({ params }: Props) {
   if (slug === "astra-hive") permanentRedirect("/lab");
   const p = projects.find((p) => p.slug === slug);
   if (!p) notFound();
-  const screenshots =
-    mediaInventory.projects
-      .find((project) => project.slug === slug)
-      ?.media.filter((item) => item.selected && item.localPath) ?? [];
+  const screenshots = getProjectMedia(slug).images.slice(1);
   return (
     <>
       <PageIntro label={p.eyebrow} title={p.name} description={p.description}>
@@ -51,8 +53,13 @@ export default async function ProjectDetail({ params }: Props) {
       </PageIntro>
       <div className="shell project-detail-hero">
         <SharedElement name={`project-${p.slug}`}>
-          <ProjectArt kind={p.visual} large />
+          {hasProjectMedia(slug) ? (
+            <ProjectMedia slug={slug} detail />
+          ) : (
+            <ProjectArt kind={p.visual} large />
+          )}
         </SharedElement>
+        <ProjectRuntimeNote slug={slug} />
       </div>
       <div className="shell">
         <section className="project-details">
@@ -63,7 +70,7 @@ export default async function ProjectDetail({ params }: Props) {
           <SplitText as="h2" text="02 / The build" by="word" />
           <div>
             <p>{p.build}</p>
-            <Source href={p.source} label="Read the public source" />
+            <Source href={p.url} label="Learn More" />
           </div>
         </section>
         <section className="project-details">

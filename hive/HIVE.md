@@ -6,7 +6,9 @@ Rebuild arinzeokigbo.com as a visually ambitious, technically credible personal 
 
 ## Current session
 
-Round8 — editorial polish. The owner requests better typography and icons, the supplied Splita logo, and removal of all public references to the site being built by a swarm. This supersedes the original public build-process showcase. Internal coordination/evidence stays in the repository. Three specialists own typography/motion text, SVG icons/brand, and public content cleanup. Queen owns independent QA and gated release. Branch hive/round-8-editorial-polish. Completed and live as 6b54d779 through PR #9; see RESUME.md for the exact verification checkpoint.
+Round 9 — content, destinations and authentic project proof. Owner requests Learn More copy, correct links including Splita, official experience logos, running every GitHub project and adding missing screenshots, and a complete improved writing archive. Three agents work in parallel: frontend owns links/logos, motion owns project execution/media, research owns writing ingestion/presentation. Root owns QA, documentation and release. Branch `hive/round-9-content-and-proof` starts from the verified Round 8 checkpoint.
+
+After these tasks, perform element-by-element visual, UX and motion review with bounded improvements each round. Existing daily 09:00 New York heartbeat now explicitly continues these priorities, keeps public construction content removed, and notifies only on meaningful changes.
 
 ## Decisions
 
@@ -91,3 +93,5 @@ Build, strict TypeScript, ESLint, ingestion tests, all internal routes/links, no
 - 2026-09-15: Owner explicitly requests agents to polish typography/icons, use the provided Splita logo, and remove visitor-facing swarm/site-build messaging. Remove public build records/replays/credits and the unused profiling showcase; preserve old URLs and factual projects. Internal coordination is not visitor content.
 
 - 2026-09-15: Round 8 released as 6b54d779 (PR #9). Required Linux and postmerge main CI pass at representative performance 96; independent production audit 35034711769 passes 100/100/100/100. All 93 production browser checks pass, 3 device-specific skips. Retain fixed-five series including slow first runs (main 79, production 68). Current acceptance passes and closes carried R6/R7 QA, without claiming historical variability eliminated. Public construction content remains removed under the owner override.
+
+- 2026-09-26: Round9 integrated source-backed logos, Learn More destinations, authentic project media, fourteen LinkedIn posts and a redesigned writing archive. Fixed manual/axe findings: count contrast, print title, cover cropping and long citation overflow. Local fixed-five96/100/100/100; required Linux/preview/production gates remain. Seven runtime attempts include a real NYC Live capture with honest partial-feed caveats; missing credentials/source/captures remain open.

@@ -1,25 +1,22 @@
 # Exact resume point
 
-Round 8 is complete and live at https://arinzeokigbo.com. PR #9 merged as `6b54d77964f50c9f16d23d09daa3f14f4e415161`. Working branch: `hive/round-8-editorial-polish`. This branch carries the postrelease evidence checkpoint; production remains the verified merge commit.
+Round 9 candidate on `hive/round-9-content-and-proof`, based on Round 8 checkpoint `5ffff6d`. Production remains Round 8 merge `6b54d77964f50c9f16d23d09daa3f14f4e415161` until exact deployment verification.
 
-## Current direction
+## Saved implementation (September 26)
 
-The owner supplied Splita's authentic logo and explicitly superseded the original public swarm/site-build showcase. Keep public pages focused on Arinze, real projects and useful experiments. Do not restore construction credits, build replays, internal changelogs, the self-site project or profiling/quality UI. This direction is also in AGENTS.md. Internal coordination and evidence stay in the repository.
+- Learn More destinations corrected; Splita targets splita.co. Five authentic experience logos with provenance.
+- Project cards/details lead with genuine SkyView, Campus and Homework repository images, a new actual NYC Live local screenshot, and Scanner's exact executed transcript. All seven GitHub execution attempts documented in project-media.json. Credentials, missing runnable source and capture limits remain honest blockers; R9-03 stays open.
+- Writing now has five complete publicly available Substack essays and fourteen verified LinkedIn posts. Compact visible covers, search/topic/year/order, counts/reset, opt-in embeds and reader improvements. Runtime RSS refresh preserves complete bodies; bounded deep discovery is build-only.
+- Visible project-strip controls, keyboard browsing, reduced motion and native touch scrolling. Public construction/swarm credits remain removed.
 
-Completed: readable typography and stable labels, consistent SVG icons, exact supplied Splita logo, public construction content removed. `/lab/changelog` and `/projects/astra-hive` permanently redirect to `/lab` and are excluded from canonical sitemap/navigation. The real headshot and interactive demos remain.
+## Validation
 
-## Verified release
+Lint, TypeScript,380unit tests, build and180KiB initial-JS gate pass (worst158.1KiB). Full browser suite107pass/3intentionalskips; latest cover and reader wrapping rebuild followed by28focused browser checks all pass. First failure retained at hive/qa/content-proof-first-browser-failure.zip and log: inactive LinkedIn count contrast corrected; exact wrapping-label test locator corrected to semantic combobox. Independent review found/fixed print masthead hiding; manual visual review found/fixed cover-title cropping.
 
-- Build, lint, TypeScript and 372 unit tests pass. Local and production browser suites each pass 93 checks with 3 device-specific skips. Regression coverage includes public copy, metadata, navigation, redirects, logo loading and bidirectional modal focus wrapping.
-- Chrome visual review covered 390px home/Splita, 320px About and 1440px projects in light/dark. Exact preview and live domain verified. Live page is open in the browser.
-- Homepage initial JavaScript: 154.5 KiB. All budgeted routes stay below the unchanged 180 KiB cap.
-- Local fixed-five performance: 97/97/97/97/97. Required Linux CI 35034155418: 93/96/94/96/96, representative 96/100/100/100.
-- Postmerge main CI 35034629171 passed: 79/96/96/95/96, representative 96/100/100/100, LCP 2655ms, TBT 118ms, CLS 0.
-- Independent production audit 35034711769 passed and published exact merge SHA: 68/100/100/99/100, representative 100/100/100/100, LCP 1381ms, TBT 48ms, CLS 0.
-- Compact reports are `hive/qa/editorial-polish-*.json`. Full raw artifacts remain in sibling `ci-round8-35034155418`, `main-round8-35034629171` and `prod-round8-35034711769` directories and GitHub runs.
+Candidate link crawl September26:22canonical pages,50external destinations;49HTTP200,LinkedIn profile999automation restriction. See round9-candidate-links.json. Optimized writing/project images load, scanner files resolve, logos load; internal links and dark/light/reduced-motion checks pass.
 
-## Follow-up
+## Next
 
-No release task remains. Continue only with bounded, useful improvements that respect the owner's current public content direction. Check for existing PRs before creating one. Keep unchanged performance/bundle gates and exact preview/production verification.
+Fixed-five local performance passed96/100/100/100 (series94/96/96/96/96, all raw reports retained). Manual CUA desktop1440/mobile390 covered writing/filter/theme/experience/media/reader; fixed a long citation URL overflowing the essay and added every-essay regression coverage. Commit/push, create PR, pass required Linux CI, inspect exact Vercel preview, merge only if gates pass. Verify domain SHA, production browser suite and independent production audit including final main CI. Never describe an unverified deployment as complete. All feature agents frozen; temporary project servers stopped. CUA Chrome is functional for site QA; SkyView capture remains unreliable. Root QA tab45024651.
 
-Historical Round 6 and 7 postmerge performance failures remain recorded. Current acceptance gates pass, closing their carried QA tasks against this release; this does not prove historical variance resolved. Slow first runs persist in the current series and must remain visible in evidence. Do not retry unchanged measurements until green or attribute the variance to a specific feature without evidence.
+After release, rotate route/element critique for the next bounded visual/UX/motion improvement. Existing daily09:00New York heartbeat continues; no duplicate schedule. Do not fabricate source facts, logos, posts or captures, search secrets, or bypass denied Terminal capture. Preserve other checkout and unrelated analytics PR2.

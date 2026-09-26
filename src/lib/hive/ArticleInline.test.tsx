@@ -7,7 +7,7 @@ import { articleInlineSchema } from "./schemas";
 describe("safe article rendering", () => {
   it("renders the original citation and image without source event attributes or executable markup", () => {
     const blocks = articleBlocks(
-      '<p><a href="https://example.org/study" onclick="evil()"><em>Study &amp; evidence</em></a><img src="https://substackcdn.com/figure.png" alt="Figure &quot;one&quot;" onerror="evil()"><script>alert(1)</script></p>',
+      '<p><a href="https://example.org/study" onclick="evil()"><em>Study &amp; evidence</em></a><img src="https://substackcdn.com/image/figure.png" alt="Figure &quot;one&quot;" onerror="evil()"><script>alert(1)</script></p>',
       "https://arinzeokigbo.substack.com/p/article",
     );
     const html = renderToStaticMarkup(<>{renderArticleInline(blocks[0].inline, blocks[0].text)}</>);
@@ -16,7 +16,7 @@ describe("safe article rendering", () => {
     expect(doc.querySelector("em")?.textContent).toBe("Study & evidence");
     expect(doc.querySelector("img")?.getAttribute("alt")).toBe('Figure "one"');
     expect(doc.querySelector("img")?.getAttribute("src")).toBe(
-      "https://substackcdn.com/figure.png",
+      "https://substackcdn.com/image/figure.png",
     );
     expect(doc.querySelectorAll("script,[onclick],[onerror]")).toHaveLength(0);
   });
@@ -27,7 +27,7 @@ describe("safe article rendering", () => {
           [
             {
               type: "image",
-              src: "https://substackcdn.com/image.png",
+              src: "https://substackcdn.com/image/image.png",
               alt: "",
               href: "https://example.org/original",
             },
@@ -51,6 +51,14 @@ describe("safe article rendering", () => {
         alt: "",
       }).success,
     ).toBe(false);
+    for (const src of [
+      "https://substackcdn.com/unapproved.png",
+      "https://substackcdn.com/image/test.png?tracking=1",
+      "https://substack-post-media.s3.amazonaws.com/private/test.png",
+      "https://substackcdn.com:8443/image/test.png",
+    ]) {
+      expect(articleInlineSchema.safeParse({ type: "image", src, alt: "" }).success).toBe(false);
+    }
     expect(
       articleInlineSchema.safeParse({ type: "image", src: "data:image/svg+xml,<svg/>", alt: "" })
         .success,

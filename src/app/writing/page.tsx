@@ -1,6 +1,7 @@
+import "@/components/hive/writing-archive.css";
 import { Icon } from "@/components/hive/Icon";
 import { getPublishedPosts } from "@/content/writing/posts";
-import { PageIntro, pageMeta } from "@/components/hive/Primitives";
+import { pageMeta } from "@/components/hive/Primitives";
 import { WritingFeed } from "@/components/hive/WritingFeed";
 import { getHiveContent } from "@/lib/hive/feeds";
 export const metadata = pageMeta(
@@ -26,11 +27,21 @@ export default async function Writing() {
   ].sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
   return (
     <>
-      <PageIntro
-        label="ESSAYS / NOTES / PUBLIC THINKING"
-        title="The questions are the work."
-        description="Writing about digital identity, security, and the technology we choose to build. Longer thoughts on Substack. Updates along the way on LinkedIn."
-      />
+      <header className="shell writing-masthead">
+        <div>
+          <span className="eyebrow">ESSAYS &amp; NOTES</span>
+          <h1>Writing.</h1>
+        </div>
+        <div className="writing-masthead-description">
+          <p>
+            Ideas on identity, security, and the technology we choose to build. Notes from the work
+            along the way.
+          </p>
+          <div className="archive-counts">
+            {articles.length} essays · {linkedin.items.length} public LinkedIn posts
+          </div>
+        </div>
+      </header>
       <section className="shell" style={{ paddingBottom: 112 }}>
         <WritingFeed
           articles={articles.map(
@@ -46,6 +57,14 @@ export default async function Writing() {
           )}
           posts={linkedin.items}
         />
+        <p className="archive-scope">
+          The essays collected here include full text from my{" "}
+          <a href="https://arinzeokigbo.substack.com/archive" target="_blank" rel="noreferrer">
+            public Substack archive
+          </a>
+          . LinkedIn is a collection of publicly accessible posts, with links to the originals; it
+          is not a complete account history. Dates on essays reflect their Substack publication.
+        </p>
         <div className="writing-sources">
           <a
             href="https://arinzeokigbo.substack.com"

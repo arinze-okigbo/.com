@@ -75,7 +75,7 @@ export default function About() {
             Queralt, and data security at Cyera.
           </p>
           <p>{profile.education}</p>
-          <Source href={sources.site} label="Background" />{" "}
+          <Source href={sources.background} label="Background" />{" "}
           <Source href={sources.nyu} label="NYU announcement" />{" "}
           <Source href={sources.cyera} label="Cyera announcement" />
         </div>

@@ -1,0 +1,40 @@
+{
+  "url": "https://www.linkedin.com/posts/arinzeokigbo_africatech-venturecapital-startup-activity-7495092275534872576-PV1m",
+  "retrievedAt": "2026-09-16T01:03:17.351661+00:00",
+  "jsonld": [
+    {
+      "@context": "http://schema.org",
+      "@type": "SocialMediaPosting",
+      "@id": "https://www.linkedin.com/posts/arinzeokigbo_africatech-venturecapital-startup-activity-7495092275534872576-PV1m",
+      "datePublished": "2026-08-17T12:20:50.473Z",
+      "headline": "Spent the evening with Kola A.",
+      "image": {
+        "url": "https://media.licdn.com/dms/image/v2/D4E22AQFQ9BUjYQ9N-w/feedshare-shrink_800/B4EaAPqs7nJQAg-/0/1786969248176?e=2147483647&v=beta&t=0kZCmhstJnFUIQg8R6RBQ3yNT5Y-YLx6t5wdv9auuAY",
+        "@type": "ImageObject"
+      },
+      "articleBody": "Spent the evening with Kola A. I interned for him in 2018 at Ventures Platform Fund, when I was about 13 years old, and eight years later he still picks up when I call and still asks the harder question instead of the polite one. \n\nHe's also the reason I know Dayo Adebari, now my co-founder and CTO at Splita. We covered a lot: Splita and all our progress so far; how founders here in Nigeria are quietly folding AI into their operations; the datasets and data centers Africa still doesn't own; and the longer conversation underneath all of it about Nigeria and what technology can and can't fix on this continent. The bottleneck has never been talent or a lack of ideas. It's power, patient capital, and people willing to build for a decade instead of a cycle. Grateful for the time, Mr. Kola.\n\n#africatech #venturecapital #startup #entrepreneurship",
+      "author": {
+        "name": "Arinze Okigbo",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+          "@type": "ImageObject"
+        },
+        "url": "https://www.linkedin.com/in/arinzeokigbo",
+        "@type": "Person",
+        "interactionStatistic": {
+          "@type": "InteractionCounter",
+          "interactionType": "http://schema.org/FollowAction",
+          "userInteractionCount": 2703
+        }
+      },
+      "hasPart": {
+        "@type": "WebPageElement",
+        "isAccessibleForFree": false,
+        "cssSelector": ".details"
+      }
+    }
+  ],
+  "embedUrns": [
+    "urn:li:share:7494835365636169728"
+  ]
+}

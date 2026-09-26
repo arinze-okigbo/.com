@@ -1,0 +1,508 @@
+[
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_innovation-entrepreneurship-collegelife-activity-7269045998117695489-orGV",
+    "retrievedAt": "2026-09-16T01:03:16.577351+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "SocialMediaPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_innovation-entrepreneurship-collegelife-activity-7269045998117695489-orGV",
+        "datePublished": "2024-12-01T17:53:38.266Z",
+        "headline": "I\u2019m thrilled to share my progress in the Tyree Innovation Fellowship and at Trinity College-Hartford.",
+        "articleBody": "I\u2019m thrilled to share my progress in the Tyree Innovation Fellowship and at Trinity College-Hartford. Through this fellowship, I have learned what it takes to build and launch a product on the market. Over the past semester, I\u2019ve been developing an app to transform the college experience for students, teachers and colleges across America.\n\nI also won an idea pitch competition at the fellowship, which motivated me to keep pushing boundaries and refining my work. Grateful for this opportunity and the incredible support I\u2019ve received along the way!\n#Innovation #Entrepreneurship #CollegeLife #TyreeFellowship #TrinityCollege",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:share:7269045997513621504"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_greentech-digitalafrica-sustainability-activity-7335040675584884737-3vz9",
+    "retrievedAt": "2026-09-16T01:03:16.638479+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "SocialMediaPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_greentech-digitalafrica-sustainability-activity-7335040675584884737-3vz9",
+        "datePublished": "2025-06-01T20:32:55.494Z",
+        "headline": "I\u2019m excited to participate in the Digital Investment Facility Roundtable on Fostering Green Digital Infrastructure Investments in Africa hosted by the GIZ, tomorrow.",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQFPmRqixQ-4lQ/feedshare-shrink_800/B4EZctMoA.HAAg-/0/1748809974461?e=2147483647&v=beta&t=8t9QNb4gpXEP_3XZ2ucA8P3IiVaY7IwD-a29c_VPtnQ",
+          "@type": "ImageObject",
+          "description": "graphical user interface, text, application, chat or text message",
+          "caption": "graphical user interface, text, application, chat or text message"
+        },
+        "articleBody": "I\u2019m excited to participate in the Digital Investment Facility Roundtable on Fostering Green Digital Infrastructure Investments in Africa hosted by the GIZ, tomorrow. \n\nGrowing up in Nigeria, I witnessed firsthand the challenges and immense potential of digital access across the continent.\n\nMy goal is to help drive investments in sustainable, green digital infrastructure, so that more communities in Africa, especially those in underserved areas like the one where I grew up, can benefit from reliable and secure technology. This is key to unlocking opportunities in education, entrepreneurship, and economic growth.\n\nLooking forward to engaging with key stakeholders, including Deutsche Gesellschaft f\u00fcr Internationale Zusammenarbeit (GIZ) GmbH (\nThe European Commission, Federal Ministry for Economic Cooperation and Development (BMZ), and Ministries of Foreign Affairs from Finland, Estonia, Belgium, and France.\n\nI\u2019m honoured to join this conversation with investors, policymakers, and innovators dedicated to empowering Africa\u2019s digital future in an environmentally responsible way.\n\nThank you to Bjorn-Soren Gigler, PhD, for sharing this opportunity.\n\n#GreenTech #DigitalAfrica #Sustainability #Innovation #AfricaTech #DigitalInfrastructure #TechForGood",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:share:7335040674028826624"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_africatech-fintech-nigeria-activity-7496142499061633024-taaQ",
+    "retrievedAt": "2026-09-16T01:03:16.718284+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "SocialMediaPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_africatech-fintech-nigeria-activity-7496142499061633024-taaQ",
+        "datePublished": "2026-08-20T09:54:03.349Z",
+        "headline": "Had coffee with Abdelaziz Saidu this morning.",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQHJG1zdzFKP4A/feedshare-image-high-res/B4EaAel4DEHkAY-/0/1787219641287?e=2147483647&v=beta&t=K8HPwQIOHROPxd5M2MAhKbYrGbNvcoZs2gFRSJaIhkA",
+          "@type": "ImageObject"
+        },
+        "articleBody": "Had coffee with Abdelaziz Saidu this morning. He\u2019s the General Manager for Cisco across Nigeria and Ghana, and it was refreshing being able to catch up on what is happening in the West African tech/policy space. \n\nWe covered a lot of topics: digital sovereignty, local data centres, compliance frameworks, and where Nigeria and Ghana are across the board. As you can imagine, the current realities are different from what the headlines report. \n\nI learn a lot every time I get to talk with Mr Saidu. I did not realise that, often, when someone sends money in Nigeria, the transaction record does not stay in Nigeria. Instead, it sits in the cloud, on a server that is usually abroad. These Nigerian companies and fintechs simply rent the space. The Central Bank of Nigeria, in a memorandum released in June, has instructed that this must change, on or before January 2027. \n\nThis new policy is much harder to implement than it sounds. Most companies cannot pinpoint exactly where, who and what touches their data. The detail is lost in the verbiage and legalese of the contracts. This challenge is exciting for me because it is a core part of my work in Governance, Risk, and Compliance (GRC) and security at Cyera, where we scan the data a company holds, classify its sensitivity, and show who can access it. \n\nRegarding the infrastructure, these companies need data centres to migrate their data to. The data centres must be built. They need power that stays on a 100% of the time. Someone must fund these requirements years before the people realise they need them. Rules can be written in a month, but the build-out takes money and time. \n\nIn truth, a country of 200 million people should not keep its most important records in someone else's house. But the solution requires deeper thinking, planning and resourcing.\n\nAs always, grateful for the time and mentoring, Mr. Saidu. \n\n#africatech #fintech #nigeria #ghana #cybersecurity",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:share:7497766813221560320",
+      "urn:li:share:7496520347584733184",
+      "urn:li:share:7496120563493625858",
+      "urn:li:share:7501703704476319745",
+      "urn:li:share:7503435627057692672",
+      "urn:li:share:7496245599562862593",
+      "urn:li:ugcPost:7496989686272401409",
+      "urn:li:share:7496859154913988608",
+      "urn:li:share:7496142497597919233",
+      "urn:li:ugcPost:7496563947412766720",
+      "urn:li:share:7503022804053929985"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_excited-to-share-that-ive-been-selected-activity-7460466959558602752-7E-E",
+    "retrievedAt": "2026-09-16T01:03:16.715622+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "SocialMediaPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_supriyo-b-chatterjee-was-one-of-the-first-activity-7460466959558602752-fwln",
+        "datePublished": "2026-05-13T23:12:11.908Z",
+        "headline": "Supriyo B Chatterjee  was one of the first people who sat down with me and took Splita seriously, the pitches, the strategy, all of it.",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQEXSi7YVD1-vg/feedshare-shrink_800/B4EZ4jnKpCHcAc-/0/1778713930556?e=2147483647&v=beta&t=ioqI-pB4AqVwH3oQ68fCx7C0MOQgE3p82H-yFBgbXgI",
+          "@type": "ImageObject",
+          "description": "logo, company name",
+          "caption": "logo, company name"
+        },
+        "articleBody": "Supriyo B Chatterjee  was one of the first people who sat down with me and took Splita seriously, the pitches, the strategy, all of it. That kind of investment in someone early on changes how you see yourself.\n\nThat kind of guidance sticks with you. So when Trinity\u2019s Summit-to-Success program reached out asking me to mentor incoming students this fall, it only felt right to do so. \n\nS2S is a mentorship and orientation program supporting incoming students as they navigate college life. I\u2019ll be working directly with new scholars, leading training, and helping build community from day one.\n\nCan\u2019t wait to be that person for someone else.\nTrinity College-Hartford Supriyo B Chatterjee Roberta Rogers",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:share:7460466958527004672"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_yaleinnovation26-fintech-startups-activity-7457808685264826368-HmSV",
+    "retrievedAt": "2026-09-16T01:03:17.109299+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "SocialMediaPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_yaleinnovation26-fintech-startups-activity-7457808685264826368-HmSV",
+        "datePublished": "2026-05-06T15:09:09.919Z",
+        "headline": "Excited to share that Splita has been selected for the Virtual Showcase at the 2026 Yale University Innovation Summit.",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQE9S4YgCPIzOQ/feedshare-shrink_800/B4EZ391e2FHsAk-/0/1778080149242?e=2147483647&v=beta&t=1nfj9urOelO_lxW44dR5v0SsuDpwJ8Eg5VrTVRVOsyA",
+          "@type": "ImageObject",
+          "description": "text",
+          "caption": "text"
+        },
+        "articleBody": "Excited to share that Splita has been selected for the Virtual Showcase at the 2026 Yale University Innovation Summit. \n\nGroup payments for college students and young adults have always been the same story. One person pays, others owe them, and 9 times out of 10, you don't get paid the full amount back. At Splita, we are changing that. Everyone puts in their share before the charge goes through. No one floats the bill, no one has to ask twice.\n\nThe Summit brings together 2,500+ founders, investors, and researchers across the country. If you're attending or want to learn more about what we're building, feel free to reach out.\n\nLearn more: www.splita.co\n\n#YaleInnovation26 #Fintech #Startups #Entrepreneurship\n\nWill Clarkson Dayo Adebari Supriyo B Chatterjee Elting Center for Innovation and Entrepreneurship Danny Briere",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:share:7457808683830296576"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_splita-fintech-startups-activity-7439287912275337216-tasP",
+    "retrievedAt": "2026-09-16T01:03:17.238856+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "SocialMediaPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_splita-fintech-startups-activity-7439287912275337216-tasP",
+        "datePublished": "2026-03-16T12:34:13.553Z",
+        "headline": "Eight years ago, I was a 12-year-old intern learning about startups.",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQGZVhRj6sHViw/feedshare-shrink_800/B4EZz0BTRkGwAc-/0/1773620508061?e=2147483647&v=beta&t=kZ1U2D2xcpN21883YOSeZD8OFyFQaI-ZvGUYBLmSzz0",
+          "@type": "ImageObject"
+        },
+        "articleBody": "Eight years ago, I was a 12-year-old intern learning about startups.\n\nToday, I\u2019m building one.\n\nExcited to officially welcome Dayo Adebari  to the team at Splita.\n\nBuilding a company is ultimately about the people you get to build with, and I\u2019m excited about what we\u2019re going to create together as we continue building the infrastructure behind seamless group payments.\n\nA big thank you to Mr. Kola A. for connecting us.\n\nWhen on a catch up call, he mentioned that someone in the UK was working on a similar problem around group payments, I was immediately curious. \n\nDayo and I connected, started talking about the problem, and it quickly became clear we were thinking about many of the same challenges around payments infrastructure and how group transactions should actually work.\n\nThat introduction eventually led to Dayo joining us to lead engineer at Splita.\n\nBut my gratitude to Mr. Kola goes back much further than that.\n\nIn 2018, when I was just 12 years old, I had the opportunity to intern at Ventures Park, part of the Ventures Platform Fund ecosystem founded by Mr. Kola.\n\nThat experience introduced me to the world of startups for the first time.\n\nDuring that internship, I worked with teams at Ventoven Limited, gaining early exposure to things like data security, cybersecurity, and server management, while also supporting several Africa-based startups with operational and administrative work.\n\nMore importantly, it was the first time I saw first-hand how technology and entrepreneurship were changing Africa.\n\nBeing in that environment, surrounded by founders, builders, and innovators, left a lasting impression on me. It showed me what was possible.\n\nYears later, as we build Splita, it feels meaningful that the same ecosystem that introduced me to startups is now helping connect the people building the future together.\n\nSo thank you again Mr. Kola Aina, not only for connecting us with Dayo, but for continuing to mentor and inspire young Africans working to build and change the world.\n\nYou\u2019ve truly built an ecosystem dedicated to catalyzing growth beyond capital.\n\n#Splita #fintech #startups #buildinpublic #africantech",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:share:7439103595423162368",
+      "urn:li:share:7439287910987657217"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_summitinnovationchallenge-founderjourney-activity-7426519025871908864-CDOV",
+    "retrievedAt": "2026-09-16T01:03:17.352628+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "SocialMediaPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_summitinnovationchallenge-founderjourney-activity-7426519025871908864-CDOV",
+        "datePublished": "2026-02-09T06:55:13.798Z",
+        "headline": "Check out our pitch deck (and join our waitlist): www.splita.co/pitch",
+        "image": [
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQGvI6ZkEf5SpQ/feedshare-image-high-res/B4EZxBJblFJoAU-/0/1770619517974?e=2147483647&v=beta&t=wt_nwsuF8cTzvtaeVluPbE7JPNj1KY5meaPHqD8LCPQ",
+            "@type": "ImageObject"
+          },
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQFAntVgHx-i9g/feedshare-shrink_800/B4EZxBJblDJgAg-/0/1770619517886?e=2147483647&v=beta&t=EYOB5bjKrPPBEMyhnHo-6rW8u1oIp27cmmM3tLsiSjc",
+            "@type": "ImageObject"
+          },
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQE5dtrLXmcAJw/feedshare-image-high-res/B4EZxBJblLJoAU-/0/1770619517885?e=2147483647&v=beta&t=GlSupSYH0AyziCcVV7g4peldZ-DobmVmppDXufA-NaU",
+            "@type": "ImageObject"
+          },
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQHr90Zpvj7aNw/feedshare-shrink_800/B4EZxBJbknGwAk-/0/1770619517829?e=2147483647&v=beta&t=w29DhKe90moHAYfxQQLJsg3_lNJ234Y7dnI7GarBPms",
+            "@type": "ImageObject"
+          },
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQHFTjTgDWfdtA/feedshare-shrink_800/B4EZxBJbkmIkAg-/0/1770619517650?e=2147483647&v=beta&t=uZrkDFvJSPBqzLF27vwjbx1HNPUzHNgg9noU-qNp7zY",
+            "@type": "ImageObject"
+          }
+        ],
+        "articleBody": "Check out our pitch deck (and join our waitlist): www.splita.co/pitch\n\nBuilding Splita started with a simple frustration around group payments, and sharing that journey on stage after months of iteration was both grounding and motivating. The questions and conversations afterward pushed us beyond the pitch and into how we\u2019re actually building.\n\nGrateful to the Trinity College Entrepreneurship Center for creating a space where student founders are challenged to think seriously about what they\u2019re building. \n\nProud of the progress we\u2019ve made, especially as we continue working after our $200K pre-seed raise.\n\n#SummitInnovationChallenge #FounderJourney #StudentEntrepreneur #BuildingInPublic #EarlyStageStartup",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:ugcPost:7426516532861497344",
+      "urn:li:ugcPost:7426519025167376385"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_africatech-venturecapital-startup-activity-7495092275534872576-PV1m",
+    "retrievedAt": "2026-09-16T01:03:17.351661+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "SocialMediaPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_africatech-venturecapital-startup-activity-7495092275534872576-PV1m",
+        "datePublished": "2026-08-17T12:20:50.473Z",
+        "headline": "Spent the evening with Kola A.",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQFQ9BUjYQ9N-w/feedshare-shrink_800/B4EaAPqs7nJQAg-/0/1786969248176?e=2147483647&v=beta&t=0kZCmhstJnFUIQg8R6RBQ3yNT5Y-YLx6t5wdv9auuAY",
+          "@type": "ImageObject"
+        },
+        "articleBody": "Spent the evening with Kola A. I interned for him in 2018 at Ventures Platform Fund, when I was about 13 years old, and eight years later he still picks up when I call and still asks the harder question instead of the polite one. \n\nHe's also the reason I know Dayo Adebari, now my co-founder and CTO at Splita. We covered a lot: Splita and all our progress so far; how founders here in Nigeria are quietly folding AI into their operations; the datasets and data centers Africa still doesn't own; and the longer conversation underneath all of it about Nigeria and what technology can and can't fix on this continent. The bottleneck has never been talent or a lack of ideas. It's power, patient capital, and people willing to build for a decade instead of a cycle. Grateful for the time, Mr. Kola.\n\n#africatech #venturecapital #startup #entrepreneurship",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:share:7494835365636169728"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_merry-christmas-from-the-splita-team-activity-7410063208259928065-N1Ix",
+    "retrievedAt": "2026-09-16T01:03:17.530697+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "SocialMediaPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_merry-christmas-from-the-splita-team-activity-7410063208259928065-N1Ix",
+        "datePublished": "2025-12-25T21:05:41.144Z",
+        "headline": "Merry Christmas from the Splita Team!",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQFSQrOGOgdF7g/feedshare-shrink_800/B4EZtXVDGzIoAg-/0/1766696694578?e=2147483647&v=beta&t=cAu8ap8pVAa0cF-WtLDXihgpF6gxtj_L5sEVATxR7dE",
+          "@type": "ImageObject"
+        },
+        "articleBody": "Merry Christmas from the Splita Team!",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:share:7410063207735922688",
+      "urn:li:share:7410063017259859969"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_assemble2026-chainguard-assemble2026-activity-7440551337525817345-XcDy",
+    "retrievedAt": "2026-09-16T01:03:17.877535+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "SocialMediaPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_assemble2026-chainguard-assemble2026-activity-7440551337525817345-XcDy",
+        "datePublished": "2026-03-20T00:14:37.607Z",
+        "headline": "Just wrapped up Chainguard #Assemble2026 in NYC.",
+        "image": [
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQHlyp0YFBebMA/feedshare-image-high-res/B4EZ0ImAm.J0AU-/0/1773965675249?e=2147483647&v=beta&t=xo256REs-Z61I81uEw0yvKW8nO6S0OOXVI7C-NORIcg",
+            "@type": "ImageObject"
+          },
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQHYOVL5Rzzmiw/feedshare-shrink_800/B4EZ0ImAqAIgAc-/0/1773965675776?e=2147483647&v=beta&t=WaptzCVrW7sgy8-tmQmatRCxu2BSR-esThXDGy21lJ8",
+            "@type": "ImageObject"
+          },
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQGB4vaSHSt_xg/feedshare-shrink_1280/B4EZ0ImAeLGQAM-/0/1773965674808?e=2147483647&v=beta&t=8S0u5QEpswbo8Cg_2EDiePekGJwFdhE2trASGhs43lE",
+            "@type": "ImageObject"
+          },
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQFX8BfP7MdLfw/feedshare-shrink_1280/B4EZ0ImAoNJUAQ-/0/1773965675607?e=2147483647&v=beta&t=KNRKsTTHENFHFXoqvnIeQgXXUTAriOHFjzKZ86XpNf8",
+            "@type": "ImageObject"
+          },
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQFrscmIqYvmjw/feedshare-shrink_800/B4EZ0ImAg1IQAg-/0/1773965675050?e=2147483647&v=beta&t=CNyvBvg5yNSpAQ8P03bEFs5GCEkjWEFk7LVlhYZe7l8",
+            "@type": "ImageObject"
+          },
+          {
+            "url": "https://media.licdn.com/dms/image/v2/D4E22AQGJkVPKqi5p6w/feedshare-shrink_800/B4EZ0ImAsuHAAg-/0/1773965675975?e=2147483647&v=beta&t=ujcxZcKFcEhoBITIFS1rih55WUGkQ9ozNrlJMLj8Z48",
+            "@type": "ImageObject"
+          }
+        ],
+        "articleBody": "Just wrapped up Chainguard #Assemble2026 in NYC. Still processing this one.\n\nI walked into rooms with CISOs, engineers, and security leaders from companies like Cisco, Amazon Web Services (AWS), OpenAI, KKR, etc.\n\nGrateful to the Chainguard team (especially Katie Kern) for creating space for me to be in those conversations.\n\nWhat made this experience different wasn\u2019t just the talks. It was seeing how seriously the industry is rethinking the foundation of software in the age of AI.\n\nA few things that stuck with me:\n\n1. AI is accelerating everything and expanding the attack surface: More code. More dependencies. More risk.\n2. The shift is from writing code to trusting what\u2019s running in production: This showed up everywhere, from CI/CD to agent workflows.\n3. Secure-by-default is becoming the baseline: Not a feature, the foundation. \n\nYou could see it in everything Chainguard announced.\nAI agents are becoming a new class of dependency, and most teams are not yet ready for it.\n\nThe thing that surprised me most was that the conversations were not about moving faster; they were about moving fast without losing trust. That changed how I think about everything I am building right now.\n\nBetween working on authentication infrastructure and building Splita, the takeaway is simple:\nYou cannot bolt on trust later; it has to be built into the system.\n\nI appreciate everyone who took the time to share insights and push my thinking. This is one of those rooms I know I will come back to.\n\nAre we building systems we actually understand anymore?\n\nSome great conversations by people building this future in real time:\nDan Lorenc (secure-by-default infrastructure + software supply chain)\nPatrick Donahue (scaling trust across the SDLC)\nRam Ramani (why security has to start at the model level)\nDavid Stern (limits of AI vs human judgment in security)\nDwayne McDaniel (software supply chain + secrets security)\n\nAppreciate all the insights \ud83d\ude4f\n\n\n#Chainguard #Assemble2026 #Cybersecurity #DevSecOps #SoftwareEngineering #AI #AISecurity #CloudSecurity #StartupLife #Fintech #Builders #Tech\nBrandon Heard Brume Oduaran Razeen Alam Andrew Schwartz Josh H. Matt McCarrell Conor Quinlan Arun Sundarababu Trinity College-Hartford Career and Life Design Center Trinity College",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:ugcPost:7440551335302811649"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/arinzeokigbo_why-nigeria-needs-ai-policy-for-its-universities-activity-7350356031496937472-zPW-",
+    "retrievedAt": "2026-09-16T01:03:17.948372+00:00",
+    "jsonld": [
+      {
+        "@context": "http://schema.org",
+        "@type": "DiscussionForumPosting",
+        "@id": "https://www.linkedin.com/posts/arinzeokigbo_why-nigeria-needs-ai-policy-for-its-universities-activity-7350356031496937472-zPW-",
+        "datePublished": "2025-07-14T02:50:40.886Z",
+        "headline": "What if we\u2019re already too late?",
+        "text": "Why Nigeria Needs AI Policy For Its Universities \u2014 Before It\u2019s Too Late",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/sync/v2/D4E27AQEax3qYnR6gag/articleshare-shrink_800/B4EZgG1xaSG4AI-/0/1759771997027?e=2147483647&v=beta&t=1JAKQcd9rcjaqfVctpTtNXBpWGiTlKxNUndv4YYHB0U",
+          "@type": "ImageObject"
+        },
+        "articleBody": "What if we\u2019re already too late?\n\nWhile the world is busy building the next generation of AI talent, Nigeria is stuck asking the wrong questions: Should we be teaching AI? Instead, we should be asking: How do we lead?\n\nMy article, \u201cWhy Nigeria Needs an AI Policy for Its Universities \u2014 Before It\u2019s Too Late,\u201d has now been published in The Independent Newspapers Nigeria because I believe we\u2019re standing at a turning point. The absence of a national AI policy in our universities isn\u2019t just an oversight \u2014 it\u2019s a threat to our future.\n\nYoung Nigerians are brilliant. But brilliance without infrastructure, guidance, and vision gets exported or extinguished. We\u2019re watching other nations train innovators while we risk becoming permanent consumers in a world we should help build.\n\nI outline a path forward \u2014 one that involves bold leadership from the Ministry of Education, the National Universities Commission, and Nigeria\u2019s tech ecosystem.\n\nAI isn\u2019t just a technological shift. It\u2019s a strategic one.\n\nRead the full article here: https://lnkd.in/eM7b5MPG\n\nLet\u2019s stop playing catch-up.\nLet\u2019s start leading.\n\n#AI #Nigeria #HigherEducation #NationalPolicy #Innovation #FutureReady",
+        "author": {
+          "name": "Arinze Okigbo",
+          "image": {
+            "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+            "@type": "ImageObject"
+          },
+          "url": "https://www.linkedin.com/in/arinzeokigbo",
+          "@type": "Person",
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": "http://schema.org/FollowAction",
+            "userInteractionCount": 2703
+          }
+        },
+        "hasPart": {
+          "@type": "WebPageElement",
+          "isAccessibleForFree": false,
+          "cssSelector": ".details"
+        }
+      }
+    ],
+    "embedUrns": [
+      "urn:li:share:7381244459633582080",
+      "urn:li:share:7381972421601427456",
+      "urn:li:share:7383365991189331968",
+      "urn:li:share:7350356030624604161",
+      "urn:li:share:7382378650513526784",
+      "urn:li:share:7385968323618050048",
+      "urn:li:share:7379726364322631680",
+      "urn:li:share:7382268670020075520",
+      "urn:li:share:7382378498314633216",
+      "urn:li:share:7379149764640079873",
+      "urn:li:share:7387233713979375616"
+    ]
+  }
+]

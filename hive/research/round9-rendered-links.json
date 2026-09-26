@@ -1,0 +1,454 @@
+{
+  "auditedAt": "2026-09-16T01:04:35.150912+00:00",
+  "site": "https://arinzeokigbo.com",
+  "phase": "Round 9 independent baseline rendered-link crawl; final candidate requires recheck for changed destinations",
+  "method": "GET canonical pages from live sitemap, parse rendered anchor hrefs, follow external redirects with TLS verification and 20-second limit; access restrictions distinguished from missing resources",
+  "pages": [
+    {
+      "url": "https://arinzeokigbo.com",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/"
+    },
+    {
+      "url": "https://arinzeokigbo.com/about",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/about"
+    },
+    {
+      "url": "https://arinzeokigbo.com/work",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/work"
+    },
+    {
+      "url": "https://arinzeokigbo.com/projects",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/projects"
+    },
+    {
+      "url": "https://arinzeokigbo.com/lab",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/lab"
+    },
+    {
+      "url": "https://arinzeokigbo.com/writing",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/writing"
+    },
+    {
+      "url": "https://arinzeokigbo.com/now",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/now"
+    },
+    {
+      "url": "https://arinzeokigbo.com/contact",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/contact"
+    },
+    {
+      "url": "https://arinzeokigbo.com/projects/splita",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/projects/splita"
+    },
+    {
+      "url": "https://arinzeokigbo.com/projects/browser-authentication",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/projects/browser-authentication"
+    },
+    {
+      "url": "https://arinzeokigbo.com/projects/skyview",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/projects/skyview"
+    },
+    {
+      "url": "https://arinzeokigbo.com/projects/nyc-live",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/projects/nyc-live"
+    },
+    {
+      "url": "https://arinzeokigbo.com/projects/linkedin-plus",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/projects/linkedin-plus"
+    },
+    {
+      "url": "https://arinzeokigbo.com/projects/campus-bookshelf",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/projects/campus-bookshelf"
+    },
+    {
+      "url": "https://arinzeokigbo.com/projects/homework-chatbot",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/projects/homework-chatbot"
+    },
+    {
+      "url": "https://arinzeokigbo.com/projects/library-management",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/projects/library-management"
+    },
+    {
+      "url": "https://arinzeokigbo.com/projects/scanner",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/projects/scanner"
+    },
+    {
+      "url": "https://arinzeokigbo.com/writing/the-next-decade-of-digital-identity",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/writing/the-next-decade-of-digital-identity"
+    },
+    {
+      "url": "https://arinzeokigbo.com/writing/why-nigeria-needs-an-ai-policy-for",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/writing/why-nigeria-needs-an-ai-policy-for"
+    },
+    {
+      "url": "https://arinzeokigbo.com/writing/tech-vs-tech-how-technology-may-save",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/writing/tech-vs-tech-how-technology-may-save"
+    },
+    {
+      "url": "https://arinzeokigbo.com/writing/from-breakdown-to-breakthrough-how",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/writing/from-breakdown-to-breakthrough-how"
+    },
+    {
+      "url": "https://arinzeokigbo.com/writing/how-tech-is-tackling-the-environmental",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/writing/how-tech-is-tackling-the-environmental"
+    }
+  ],
+  "externalLinks": [
+    {
+      "url": "https://github.com/arinze-okigbo",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo",
+      "referencedBy": [
+        "https://arinzeokigbo.com",
+        "https://arinzeokigbo.com/about",
+        "https://arinzeokigbo.com/contact",
+        "https://arinzeokigbo.com/lab",
+        "https://arinzeokigbo.com/now",
+        "https://arinzeokigbo.com/projects",
+        "https://arinzeokigbo.com/projects/browser-authentication",
+        "https://arinzeokigbo.com/projects/campus-bookshelf",
+        "https://arinzeokigbo.com/projects/homework-chatbot",
+        "https://arinzeokigbo.com/projects/library-management",
+        "https://arinzeokigbo.com/projects/linkedin-plus",
+        "https://arinzeokigbo.com/projects/nyc-live",
+        "https://arinzeokigbo.com/projects/scanner",
+        "https://arinzeokigbo.com/projects/skyview",
+        "https://arinzeokigbo.com/projects/splita",
+        "https://arinzeokigbo.com/work",
+        "https://arinzeokigbo.com/writing",
+        "https://arinzeokigbo.com/writing/from-breakdown-to-breakthrough-how",
+        "https://arinzeokigbo.com/writing/how-tech-is-tackling-the-environmental",
+        "https://arinzeokigbo.com/writing/tech-vs-tech-how-technology-may-save",
+        "https://arinzeokigbo.com/writing/the-next-decade-of-digital-identity",
+        "https://arinzeokigbo.com/writing/why-nigeria-needs-an-ai-policy-for"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/in/arinzeokigbo",
+      "status": 999,
+      "finalUrl": "https://www.linkedin.com/in/arinzeokigbo",
+      "referencedBy": [
+        "https://arinzeokigbo.com",
+        "https://arinzeokigbo.com/about",
+        "https://arinzeokigbo.com/contact",
+        "https://arinzeokigbo.com/lab",
+        "https://arinzeokigbo.com/now",
+        "https://arinzeokigbo.com/projects",
+        "https://arinzeokigbo.com/projects/browser-authentication",
+        "https://arinzeokigbo.com/projects/campus-bookshelf",
+        "https://arinzeokigbo.com/projects/homework-chatbot",
+        "https://arinzeokigbo.com/projects/library-management",
+        "https://arinzeokigbo.com/projects/linkedin-plus",
+        "https://arinzeokigbo.com/projects/nyc-live",
+        "https://arinzeokigbo.com/projects/scanner",
+        "https://arinzeokigbo.com/projects/skyview",
+        "https://arinzeokigbo.com/projects/splita",
+        "https://arinzeokigbo.com/work",
+        "https://arinzeokigbo.com/writing",
+        "https://arinzeokigbo.com/writing/from-breakdown-to-breakthrough-how",
+        "https://arinzeokigbo.com/writing/how-tech-is-tackling-the-environmental",
+        "https://arinzeokigbo.com/writing/tech-vs-tech-how-technology-may-save",
+        "https://arinzeokigbo.com/writing/the-next-decade-of-digital-identity",
+        "https://arinzeokigbo.com/writing/why-nigeria-needs-an-ai-policy-for"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_nyu-computerscience-splita-activity-7469756321639198721-MUpx",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_nyu-computerscience-splita-activity-7469756321639198721-MUpx",
+      "referencedBy": [
+        "https://arinzeokigbo.com/about",
+        "https://arinzeokigbo.com/now"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_cybersecurity-datasecurity-cloudsecurity-activity-7450891042796507136-J0J3",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_cybersecurity-datasecurity-cloudsecurity-activity-7450891042796507136-J0J3",
+      "referencedBy": [
+        "https://arinzeokigbo.com/about",
+        "https://arinzeokigbo.com/work"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://www.tfrrs.org/athletes/8992717/Trinity_CT/Arinze_Okigbo",
+      "status": 200,
+      "finalUrl": "https://www.tfrrs.org/athletes/8992717/Trinity_CT/Arinze_Okigbo",
+      "referencedBy": [
+        "https://arinzeokigbo.com/about"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/",
+      "referencedBy": [
+        "https://arinzeokigbo.com/contact",
+        "https://arinzeokigbo.com/writing"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://splita.co",
+      "status": 200,
+      "finalUrl": "https://splita.co/",
+      "referencedBy": [
+        "https://arinzeokigbo.com/contact",
+        "https://arinzeokigbo.com/projects/splita"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://www.queraltinc.com",
+      "status": 200,
+      "finalUrl": "https://www.queraltinc.com/",
+      "referencedBy": [
+        "https://arinzeokigbo.com/projects/browser-authentication"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/sky-view",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/sky-view",
+      "referencedBy": [
+        "https://arinzeokigbo.com/projects/skyview"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/sky-view/blob/main/README.md",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/sky-view/blob/main/README.md",
+      "referencedBy": [
+        "https://arinzeokigbo.com/projects/skyview"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/nyc-live",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/nyc-live",
+      "referencedBy": [
+        "https://arinzeokigbo.com/projects/nyc-live"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
+      "referencedBy": [
+        "https://arinzeokigbo.com/projects/linkedin-plus"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/tindext-v2",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/tindext-v2",
+      "referencedBy": [
+        "https://arinzeokigbo.com/projects/campus-bookshelf"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/tindext-v2/blob/main/README.md",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/tindext-v2/blob/main/README.md",
+      "referencedBy": [
+        "https://arinzeokigbo.com/projects/campus-bookshelf"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/HomeworkAIChatBot",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/HomeworkAIChatBot",
+      "referencedBy": [
+        "https://arinzeokigbo.com/projects/homework-chatbot"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+      "referencedBy": [
+        "https://arinzeokigbo.com/projects/library-management"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/Scanner",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/Scanner",
+      "referencedBy": [
+        "https://arinzeokigbo.com/projects/scanner"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/the-next-decade-of-digital-identity",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/p/the-next-decade-of-digital-identity",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/the-next-decade-of-digital-identity"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!9Y71!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2e6ebcf2-a1bd-4e06-b9b1-14be8ad7698a_2400x1440.png",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!9Y71!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2e6ebcf2-a1bd-4e06-b9b1-14be8ad7698a_2400x1440.png",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/the-next-decade-of-digital-identity"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!wrRP!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F86a122ae-06c5-4a52-b57b-4cac57b7ea19_2000x1880.png",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!wrRP!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F86a122ae-06c5-4a52-b57b-4cac57b7ea19_2000x1880.png",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/the-next-decade-of-digital-identity"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://cloudsecurityalliance.org/artifacts/state-of-non-human-identity-security-survey-report",
+      "status": 200,
+      "finalUrl": "https://cloudsecurityalliance.org/artifacts/state-of-non-human-identity-security-survey-report",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/the-next-decade-of-digital-identity"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html",
+      "status": 200,
+      "finalUrl": "https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/the-next-decade-of-digital-identity"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/why-nigeria-needs-an-ai-policy-for",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/p/why-nigeria-needs-an-ai-policy-for",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/why-nigeria-needs-an-ai-policy-for"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!mOjp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8fc9133-81a2-42f5-b754-bb7e02404521_1152x1322.jpeg",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!mOjp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8fc9133-81a2-42f5-b754-bb7e02404521_1152x1322.jpeg",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/why-nigeria-needs-an-ai-policy-for"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/tech-vs-tech-how-technology-may-save",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/p/tech-vs-tech-how-technology-may-save",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/tech-vs-tech-how-technology-may-save"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!_Drq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F58aef8b3-9385-4884-bac9-bd33507f599a_711x400.jpeg",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!_Drq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F58aef8b3-9385-4884-bac9-bd33507f599a_711x400.jpeg",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/tech-vs-tech-how-technology-may-save"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/from-breakdown-to-breakthrough-how",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/p/from-breakdown-to-breakthrough-how",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/from-breakdown-to-breakthrough-how"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!Wlfk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!Wlfk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/from-breakdown-to-breakthrough-how"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/how-tech-is-tackling-the-environmental",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/p/how-tech-is-tackling-the-environmental",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/how-tech-is-tackling-the-environmental"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!cUbC!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F18041e0e-fd01-4df2-928b-411456d23ded_2560x1709.jpeg",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!cUbC!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F18041e0e-fd01-4df2-928b-411456d23ded_2560x1709.jpeg",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/how-tech-is-tackling-the-environmental"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/subscribe",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/subscribe",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/how-tech-is-tackling-the-environmental"
+      ],
+      "error": null
+    },
+    {
+      "url": "https://bluedot-institute.org/how-tech-is-tackling-the-environmental-impact-of-leather-production-by-arinze-okigbo/",
+      "status": 200,
+      "finalUrl": "https://bluedot-institute.org/how-tech-is-tackling-the-environmental-impact-of-leather-production-by-arinze-okigbo/",
+      "referencedBy": [
+        "https://arinzeokigbo.com/writing/how-tech-is-tackling-the-environmental"
+      ],
+      "error": null
+    }
+  ]
+}

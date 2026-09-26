@@ -60,7 +60,7 @@ describe("public feed ingestion", () => {
 describe("article source fidelity and safe inline model", () => {
   it("keeps inline citation destinations, emphasis, image provenance and captions in order", () => {
     const blocks = articleBlocks(
-      '<p>Read <a href="https://example.org/paper?q=one&amp;lang=en"><strong>the paper</strong></a> today.</p><figure><a href="/p/figure"><img src="https://substackcdn.com/image.png" alt="Original diagram" width="800" height="450.5"></a><figcaption>Source: <a href="https://example.org">original study</a></figcaption></figure>',
+      '<p>Read <a href="https://example.org/paper?q=one&amp;lang=en"><strong>the paper</strong></a> today.</p><figure><a href="/p/figure"><img src="https://substackcdn.com/image/image.png" alt="Original diagram" width="800" height="450.5"></a><figcaption>Source: <a href="https://example.org">original study</a></figcaption></figure>',
       "https://arinzeokigbo.substack.com/p/article",
     );
     expect(blocks.map((b) => b.text)).toEqual([
@@ -76,7 +76,7 @@ describe("article source fidelity and safe inline model", () => {
     });
     expect(blocks[1].inline[0]).toMatchObject({
       type: "image",
-      src: "https://substackcdn.com/image.png",
+      src: "https://substackcdn.com/image/image.png",
       alt: "Original diagram",
       href: "https://arinzeokigbo.substack.com/p/figure",
       width: 800,
@@ -86,7 +86,7 @@ describe("article source fidelity and safe inline model", () => {
   });
   it("drops executable elements and rejects unsafe protocols, credentials and unapproved image hosts", () => {
     const blocks = articleBlocks(
-      '<p><a href="jav&#x61;script:alert(1)" onclick="evil()">citation</a><a href="data:text/html,bad">data</a><a href="https://user:pass@example.org">credential</a><img src="data:image/svg+xml,bad" onerror="evil()"><img src="https://evil.example/photo.png"><img src="https://substackcdn.com/good.png" alt="Safe" onerror="evil()"></p><svg><script>bad()</script><text>bad</text></svg><iframe>bad</iframe><script>bad()</script>',
+      '<p><a href="jav&#x61;script:alert(1)" onclick="evil()">citation</a><a href="data:text/html,bad">data</a><a href="https://user:pass@example.org">credential</a><img src="data:image/svg+xml,bad" onerror="evil()"><img src="https://evil.example/photo.png"><img src="https://substackcdn.com/image/good.png" alt="Safe" onerror="evil()"></p><svg><script>bad()</script><text>bad</text></svg><iframe>bad</iframe><script>bad()</script>',
       "https://arinzeokigbo.substack.com/p/article",
     );
     expect(blocks).toHaveLength(1);
@@ -95,7 +95,7 @@ describe("article source fidelity and safe inline model", () => {
     expect(blocks[0].inline.filter((n) => n.type === "image")).toEqual([
       {
         type: "image",
-        src: "https://substackcdn.com/good.png",
+        src: "https://substackcdn.com/image/good.png",
         alt: "Safe",
         href: undefined,
         width: undefined,

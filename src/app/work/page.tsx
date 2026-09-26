@@ -1,3 +1,5 @@
+import { CompanyLogo } from "@/components/hive/CompanyLogo";
+import { Icon } from "@/components/hive/Icon";
 import { SplitText } from "@/components/hive/Motion";
 import {
   ContactBanner,
@@ -8,18 +10,14 @@ import {
   pageMeta,
 } from "@/components/hive/Primitives";
 import { experience } from "@/content/editorial";
-import { experience as verifiedExperience, honors, sources } from "@/content/hive";
+import { experience as verifiedExperience, honors } from "@/content/hive";
 export const metadata = pageMeta(
   "Work",
   "Group payments, browser-native authentication, data security, and AI evaluation.",
   "/work",
 );
 export default function Work() {
-  const entries = [
-    experience[0],
-    ...verifiedExperience.map((e) => ({ ...e, href: e.source })),
-    ...experience.slice(1),
-  ];
+  const entries = [experience[0], ...verifiedExperience, ...experience.slice(1)];
   return (
     <>
       <PageIntro
@@ -59,15 +57,17 @@ export default function Work() {
           <article className="timeline-item" key={entry.org} data-hive-step>
             <div className="timeline-date">{entry.period || `0${index + 1}`}</div>
             <div className="timeline-role">
+              <CompanyLogo organization={entry.org} />
               <SplitText as="h2" text={entry.org} by="word" />
               <p>{entry.role}</p>
             </div>
             <div className="timeline-body">
               <p>{entry.body}</p>
-              <Source
-                href={entry.org === "Cyera" ? sources.cyera : sources.site}
-                label="Public source"
-              />
+              {entry.href && (
+                <a className="company-website" href={entry.href} target="_blank" rel="noreferrer">
+                  {entry.org} website <Icon name="arrow-up-right" />
+                </a>
+              )}
             </div>
           </article>
         ))}

@@ -1,3 +1,4 @@
+import { ProjectStrip } from "@/components/hive/ProjectStrip";
 import { PageIntro, ProjectCard, pageMeta, ContactBanner } from "@/components/hive/Primitives";
 import { projects } from "@/content/editorial";
 export const metadata = pageMeta(
@@ -13,17 +14,11 @@ export default function Projects() {
         title="Less hypothetical. More shipped."
         description="Companies, open-source systems, and experiments. Each has a different starting point. Each gives an idea something concrete to stand on."
       />
-      <section
-        className="shell project-strip-container"
-        style={{ paddingBottom: 112 }}
-        data-hive-projects
-      >
-        <div className="project-strip" data-hive-strip data-hive-spotlight>
-          {projects.map((project, index) => (
-            <ProjectCard project={project} index={index} key={project.slug} />
-          ))}
-        </div>
-      </section>
+      <ProjectStrip count={projects.length}>
+        {projects.map((project, index) => (
+          <ProjectCard project={project} index={index} key={project.slug} />
+        ))}
+      </ProjectStrip>
       <ContactBanner />
     </>
   );

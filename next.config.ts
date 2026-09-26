@@ -3,6 +3,24 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "substackcdn.com",
+        port: "",
+        pathname: "/image/**",
+        search: "",
+      },
+      {
+        protocol: "https",
+        hostname: "substack-post-media.s3.amazonaws.com",
+        port: "",
+        pathname: "/public/images/**",
+        search: "",
+      },
+    ],
+  },
   experimental: { inlineCss: true, optimizePackageImports: ["@react-three/drei", "framer-motion"] },
   async headers() {
     return [
