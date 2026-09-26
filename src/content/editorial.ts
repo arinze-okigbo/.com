@@ -28,7 +28,8 @@ export const projects: Project[] = [
       "The product model starts with a clear sequence: collect the shares, then pay together.",
     stack: ["Group payments", "Product strategy", "User research"],
     url: "https://splita.co",
-    source: "https://arinzeokigbo.com",
+    source:
+      "https://github.com/arinze-okigbo/.com/blob/6b54d77964f50c9f16d23d09daa3f14f4e415161/hive/research/current-site.json",
     visual: "splita",
   },
   {
@@ -44,7 +45,8 @@ export const projects: Project[] = [
       "The work connects protocol behavior to the enrollment, activation, and authentication journeys people actually use.",
     stack: ["FIDO2 / WebAuthn", "PKI", "Microsoft Entra ID", "Windows Hello"],
     url: "https://www.queraltinc.com",
-    source: "https://arinzeokigbo.com",
+    source:
+      "https://github.com/arinze-okigbo/.com/blob/6b54d77964f50c9f16d23d09daa3f14f4e415161/hive/research/current-site.json",
     visual: "auth",
   },
   {
@@ -91,10 +93,11 @@ export const experience = [
     role: "Founder",
     period: "2022 — 2024",
     body: "Built and maintained a technology-and-society media platform, led writers and editorial direction, and ran technical operations.",
-    href: "https://arinzeokigbo.com",
+    href: null,
   },
 ];
-export const primarySource = "https://arinzeokigbo.com";
+export const primarySource =
+  "https://github.com/arinze-okigbo/.com/blob/6b54d77964f50c9f16d23d09daa3f14f4e415161/hive/research/current-site.json";
 
 // Additional public builds, verified against cached repository READMEs this round.
 projects.push(
@@ -117,14 +120,14 @@ projects.push(
   {
     slug: "linkedin-plus",
     name: "LinkedIn+",
-    eyebrow: "BROWSER TOOLING / OPEN SOURCE",
-    description: "A small browser tool with its own interface boundary.",
+    eyebrow: "BROWSER TOOLING / CONCEPT",
+    description: "A documented design for a small, self-contained browser tool.",
     problem: "An in-page tool needs to coexist with the host page’s styles and changing DOM.",
     build:
-      "A manually triggered JavaScript bookmarklet opens a Shadow DOM interface. The repository separates readable source, a minified distribution, and one-click installation.",
+      "The README proposes a manually triggered JavaScript bookmarklet with a Shadow DOM interface. It describes readable source, a minified distribution, and installation, but the checked public branches contain only the README.",
     lesson:
-      "The README documents selector fragility and browser security restrictions. This public artifact is a bookmarklet; it is not presented as a released Chrome extension.",
-    stack: ["JavaScript", "Shadow DOM", "Bookmarklet", "Terser"],
+      "The design discusses selector fragility and browser security restrictions. A runnable implementation and release are not available in the checked repository.",
+    stack: ["Bookmarklet design", "Shadow DOM"],
     url: "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
     source: "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
     visual: "auth",

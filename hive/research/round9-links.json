@@ -1,0 +1,162 @@
+{
+  "auditedAt": "2026-09-16T01:00:24.003777+00:00",
+  "method": "Public curl GET, follow redirects, TLS verification enabled, 18-second timeout. HTTP failures can indicate access controls; not proof of absent resource.",
+  "links": [
+    {
+      "url": "https://splita.co",
+      "status": 200,
+      "finalUrl": "https://splita.co/",
+      "error": null,
+      "files": ["src/content/contact.ts", "src/content/editorial.ts", "src/content/hive.ts"]
+    },
+    {
+      "url": "https://arinzeokigbo.com",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.com/",
+      "error": null,
+      "files": ["src/content/editorial.ts", "src/content/hive.ts"]
+    },
+    {
+      "url": "https://www.queraltinc.com",
+      "status": 200,
+      "finalUrl": "https://www.queraltinc.com/",
+      "error": null,
+      "files": ["src/content/editorial.ts"]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/sky-view",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/sky-view",
+      "error": null,
+      "files": ["src/content/editorial.ts"]
+    },
+    {
+      "url": "https://snorkel.ai",
+      "status": 200,
+      "finalUrl": "https://snorkel.ai/",
+      "error": null,
+      "files": ["src/content/editorial.ts"]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/nyc-live",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/nyc-live",
+      "error": null,
+      "files": ["src/content/editorial.ts"]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
+      "error": null,
+      "files": ["src/content/editorial.ts"]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/tindext-v2",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/tindext-v2",
+      "error": null,
+      "files": ["src/content/editorial.ts"]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/HomeworkAIChatBot",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/HomeworkAIChatBot",
+      "error": null,
+      "files": ["src/content/editorial.ts"]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+      "error": null,
+      "files": ["src/content/editorial.ts"]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/Scanner",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/Scanner",
+      "error": null,
+      "files": ["src/content/editorial.ts"]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_nyu-computerscience-splita-activity-7469756321639198721-MUpx",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_nyu-computerscience-splita-activity-7469756321639198721-MUpx",
+      "error": null,
+      "files": ["src/content/hive.ts"]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_cybersecurity-datasecurity-cloudsecurity-activity-7450891042796507136-J0J3",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_cybersecurity-datasecurity-cloudsecurity-activity-7450891042796507136-J0J3",
+      "error": null,
+      "files": ["src/content/hive.ts"]
+    },
+    {
+      "url": "https://bantamsports.com/sports/mens-track-and-field/roster/arinze-okigbo/14121",
+      "status": 200,
+      "finalUrl": "https://bantamsports.com/sports/mens-track-and-field/roster/arinze-okigbo/14121",
+      "error": null,
+      "files": ["src/content/hive.ts"]
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/",
+      "error": null,
+      "files": ["src/content/hive.ts"]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo",
+      "error": null,
+      "files": [
+        "src/app/now/page.tsx",
+        "src/components/hive/Footer.tsx",
+        "src/content/contact.ts",
+        "src/content/hive.ts"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/in/arinzeokigbo",
+      "status": 999,
+      "finalUrl": "https://www.linkedin.com/in/arinzeokigbo",
+      "error": null,
+      "files": ["src/components/hive/Footer.tsx", "src/content/contact.ts", "src/content/hive.ts"]
+    },
+    {
+      "url": "https://x.com/arinzeokigbo",
+      "status": 200,
+      "finalUrl": "https://x.com/arinzeokigbo",
+      "error": null,
+      "files": ["src/content/contact.ts"]
+    },
+    {
+      "url": "https://www.tfrrs.org/athletes/8992717/Trinity_CT/Arinze_Okigbo",
+      "status": 200,
+      "finalUrl": "https://www.tfrrs.org/athletes/8992717/Trinity_CT/Arinze_Okigbo",
+      "error": null,
+      "files": ["src/app/about/page.tsx"]
+    }
+  ],
+  "semanticChanges": [
+    "Project Learn More points to project.url; Splita uses verified HTTPS https://splita.co.",
+    "Work company links point to official sites. Cyera claim source remains LinkedIn in content, company destination is cyera.com.",
+    "TechBuzz misleading owner-homepage destination removed; no verified current company URL.",
+    "Historical background/honors/project source self-links now point to immutable archived original-site evidence.",
+    "Contact email preserved as mailto:arinze@splita.co. No email sent; mail delivery not tested.",
+    "LinkedIn profile999 is an automated-access restriction, not evidence that the real profile URL is wrong."
+  ],
+  "additionalChecks": [
+    {
+      "url": "https://www.cyera.com",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/.com/blob/6b54d77964f50c9f16d23d09daa3f14f4e415161/hive/research/current-site.json",
+      "status": 200
+    }
+  ]
+}

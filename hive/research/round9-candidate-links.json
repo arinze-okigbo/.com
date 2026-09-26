@@ -1,0 +1,642 @@
+{
+  "auditedAt": "2026-09-26T13:12:22.592653+00:00",
+  "site": "http://localhost:3100",
+  "phase": "Round9 built candidate rendered destinations and verified LinkedIn collection",
+  "method": "GET every sitemap page and external rendered anchor, plus LinkedIn collection canonical URLs; TLS verified, redirects followed,20second limit. Access restrictions are not classified as missing resources.",
+  "pages": [
+    {
+      "url": "http://localhost:3100",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/about",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/about",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/work",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/work",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/projects",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/projects",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/lab",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/lab",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/writing",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/writing",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/now",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/now",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/contact",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/contact",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/projects/splita",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/projects/splita",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/projects/browser-authentication",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/projects/browser-authentication",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/projects/skyview",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/projects/skyview",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/projects/nyc-live",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/projects/nyc-live",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/projects/linkedin-plus",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/projects/linkedin-plus",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/projects/campus-bookshelf",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/projects/campus-bookshelf",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/projects/homework-chatbot",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/projects/homework-chatbot",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/projects/library-management",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/projects/library-management",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/projects/scanner",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/projects/scanner",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/writing/the-next-decade-of-digital-identity",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/writing/the-next-decade-of-digital-identity",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/writing/why-nigeria-needs-an-ai-policy-for",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/writing/why-nigeria-needs-an-ai-policy-for",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/writing/tech-vs-tech-how-technology-may-save",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/writing/tech-vs-tech-how-technology-may-save",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/writing/from-breakdown-to-breakthrough-how",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/writing/from-breakdown-to-breakthrough-how",
+      "error": null
+    },
+    {
+      "url": "http://localhost:3100/writing/how-tech-is-tackling-the-environmental",
+      "status": 200,
+      "finalUrl": "http://localhost:3100/writing/how-tech-is-tackling-the-environmental",
+      "error": null
+    }
+  ],
+  "external": [
+    {
+      "url": "https://arinzeokigbo.substack.com",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/",
+      "error": null,
+      "pages": [
+        "/writing",
+        "/contact"
+      ]
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/archive",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/archive",
+      "error": null,
+      "pages": [
+        "/writing"
+      ]
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/from-breakdown-to-breakthrough-how",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/p/from-breakdown-to-breakthrough-how",
+      "error": null,
+      "pages": [
+        "/writing/from-breakdown-to-breakthrough-how"
+      ]
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/how-tech-is-tackling-the-environmental",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/p/how-tech-is-tackling-the-environmental",
+      "error": null,
+      "pages": [
+        "/writing/how-tech-is-tackling-the-environmental"
+      ]
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/tech-vs-tech-how-technology-may-save",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/p/tech-vs-tech-how-technology-may-save",
+      "error": null,
+      "pages": [
+        "/writing/tech-vs-tech-how-technology-may-save"
+      ]
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/the-next-decade-of-digital-identity",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/p/the-next-decade-of-digital-identity",
+      "error": null,
+      "pages": [
+        "/writing/the-next-decade-of-digital-identity"
+      ]
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/p/why-nigeria-needs-an-ai-policy-for",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/p/why-nigeria-needs-an-ai-policy-for",
+      "error": null,
+      "pages": [
+        "/writing/why-nigeria-needs-an-ai-policy-for"
+      ]
+    },
+    {
+      "url": "https://arinzeokigbo.substack.com/subscribe?",
+      "status": 200,
+      "finalUrl": "https://arinzeokigbo.substack.com/subscribe",
+      "error": null,
+      "pages": [
+        "/writing/how-tech-is-tackling-the-environmental"
+      ]
+    },
+    {
+      "url": "https://bluedot-institute.org/how-tech-is-tackling-the-environmental-impact-of-leather-production-by-arinze-okigbo/",
+      "status": 200,
+      "finalUrl": "https://bluedot-institute.org/how-tech-is-tackling-the-environmental-impact-of-leather-production-by-arinze-okigbo/",
+      "error": null,
+      "pages": [
+        "/writing/how-tech-is-tackling-the-environmental"
+      ]
+    },
+    {
+      "url": "https://cloudsecurityalliance.org/artifacts/state-of-non-human-identity-security-survey-report",
+      "status": 200,
+      "finalUrl": "https://cloudsecurityalliance.org/artifacts/state-of-non-human-identity-security-survey-report",
+      "error": null,
+      "pages": [
+        "/writing/the-next-decade-of-digital-identity"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo",
+      "error": null,
+      "pages": [
+        "",
+        "/about",
+        "/work",
+        "/projects",
+        "/lab",
+        "/writing",
+        "/now",
+        "/contact",
+        "/projects/splita",
+        "/projects/browser-authentication",
+        "/projects/skyview",
+        "/projects/nyc-live",
+        "/projects/linkedin-plus",
+        "/projects/campus-bookshelf",
+        "/projects/homework-chatbot",
+        "/projects/library-management",
+        "/projects/scanner",
+        "/writing/the-next-decade-of-digital-identity",
+        "/writing/why-nigeria-needs-an-ai-policy-for",
+        "/writing/tech-vs-tech-how-technology-may-save",
+        "/writing/from-breakdown-to-breakthrough-how",
+        "/writing/how-tech-is-tackling-the-environmental"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/.com/blob/6b54d77964f50c9f16d23d09daa3f14f4e415161/hive/research/current-site.json",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/.com/blob/6b54d77964f50c9f16d23d09daa3f14f4e415161/hive/research/current-site.json",
+      "error": null,
+      "pages": [
+        "/about",
+        "/work"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/HomeworkAIChatBot",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/HomeworkAIChatBot",
+      "error": null,
+      "pages": [
+        "/projects/homework-chatbot"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/HomeworkAIChatBot/blob/3ac30b7c4d0eaf10e6734ca6f5e19aca4fa32480/Chatbot.png",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/HomeworkAIChatBot/blob/3ac30b7c4d0eaf10e6734ca6f5e19aca4fa32480/Chatbot.png",
+      "error": null,
+      "pages": [
+        "/projects/homework-chatbot"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+      "error": null,
+      "pages": [
+        "/projects/library-management"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/Scanner",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/Scanner",
+      "error": null,
+      "pages": [
+        "/projects/scanner"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
+      "error": null,
+      "pages": [
+        "/projects/linkedin-plus"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/nyc-live",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/nyc-live",
+      "error": null,
+      "pages": [
+        "/projects/nyc-live"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/nyc-live/tree/5a85781618ae2b9ef754024d6cc9ca3e22ac8d77",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/nyc-live/tree/5a85781618ae2b9ef754024d6cc9ca3e22ac8d77",
+      "error": null,
+      "pages": [
+        "/projects/nyc-live"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/sky-view",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/sky-view",
+      "error": null,
+      "pages": [
+        "/projects/skyview"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/sky-view/blob/main/README.md",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/sky-view/blob/main/README.md",
+      "error": null,
+      "pages": [
+        "/projects/skyview"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/tindext-v2",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/tindext-v2",
+      "error": null,
+      "pages": [
+        "/projects/campus-bookshelf"
+      ]
+    },
+    {
+      "url": "https://github.com/arinze-okigbo/tindext-v2/blob/main/README.md",
+      "status": 200,
+      "finalUrl": "https://github.com/arinze-okigbo/tindext-v2/blob/main/README.md",
+      "error": null,
+      "pages": [
+        "/projects/campus-bookshelf"
+      ]
+    },
+    {
+      "url": "https://snorkel.ai",
+      "status": 200,
+      "finalUrl": "https://snorkel.ai/",
+      "error": null,
+      "pages": [
+        "/work"
+      ]
+    },
+    {
+      "url": "https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html",
+      "status": 200,
+      "finalUrl": "https://spec.c2pa.org/specifications/specifications/2.2/specs/C2PA_Specification.html",
+      "error": null,
+      "pages": [
+        "/writing/the-next-decade-of-digital-identity"
+      ]
+    },
+    {
+      "url": "https://splita.co",
+      "status": 200,
+      "finalUrl": "https://splita.co/",
+      "error": null,
+      "pages": [
+        "/work",
+        "/contact",
+        "/projects/splita"
+      ]
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!9Y71!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2e6ebcf2-a1bd-4e06-b9b1-14be8ad7698a_2400x1440.png",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!9Y71!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2e6ebcf2-a1bd-4e06-b9b1-14be8ad7698a_2400x1440.png",
+      "error": null,
+      "pages": [
+        "/writing/the-next-decade-of-digital-identity"
+      ]
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!Wlfk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!Wlfk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg",
+      "error": null,
+      "pages": [
+        "/writing/from-breakdown-to-breakthrough-how"
+      ]
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!_Drq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F58aef8b3-9385-4884-bac9-bd33507f599a_711x400.jpeg",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!_Drq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F58aef8b3-9385-4884-bac9-bd33507f599a_711x400.jpeg",
+      "error": null,
+      "pages": [
+        "/writing/tech-vs-tech-how-technology-may-save"
+      ]
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!cUbC!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F18041e0e-fd01-4df2-928b-411456d23ded_2560x1709.jpeg",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!cUbC!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F18041e0e-fd01-4df2-928b-411456d23ded_2560x1709.jpeg",
+      "error": null,
+      "pages": [
+        "/writing/how-tech-is-tackling-the-environmental"
+      ]
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!mOjp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8fc9133-81a2-42f5-b754-bb7e02404521_1152x1322.jpeg",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!mOjp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8fc9133-81a2-42f5-b754-bb7e02404521_1152x1322.jpeg",
+      "error": null,
+      "pages": [
+        "/writing/why-nigeria-needs-an-ai-policy-for"
+      ]
+    },
+    {
+      "url": "https://substackcdn.com/image/fetch/$s_!wrRP!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F86a122ae-06c5-4a52-b57b-4cac57b7ea19_2000x1880.png",
+      "status": 200,
+      "finalUrl": "https://substackcdn.com/image/fetch/$s_!wrRP!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F86a122ae-06c5-4a52-b57b-4cac57b7ea19_2000x1880.png",
+      "error": null,
+      "pages": [
+        "/writing/the-next-decade-of-digital-identity"
+      ]
+    },
+    {
+      "url": "https://www.cyera.com",
+      "status": 200,
+      "finalUrl": "https://www.cyera.com/",
+      "error": null,
+      "pages": [
+        "/work"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/in/arinzeokigbo",
+      "status": 999,
+      "finalUrl": "https://www.linkedin.com/in/arinzeokigbo",
+      "error": null,
+      "pages": [
+        "",
+        "/about",
+        "/work",
+        "/projects",
+        "/lab",
+        "/writing",
+        "/now",
+        "/contact",
+        "/projects/splita",
+        "/projects/browser-authentication",
+        "/projects/skyview",
+        "/projects/nyc-live",
+        "/projects/linkedin-plus",
+        "/projects/campus-bookshelf",
+        "/projects/homework-chatbot",
+        "/projects/library-management",
+        "/projects/scanner",
+        "/writing/the-next-decade-of-digital-identity",
+        "/writing/why-nigeria-needs-an-ai-policy-for",
+        "/writing/tech-vs-tech-how-technology-may-save",
+        "/writing/from-breakdown-to-breakthrough-how",
+        "/writing/how-tech-is-tackling-the-environmental"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_africatech-fintech-nigeria-activity-7496142499061633024-taaQ",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_africatech-fintech-nigeria-activity-7496142499061633024-taaQ",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_africatech-venturecapital-startup-activity-7495092275534872576-PV1m",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_africatech-venturecapital-startup-activity-7495092275534872576-PV1m",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_assemble2026-chainguard-assemble2026-activity-7440551337525817345-XcDy",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_assemble2026-chainguard-assemble2026-activity-7440551337525817345-XcDy",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_cybersecurity-datasecurity-cloudsecurity-activity-7450891042796507136-J0J3",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_cybersecurity-datasecurity-cloudsecurity-activity-7450891042796507136-J0J3",
+      "error": null,
+      "pages": [
+        "/about",
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_cyera-just-announced-our-600m-series-g-activity-7470842500950376448-4o3M",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_cyera-just-announced-our-600m-series-g-activity-7470842500950376448-4o3M",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_greentech-digitalafrica-sustainability-activity-7335040675584884737-3vz9",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_greentech-digitalafrica-sustainability-activity-7335040675584884737-3vz9",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_innovation-entrepreneurship-collegelife-activity-7269045998117695489-orGV",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_innovation-entrepreneurship-collegelife-activity-7269045998117695489-orGV",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_merry-christmas-from-the-splita-team-activity-7410063208259928065-N1Ix",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_merry-christmas-from-the-splita-team-activity-7410063208259928065-N1Ix",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_nyu-computerscience-splita-activity-7469756321639198721-MUpx",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_nyu-computerscience-splita-activity-7469756321639198721-MUpx",
+      "error": null,
+      "pages": [
+        "/about",
+        "/now",
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_splita-fintech-startups-activity-7439287912275337216-tasP",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_splita-fintech-startups-activity-7439287912275337216-tasP",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_summitinnovationchallenge-founderjourney-activity-7426519025871908864-CDOV",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_summitinnovationchallenge-founderjourney-activity-7426519025871908864-CDOV",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_supriyo-b-chatterjee-was-one-of-the-first-activity-7460466959558602752-fwln",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_supriyo-b-chatterjee-was-one-of-the-first-activity-7460466959558602752-fwln",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_why-nigeria-needs-ai-policy-for-its-universities-activity-7350356031496937472-zPW-",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_why-nigeria-needs-ai-policy-for-its-universities-activity-7350356031496937472-zPW-",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_yaleinnovation26-fintech-startups-activity-7457808685264826368-HmSV",
+      "status": 200,
+      "finalUrl": "https://www.linkedin.com/posts/arinzeokigbo_yaleinnovation26-fintech-startups-activity-7457808685264826368-HmSV",
+      "error": null,
+      "pages": [
+        "/writing (LinkedIn collection)"
+      ]
+    },
+    {
+      "url": "https://www.queraltinc.com",
+      "status": 200,
+      "finalUrl": "https://www.queraltinc.com/",
+      "error": null,
+      "pages": [
+        "/work",
+        "/projects/browser-authentication"
+      ]
+    },
+    {
+      "url": "https://www.tfrrs.org/athletes/8992717/Trinity_CT/Arinze_Okigbo",
+      "status": 200,
+      "finalUrl": "https://www.tfrrs.org/athletes/8992717/Trinity_CT/Arinze_Okigbo",
+      "error": null,
+      "pages": [
+        "/about"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "attemptedAt": "2026-09-26T13:19:20.304872+00:00",
+  "slug": "library-management",
+  "repository": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+  "commit": "64232a8ed1f74734a1cc5bc0fa5e3f842c17afe1",
+  "checkout": "../round9-library-runtime/LibraryManagementSystem",
+  "command": "/opt/homebrew/opt/openjdk@17/bin/java LibraryGUI",
+  "result": "Existing compiled app launched without console errors. A single supported CUA getApp attempt using bundle identifier net.java.openjdk.java failed after 5.48 seconds: Computer Use server error -10005: timeoutReached. No app handle or screenshot was returned.",
+  "capture": null,
+  "cleanup": {
+    "ownedPid": 21899,
+    "action": "SIGTERM",
+    "processExited": true
+  },
+  "limitations": [
+    "No native screenshot captured; login and catalog remain unverified.",
+    "No denied Terminal surface, alternate capture API, or fabricated image used."
+  ]
+}

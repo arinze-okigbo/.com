@@ -1,23 +1,28 @@
 {
-  "round": "R5-02",
-  "checkedAt": "2026-09-15T04:09:26.895829+00:00",
-  "scope": "Five previously verified public README-linked images downloaded to work review and visually inspected. Two selected screenshots copied unchanged to public/project-media with detected native extensions. No feature code or authentication used.",
+  "round": "R9-03",
+  "checkedAt": "2026-09-26T13:10:10Z",
+  "scope": "Seven listed GitHub projects inspected in isolated checkouts; available applications launched locally, with explicit source, dependency, credential and capture limitations. Existing authentic repository images promoted to lead media; no generated screenshots.",
   "summary": {
     "projects": 10,
-    "projectsWithAccessibleAssets": 2,
-    "accessibleAssets": 5,
-    "missingProjects": 8,
-    "visuallyInspectedAssets": 5,
-    "verifiedImageAssets": 5,
-    "selectedAssets": 2,
-    "projectsWithSelectedAssets": 2
+    "projectsWithAccessibleAssets": 4,
+    "accessibleAssets": 7,
+    "missingProjects": 6,
+    "visuallyInspectedAssets": 7,
+    "verifiedImageAssets": 7,
+    "selectedAssets": 4,
+    "projectsWithSelectedAssets": 4,
+    "runtimeProjectsAssessed": 7,
+    "localScreenshotsCaptured": 1,
+    "localTranscripts": 1
   },
   "publicationNotes": [
     "README-linked screenshots document the pictured interface, not current deployed behavior or live data availability.",
     "All five downloads were visually inspected. Two selected files preserve native source bytes; SHA-256 digests and dimensions recorded below.",
     "SkyView globe.png and main.png contain JPEG bytes despite URL extension and response MIME. Imported globe uses .jpg.",
     "Campus Bookshelf source README declares display size 1280x677; actual PNG dimensions are 2560x1354. Initial HEAD403 was followed by a successful public GET without authentication.",
-    "Public image URLs follow the README-observed main branch and may change. Selected local files preserve the reviewed snapshot."
+    "Public image URLs follow the README-observed main branch and may change. Selected local files preserve the reviewed snapshot.",
+    "R9 runtime attempts took place September15\u201316. CUA capture remained unavailable at the September21 bounded recheck. Repository images remain clearly labelled and are not presented as local captures. Scanner output is a verbatim local transcript.",
+    "September26: NYC Live local browser screenshot obtained unchanged via CUA; Campus startup failure confirmed in browser; SkyView screenshot still timed out. NYC screenshot does not claim every layer is error-free."
   ],
   "projects": [
     {
@@ -74,7 +79,8 @@
           "sha256": "d54e976c5ecae338df7aa17ab0356a9fa91eb5107828e166f0a790ae9fb8654f",
           "byteLength": 118358,
           "selected": true,
-          "localPath": "/project-media/skyview-globe.jpg"
+          "localPath": "/project-media/skyview-globe.jpg",
+          "captureType": "repository-screenshot"
         },
         {
           "project": "skyview",
@@ -106,7 +112,8 @@
           "sha256": "0fb5be4b9a9a73242984972739e57b4c36f6c97f76d199eb9adbc66583b2c13a",
           "byteLength": 117348,
           "selected": false,
-          "localPath": null
+          "localPath": null,
+          "captureType": "repository-screenshot"
         },
         {
           "project": "skyview",
@@ -138,7 +145,8 @@
           "sha256": "8950aae9b271d9af03ee77358701c04e61e832f1ed8ac7399bb3fe7d21cb6934",
           "byteLength": 304177,
           "selected": false,
-          "localPath": null
+          "localPath": null,
+          "captureType": "repository-screenshot"
         },
         {
           "project": "skyview",
@@ -173,12 +181,34 @@
           "sha256": "51bac49bff75544f7572690eb0b66ef19c3b311e9f67e589e7b67470e5cbb9c6",
           "byteLength": 114890,
           "selected": false,
-          "localPath": null
+          "localPath": null,
+          "captureType": "repository-screenshot"
         }
       ],
       "missingCoverage": null,
       "liveDemo": null,
-      "selectedLocalPath": "/project-media/skyview-globe.jpg"
+      "selectedLocalPath": "/project-media/skyview-globe.jpg",
+      "runtime": {
+        "repository": "https://github.com/arinze-okigbo/sky-view",
+        "commit": "bb43c5a99f20402eb2628795b0181b5b6520abcc",
+        "commands": [
+          "npm ci --ignore-scripts",
+          "npm install --ignore-scripts --no-audit --no-fund",
+          "npm run dev -- --host 127.0.0.1 --port 3201 --strictPort"
+        ],
+        "port": 3201,
+        "result": "Vite started and CUA accessibility tree showed SkyView overview, globe, navigator, zero aircraft and missing N2YO-key notification.",
+        "limitations": [
+          "Committed npm lock was out of sync; npm install repaired the isolated checkout only.",
+          "No private keys supplied. Google photorealistic tiles and N2YO feed require credentials.",
+          "No live feed was verified; screenshot capture timed out repeatedly, including a bounded fresh check on September21.",
+          "September26: actual overview AX state rendered with zero aircraft; CUA screenshot timed out twice, while NYC capture worked. No new SkyView capture obtained.",
+          "September26 dev console also reported401 INVALID_TOKEN from a configured provider; no private credential was supplied for this run."
+        ],
+        "publicNote": "Repository screenshot. The local app started without private keys; satellite data and photorealistic tiles require separate credentials. Current live feeds were not verified.",
+        "attemptedAt": "2026-09-16T01:09:39Z",
+        "lastAttemptedAt": "2026-09-26T13:10:10Z"
+      }
     },
     {
       "slug": "astra-hive",
@@ -191,10 +221,57 @@
     {
       "slug": "nyc-live",
       "name": "NYC Live",
-      "coverage": "missing",
-      "media": [],
-      "missingCoverage": "README references docs/vision-rush.png specifically as not yet existing and records upstream verification limitations. No actual screenshot or hosted demo URL discovered.",
-      "liveDemo": null
+      "coverage": "selected-local-runtime-screenshot",
+      "media": [
+        {
+          "project": "nyc-live",
+          "source": "https://github.com/arinze-okigbo/nyc-live/tree/5a85781618ae2b9ef754024d6cc9ca3e22ac8d77",
+          "sourceCache": "isolated project-captures/nyc-live checkout",
+          "sourceCaption": "Local dashboard capture",
+          "assetUrl": null,
+          "repositoryPath": null,
+          "checkedAt": "2026-09-26T13:09:47Z",
+          "availability": "local-runtime",
+          "visualInspection": true,
+          "captionBasis": "Unmodified CUA viewport screenshot of actual local FastAPI dashboard.",
+          "binaryValidated": true,
+          "fileSignature": "JPEG",
+          "suggestedCaption": "NYC Live running locally on September 26, 2026: city map, service alerts and feed status. Some feeds and map layers reported errors.",
+          "publicationReadiness": "selected; real local screenshot",
+          "visualReviewAt": "2026-09-26T13:09:47Z",
+          "factualAlt": "NYC Live map of Manhattan and surrounding boroughs, with feed status, borough filters and subway service alerts.",
+          "width": 1279,
+          "height": 876,
+          "dimensions": {
+            "width": 1279,
+            "height": 876
+          },
+          "sha256": "5d422183db80b67922736af38febd17512b68740cece292792a2d0cdb9737f1a",
+          "byteLength": 286375,
+          "selected": true,
+          "localPath": "/projects/nyc-live/local-dashboard.jpg",
+          "captureType": "local-runtime"
+        }
+      ],
+      "liveDemo": null,
+      "runtime": {
+        "repository": "https://github.com/arinze-okigbo/nyc-live",
+        "commit": "5a85781618ae2b9ef754024d6cc9ca3e22ac8d77",
+        "commands": [
+          "uv sync --package nyc-dash --no-dev",
+          "uv sync --package nyc-dash --no-dev --reinstall-package nyc-dash --reinstall-package nyc-live",
+          "uv run --package nyc-dash nyc-dash --host 127.0.0.1 --port 3202"
+        ],
+        "port": 3202,
+        "result": "September26: stale editable-package links repaired using uv reinstall. Dashboard launched; CUA captured real map, service alerts and data-status indicators. Header showed 12 fresh, 0 stale, 1 error at capture.",
+        "limitations": [
+          "No credentials supplied; camera density unavailable because vision pipeline was not run; bus feed reports missing key.",
+          "Browser console reported deck.gl IconLayer matching/update/drawing errors. A captured map is not a complete validation of every data layer."
+        ],
+        "publicNote": "Local capture from September 26, 2026. Service alerts and map data loaded; camera density, bus data and some map layers reported errors.",
+        "attemptedAt": "2026-09-16T01:09:39Z",
+        "lastAttemptedAt": "2026-09-26T13:09:47Z"
+      }
     },
     {
       "slug": "linkedin-plus",
@@ -202,7 +279,25 @@
       "coverage": "missing",
       "media": [],
       "missingCoverage": "README explicitly labels docs/demo.gif a demo placeholder and lists a screenshots directory without image filenames. Badges are not project screenshots; do not publish the placeholder.",
-      "liveDemo": null
+      "liveDemo": null,
+      "runtime": {
+        "repository": "https://github.com/arinze-okigbo/linkedin-plus-bookmarklet",
+        "commit": "250bf6306a25d6af4cfa1eaacb2fa521143ae6b1",
+        "commands": [
+          "git ls-tree -r --name-only HEAD",
+          "git ls-remote --heads --tags origin",
+          "git fetch --depth 1 origin copilot/create-linkedin-plus-bookmarklet",
+          "git ls-tree -r --name-only FETCH_HEAD",
+          "gh api repos/arinze-okigbo/linkedin-plus-bookmarklet/releases"
+        ],
+        "port": null,
+        "result": "Both main and copilot/create-linkedin-plus-bookmarklet contain only README.md; releases array empty.",
+        "limitations": [
+          "README references src/main.js, dist and bookmarklet.url, but none exist in either public branch. No runnable artifact or authentic screenshot available."
+        ],
+        "publicNote": "The public repository documents the design, but contains no runnable bookmarklet source or release to capture.",
+        "attemptedAt": "2026-09-16T01:09:39Z"
+      }
     },
     {
       "slug": "campus-bookshelf",
@@ -243,20 +338,86 @@
           "sha256": "3560eed93949cdcd8a1325cccfde5cac5bb63fc2afba2a4b8f4e5bfc6a2c9217",
           "byteLength": 173111,
           "selected": true,
-          "localPath": "/project-media/campus-bookshelf.png"
+          "localPath": "/project-media/campus-bookshelf.png",
+          "captureType": "repository-screenshot"
         }
       ],
       "missingCoverage": null,
       "liveDemo": null,
-      "selectedLocalPath": "/project-media/campus-bookshelf.png"
+      "selectedLocalPath": "/project-media/campus-bookshelf.png",
+      "runtime": {
+        "repository": "https://github.com/arinze-okigbo/tindext-v2",
+        "commit": "203dc8c12a698afa3cdfef12c1fbd84515b5ddc5",
+        "commands": [
+          "npm ci --ignore-scripts --no-audit --no-fund",
+          "npm install --ignore-scripts --no-audit --no-fund",
+          "npm run dev -- --host 127.0.0.1 --port 3203 --strictPort"
+        ],
+        "port": 3203,
+        "result": "September26: Vite serves HTML but browser displays blank page. Console confirms Error: supabaseUrl is required.",
+        "limitations": [
+          "Committed npm lock out of sync; install repaired isolated checkout only.",
+          "Client requires VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY; no env files or credentials supplied.",
+          "Browser app/auth/catalog interactions not verified; CUA capture unavailable."
+        ],
+        "publicNote": "Repository screenshot. A local launch stopped at missing Supabase configuration; account and marketplace behavior were not tested.",
+        "attemptedAt": "2026-09-16T01:09:39Z",
+        "lastAttemptedAt": "2026-09-26T13:09:54Z"
+      }
     },
     {
       "slug": "homework-chatbot",
       "name": "Homework Chatbot",
-      "coverage": "missing",
-      "media": [],
-      "missingCoverage": "Cached README has local localhost instructions and no explicit screenshot or public hosted demo URL.",
-      "liveDemo": null
+      "coverage": "selected-repository-screenshot",
+      "media": [
+        {
+          "project": "homework-chatbot",
+          "source": "https://github.com/arinze-okigbo/HomeworkAIChatBot/blob/3ac30b7c4d0eaf10e6734ca6f5e19aca4fa32480/Chatbot.png",
+          "sourceCache": "isolated project-captures/HomeworkAIChatBot/Chatbot.png",
+          "sourceCaption": "Homework Chatbot",
+          "assetUrl": "https://raw.githubusercontent.com/arinze-okigbo/HomeworkAIChatBot/3ac30b7c4d0eaf10e6734ca6f5e19aca4fa32480/Chatbot.png",
+          "repositoryPath": "Chatbot.png",
+          "checkedAt": "2026-09-21T13:04:05.404625+00:00",
+          "availability": "accessible",
+          "visualInspection": true,
+          "captionBasis": "Exact committed image, visually inspected locally; not a new runtime capture.",
+          "binaryValidated": true,
+          "fileSignature": "PNG",
+          "suggestedCaption": "Homework Chatbot welcome screen with tone selector and question field. Repository screenshot; no live answer was tested.",
+          "publicationReadiness": "selected; unchanged repository asset",
+          "visualReviewAt": "2026-09-21T13:04:05.404625+00:00",
+          "factualAlt": "Homework Chatbot welcome screen, Detailed Answer selector, question field and Send button.",
+          "width": 2880,
+          "height": 1800,
+          "dimensions": {
+            "width": 2880,
+            "height": 1800
+          },
+          "sha256": "60f8a1fa59e9a26561e9f21d0a9a5111c8df00a1212ccc5363e589cbcc861fac",
+          "byteLength": 1351330,
+          "selected": true,
+          "localPath": "/projects/homework-chatbot/repository.png",
+          "captureType": "repository-screenshot"
+        }
+      ],
+      "liveDemo": null,
+      "runtime": {
+        "repository": "https://github.com/arinze-okigbo/HomeworkAIChatBot",
+        "commit": "3ac30b7c4d0eaf10e6734ca6f5e19aca4fa32480",
+        "commands": [
+          "uv venv --python 3.12 .venv",
+          "uv pip install --python .venv/bin/python -r requirements.txt",
+          "uv pip install --python .venv/bin/python fastapi==0.104.1 uvicorn[standard]==0.24.0 google-generativeai==0.3.2 python-multipart==0.0.6 python-dotenv==1.0.0 pydantic==2.5.0 redis==5.0.1",
+          "HOST=127.0.0.1 PORT=3204 .venv/bin/python main.py"
+        ],
+        "port": null,
+        "result": "Requirements install failed because rate-limiter==0.1.4 does not exist. Installed actually imported dependencies, then main.py exited with ValueError: GEMINI_API_KEY environment variable is required.",
+        "limitations": [
+          "No credential-free mode documented. No key supplied or fabricated. No answer-generation request sent."
+        ],
+        "publicNote": "Repository screenshot. A local launch stopped at the required Gemini API key; generated answers were not tested.",
+        "attemptedAt": "2026-09-16T01:09:39Z"
+      }
     },
     {
       "slug": "library-management",
@@ -264,15 +425,57 @@
       "coverage": "missing",
       "media": [],
       "missingCoverage": "Cached README describes Java Swing application but supplies no screenshot or hosted demo.",
-      "liveDemo": null
+      "liveDemo": null,
+      "runtime": {
+        "repository": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+        "commit": "64232a8ed1f74734a1cc5bc0fa5e3f842c17afe1",
+        "checkout": "../round9-library-runtime/LibraryManagementSystem",
+        "commands": [
+          "/opt/homebrew/opt/openjdk@17/bin/javac *.java",
+          "/opt/homebrew/opt/openjdk@17/bin/java LibraryGUI"
+        ],
+        "runtime": "Existing Homebrew OpenJDK17; source compiled locally because committed class files target Java23.",
+        "result": "Compilation succeeded. LibraryGUI process launched and remained running without terminal errors. CUA inventory reported running LibraryGUI (net.java.openjdk.java).",
+        "limitations": [
+          "CUA getApp by reported ID/name returned Invalid app. A local wrapper with matching bundle ID resolved but getApp/path and direct screenshot attempt timed out before a usable handle.",
+          "No permitted native screenshot captured. Login and catalog interactions not verified. No fabricated UI/image substituted."
+        ],
+        "attemptedAt": "2026-09-16T01:06:37.106513+00:00",
+        "publicNote": "Compiled and launched locally with Java17. A native screenshot and catalog interactions could not be verified."
+      }
     },
     {
       "slug": "scanner",
       "name": "Scanner",
-      "coverage": "missing",
+      "coverage": "local-command-line-transcript",
       "media": [],
       "missingCoverage": "Cached README contains placeholder stack/tree text and no explicit screenshot or hosted demo.",
-      "liveDemo": null
+      "liveDemo": null,
+      "runtime": {
+        "repository": "https://github.com/arinze-okigbo/Scanner",
+        "commit": "6e831ecce94623a26c87e3717a02bea0542be7c5",
+        "checkout": "../round9-scanner-runtime/Scanner",
+        "commands": [
+          "make -B pmc",
+          "./pmc test0.pm",
+          "./pmc capture-demo.pm > ../capture-output.txt 2>&1"
+        ],
+        "runtime": "macOS, Apple clang via gcc, installed flex library",
+        "result": "Build succeeded. Repository test0.pm and capture-demo.pm both completed with no errors. Actual stdout/stderr transcript preserved verbatim.",
+        "limitations": [
+          "Native Terminal capture explicitly denied by CUA; restriction respected. No fake screenshot created.",
+          "Keyword rules match uppercase; repository lowercase sample words are classified as identifiers. This run demonstrates tokenization, not execution of the scanned program."
+        ],
+        "attemptedAt": "2026-09-16T01:06:37.106513+00:00",
+        "publicNote": "Actual local scanner output for the linked demonstration input. This records tokenization, not execution of the scanned program."
+      },
+      "transcript": {
+        "localPath": "/projects/scanner/run.txt",
+        "inputPath": "/projects/scanner/input.pm",
+        "caption": "Actual local run of the P- lexical scanner. Demonstration input and emitted tokens; this is a command-line transcript, not a graphical interface.",
+        "text": "capture-demo.pm: 1: keyword 'PROGRAM' found\ncapture-demo.pm: 1: identifier 'demo' found\ncapture-demo.pm: 2: keyword 'BEGIN' found\ncapture-demo.pm: 3: identifier 'count' found\ncapture-demo.pm: 3: operator '=' found\ncapture-demo.pm: 3: integer '3' found\ncapture-demo.pm: 3: operator '+' found\ncapture-demo.pm: 3: integer '4' found\ncapture-demo.pm: 4: keyword 'WRITE' found\ncapture-demo.pm: 4: operator '(' found\ncapture-demo.pm: 4: string \"hello\" found\ncapture-demo.pm: 4: operator ')' found\ncapture-demo.pm: 5: keyword 'END' found\n\nno errors\n",
+        "sha256": "944963275f755b01a282fbb8f592a7dc666f38618a137f29ea2b7050fed78e2c"
+      }
     }
   ],
   "visualReviewAt": "2026-09-15T04:15:34.322298+00:00"

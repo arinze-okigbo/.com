@@ -1,8 +1,34 @@
 {
   "source": "https://www.linkedin.com/in/arinzeokigbo",
-  "fetchedAt": "2026-09-15T03:33:14.781391Z",
+  "fetchedAt": "2026-09-16T01:08:49.939087Z",
   "status": "cached",
   "items": [
+    {
+      "title": "Digital sovereignty and infrastructure in West Africa",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_africatech-fintech-nigeria-activity-7496142499061633024-taaQ",
+      "date": "2026-08-20T09:54:03.349Z",
+      "dateLabel": "Aug 20, 2026",
+      "summary": "Notes from a conversation with Abdelaziz Saidu about data sovereignty, local data centres, and the infrastructure behind technology in Nigeria and Ghana.",
+      "topics": [
+        "Technology",
+        "Africa",
+        "Security"
+      ],
+      "embedUrl": null
+    },
+    {
+      "title": "A conversation about building in Africa",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_africatech-venturecapital-startup-activity-7495092275534872576-PV1m",
+      "date": "2026-08-17T12:20:50.473Z",
+      "dateLabel": "Aug 17, 2026",
+      "summary": "A conversation with Kola Aina about Splita, AI, infrastructure, and the patience required to build lasting technology businesses.",
+      "topics": [
+        "Africa",
+        "Entrepreneurship",
+        "AI"
+      ],
+      "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7494835365636169728"
+    },
     {
       "title": "Building with the security team at Cyera",
       "url": "https://www.linkedin.com/posts/arinzeokigbo_cyera-just-announced-our-600m-series-g-activity-7470842500950376448-4o3M",
@@ -20,7 +46,7 @@
       "url": "https://www.linkedin.com/posts/arinzeokigbo_nyu-computerscience-splita-activity-7469756321639198721-MUpx",
       "date": "2026-06-08T14:24:48.422Z",
       "dateLabel": "2026-06-08",
-      "summary": "Transferring from Trinity College to NYU for Computer Science, Class of 2028. Bringing Splita closer to New York\u2019s fintech and security community.",
+      "summary": "Transferring from Trinity College to NYU for Computer Science, Class of 2028. Bringing Splita closer to New York’s fintech and security community.",
       "topics": [
         "Education",
         "Splita"
@@ -28,16 +54,126 @@
       "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7469756318426398720"
     },
     {
-      "title": "Joining Cyera\u2019s security team",
+      "title": "Giving back through Summit-to-Success",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_supriyo-b-chatterjee-was-one-of-the-first-activity-7460466959558602752-fwln",
+      "date": "2026-05-13T23:12:11.908Z",
+      "dateLabel": "May 13, 2026",
+      "summary": "Reflecting on mentorship and joining Trinity’s Summit-to-Success program to support incoming students.",
+      "topics": [
+        "Education",
+        "Mentorship"
+      ],
+      "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7460466958527004672"
+    },
+    {
+      "title": "Splita at the Yale Innovation Summit showcase",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_yaleinnovation26-fintech-startups-activity-7457808685264826368-HmSV",
+      "date": "2026-05-06T15:09:09.919Z",
+      "dateLabel": "May 6, 2026",
+      "summary": "Announcing Splita’s selection for the 2026 Yale Innovation Summit Virtual Showcase and the problem of coordinating group payments.",
+      "topics": [
+        "Splita",
+        "Entrepreneurship"
+      ],
+      "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7457808683830296576"
+    },
+    {
+      "title": "Joining Cyera’s security team",
       "url": "https://www.linkedin.com/posts/arinzeokigbo_cybersecurity-datasecurity-cloudsecurity-activity-7450891042796507136-J0J3",
       "date": "2026-04-17T13:00:55.445Z",
       "dateLabel": "2026-04-17",
-      "summary": "Announcing a Data Security Internship with Cyera\u2019s internal security team. The role reports to the CISO.",
+      "summary": "Announcing a Data Security Internship with Cyera’s internal security team. The role reports to the CISO.",
       "topics": [
         "Security",
         "Work"
       ],
       "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7450687947185491968"
+    },
+    {
+      "title": "Security lessons from Chainguard Assemble",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_assemble2026-chainguard-assemble2026-activity-7440551337525817345-XcDy",
+      "date": "2026-03-20T00:14:37.607Z",
+      "dateLabel": "Mar 20, 2026",
+      "summary": "Reflections on software supply chains, AI, and secure-by-default systems after attending Chainguard Assemble in New York.",
+      "topics": [
+        "Security",
+        "AI"
+      ],
+      "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7440551335302811649"
+    },
+    {
+      "title": "Welcoming Dayo to Splita",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_splita-fintech-startups-activity-7439287912275337216-tasP",
+      "date": "2026-03-16T12:34:13.553Z",
+      "dateLabel": "Mar 16, 2026",
+      "summary": "Welcoming Dayo Adebari to the team and reflecting on the mentors and startup community that brought the team together.",
+      "topics": [
+        "Splita",
+        "Entrepreneurship",
+        "Mentorship"
+      ],
+      "embedUrl": null
+    },
+    {
+      "title": "Lessons from the Summit Innovation Challenge",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_summitinnovationchallenge-founderjourney-activity-7426519025871908864-CDOV",
+      "date": "2026-02-09T06:55:13.798Z",
+      "dateLabel": "Feb 9, 2026",
+      "summary": "Reflections on presenting Splita, the questions that followed, and refining the product beyond its pitch.",
+      "topics": [
+        "Splita",
+        "Entrepreneurship"
+      ],
+      "embedUrl": null
+    },
+    {
+      "title": "Christmas with the Splita team",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_merry-christmas-from-the-splita-team-activity-7410063208259928065-N1Ix",
+      "date": "2025-12-25T21:05:41.144Z",
+      "dateLabel": "Dec 25, 2025",
+      "summary": "A short Christmas greeting accompanying a shared post from the Splita team.",
+      "topics": [
+        "Splita"
+      ],
+      "embedUrl": null
+    },
+    {
+      "title": "An AI policy for Nigerian universities",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_why-nigeria-needs-ai-policy-for-its-universities-activity-7350356031496937472-zPW-",
+      "date": "2025-07-14T02:50:40.886Z",
+      "dateLabel": "Jul 14, 2025",
+      "summary": "Announcing the publication of an essay about AI education and policy in Independent Newspapers Nigeria.",
+      "topics": [
+        "AI",
+        "Education",
+        "Africa"
+      ],
+      "embedUrl": null
+    },
+    {
+      "title": "Green digital infrastructure in Africa",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_greentech-digitalafrica-sustainability-activity-7335040675584884737-3vz9",
+      "date": "2025-06-01T20:32:55.494Z",
+      "dateLabel": "Jun 1, 2025",
+      "summary": "Preparing for a GIZ Digital Investment Facility roundtable on sustainable infrastructure and wider digital access across Africa.",
+      "topics": [
+        "Technology",
+        "Africa",
+        "Environment"
+      ],
+      "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7335040674028826624"
+    },
+    {
+      "title": "Building through the Tyree Innovation Fellowship",
+      "url": "https://www.linkedin.com/posts/arinzeokigbo_innovation-entrepreneurship-collegelife-activity-7269045998117695489-orGV",
+      "date": "2024-12-01T17:53:38.266Z",
+      "dateLabel": "Dec 1, 2024",
+      "summary": "Reflections on developing a college-focused app and learning to launch a product through the Tyree Innovation Fellowship.",
+      "topics": [
+        "Entrepreneurship",
+        "Education"
+      ],
+      "embedUrl": "https://www.linkedin.com/embed/feed/update/urn:li:share:7269045997513621504"
     }
   ]
 }

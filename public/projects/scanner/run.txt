@@ -1,0 +1,15 @@
+capture-demo.pm: 1: keyword 'PROGRAM' found
+capture-demo.pm: 1: identifier 'demo' found
+capture-demo.pm: 2: keyword 'BEGIN' found
+capture-demo.pm: 3: identifier 'count' found
+capture-demo.pm: 3: operator '=' found
+capture-demo.pm: 3: integer '3' found
+capture-demo.pm: 3: operator '+' found
+capture-demo.pm: 3: integer '4' found
+capture-demo.pm: 4: keyword 'WRITE' found
+capture-demo.pm: 4: operator '(' found
+capture-demo.pm: 4: string "hello" found
+capture-demo.pm: 4: operator ')' found
+capture-demo.pm: 5: keyword 'END' found
+
+no errors

@@ -1,0 +1,42 @@
+{
+  "url": "https://www.linkedin.com/posts/arinzeokigbo_greentech-digitalafrica-sustainability-activity-7335040675584884737-3vz9",
+  "retrievedAt": "2026-09-16T01:03:16.638479+00:00",
+  "jsonld": [
+    {
+      "@context": "http://schema.org",
+      "@type": "SocialMediaPosting",
+      "@id": "https://www.linkedin.com/posts/arinzeokigbo_greentech-digitalafrica-sustainability-activity-7335040675584884737-3vz9",
+      "datePublished": "2025-06-01T20:32:55.494Z",
+      "headline": "I\u2019m excited to participate in the Digital Investment Facility Roundtable on Fostering Green Digital Infrastructure Investments in Africa hosted by the GIZ, tomorrow.",
+      "image": {
+        "url": "https://media.licdn.com/dms/image/v2/D4E22AQFPmRqixQ-4lQ/feedshare-shrink_800/B4EZctMoA.HAAg-/0/1748809974461?e=2147483647&v=beta&t=8t9QNb4gpXEP_3XZ2ucA8P3IiVaY7IwD-a29c_VPtnQ",
+        "@type": "ImageObject",
+        "description": "graphical user interface, text, application, chat or text message",
+        "caption": "graphical user interface, text, application, chat or text message"
+      },
+      "articleBody": "I\u2019m excited to participate in the Digital Investment Facility Roundtable on Fostering Green Digital Infrastructure Investments in Africa hosted by the GIZ, tomorrow. \n\nGrowing up in Nigeria, I witnessed firsthand the challenges and immense potential of digital access across the continent.\n\nMy goal is to help drive investments in sustainable, green digital infrastructure, so that more communities in Africa, especially those in underserved areas like the one where I grew up, can benefit from reliable and secure technology. This is key to unlocking opportunities in education, entrepreneurship, and economic growth.\n\nLooking forward to engaging with key stakeholders, including Deutsche Gesellschaft f\u00fcr Internationale Zusammenarbeit (GIZ) GmbH (\nThe European Commission, Federal Ministry for Economic Cooperation and Development (BMZ), and Ministries of Foreign Affairs from Finland, Estonia, Belgium, and France.\n\nI\u2019m honoured to join this conversation with investors, policymakers, and innovators dedicated to empowering Africa\u2019s digital future in an environmentally responsible way.\n\nThank you to Bjorn-Soren Gigler, PhD, for sharing this opportunity.\n\n#GreenTech #DigitalAfrica #Sustainability #Innovation #AfricaTech #DigitalInfrastructure #TechForGood",
+      "author": {
+        "name": "Arinze Okigbo",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+          "@type": "ImageObject"
+        },
+        "url": "https://www.linkedin.com/in/arinzeokigbo",
+        "@type": "Person",
+        "interactionStatistic": {
+          "@type": "InteractionCounter",
+          "interactionType": "http://schema.org/FollowAction",
+          "userInteractionCount": 2703
+        }
+      },
+      "hasPart": {
+        "@type": "WebPageElement",
+        "isAccessibleForFree": false,
+        "cssSelector": ".details"
+      }
+    }
+  ],
+  "embedUrns": [
+    "urn:li:share:7335040674028826624"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "url": "http://localhost:3100/",
+  "auditedAt": "2026-09-26T13:20:48.594Z",
+  "commitSha": "df3961048839fd4ec13748c2368eeeead8f1b061",
+  "environment": {
+    "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+    "benchmarkIndex": 3907,
+    "throttlingMethod": "simulate",
+    "cpuSlowdownMultiplier": 4,
+    "screen": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    }
+  },
+  "scores": {
+    "performance": 96,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "lcp": 2748.7262,
+    "cls": 0,
+    "tbt": 30
+  },
+  "workflowRun": "https://github.com/arinze-okigbo/.com/actions/runs/36244692875",
+  "candidateHead": "6cd3b8f836475901842d6162b70443209123d5a2",
+  "note": "Initial Linux gate passed before review follow-up. commitSha is GitHub synthetic merge commit. All raw runs retained in workflow artifact and local zip."
+}

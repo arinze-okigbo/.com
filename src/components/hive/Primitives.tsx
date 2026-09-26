@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Icon } from "./Icon";
 import { SplitaLogo } from "./SplitaLogo";
+import { hasProjectMedia, ProjectMedia } from "./ProjectMedia";
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Reveal, ScrambleLabel, SplitText, TiltCard } from "./Motion";
@@ -202,7 +203,11 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
         className="project-card-link"
         transitionName={`project-${project.slug}`}
       >
-        <ProjectArt kind={project.visual} />
+        {hasProjectMedia(project.slug) ? (
+          <ProjectMedia slug={project.slug} />
+        ) : (
+          <ProjectArt kind={project.visual} />
+        )}
         <div className="project-card-copy">
           <span className="eyebrow">{project.eyebrow}</span>
           <div className="project-card-title">

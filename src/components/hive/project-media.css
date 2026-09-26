@@ -1,0 +1,87 @@
+.project-proof {
+  margin: 0;
+  min-width: 0;
+  color: var(--fg);
+}
+.project-proof-image {
+  overflow: hidden;
+  background: #080b0f;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.project-proof-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.project-proof-card .project-proof-image {
+  display: flex;
+  align-items: center;
+  aspect-ratio: 1.38;
+}
+.project-proof-card .project-proof-image img {
+  height: 100%;
+  object-fit: contain;
+}
+.project-proof figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  margin-top: 12px;
+  font-size: var(--type-1);
+  line-height: 1.7;
+  color: var(--muted);
+}
+.project-proof figcaption p {
+  flex: 1 1 320px;
+}
+.project-proof figcaption a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.project-proof-detail figcaption {
+  font-size: var(--type-2);
+}
+.project-proof-terminal {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.project-proof-terminal-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font: 500 var(--type-1) / 1.6 var(--font-mono);
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.project-proof-terminal pre {
+  max-width: 100%;
+  overflow: auto;
+  font: 400 var(--type-1) / 1.8 var(--font-mono);
+  white-space: pre;
+}
+.project-proof-card.project-proof-terminal pre {
+  max-height: 220px;
+  overflow: hidden;
+}
+.project-proof-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.project-runtime-note {
+  margin-top: 20px;
+  max-width: 78ch;
+  color: var(--muted);
+  font-size: var(--type-2);
+  line-height: 1.8;
+}
+@media (max-width: 767px) {
+  .project-proof-terminal {
+    padding: 18px;
+  }
+}

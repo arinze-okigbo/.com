@@ -401,13 +401,20 @@ export function PageTransition({ children }: { children: ReactNode }) {
 }
 
 /** Composes through the owner's existing public email; there is no submission backend. */
+const subscribeComposerReady = () => () => {};
+const composerReady = () => true;
+const composerNotReady = () => false;
 export function ContactComposer({ email = "arinze@splita.co" }: { email?: string }) {
+  // Keep native submission inert until the mailto handler is hydrated. The
+  // action also fails closed to email rather than defaulting to a site GET.
+  const ready = useSyncExternalStore(subscribeComposerReady, composerReady, composerNotReady);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
   return (
     <form
       className="hive-contact-composer"
+      action={`mailto:${email}`}
       onSubmit={(event) => {
         event.preventDefault();
         const draft = `mailto:${encodeURIComponent(email).replace("%40", "@")}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
@@ -419,6 +426,7 @@ export function ContactComposer({ email = "arinze@splita.co" }: { email?: string
       <input
         id="contact-subject"
         name="subject"
+        disabled={!ready}
         value={subject}
         onChange={(event) => setSubject(event.target.value)}
         required
@@ -429,6 +437,7 @@ export function ContactComposer({ email = "arinze@splita.co" }: { email?: string
       <textarea
         id="contact-message"
         name="message"
+        disabled={!ready}
         value={message}
         onChange={(event) => setMessage(event.target.value)}
         required
@@ -439,9 +448,12 @@ export function ContactComposer({ email = "arinze@splita.co" }: { email?: string
       <p className="hive-lab-caption">
         Opens a draft in your email app. You decide when to send it.
       </p>
-      <button className="button button-primary" type="submit">
+      <button className="button button-primary" type="submit" disabled={!ready}>
         Open email draft <Icon name="arrow-up-right" />
       </button>
+      <noscript>
+        <p>Use the email address above to start a draft in your email app.</p>
+      </noscript>
       <p className="hive-compose-status" role="status">
         {status}
       </p>

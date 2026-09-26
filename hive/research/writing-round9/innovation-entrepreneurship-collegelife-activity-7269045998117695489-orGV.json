@@ -1,0 +1,36 @@
+{
+  "url": "https://www.linkedin.com/posts/arinzeokigbo_innovation-entrepreneurship-collegelife-activity-7269045998117695489-orGV",
+  "retrievedAt": "2026-09-16T01:03:16.577351+00:00",
+  "jsonld": [
+    {
+      "@context": "http://schema.org",
+      "@type": "SocialMediaPosting",
+      "@id": "https://www.linkedin.com/posts/arinzeokigbo_innovation-entrepreneurship-collegelife-activity-7269045998117695489-orGV",
+      "datePublished": "2024-12-01T17:53:38.266Z",
+      "headline": "I\u2019m thrilled to share my progress in the Tyree Innovation Fellowship and at Trinity College-Hartford.",
+      "articleBody": "I\u2019m thrilled to share my progress in the Tyree Innovation Fellowship and at Trinity College-Hartford. Through this fellowship, I have learned what it takes to build and launch a product on the market. Over the past semester, I\u2019ve been developing an app to transform the college experience for students, teachers and colleges across America.\n\nI also won an idea pitch competition at the fellowship, which motivated me to keep pushing boundaries and refining my work. Grateful for this opportunity and the incredible support I\u2019ve received along the way!\n#Innovation #Entrepreneurship #CollegeLife #TyreeFellowship #TrinityCollege",
+      "author": {
+        "name": "Arinze Okigbo",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+          "@type": "ImageObject"
+        },
+        "url": "https://www.linkedin.com/in/arinzeokigbo",
+        "@type": "Person",
+        "interactionStatistic": {
+          "@type": "InteractionCounter",
+          "interactionType": "http://schema.org/FollowAction",
+          "userInteractionCount": 2703
+        }
+      },
+      "hasPart": {
+        "@type": "WebPageElement",
+        "isAccessibleForFree": false,
+        "cssSelector": ".details"
+      }
+    }
+  ],
+  "embedUrns": [
+    "urn:li:share:7269045997513621504"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "url": "https://www.linkedin.com/posts/arinzeokigbo_why-nigeria-needs-ai-policy-for-its-universities-activity-7350356031496937472-zPW-",
+  "retrievedAt": "2026-09-16T01:03:17.948372+00:00",
+  "jsonld": [
+    {
+      "@context": "http://schema.org",
+      "@type": "DiscussionForumPosting",
+      "@id": "https://www.linkedin.com/posts/arinzeokigbo_why-nigeria-needs-ai-policy-for-its-universities-activity-7350356031496937472-zPW-",
+      "datePublished": "2025-07-14T02:50:40.886Z",
+      "headline": "What if we\u2019re already too late?",
+      "text": "Why Nigeria Needs AI Policy For Its Universities \u2014 Before It\u2019s Too Late",
+      "image": {
+        "url": "https://media.licdn.com/dms/image/sync/v2/D4E27AQEax3qYnR6gag/articleshare-shrink_800/B4EZgG1xaSG4AI-/0/1759771997027?e=2147483647&v=beta&t=1JAKQcd9rcjaqfVctpTtNXBpWGiTlKxNUndv4YYHB0U",
+        "@type": "ImageObject"
+      },
+      "articleBody": "What if we\u2019re already too late?\n\nWhile the world is busy building the next generation of AI talent, Nigeria is stuck asking the wrong questions: Should we be teaching AI? Instead, we should be asking: How do we lead?\n\nMy article, \u201cWhy Nigeria Needs an AI Policy for Its Universities \u2014 Before It\u2019s Too Late,\u201d has now been published in The Independent Newspapers Nigeria because I believe we\u2019re standing at a turning point. The absence of a national AI policy in our universities isn\u2019t just an oversight \u2014 it\u2019s a threat to our future.\n\nYoung Nigerians are brilliant. But brilliance without infrastructure, guidance, and vision gets exported or extinguished. We\u2019re watching other nations train innovators while we risk becoming permanent consumers in a world we should help build.\n\nI outline a path forward \u2014 one that involves bold leadership from the Ministry of Education, the National Universities Commission, and Nigeria\u2019s tech ecosystem.\n\nAI isn\u2019t just a technological shift. It\u2019s a strategic one.\n\nRead the full article here: https://lnkd.in/eM7b5MPG\n\nLet\u2019s stop playing catch-up.\nLet\u2019s start leading.\n\n#AI #Nigeria #HigherEducation #NationalPolicy #Innovation #FutureReady",
+      "author": {
+        "name": "Arinze Okigbo",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+          "@type": "ImageObject"
+        },
+        "url": "https://www.linkedin.com/in/arinzeokigbo",
+        "@type": "Person",
+        "interactionStatistic": {
+          "@type": "InteractionCounter",
+          "interactionType": "http://schema.org/FollowAction",
+          "userInteractionCount": 2703
+        }
+      },
+      "hasPart": {
+        "@type": "WebPageElement",
+        "isAccessibleForFree": false,
+        "cssSelector": ".details"
+      }
+    }
+  ],
+  "embedUrns": [
+    "urn:li:share:7381244459633582080",
+    "urn:li:share:7381972421601427456",
+    "urn:li:share:7383365991189331968",
+    "urn:li:share:7350356030624604161",
+    "urn:li:share:7382378650513526784",
+    "urn:li:share:7385968323618050048",
+    "urn:li:share:7379726364322631680",
+    "urn:li:share:7382268670020075520",
+    "urn:li:share:7382378498314633216",
+    "urn:li:share:7379149764640079873",
+    "urn:li:share:7387233713979375616"
+  ]
+}

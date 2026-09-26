@@ -1,0 +1,34 @@
+{
+  "url": "http://localhost:3100/",
+  "auditedAt": "2026-09-26T13:31:52.810Z",
+  "commitSha": "8243c82e9716d8588744d6ca6f0b8491d1ae354d",
+  "environment": {
+    "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+    "benchmarkIndex": 2435,
+    "throttlingMethod": "simulate",
+    "cpuSlowdownMultiplier": 4,
+    "screen": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    }
+  },
+  "scores": {
+    "performance": 94,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "lcp": 2915.287125,
+    "cls": 0,
+    "tbt": 99.49999999999977
+  },
+  "workflowRun": "https://github.com/arinze-okigbo/.com/actions/runs/36245238248",
+  "candidateHead": "8e847dc60e5645a46ef6635050676d76db9c87b2",
+  "performanceSeries": [92, 94, 95, 94, 94],
+  "gate": "FAIL performance94 below95; no unchanged rerun",
+  "diagnosis": "Slower runner benchmark2435 versus3907 on prior passing run. Trace shows seven initial route/metadata prefetches. Optimize actual eager router work; do not lower thresholds or select best run."
+}

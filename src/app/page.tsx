@@ -1,5 +1,6 @@
 import { Icon } from "@/components/hive/Icon";
 import Link from "next/link";
+import { IntentLink } from "@/components/hive/IntentLink";
 import { Suspense } from "react";
 import HeroScene from "@/components/hive/HeroScene";
 import { Magnetic, Reveal, SplitText } from "@/components/hive/Motion";
@@ -52,19 +53,19 @@ export default function Home() {
               </p>
               <div className="hero-actions">
                 <Magnetic>
-                  <Link href="/projects" className="button button-primary">
+                  <IntentLink href="/projects" className="button button-primary">
                     Explore my work{" "}
                     <span aria-hidden="true">
                       <Icon name="arrow-up-right" />
                     </span>
-                  </Link>
+                  </IntentLink>
                 </Magnetic>
-                <Link href="/about" className="text-link">
+                <IntentLink href="/about" className="text-link">
                   A bit about me{" "}
                   <span aria-hidden="true">
                     <Icon name="arrow-up-right" />
                   </span>
-                </Link>
+                </IntentLink>
               </div>
             </Reveal>
           </div>
@@ -76,12 +77,12 @@ export default function Home() {
             </span>{" "}
             SCROLL TO DISCOVER
           </span>
-          <Link href="/lab" className="hero-proof">
+          <IntentLink href="/lab" className="hero-proof">
             <i className="status-dot" /> Try a signature. Test a spring.{" "}
             <span aria-hidden="true">
               <Icon name="arrow-up-right" />
             </span>
-          </Link>
+          </IntentLink>
         </div>
       </section>
       <section className="now-strip" id="current-work">
@@ -91,9 +92,9 @@ export default function Home() {
           <span>
             <b>Splita</b> <span>Group payments, before the group purchase.</span>
           </span>
-          <Link href="/now">
+          <IntentLink href="/now">
             Now, in more detail <Icon name="arrow-up-right" />
-          </Link>
+          </IntentLink>
         </div>
       </section>
       <section className="section shell portrait-work" id="projects">

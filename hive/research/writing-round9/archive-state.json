@@ -1,0 +1,976 @@
+{
+  "newPostsForArchive": {
+    "pub": [
+      {
+        "id": 203438469,
+        "editor_v2": false,
+        "publication_id": 5682324,
+        "title": "The Next Decade of Digital Identity: Conditional Anonymity, Zero-Knowledge Proofs, and the Cryptographic Accountability of Non-Human Actors",
+        "social_title": "The Next Decade of Digital Identity: Conditional Anonymity, Zero-Knowledge Proofs, and the Cryptographic Accountability of Non-Human Actors",
+        "search_engine_title": null,
+        "search_engine_description": null,
+        "type": "newsletter",
+        "slug": "the-next-decade-of-digital-identity",
+        "post_date": "2026-06-24T17:56:11.645Z",
+        "audience": "everyone",
+        "podcast_duration": null,
+        "video_upload_id": null,
+        "podcast_upload_id": null,
+        "write_comment_permissions": "everyone",
+        "should_send_free_preview": false,
+        "free_unlock_required": false,
+        "default_comment_sort": null,
+        "canonical_url": "https://arinzeokigbo.substack.com/p/the-next-decade-of-digital-identity",
+        "section_id": null,
+        "top_exclusions": [],
+        "pins": [],
+        "is_section_pinned": false,
+        "section_slug": null,
+        "section_name": null,
+        "reactions": {
+          "\u2764": 1
+        },
+        "restacks": 0,
+        "restacked_post_id": null,
+        "restacked_post_slug": null,
+        "restacked_pub_name": null,
+        "restacked_pub_logo_url": null,
+        "subtitle": "A Speculative Analysis, 2026 to 2036. Adapted from a paper originally written for an undergraduate course on sensitive information and digital identity.",
+        "cover_image": "https://substack-post-media.s3.amazonaws.com/public/images/28990b57-72e3-4d62-91c8-15fe46b7a120_2400x1260.png",
+        "cover_image_is_square": false,
+        "cover_image_is_explicit": false,
+        "podcast_url": null,
+        "videoUpload": null,
+        "podcastFields": null,
+        "podcast_preview_upload_id": null,
+        "podcastUpload": null,
+        "podcastPreviewUpload": null,
+        "voiceover_upload_id": null,
+        "voiceoverUpload": null,
+        "has_voiceover": false,
+        "description": "By 2036, humans will prove who they are without being identified, and software will be identified without being able to hide. A speculative analysis of where digital identity is heading, and why.",
+        "body_json": null,
+        "body_html": null,
+        "has_dynamic_content": false,
+        "truncated_body_text": "Abstract",
+        "wordcount": 4500,
+        "post_preview_limit": null,
+        "language": "en",
+        "postTags": [
+          {
+            "id": "66ecfef8-d490-4d13-91d4-ac9e6f035af6",
+            "publication_id": 5682324,
+            "name": "Agents",
+            "slug": "agents",
+            "hidden": false
+          },
+          {
+            "id": "80a3289d-d39d-429b-a3fc-8c4a9f574dd9",
+            "publication_id": 5682324,
+            "name": "AI",
+            "slug": "ai",
+            "hidden": false
+          },
+          {
+            "id": "b384a27e-b13f-4bfb-a45f-cbff15eb2a11",
+            "publication_id": 5682324,
+            "name": "Identity",
+            "slug": "identity",
+            "hidden": false
+          },
+          {
+            "id": "c4a7e1e6-66a3-4663-bf9d-64bccc58faaf",
+            "publication_id": 5682324,
+            "name": "Technology",
+            "slug": "technology",
+            "hidden": false
+          }
+        ],
+        "teaser_post_eligible": true,
+        "postCountryBlocks": [],
+        "headlineTest": null,
+        "coverImagePalette": {
+          "Vibrant": {
+            "rgb": [
+              111,
+              164,
+              196
+            ],
+            "population": 160
+          },
+          "DarkVibrant": {
+            "rgb": [
+              21,
+              68,
+              89
+            ],
+            "population": 777
+          },
+          "LightVibrant": {
+            "rgb": [
+              160.93891625615763,
+              195.55862068965516,
+              216.46108374384235
+            ],
+            "population": 0
+          },
+          "Muted": {
+            "rgb": [
+              98,
+              125,
+              138
+            ],
+            "population": 211
+          },
+          "DarkMuted": {
+            "rgb": [
+              52,
+              78,
+              90
+            ],
+            "population": 22
+          },
+          "LightMuted": {
+            "rgb": [
+              190,
+              199,
+              203
+            ],
+            "population": 147
+          }
+        },
+        "publishedBylines": [
+          {
+            "id": 353111806,
+            "name": "Arinze Okigbo",
+            "handle": "arinzeokigbo",
+            "photo_url": "https://substack-post-media.s3.amazonaws.com/public/images/9a54ea4b-64b0-4fc0-8ca5-054b336e24a9_4809x4809.jpeg",
+            "bio": "Founder, builder, and student of systems. I\u2019m building Splita and working on AI + security infrastructure. This is where I think out loud \u2014 on startups, technology, and the future I want to help create.",
+            "profile_set_up_at": "2025-06-11T02:53:04.177Z",
+            "reader_installed_at": "2025-07-10T16:36:15.191Z",
+            "publicationUsers": [
+              {
+                "id": 5796299,
+                "user_id": 353111806,
+                "publication_id": 5682324,
+                "role": "admin",
+                "public": true,
+                "is_primary": true,
+                "publication": {
+                  "id": 5682324,
+                  "name": "Arinze Okigbo",
+                  "subdomain": "arinzeokigbo",
+                  "custom_domain": null,
+                  "custom_domain_optional": false,
+                  "hero_text": "Hi, my name is Arinze! I'm a student athlete at Trinity College, intending to major in computer science and economics. I am interested in technology and international development.",
+                  "logo_url": null,
+                  "author_id": 353111806,
+                  "primary_user_id": 353111806,
+                  "theme_var_background_pop": "#FF6719",
+                  "created_at": "2025-07-17T14:29:41.248Z",
+                  "email_from_name": null,
+                  "copyright": "Arinze Okigbo",
+                  "founding_plan_name": null,
+                  "community_enabled": true,
+                  "invite_only": false,
+                  "payments_state": "disabled",
+                  "language": null,
+                  "explicit": false,
+                  "homepage_type": "profile",
+                  "is_personal_mode": true,
+                  "logo_url_wide": null
+                }
+              }
+            ],
+            "is_guest": false,
+            "bestseller_tier": null,
+            "status": {
+              "bestsellerTier": null,
+              "subscriberTier": null,
+              "leaderboard": null,
+              "vip": false,
+              "badge": null,
+              "subscriber": null
+            }
+          }
+        ],
+        "reaction": null,
+        "reaction_count": 1,
+        "comment_count": 0,
+        "child_comment_count": 0,
+        "is_geoblocked": false,
+        "hasCashtag": false
+      },
+      {
+        "id": 184011554,
+        "editor_v2": false,
+        "publication_id": 5682324,
+        "title": "Why Nigeria Needs an AI Policy for Its Universities \u2014 Before It\u2019s Too Late",
+        "social_title": "Why Nigeria Needs an AI Policy for Its Universities \u2014 Before It\u2019s Too Late",
+        "search_engine_title": null,
+        "search_engine_description": null,
+        "type": "newsletter",
+        "slug": "why-nigeria-needs-an-ai-policy-for",
+        "post_date": "2026-01-09T11:47:22.634Z",
+        "audience": "everyone",
+        "podcast_duration": null,
+        "video_upload_id": null,
+        "podcast_upload_id": null,
+        "write_comment_permissions": "everyone",
+        "should_send_free_preview": false,
+        "free_unlock_required": false,
+        "default_comment_sort": null,
+        "canonical_url": "https://arinzeokigbo.substack.com/p/why-nigeria-needs-an-ai-policy-for",
+        "section_id": null,
+        "top_exclusions": [],
+        "pins": [],
+        "is_section_pinned": false,
+        "section_slug": null,
+        "section_name": null,
+        "reactions": {
+          "\u2764": 1
+        },
+        "restacks": 0,
+        "restacked_post_id": null,
+        "restacked_post_slug": null,
+        "restacked_pub_name": null,
+        "restacked_pub_logo_url": null,
+        "subtitle": "Originally published in the Vangaurd  on July 14, 2025",
+        "cover_image": "https://substackcdn.com/image/fetch/$s_!25rr!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F2084f412-bcdf-443d-ba88-8f8657c4a3c3_4536x4536.jpeg",
+        "cover_image_is_square": true,
+        "cover_image_is_explicit": false,
+        "podcast_url": null,
+        "videoUpload": null,
+        "podcastFields": {
+          "post_id": 184011554,
+          "podcast_episode_number": null,
+          "podcast_season_number": null,
+          "podcast_episode_type": null,
+          "should_syndicate_to_other_feed": null,
+          "syndicate_to_section_id": null,
+          "hide_from_feed": false,
+          "free_podcast_url": null,
+          "free_podcast_duration": null,
+          "preview_contains_ad": false,
+          "was_imported_self_serve_sync": false,
+          "draft_free_podcast_url": null,
+          "draft_free_podcast_duration": null
+        },
+        "podcast_preview_upload_id": null,
+        "podcastUpload": null,
+        "podcastPreviewUpload": null,
+        "voiceover_upload_id": null,
+        "voiceoverUpload": null,
+        "has_voiceover": false,
+        "description": "Originally published in the Vangaurd on July 14, 2025",
+        "body_json": null,
+        "body_html": null,
+        "has_dynamic_content": false,
+        "truncated_body_text": "I was in a Nigerian classroom some years ago, daydreaming about what I would do in college. Nigeria is bursting at the seams with raw talent, great minds, and daunting challenges. It\u2019s the ideal environment for technology to make a difference. And when we talk about change-making technology today, nothing looms larger than Artificial Intelligence.",
+        "wordcount": 814,
+        "post_preview_limit": null,
+        "language": "en",
+        "postTags": [],
+        "teaser_post_eligible": true,
+        "postCountryBlocks": [],
+        "headlineTest": null,
+        "coverImagePalette": {
+          "Vibrant": {
+            "rgb": [
+              127.5,
+              127.5,
+              127.5
+            ],
+            "population": 0
+          },
+          "DarkVibrant": {
+            "rgb": [
+              66.3,
+              66.3,
+              66.3
+            ],
+            "population": 0
+          },
+          "LightVibrant": {
+            "rgb": [
+              188.7,
+              188.7,
+              188.7
+            ],
+            "population": 0
+          },
+          "Muted": {
+            "rgb": [
+              135,
+              135,
+              135
+            ],
+            "population": 144
+          },
+          "DarkMuted": {
+            "rgb": [
+              64,
+              64,
+              64
+            ],
+            "population": 1495
+          },
+          "LightMuted": {
+            "rgb": [
+              188,
+              188,
+              188
+            ],
+            "population": 27
+          }
+        },
+        "publishedBylines": [
+          {
+            "id": 353111806,
+            "name": "Arinze Okigbo",
+            "handle": "arinzeokigbo",
+            "photo_url": "https://substack-post-media.s3.amazonaws.com/public/images/9a54ea4b-64b0-4fc0-8ca5-054b336e24a9_4809x4809.jpeg",
+            "bio": "Founder, builder, and student of systems. I\u2019m building Splita and working on AI + security infrastructure. This is where I think out loud \u2014 on startups, technology, and the future I want to help create.",
+            "profile_set_up_at": "2025-06-11T02:53:04.177Z",
+            "reader_installed_at": "2025-07-10T16:36:15.191Z",
+            "publicationUsers": [
+              {
+                "id": 5796299,
+                "user_id": 353111806,
+                "publication_id": 5682324,
+                "role": "admin",
+                "public": true,
+                "is_primary": true,
+                "publication": {
+                  "id": 5682324,
+                  "name": "Arinze Okigbo",
+                  "subdomain": "arinzeokigbo",
+                  "custom_domain": null,
+                  "custom_domain_optional": false,
+                  "hero_text": "Hi, my name is Arinze! I'm a student athlete at Trinity College, intending to major in computer science and economics. I am interested in technology and international development.",
+                  "logo_url": null,
+                  "author_id": 353111806,
+                  "primary_user_id": 353111806,
+                  "theme_var_background_pop": "#FF6719",
+                  "created_at": "2025-07-17T14:29:41.248Z",
+                  "email_from_name": null,
+                  "copyright": "Arinze Okigbo",
+                  "founding_plan_name": null,
+                  "community_enabled": true,
+                  "invite_only": false,
+                  "payments_state": "disabled",
+                  "language": null,
+                  "explicit": false,
+                  "homepage_type": "profile",
+                  "is_personal_mode": true,
+                  "logo_url_wide": null
+                }
+              }
+            ],
+            "is_guest": false,
+            "bestseller_tier": null,
+            "status": {
+              "bestsellerTier": null,
+              "subscriberTier": null,
+              "leaderboard": null,
+              "vip": false,
+              "badge": null,
+              "subscriber": null
+            }
+          }
+        ],
+        "reaction": null,
+        "reaction_count": 1,
+        "comment_count": 0,
+        "child_comment_count": 0,
+        "is_geoblocked": false,
+        "hasCashtag": false
+      },
+      {
+        "id": 184011411,
+        "editor_v2": false,
+        "publication_id": 5682324,
+        "title": "Tech vs. Tech: How technology may save or destroy mother earth",
+        "social_title": null,
+        "search_engine_title": null,
+        "search_engine_description": null,
+        "type": "newsletter",
+        "slug": "tech-vs-tech-how-technology-may-save",
+        "post_date": "2026-01-09T11:43:45.753Z",
+        "audience": "everyone",
+        "podcast_duration": null,
+        "video_upload_id": null,
+        "podcast_upload_id": null,
+        "write_comment_permissions": "everyone",
+        "should_send_free_preview": false,
+        "free_unlock_required": false,
+        "default_comment_sort": null,
+        "canonical_url": "https://arinzeokigbo.substack.com/p/tech-vs-tech-how-technology-may-save",
+        "section_id": null,
+        "top_exclusions": [],
+        "pins": [],
+        "is_section_pinned": false,
+        "section_slug": null,
+        "section_name": null,
+        "reactions": {
+          "\u2764": 1
+        },
+        "restacks": 0,
+        "restacked_post_id": null,
+        "restacked_post_slug": null,
+        "restacked_pub_name": null,
+        "restacked_pub_logo_url": null,
+        "subtitle": "Originally published in the Businessday Newspaper on October 16, 2020",
+        "cover_image": "https://substackcdn.com/image/fetch/$s_!_Drq!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F58aef8b3-9385-4884-bac9-bd33507f599a_711x400.jpeg",
+        "cover_image_is_square": false,
+        "cover_image_is_explicit": false,
+        "podcast_url": null,
+        "videoUpload": null,
+        "podcastFields": {
+          "post_id": 184011411,
+          "podcast_episode_number": null,
+          "podcast_season_number": null,
+          "podcast_episode_type": null,
+          "should_syndicate_to_other_feed": null,
+          "syndicate_to_section_id": null,
+          "hide_from_feed": false,
+          "free_podcast_url": null,
+          "free_podcast_duration": null,
+          "preview_contains_ad": false,
+          "was_imported_self_serve_sync": false,
+          "draft_free_podcast_url": null,
+          "draft_free_podcast_duration": null
+        },
+        "podcast_preview_upload_id": null,
+        "podcastUpload": null,
+        "podcastPreviewUpload": null,
+        "voiceover_upload_id": null,
+        "voiceoverUpload": null,
+        "has_voiceover": false,
+        "description": "Originally published in the Businessday Newspaper on October 16, 2020",
+        "body_json": null,
+        "body_html": null,
+        "has_dynamic_content": false,
+        "truncated_body_text": "I first heard about Global Warming when I was about ten years old. I thought that it was just smoke in the air emitted from car exhausts and factories. Fast forward two years, and I heard about oil spills that killed marine life, disturbed the pH levels in the oceans, and affected the people that lived in the Niger Delta of Nigeria. Today I hear of the \u2026",
+        "wordcount": 604,
+        "post_preview_limit": null,
+        "language": "en",
+        "postTags": [
+          {
+            "id": "c4a7e1e6-66a3-4663-bf9d-64bccc58faaf",
+            "publication_id": 5682324,
+            "name": "Technology",
+            "slug": "technology",
+            "hidden": false
+          },
+          {
+            "id": "fd6d8e1e-d864-4138-9935-61016f2041d3",
+            "publication_id": 5682324,
+            "name": "Climate",
+            "slug": "climate",
+            "hidden": false
+          }
+        ],
+        "teaser_post_eligible": true,
+        "postCountryBlocks": [],
+        "headlineTest": null,
+        "coverImagePalette": {
+          "Vibrant": {
+            "rgb": [
+              32,
+              116,
+              176
+            ],
+            "population": 335
+          },
+          "DarkVibrant": {
+            "rgb": [
+              8,
+              74,
+              123
+            ],
+            "population": 332
+          },
+          "LightVibrant": {
+            "rgb": [
+              140,
+              193,
+              219
+            ],
+            "population": 263
+          },
+          "Muted": {
+            "rgb": [
+              93,
+              143,
+              177
+            ],
+            "population": 303
+          },
+          "DarkMuted": {
+            "rgb": [
+              53,
+              72,
+              89
+            ],
+            "population": 25
+          },
+          "LightMuted": {
+            "rgb": [
+              119,
+              155,
+              182
+            ],
+            "population": 89
+          }
+        },
+        "publishedBylines": [
+          {
+            "id": 353111806,
+            "name": "Arinze Okigbo",
+            "handle": "arinzeokigbo",
+            "photo_url": "https://substack-post-media.s3.amazonaws.com/public/images/9a54ea4b-64b0-4fc0-8ca5-054b336e24a9_4809x4809.jpeg",
+            "bio": "Founder, builder, and student of systems. I\u2019m building Splita and working on AI + security infrastructure. This is where I think out loud \u2014 on startups, technology, and the future I want to help create.",
+            "profile_set_up_at": "2025-06-11T02:53:04.177Z",
+            "reader_installed_at": "2025-07-10T16:36:15.191Z",
+            "publicationUsers": [
+              {
+                "id": 5796299,
+                "user_id": 353111806,
+                "publication_id": 5682324,
+                "role": "admin",
+                "public": true,
+                "is_primary": true,
+                "publication": {
+                  "id": 5682324,
+                  "name": "Arinze Okigbo",
+                  "subdomain": "arinzeokigbo",
+                  "custom_domain": null,
+                  "custom_domain_optional": false,
+                  "hero_text": "Hi, my name is Arinze! I'm a student athlete at Trinity College, intending to major in computer science and economics. I am interested in technology and international development.",
+                  "logo_url": null,
+                  "author_id": 353111806,
+                  "primary_user_id": 353111806,
+                  "theme_var_background_pop": "#FF6719",
+                  "created_at": "2025-07-17T14:29:41.248Z",
+                  "email_from_name": null,
+                  "copyright": "Arinze Okigbo",
+                  "founding_plan_name": null,
+                  "community_enabled": true,
+                  "invite_only": false,
+                  "payments_state": "disabled",
+                  "language": null,
+                  "explicit": false,
+                  "homepage_type": "profile",
+                  "is_personal_mode": true,
+                  "logo_url_wide": null
+                }
+              }
+            ],
+            "is_guest": false,
+            "bestseller_tier": null,
+            "status": {
+              "bestsellerTier": null,
+              "subscriberTier": null,
+              "leaderboard": null,
+              "vip": false,
+              "badge": null,
+              "subscriber": null
+            }
+          }
+        ],
+        "reaction": null,
+        "reaction_count": 1,
+        "comment_count": 0,
+        "child_comment_count": 0,
+        "is_geoblocked": false,
+        "hasCashtag": false
+      },
+      {
+        "id": 184011169,
+        "editor_v2": false,
+        "publication_id": 5682324,
+        "title": "From Breakdown to Breakthrough: How Tech is Saving the Ozone",
+        "social_title": null,
+        "search_engine_title": null,
+        "search_engine_description": null,
+        "type": "newsletter",
+        "slug": "from-breakdown-to-breakthrough-how",
+        "post_date": "2026-01-09T11:41:38.099Z",
+        "audience": "everyone",
+        "podcast_duration": null,
+        "video_upload_id": null,
+        "podcast_upload_id": null,
+        "write_comment_permissions": "everyone",
+        "should_send_free_preview": false,
+        "free_unlock_required": false,
+        "default_comment_sort": null,
+        "canonical_url": "https://arinzeokigbo.substack.com/p/from-breakdown-to-breakthrough-how",
+        "section_id": null,
+        "top_exclusions": [],
+        "pins": [],
+        "is_section_pinned": false,
+        "section_slug": null,
+        "section_name": null,
+        "reactions": {
+          "\u2764": 0
+        },
+        "restacks": 0,
+        "restacked_post_id": null,
+        "restacked_post_slug": null,
+        "restacked_pub_name": null,
+        "restacked_pub_logo_url": null,
+        "subtitle": "First published on Jul 5, 2023 (BlueDot Institute)",
+        "cover_image": "https://substackcdn.com/image/fetch/$s_!Wlfk!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F8caeae2d-d549-40ac-b061-e07fb784ad3b_2560x1707.jpeg",
+        "cover_image_is_square": false,
+        "cover_image_is_explicit": false,
+        "podcast_url": null,
+        "videoUpload": null,
+        "podcastFields": {
+          "post_id": 184011169,
+          "podcast_episode_number": null,
+          "podcast_season_number": null,
+          "podcast_episode_type": null,
+          "should_syndicate_to_other_feed": null,
+          "syndicate_to_section_id": null,
+          "hide_from_feed": false,
+          "free_podcast_url": null,
+          "free_podcast_duration": null,
+          "preview_contains_ad": false,
+          "was_imported_self_serve_sync": false,
+          "draft_free_podcast_url": null,
+          "draft_free_podcast_duration": null
+        },
+        "podcast_preview_upload_id": null,
+        "podcastUpload": null,
+        "podcastPreviewUpload": null,
+        "voiceover_upload_id": null,
+        "voiceoverUpload": null,
+        "has_voiceover": false,
+        "description": "First published on Jul 5, 2023 (BlueDot Institute)",
+        "body_json": null,
+        "body_html": null,
+        "has_dynamic_content": false,
+        "truncated_body_text": "Our dealings with the ozone crisis provide a roadmap for future successes.",
+        "wordcount": 590,
+        "post_preview_limit": null,
+        "language": "en",
+        "postTags": [],
+        "teaser_post_eligible": true,
+        "postCountryBlocks": [],
+        "headlineTest": null,
+        "coverImagePalette": {
+          "Vibrant": {
+            "rgb": [
+              204,
+              156,
+              148
+            ],
+            "population": 6
+          },
+          "DarkVibrant": {
+            "rgb": [
+              89.7987341772152,
+              49.51518987341772,
+              42.801265822784806
+            ],
+            "population": 0
+          },
+          "LightVibrant": {
+            "rgb": [
+              229,
+              176,
+              148
+            ],
+            "population": 63
+          },
+          "Muted": {
+            "rgb": [
+              113,
+              128,
+              140
+            ],
+            "population": 429
+          },
+          "DarkMuted": {
+            "rgb": [
+              57,
+              68,
+              77
+            ],
+            "population": 469
+          },
+          "LightMuted": {
+            "rgb": [
+              156,
+              172,
+              180
+            ],
+            "population": 686
+          }
+        },
+        "publishedBylines": [
+          {
+            "id": 353111806,
+            "name": "Arinze Okigbo",
+            "handle": "arinzeokigbo",
+            "photo_url": "https://substack-post-media.s3.amazonaws.com/public/images/9a54ea4b-64b0-4fc0-8ca5-054b336e24a9_4809x4809.jpeg",
+            "bio": "Founder, builder, and student of systems. I\u2019m building Splita and working on AI + security infrastructure. This is where I think out loud \u2014 on startups, technology, and the future I want to help create.",
+            "profile_set_up_at": "2025-06-11T02:53:04.177Z",
+            "reader_installed_at": "2025-07-10T16:36:15.191Z",
+            "publicationUsers": [
+              {
+                "id": 5796299,
+                "user_id": 353111806,
+                "publication_id": 5682324,
+                "role": "admin",
+                "public": true,
+                "is_primary": true,
+                "publication": {
+                  "id": 5682324,
+                  "name": "Arinze Okigbo",
+                  "subdomain": "arinzeokigbo",
+                  "custom_domain": null,
+                  "custom_domain_optional": false,
+                  "hero_text": "Hi, my name is Arinze! I'm a student athlete at Trinity College, intending to major in computer science and economics. I am interested in technology and international development.",
+                  "logo_url": null,
+                  "author_id": 353111806,
+                  "primary_user_id": 353111806,
+                  "theme_var_background_pop": "#FF6719",
+                  "created_at": "2025-07-17T14:29:41.248Z",
+                  "email_from_name": null,
+                  "copyright": "Arinze Okigbo",
+                  "founding_plan_name": null,
+                  "community_enabled": true,
+                  "invite_only": false,
+                  "payments_state": "disabled",
+                  "language": null,
+                  "explicit": false,
+                  "homepage_type": "profile",
+                  "is_personal_mode": true,
+                  "logo_url_wide": null
+                }
+              }
+            ],
+            "is_guest": false,
+            "bestseller_tier": null,
+            "status": {
+              "bestsellerTier": null,
+              "subscriberTier": null,
+              "leaderboard": null,
+              "vip": false,
+              "badge": null,
+              "subscriber": null
+            }
+          }
+        ],
+        "reaction": null,
+        "reaction_count": 0,
+        "comment_count": 0,
+        "child_comment_count": 0,
+        "is_geoblocked": false,
+        "hasCashtag": false
+      },
+      {
+        "id": 184010552,
+        "editor_v2": false,
+        "publication_id": 5682324,
+        "title": "How Tech is Tackling the Environmental Impact of Leather Production",
+        "social_title": null,
+        "search_engine_title": null,
+        "search_engine_description": null,
+        "type": "newsletter",
+        "slug": "how-tech-is-tackling-the-environmental",
+        "post_date": "2026-01-09T11:38:06.128Z",
+        "audience": "everyone",
+        "podcast_duration": null,
+        "video_upload_id": null,
+        "podcast_upload_id": null,
+        "write_comment_permissions": "everyone",
+        "should_send_free_preview": false,
+        "free_unlock_required": false,
+        "default_comment_sort": null,
+        "canonical_url": "https://arinzeokigbo.substack.com/p/how-tech-is-tackling-the-environmental",
+        "section_id": null,
+        "top_exclusions": [],
+        "pins": [],
+        "is_section_pinned": false,
+        "section_slug": null,
+        "section_name": null,
+        "reactions": {
+          "\u2764": 0
+        },
+        "restacks": 0,
+        "restacked_post_id": null,
+        "restacked_post_slug": null,
+        "restacked_pub_name": null,
+        "restacked_pub_logo_url": null,
+        "subtitle": " First published on Jul 5, 2023 (BlueDot Institute)",
+        "cover_image": "https://substackcdn.com/image/fetch/$s_!cUbC!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F18041e0e-fd01-4df2-928b-411456d23ded_2560x1709.jpeg",
+        "cover_image_is_square": false,
+        "cover_image_is_explicit": false,
+        "podcast_url": null,
+        "videoUpload": null,
+        "podcastFields": {
+          "post_id": 184010552,
+          "podcast_episode_number": null,
+          "podcast_season_number": null,
+          "podcast_episode_type": null,
+          "should_syndicate_to_other_feed": null,
+          "syndicate_to_section_id": null,
+          "hide_from_feed": false,
+          "free_podcast_url": null,
+          "free_podcast_duration": null,
+          "preview_contains_ad": false,
+          "was_imported_self_serve_sync": false,
+          "draft_free_podcast_url": null,
+          "draft_free_podcast_duration": null
+        },
+        "podcast_preview_upload_id": null,
+        "podcastUpload": null,
+        "podcastPreviewUpload": null,
+        "voiceover_upload_id": null,
+        "voiceoverUpload": null,
+        "has_voiceover": false,
+        "description": "First published on Jul 5, 2023 (BlueDot Institute)",
+        "body_json": null,
+        "body_html": null,
+        "has_dynamic_content": false,
+        "truncated_body_text": "Creative solutions \u2014 from new tanning techniques to biofabricated leather and automation \u2014 are changing the leather industry for the better.",
+        "wordcount": 529,
+        "post_preview_limit": null,
+        "language": "en",
+        "postTags": [
+          {
+            "id": "c4a7e1e6-66a3-4663-bf9d-64bccc58faaf",
+            "publication_id": 5682324,
+            "name": "Technology",
+            "slug": "technology",
+            "hidden": false
+          },
+          {
+            "id": "fd6d8e1e-d864-4138-9935-61016f2041d3",
+            "publication_id": 5682324,
+            "name": "Climate",
+            "slug": "climate",
+            "hidden": false
+          }
+        ],
+        "teaser_post_eligible": true,
+        "postCountryBlocks": [],
+        "headlineTest": null,
+        "coverImagePalette": {
+          "Vibrant": {
+            "rgb": [
+              183,
+              121,
+              85
+            ],
+            "population": 460
+          },
+          "DarkVibrant": {
+            "rgb": [
+              111,
+              54,
+              12
+            ],
+            "population": 12
+          },
+          "LightVibrant": {
+            "rgb": [
+              222,
+              174,
+              141
+            ],
+            "population": 11
+          },
+          "Muted": {
+            "rgb": [
+              145,
+              108,
+              73
+            ],
+            "population": 3
+          },
+          "DarkMuted": {
+            "rgb": [
+              92,
+              59,
+              44
+            ],
+            "population": 23
+          },
+          "LightMuted": {
+            "rgb": [
+              200,
+              182,
+              171
+            ],
+            "population": 48
+          }
+        },
+        "publishedBylines": [
+          {
+            "id": 353111806,
+            "name": "Arinze Okigbo",
+            "handle": "arinzeokigbo",
+            "photo_url": "https://substack-post-media.s3.amazonaws.com/public/images/9a54ea4b-64b0-4fc0-8ca5-054b336e24a9_4809x4809.jpeg",
+            "bio": "Founder, builder, and student of systems. I\u2019m building Splita and working on AI + security infrastructure. This is where I think out loud \u2014 on startups, technology, and the future I want to help create.",
+            "profile_set_up_at": "2025-06-11T02:53:04.177Z",
+            "reader_installed_at": "2025-07-10T16:36:15.191Z",
+            "publicationUsers": [
+              {
+                "id": 5796299,
+                "user_id": 353111806,
+                "publication_id": 5682324,
+                "role": "admin",
+                "public": true,
+                "is_primary": true,
+                "publication": {
+                  "id": 5682324,
+                  "name": "Arinze Okigbo",
+                  "subdomain": "arinzeokigbo",
+                  "custom_domain": null,
+                  "custom_domain_optional": false,
+                  "hero_text": "Hi, my name is Arinze! I'm a student athlete at Trinity College, intending to major in computer science and economics. I am interested in technology and international development.",
+                  "logo_url": null,
+                  "author_id": 353111806,
+                  "primary_user_id": 353111806,
+                  "theme_var_background_pop": "#FF6719",
+                  "created_at": "2025-07-17T14:29:41.248Z",
+                  "email_from_name": null,
+                  "copyright": "Arinze Okigbo",
+                  "founding_plan_name": null,
+                  "community_enabled": true,
+                  "invite_only": false,
+                  "payments_state": "disabled",
+                  "language": null,
+                  "explicit": false,
+                  "homepage_type": "profile",
+                  "is_personal_mode": true,
+                  "logo_url_wide": null
+                }
+              }
+            ],
+            "is_guest": false,
+            "bestseller_tier": null,
+            "status": {
+              "bestsellerTier": null,
+              "subscriberTier": null,
+              "leaderboard": null,
+              "vip": false,
+              "badge": null,
+              "subscriber": null
+            }
+          }
+        ],
+        "reaction": null,
+        "reaction_count": 0,
+        "comment_count": 0,
+        "child_comment_count": 0,
+        "is_geoblocked": false,
+        "hasCashtag": false
+      }
+    ]
+  }
+}

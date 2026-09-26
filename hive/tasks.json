@@ -111,7 +111,8 @@
     "id": "R6-04",
     "owner": "queen",
     "acceptance_test": "Validate success, tampered payload, stale state, resets, keyboard focus and no network transmission; run unit/browser and unchanged performance gates",
-    "status": "in_progress"
+    "status": "complete",
+    "completion_evidence": "Round 8 verified production 6b54d779; required CI 35034155418, postmerge CI 35034629171 and production audit 35034711769 passed. Historical failures and current slow first runs retained; no claim that variance is eliminated."
   },
   {
     "id": "R6-05",
@@ -140,8 +141,9 @@
   {
     "id": "R7-04",
     "owner": "queen",
-    "status": "in_progress",
-    "acceptance_test": "Visually validate desktop/mobile dark/light portrait and effects; pass browser/accessibility/bundle/fixed-five performance gates and retain earlier failure"
+    "status": "complete",
+    "acceptance_test": "Visually validate desktop/mobile dark/light portrait and effects; pass browser/accessibility/bundle/fixed-five performance gates and retain earlier failure",
+    "completion_evidence": "Round 8 verified production 6b54d779; required CI 35034155418, postmerge CI 35034629171 and production audit 35034711769 passed. Historical failures and current slow first runs retained; no claim that variance is eliminated."
   },
   {
     "id": "R7-05",
@@ -176,7 +178,45 @@
   {
     "id": "R8-05",
     "owner": "queen",
+    "status": "complete",
+    "acceptance_test": "Exact preview and production verification plus truthful clean checkpoint.",
+    "completion_evidence": "Round 8 verified production 6b54d779; required CI 35034155418, postmerge CI 35034629171 and production audit 35034711769 passed. Historical failures and current slow first runs retained; no claim that variance is eliminated."
+  },
+  {
+    "id": "R9-01",
+    "owner": "frontend_design",
+    "status": "complete",
+    "acceptance_test": "Learn More labels and semantic link targets verified; Splita points to splita.co; external errors distinguished from broken links."
+  },
+  {
+    "id": "R9-02",
+    "owner": "frontend_design",
+    "status": "complete",
+    "acceptance_test": "Authentic company logos in experience with source provenance and accessible presentation."
+  },
+  {
+    "id": "R9-03",
+    "owner": "motion_lab",
+    "status": "blocked",
+    "acceptance_test": "Run all seven listed GitHub projects in isolated checkouts; capture genuine missing project screenshots and accurately document credentials or runtime blockers.",
+    "evidence": "Seven execution attempts recorded; NYC Live genuine local capture, three authentic repository screenshots and Scanner actual transcript. SkyView capture timeout; Campus missing Supabase config; Homework missing GEMINI_API_KEY; LinkedIn+ README-only; Library launched but native capture unavailable. Do not invent runtime proof."
+  },
+  {
+    "id": "R9-04",
+    "owner": "research_content",
+    "status": "complete",
+    "acceptance_test": "Discover complete available writing archive and verified public LinkedIn posts; robust ingestion, browse and reading UX without invented content."
+  },
+  {
+    "id": "R9-05",
+    "owner": "queen",
     "status": "in_progress",
-    "acceptance_test": "Exact preview and production verification plus truthful clean checkpoint."
+    "acceptance_test": "Independent rendered links, responsive visuals, content/media provenance, build/browser/security/accessibility/performance QA and gated exact preview/production verification."
+  },
+  {
+    "id": "R9-06",
+    "owner": "queen",
+    "status": "pending",
+    "acceptance_test": "After requested fixes, review each visible element across routes; implement highest-value visual/UX/motion improvements and persist recurring review."
   }
 ]

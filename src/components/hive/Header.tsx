@@ -1,11 +1,12 @@
 "use client";
-import Link from "next/link";
+import { IntentLink as Link } from "./IntentLink";
 import { Icon } from "./Icon";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { getFocusableElements } from "@/lib/a11y/focusable";
 import { Magnetic } from "./Motion";
 import { ThemeToggle } from "./Interactions";
+import "./header-navigation.css";
 
 const links = [
   ["Work", "/work"],
@@ -20,6 +21,11 @@ export function Header() {
   // Route changes unmount the old disclosure, releasing its focus and scroll
   // ownership. Returning to a prior URL cannot resurrect an open menu.
   return <Navigation key={pathname} pathname={pathname} />;
+}
+
+function currentSection(pathname: string, href: string) {
+  if (pathname === href) return "page";
+  return pathname.startsWith(`${href}/`) ? "location" : undefined;
 }
 
 function Navigation({ pathname }: { pathname: string }) {
@@ -89,7 +95,7 @@ function Navigation({ pathname }: { pathname: string }) {
       if (mobile.matches) return;
       // The toggle is hidden on desktop, so move focus to its visible counterpart.
       const desktopTarget =
-        container.querySelector<HTMLAnchorElement>(".desktop-nav a[aria-current='page']") ??
+        container.querySelector<HTMLAnchorElement>(".desktop-nav a[aria-current]") ??
         container.querySelector<HTMLAnchorElement>(".desktop-nav a");
       desktopTarget?.focus();
       setOpen(false);
@@ -134,7 +140,7 @@ function Navigation({ pathname }: { pathname: string }) {
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map(([label, href]) => (
             <Magnetic key={href}>
-              <Link href={href} aria-current={pathname.startsWith(href) ? "page" : undefined}>
+              <Link href={href} aria-current={currentSection(pathname, href)}>
                 {label}
               </Link>
             </Magnetic>
@@ -170,7 +176,7 @@ function Navigation({ pathname }: { pathname: string }) {
               key={href}
               href={href}
               onClick={() => setOpen(false)}
-              aria-current={pathname === href ? "page" : undefined}
+              aria-current={currentSection(pathname, href)}
             >
               {label}
               <span aria-hidden="true">

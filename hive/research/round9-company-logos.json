@@ -1,0 +1,44 @@
+{
+  "retrievedAt": "2026-09-16T01:02:17.339340+00:00",
+  "logos": [
+    {
+      "organization": "Splita",
+      "path": "public/brand/splita-supplied.jpg",
+      "source": "Owner-supplied original JPEG, Round8; existing SplitaLogo displays a CSS crop without modifying artwork.",
+      "officialWebsite": "https://splita.co",
+      "sha256": "2a78e532fb462d2af43dbb9259cb7f6da34ad92a22e9cff2270abf0e2c75fb0e"
+    },
+    {
+      "organization": "Cyera",
+      "path": "public/brand/cyera.svg",
+      "source": "https://cdn.prod.website-files.com/69443372754a5005a10559a5/695d58e342b5933c1574e50e_cyera-logo-black.svg",
+      "officialWebsite": "https://www.cyera.com",
+      "evidence": "Official homepage img alt=\"Cyera logo\".",
+      "sha256": "4160de06b9ef02719662447ac281b0f08df3ae9a1bdbc68c0c1909588a9ab4a4"
+    },
+    {
+      "organization": "Queralt Inc.",
+      "path": "public/brand/queralt.png",
+      "source": "https://images.squarespace-cdn.com/content/v1/6878f45b1abfdc3f3280ed9e/f137d704-451c-4525-b1c1-f31c2827e8a6/header-logo-bg-removed.png?format=300w",
+      "officialWebsite": "https://www.queraltinc.com",
+      "evidence": "Official homepage header image, alt=\"Queralt \". Provider-supplied300w version; artwork not edited.",
+      "sha256": "01c9d98b42779f3e8ab640635223a773d4e45c7d60fd6573526fa4d2c0e96e32"
+    },
+    {
+      "organization": "Snorkel AI",
+      "path": "public/brand/snorkel.svg",
+      "source": "https://s46486.pcdn.co/wp-content/uploads/2022/01/snorkel-light-logo-1.svg",
+      "officialWebsite": "https://snorkel.ai",
+      "evidence": "Official homepage header img alt=\"Snorkel Logo\".",
+      "sha256": "5780172a60f9b8e59df977b389251755281a97cdb765b66309273827fbf5a9c6"
+    },
+    {
+      "organization": "TechBuzz",
+      "path": "public/brand/techbuzz.jpeg",
+      "source": "git:ee55ea605e17ada2c798a036dca49b55f7efd32a:public/logos/techbuzz.jpeg",
+      "officialWebsite": null,
+      "evidence": "Recovered owner-provided historic asset. Same commit ExperienceTimeline.tsx explicitly assigns it to TechBuzz. No current official external URL verified; no invented destination.",
+      "sha256": "429761755c62fbdb3a984b2f6d3230b096e9287a2e051e669dcb696daa39a045"
+    }
+  ]
+}

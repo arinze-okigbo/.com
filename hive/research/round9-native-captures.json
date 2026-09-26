@@ -1,0 +1,47 @@
+{
+  "capturedAt": "2026-09-16T01:06:37.106513+00:00",
+  "projects": [
+    {
+      "slug": "scanner",
+      "repository": "https://github.com/arinze-okigbo/Scanner",
+      "commit": "6e831ecce94623a26c87e3717a02bea0542be7c5",
+      "checkout": "../round9-scanner-runtime/Scanner",
+      "commands": [
+        "make -B pmc",
+        "./pmc test0.pm",
+        "./pmc capture-demo.pm > ../capture-output.txt 2>&1"
+      ],
+      "runtime": "macOS, Apple clang via gcc, installed flex library",
+      "result": "Build succeeded. Repository test0.pm and capture-demo.pm both completed with no errors. Actual stdout/stderr transcript preserved verbatim.",
+      "media": [],
+      "transcript": {
+        "localPath": "/projects/scanner/run.txt",
+        "inputPath": "/projects/scanner/input.pm",
+        "caption": "Actual local run of the P- lexical scanner. Demonstration input and emitted tokens; this is a command-line transcript, not a graphical interface.",
+        "text": "capture-demo.pm: 1: keyword 'PROGRAM' found\ncapture-demo.pm: 1: identifier 'demo' found\ncapture-demo.pm: 2: keyword 'BEGIN' found\ncapture-demo.pm: 3: identifier 'count' found\ncapture-demo.pm: 3: operator '=' found\ncapture-demo.pm: 3: integer '3' found\ncapture-demo.pm: 3: operator '+' found\ncapture-demo.pm: 3: integer '4' found\ncapture-demo.pm: 4: keyword 'WRITE' found\ncapture-demo.pm: 4: operator '(' found\ncapture-demo.pm: 4: string \"hello\" found\ncapture-demo.pm: 4: operator ')' found\ncapture-demo.pm: 5: keyword 'END' found\n\nno errors\n",
+        "sha256": "944963275f755b01a282fbb8f592a7dc666f38618a137f29ea2b7050fed78e2c"
+      },
+      "limitations": [
+        "Native Terminal capture explicitly denied by CUA; restriction respected. No fake screenshot created.",
+        "Keyword rules match uppercase; repository lowercase sample words are classified as identifiers. This run demonstrates tokenization, not execution of the scanned program."
+      ]
+    },
+    {
+      "slug": "library-management",
+      "repository": "https://github.com/arinze-okigbo/LibraryManagementSystem",
+      "commit": "64232a8ed1f74734a1cc5bc0fa5e3f842c17afe1",
+      "checkout": "../round9-library-runtime/LibraryManagementSystem",
+      "commands": [
+        "/opt/homebrew/opt/openjdk@17/bin/javac *.java",
+        "/opt/homebrew/opt/openjdk@17/bin/java LibraryGUI"
+      ],
+      "runtime": "Existing Homebrew OpenJDK17; source compiled locally because committed class files target Java23.",
+      "result": "Compilation succeeded. LibraryGUI process launched and remained running without terminal errors. CUA inventory reported running LibraryGUI (net.java.openjdk.java).",
+      "media": [],
+      "limitations": [
+        "CUA getApp by reported ID/name returned Invalid app. A local wrapper with matching bundle ID resolved but getApp/path and direct screenshot attempt timed out before a usable handle.",
+        "No permitted native screenshot captured. Login and catalog interactions not verified. No fabricated UI/image substituted."
+      ]
+    }
+  ]
+}

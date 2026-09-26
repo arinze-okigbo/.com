@@ -18,4 +18,10 @@ A shared lightweight SVG icon family replaces inconsistent Unicode navigation an
 
 ## Release
 
-Required Linux CI, exact Vercel preview and production verification are pending.
+PR #9 merged as `6b54d77964f50c9f16d23d09daa3f14f4e415161` and is verified on https://arinzeokigbo.com. Required premerge Linux CI 35034155418 passed, with fixed-five performance 93/96/94/96/96 and representative 96/100/100/100. The exact candidate preview was visually inspected before merge.
+
+All 93 production browser checks pass, with 3 device-specific skips. Final main CI 35034629171 passed build, lint, types, unit, browser, bundle and performance checks: series 79/96/96/95/96, representative 96/100/100/100, LCP 2655ms, TBT 118ms, CLS 0.
+
+Independent production audit 35034711769 published and enforced the exact merge commit: series 68/100/100/99/100, representative 100/100/100/100, LCP 1381ms, TBT 48ms, CLS 0. All measurements use the existing fixed-five representative selection; the slow first runs remain recorded. Current gates pass; historical score variance is not claimed resolved.
+
+Compact reports are under `hive/qa/editorial-polish-{linux,postmerge-linux,production}-{summary,series}.json`. Full raw reports are retained in the corresponding GitHub artifacts and sibling artifact directories. AGENTS.md records the owner's current public content direction so later work does not restore removed process material.

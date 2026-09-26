@@ -1,3 +1,4 @@
+import "@/components/hive/writing-archive.css";
 import { Icon } from "@/components/hive/Icon";
 import Link from "next/link";
 import { SplitText } from "@/components/hive/Motion";
@@ -36,7 +37,12 @@ export default async function Article({ params }: Props) {
   if (!post && !local) notFound();
   if (!post && local)
     return (
-      <>
+      <div className="writing-reader">
+        <div className="shell">
+          <Link className="reader-back" href="/writing">
+            <Icon name="arrow-left" /> All writing
+          </Link>
+        </div>
         <PageIntro
           label="WRITING"
           title={local.frontmatter.title}
@@ -55,16 +61,17 @@ export default async function Article({ params }: Props) {
           </div>
         </PageIntro>
         <article className="article-body">{renderPostBody(local.body)}</article>
-      </>
+      </div>
     );
   if (!post) notFound();
   return (
-    <>
-      <PageIntro
-        label="WRITING / ORIGINALLY ON SUBSTACK"
-        title={post.title}
-        description={post.subtitle}
-      >
+    <div className="writing-reader">
+      <div className="shell">
+        <Link className="reader-back" href="/writing">
+          <Icon name="arrow-left" /> All writing
+        </Link>
+      </div>
+      <PageIntro label="WRITING / SUBSTACK ESSAY" title={post.title} description={post.subtitle}>
         <div className="article-meta">
           <time dateTime={post.date}>
             {new Date(post.date).toLocaleDateString("en-US", {
@@ -75,7 +82,7 @@ export default async function Article({ params }: Props) {
             })}
           </time>
           <span>{post.readingMinutes} min read</span>
-          <Source href={post.url} label="Original article" />
+          <Source href={post.url} label="Read on Substack" />
         </div>
       </PageIntro>
       <article className="article-body">
@@ -129,7 +136,7 @@ export default async function Article({ params }: Props) {
           ),
         )}
         <div className="article-end">
-          <p>Originally published on Substack.</p>
+          <p>Also published on Substack.</p>
           <a href={post.url} className="text-link" target="_blank" rel="noreferrer">
             Read the original <Icon name="arrow-up-right" />
           </a>
@@ -138,6 +145,6 @@ export default async function Article({ params }: Props) {
           </Link>
         </div>
       </article>
-    </>
+    </div>
   );
 }

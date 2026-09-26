@@ -123,3 +123,34 @@ test("command palette takes focus ownership from an open mobile menu", async ({ 
   await expect(page.locator("main")).not.toHaveAttribute("inert");
   expect(await page.locator("body").evaluate((node) => node.style.overflow)).toBe("");
 });
+
+for (const [path, section, parent] of [
+  ["/projects/splita", "Projects", "/projects"],
+  ["/writing/the-next-decade-of-digital-identity", "Writing", "/writing"],
+]) {
+  test(`${section} stays current on detail routes in mobile and desktop navigation`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(path, { waitUntil: "networkidle" });
+    await page.getByRole("button", { name: "Open menu", exact: true }).click();
+    const mobile = page.getByRole("navigation", { name: "Mobile navigation", exact: true });
+    const current = mobile.getByRole("link", { name: section, exact: true });
+    await expect(current).toHaveAttribute("aria-current", "location");
+    await expect(mobile.locator("a[aria-current]")).toHaveCount(1);
+    expect(await current.evaluate((node) => getComputedStyle(node).textDecorationLine)).toContain(
+      "underline",
+    );
+    await page.setViewportSize({ width: 1024, height: 844 });
+    const desktop = page.getByRole("navigation", { name: "Main navigation", exact: true });
+    const parentLink = desktop.getByRole("link", { name: section, exact: true });
+    await expect(parentLink).toHaveAttribute("aria-current", "location");
+    await expect(parentLink).toBeFocused();
+    await parentLink.press("Enter");
+    await expect(page).toHaveURL(new RegExp(`${parent}$`));
+    await expect(desktop.getByRole("link", { name: section, exact: true })).toHaveAttribute(
+      "aria-current",
+      "page",
+    );
+  });
+}

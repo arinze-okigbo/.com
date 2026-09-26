@@ -1,0 +1,41 @@
+{
+  "url": "https://www.linkedin.com/posts/arinzeokigbo_splita-fintech-startups-activity-7439287912275337216-tasP",
+  "retrievedAt": "2026-09-16T01:03:17.238856+00:00",
+  "jsonld": [
+    {
+      "@context": "http://schema.org",
+      "@type": "SocialMediaPosting",
+      "@id": "https://www.linkedin.com/posts/arinzeokigbo_splita-fintech-startups-activity-7439287912275337216-tasP",
+      "datePublished": "2026-03-16T12:34:13.553Z",
+      "headline": "Eight years ago, I was a 12-year-old intern learning about startups.",
+      "image": {
+        "url": "https://media.licdn.com/dms/image/v2/D4E22AQGZVhRj6sHViw/feedshare-shrink_800/B4EZz0BTRkGwAc-/0/1773620508061?e=2147483647&v=beta&t=kZ1U2D2xcpN21883YOSeZD8OFyFQaI-ZvGUYBLmSzz0",
+        "@type": "ImageObject"
+      },
+      "articleBody": "Eight years ago, I was a 12-year-old intern learning about startups.\n\nToday, I\u2019m building one.\n\nExcited to officially welcome Dayo Adebari  to the team at Splita.\n\nBuilding a company is ultimately about the people you get to build with, and I\u2019m excited about what we\u2019re going to create together as we continue building the infrastructure behind seamless group payments.\n\nA big thank you to Mr. Kola A. for connecting us.\n\nWhen on a catch up call, he mentioned that someone in the UK was working on a similar problem around group payments, I was immediately curious. \n\nDayo and I connected, started talking about the problem, and it quickly became clear we were thinking about many of the same challenges around payments infrastructure and how group transactions should actually work.\n\nThat introduction eventually led to Dayo joining us to lead engineer at Splita.\n\nBut my gratitude to Mr. Kola goes back much further than that.\n\nIn 2018, when I was just 12 years old, I had the opportunity to intern at Ventures Park, part of the Ventures Platform Fund ecosystem founded by Mr. Kola.\n\nThat experience introduced me to the world of startups for the first time.\n\nDuring that internship, I worked with teams at Ventoven Limited, gaining early exposure to things like data security, cybersecurity, and server management, while also supporting several Africa-based startups with operational and administrative work.\n\nMore importantly, it was the first time I saw first-hand how technology and entrepreneurship were changing Africa.\n\nBeing in that environment, surrounded by founders, builders, and innovators, left a lasting impression on me. It showed me what was possible.\n\nYears later, as we build Splita, it feels meaningful that the same ecosystem that introduced me to startups is now helping connect the people building the future together.\n\nSo thank you again Mr. Kola Aina, not only for connecting us with Dayo, but for continuing to mentor and inspire young Africans working to build and change the world.\n\nYou\u2019ve truly built an ecosystem dedicated to catalyzing growth beyond capital.\n\n#Splita #fintech #startups #buildinpublic #africantech",
+      "author": {
+        "name": "Arinze Okigbo",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+          "@type": "ImageObject"
+        },
+        "url": "https://www.linkedin.com/in/arinzeokigbo",
+        "@type": "Person",
+        "interactionStatistic": {
+          "@type": "InteractionCounter",
+          "interactionType": "http://schema.org/FollowAction",
+          "userInteractionCount": 2703
+        }
+      },
+      "hasPart": {
+        "@type": "WebPageElement",
+        "isAccessibleForFree": false,
+        "cssSelector": ".details"
+      }
+    }
+  ],
+  "embedUrns": [
+    "urn:li:share:7439103595423162368",
+    "urn:li:share:7439287910987657217"
+  ]
+}

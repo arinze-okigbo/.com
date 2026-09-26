@@ -9,7 +9,11 @@ export const articleImageUrl = webUrl.refine((value) => {
     url.protocol === "https:" &&
     !url.username &&
     !url.password &&
-    ["substackcdn.com", "substack-post-media.s3.amazonaws.com"].includes(url.hostname)
+    !url.port &&
+    !url.search &&
+    ((url.hostname === "substackcdn.com" && url.pathname.startsWith("/image/")) ||
+      (url.hostname === "substack-post-media.s3.amazonaws.com" &&
+        url.pathname.startsWith("/public/images/")))
   );
 });
 export const articleInlineSchema = z.discriminatedUnion("type", [
@@ -57,7 +61,20 @@ export const articleSchema = z.object({
   readingMinutes: z.number().int().positive(),
   tags: z.array(z.string()),
 });
-export const substackSchema = z.object({ ...meta, items: z.array(articleSchema) });
+export const substackSchema = z.object({
+  ...meta,
+  items: z.array(articleSchema),
+  archive: z
+    .object({
+      source: webUrl,
+      checkedAt: z.string().datetime(),
+      discovered: z.number().int().nonnegative(),
+      status: z.enum(["checked", "partial"]),
+      retained: z.number().int().nonnegative(),
+      pendingSlugs: z.array(z.string().regex(/^[a-z0-9-]+$/)).optional(),
+    })
+    .optional(),
+});
 export const linkedinSchema = z.object({
   ...meta,
   items: z.array(

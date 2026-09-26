@@ -1,0 +1,59 @@
+{
+  "url": "https://www.linkedin.com/posts/arinzeokigbo_summitinnovationchallenge-founderjourney-activity-7426519025871908864-CDOV",
+  "retrievedAt": "2026-09-16T01:03:17.352628+00:00",
+  "jsonld": [
+    {
+      "@context": "http://schema.org",
+      "@type": "SocialMediaPosting",
+      "@id": "https://www.linkedin.com/posts/arinzeokigbo_summitinnovationchallenge-founderjourney-activity-7426519025871908864-CDOV",
+      "datePublished": "2026-02-09T06:55:13.798Z",
+      "headline": "Check out our pitch deck (and join our waitlist): www.splita.co/pitch",
+      "image": [
+        {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQGvI6ZkEf5SpQ/feedshare-image-high-res/B4EZxBJblFJoAU-/0/1770619517974?e=2147483647&v=beta&t=wt_nwsuF8cTzvtaeVluPbE7JPNj1KY5meaPHqD8LCPQ",
+          "@type": "ImageObject"
+        },
+        {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQFAntVgHx-i9g/feedshare-shrink_800/B4EZxBJblDJgAg-/0/1770619517886?e=2147483647&v=beta&t=EYOB5bjKrPPBEMyhnHo-6rW8u1oIp27cmmM3tLsiSjc",
+          "@type": "ImageObject"
+        },
+        {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQE5dtrLXmcAJw/feedshare-image-high-res/B4EZxBJblLJoAU-/0/1770619517885?e=2147483647&v=beta&t=GlSupSYH0AyziCcVV7g4peldZ-DobmVmppDXufA-NaU",
+          "@type": "ImageObject"
+        },
+        {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQHr90Zpvj7aNw/feedshare-shrink_800/B4EZxBJbknGwAk-/0/1770619517829?e=2147483647&v=beta&t=w29DhKe90moHAYfxQQLJsg3_lNJ234Y7dnI7GarBPms",
+          "@type": "ImageObject"
+        },
+        {
+          "url": "https://media.licdn.com/dms/image/v2/D4E22AQHFTjTgDWfdtA/feedshare-shrink_800/B4EZxBJbkmIkAg-/0/1770619517650?e=2147483647&v=beta&t=uZrkDFvJSPBqzLF27vwjbx1HNPUzHNgg9noU-qNp7zY",
+          "@type": "ImageObject"
+        }
+      ],
+      "articleBody": "Check out our pitch deck (and join our waitlist): www.splita.co/pitch\n\nBuilding Splita started with a simple frustration around group payments, and sharing that journey on stage after months of iteration was both grounding and motivating. The questions and conversations afterward pushed us beyond the pitch and into how we\u2019re actually building.\n\nGrateful to the Trinity College Entrepreneurship Center for creating a space where student founders are challenged to think seriously about what they\u2019re building. \n\nProud of the progress we\u2019ve made, especially as we continue working after our $200K pre-seed raise.\n\n#SummitInnovationChallenge #FounderJourney #StudentEntrepreneur #BuildingInPublic #EarlyStageStartup",
+      "author": {
+        "name": "Arinze Okigbo",
+        "image": {
+          "url": "https://media.licdn.com/dms/image/v2/D4E03AQGvhtshHKVU3Q/profile-displayphoto-scale_200_200/B4EZzQUdzGKkAY-/0/1773021569077?e=2147483647&v=beta&t=oVCNVp8-khNdmh6AVT82DO5rXY9eDdTHvlKXYScmYjM",
+          "@type": "ImageObject"
+        },
+        "url": "https://www.linkedin.com/in/arinzeokigbo",
+        "@type": "Person",
+        "interactionStatistic": {
+          "@type": "InteractionCounter",
+          "interactionType": "http://schema.org/FollowAction",
+          "userInteractionCount": 2703
+        }
+      },
+      "hasPart": {
+        "@type": "WebPageElement",
+        "isAccessibleForFree": false,
+        "cssSelector": ".details"
+      }
+    }
+  ],
+  "embedUrns": [
+    "urn:li:ugcPost:7426516532861497344",
+    "urn:li:ugcPost:7426519025167376385"
+  ]
+}
