@@ -14,10 +14,12 @@ Status: validated local candidate; production verification pending.
 
 ## Evidence and limits
 
-Local380unit tests, full107browser passes/3intentional skips,28focused final browser checks, lint, types and build pass. InitialJS worst158.1KiB under180KiB. Local fixed-five performance94/96/96/96/96; selected96/100/100/100,CLS0,TBT11.5ms.22pages and50external destinations checked:49HTTP200, LinkedIn profile999automated-access restriction.
+Local381unit tests, full107browser passes/3intentional skips,28focused final browser checks, lint, types and build pass. InitialJS worst158.1KiB under180KiB. Local fixed-five performance94/96/96/96/96; selected96/100/100/100,CLS0,TBT11.5ms.22pages and50external destinations checked:49HTTP200, LinkedIn profile999automated-access restriction.
 
 All seven GitHub projects were attempted; a screenshot is not proof of complete runtime health. SkyView capture timed out and keyless feeds were not verified; Campus needs Supabase configuration; Homework needs Gemini credentials and has a broken pinned dependency; LinkedIn+ is README-only; Java Library GUI launched but could not be captured. Scanner has real CLI text, not a fabricated terminal screenshot. NYC renders a map/alerts while some feeds/layers report errors. See project-media.json and round9-native-captures.json.
 
 The five-essay count matches the public Substack archive. Fourteen LinkedIn posts are a verified public collection, not a complete account export. Source checks from September16retain their original dates.
 
 Next: required LinuxCI, exact preview inspection, gated production deployment and independent production audits, then continued bounded visual/UX review.
+
+Performance follow-up: preserve Linux head8e847dc failure (representative94); defer initial navigation prefetch until intent. Local125browser checks pass/3skips, bundle158.5KiB, fixed-five96/97/96/96/96 selects96/100/100/100. Fresh Linux and exact preview verification pending.
