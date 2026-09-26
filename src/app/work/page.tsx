@@ -9,7 +9,7 @@ import {
   Source,
   pageMeta,
 } from "@/components/hive/Primitives";
-import { experience } from "@/content/editorial";
+import { experience, primarySource } from "@/content/editorial";
 import { experience as verifiedExperience, honors } from "@/content/hive";
 export const metadata = pageMeta(
   "Work",
@@ -17,7 +17,8 @@ export const metadata = pageMeta(
   "/work",
 );
 export default function Work() {
-  const entries = [experience[0], ...verifiedExperience, ...experience.slice(1)];
+  const sourcedExperience = experience.map((entry) => ({ ...entry, source: primarySource }));
+  const entries = [sourcedExperience[0], ...verifiedExperience, ...sourcedExperience.slice(1)];
   return (
     <>
       <PageIntro
@@ -63,11 +64,14 @@ export default function Work() {
             </div>
             <div className="timeline-body">
               <p>{entry.body}</p>
-              {entry.href && (
-                <a className="company-website" href={entry.href} target="_blank" rel="noreferrer">
-                  {entry.org} website <Icon name="arrow-up-right" />
-                </a>
-              )}
+              <div className="experience-links">
+                <Source href={entry.source} label="Role source" />
+                {entry.href && (
+                  <a className="company-website" href={entry.href} target="_blank" rel="noreferrer">
+                    {entry.org} website <Icon name="arrow-up-right" />
+                  </a>
+                )}
+              </div>
             </div>
           </article>
         ))}

@@ -39,9 +39,12 @@ export function ProjectMedia({ slug, detail = false }: { slug: string; detail?: 
           {detail ? (
             <>
               <p>{image.suggestedCaption}</p>
-              <a href={image.source} target="_blank" rel="noreferrer">
-                {image.captureType === "local-runtime" ? "Captured project" : "Screenshot source"}
-              </a>
+              <div className="project-proof-files">
+                <a href={image.localPath}>View full-size image</a>
+                <a href={image.source} target="_blank" rel="noreferrer">
+                  {image.captureType === "local-runtime" ? "Captured project" : "Screenshot source"}
+                </a>
+              </div>
             </>
           ) : image.captureType === "local-runtime" ? (
             "Local runtime capture"

@@ -53,6 +53,11 @@ test("experience logos load beside their company names", async ({ page }) => {
     await expect
       .poll(() => logo.evaluate((node) => (node as HTMLImageElement).naturalWidth))
       .toBeGreaterThan(0);
+    const source = entry.getByRole("link", { name: "Role source", exact: true });
+    await expect(source).toBeVisible();
+    expect(await source.getAttribute("href")).toMatch(
+      /^https:\/\/(github\.com|www\.linkedin\.com)\//,
+    );
   }
 });
 
@@ -107,7 +112,9 @@ test("writing archive exposes the expanded posts and working combined filters", 
   page,
 }) => {
   await page.goto("/writing");
-  await expect(page.getByRole("status")).toContainText("5 of 5 essays");
+  const essayCount = await page.locator(".essay-card").count();
+  expect(essayCount).toBeGreaterThan(0);
+  await expect(page.getByRole("status")).toContainText(`${essayCount} of ${essayCount} essays`);
   await page.getByLabel("Search the archive").fill("no-writing-matches-this-phrase");
   await expect(
     page.getByRole("heading", { name: "No writing matches those filters." }),

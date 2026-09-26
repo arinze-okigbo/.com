@@ -10,6 +10,8 @@ Status: validated local candidate; production verification pending.
 - Explicit project navigation controls and keyboard/reduced-motion browsing.
 - Fixed light-mode tab-count contrast, printed writing heading, cropped cover titles and long article-link overflow. Public construction content remains absent.
 
+- Follow-up review: preserve role source links, fetch complete pages for new RSS posts, prevent unhydrated contact drafts from submitting to the site, mark parent sections on detail-page navigation, and expose full-size project images.
+
 ## Evidence and limits
 
 Local380unit tests, full107browser passes/3intentional skips,28focused final browser checks, lint, types and build pass. InitialJS worst158.1KiB under180KiB. Local fixed-five performance94/96/96/96/96; selected96/100/100/100,CLS0,TBT11.5ms.22pages and50external destinations checked:49HTTP200, LinkedIn profile999automated-access restriction.

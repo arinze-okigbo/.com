@@ -70,6 +70,7 @@
 }
 .project-proof-files {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 .project-runtime-note {

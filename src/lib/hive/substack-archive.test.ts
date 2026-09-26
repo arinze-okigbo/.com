@@ -59,6 +59,39 @@ describe("public writing archive", () => {
     });
     expect(result.archive?.retained).toBe(fallback.items.length);
   });
+  it("fetches the full public body of a new RSS excerpt during deep ingestion while runtime remains RSS-only", async () => {
+    const older = source("older-essay");
+    const newer = { ...source("new-essay"), post_date: "2026-06-24T17:56:11Z" };
+    const input = { ...fallback, items: [publicArticle(page({ post: older })).article] };
+    const rss = `<rss><channel><item><title>New essay</title><link>${newer.canonical_url}</link><pubDate>Wed, 24 Jun 2026 17:56:11 GMT</pubDate><description>Preview only.</description></item></channel></rss>`;
+    const calls: string[] = [];
+    const read = async (url: string) => {
+      calls.push(url);
+      if (url.endsWith("/feed")) return rss;
+      if (url.endsWith("/archive")) return page({ newPostsForArchive: { pub: [newer, older] } });
+      return page({ post: url === newer.canonical_url ? newer : older });
+    };
+    const deep = await refreshSubstack(input, read);
+    expect(calls).toContain(newer.canonical_url);
+    expect(deep.items.find((item) => item.slug === newer.slug)?.bodyHtml).toBe(newer.body_html);
+    expect(deep.items.find((item) => item.slug === newer.slug)?.blocks[0].inline).toContainEqual({
+      type: "text",
+      text: "citation",
+      href: "https://example.org/reference",
+    });
+    calls.length = 0;
+    const shallow = await refreshWithMode(input, read);
+    expect(calls).toEqual([fallback.source]);
+    expect(shallow.items.find((item) => item.slug === newer.slug)?.bodyHtml).toBe("Preview only.");
+    // A failed archive request must keep the new slug queued for a later ingestion.
+    const interrupted = await refreshSubstack(input, async (url) => {
+      if (url.endsWith("/feed")) return rss;
+      throw new Error("Archive unavailable");
+    });
+    expect(interrupted.archive?.pendingSlugs).toContain(newer.slug);
+    const resumed = await refreshSubstack(interrupted, read);
+    expect(resumed.items.find((item) => item.slug === newer.slug)?.bodyHtml).toBe(newer.body_html);
+  });
   it("does not overwrite a retained full body with a shorter RSS excerpt during an article-page outage", async () => {
     const retained = fallback.items[0];
     const rss = `<rss><channel><item><title>Updated title</title><link>${retained.url}</link><pubDate>Wed, 24 Jun 2026 17:56:11 GMT</pubDate><description>Short preview only.</description></item></channel></rss>`;

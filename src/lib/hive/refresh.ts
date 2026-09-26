@@ -52,6 +52,7 @@ export async function refreshSubstack(
   }
   // RSS is a moving window, not a deletion signal. Keep previously verified bodies.
   const items = new Map(fallback.items.map((item) => [item.slug, item]));
+  const newSlugs = fresh.items.filter((item) => !items.has(item.slug)).map((item) => item.slug);
   const shortened = new Set<string>();
   for (const item of fresh.items) {
     const previous = items.get(item.slug);
@@ -92,6 +93,7 @@ export async function refreshSubstack(
       ...new Set([
         ...(fallback.archive?.pendingSlugs ?? []),
         ...shortened,
+        ...newSlugs,
         ...archive.filter((post) => !items.has(post.slug)).map((post) => post.slug),
       ]),
     ];
@@ -121,7 +123,7 @@ export async function refreshSubstack(
     pendingSlugs.push(...queue);
     if (pendingSlugs.length) complete = false;
   } catch {
-    pendingSlugs.push(...(fallback.archive?.pendingSlugs ?? []));
+    pendingSlugs.push(...(fallback.archive?.pendingSlugs ?? []), ...shortened, ...newSlugs);
     complete = false;
   }
   return substackSchema.parse({

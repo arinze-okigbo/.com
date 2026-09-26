@@ -31,3 +31,7 @@ The existing daily 09:00 America/New_York heartbeat has been updated to continue
 - Manual390px essay review found a long C2PA source URL expanding the document to660px. Source links now wrap anywhere; every essay has desktop/mobile overflow coverage.
 - Desktop/mobile Chrome checks exercised collection tabs, Splita topic filtering, theme switching, project controls, actual NYC screenshot, experience logos and article headings. All50candidate external destinations were checked; only LinkedIn profile automation returned999, the other49returned200.
 - Full browser suite107passed/3platform-specific skips; after final cover/reader CSS,28focused checks passed. Final exact preview and production checks remain release gates.
+
+## Follow-up before release
+
+PR review restored separate role evidence alongside company destinations and fixed full-page fetching for newly discovered RSS excerpts, including pending retries after source outages. The next element review found three concrete gaps: contact forms could default to a site GET without JavaScript, nested mobile routes lacked an active section, and dense screenshots could not be opened at original size. Scoped fixes now keep the composer inert until hydration with an email fallback, identify parent sections with aria-current=location, and expose full-size local image links without client JavaScript. Native Library screenshot was attempted again on September26and still timed out; no capture fabricated.

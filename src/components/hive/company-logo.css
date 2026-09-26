@@ -39,3 +39,14 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+.experience-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 12px;
+}
+.experience-links > a {
+  min-height: 44px;
+  margin-top: 0;
+}
