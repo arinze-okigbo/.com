@@ -1,38 +1,34 @@
 # Exact resume point
 
-Round 9 candidate on `hive/round-9-content-and-proof`, based on Round 8 checkpoint `5ffff6d`. Production remains Round 8 merge `6b54d77964f50c9f16d23d09daa3f14f4e415161` until exact deployment verification.
+Round 9 shipped in PR10. Production commit **94a77990e531a23915171cbd3673fadc567055bd** is verified on https://arinzeokigbo.com, September 26, 2026. Current isolated worktree is on `hive/round-10-layout-review`, a documentation checkpoint based on that production merge. Original checkout and unrelated analytics PR2 remain untouched.
 
-## Saved implementation (September 26)
+## Shipped
 
-- Learn More destinations corrected; Splita targets splita.co. Five authentic experience logos with provenance.
-- Project cards/details lead with genuine SkyView, Campus and Homework repository images, a new actual NYC Live local screenshot, and Scanner's exact executed transcript. All seven GitHub execution attempts documented in project-media.json. Credentials, missing runnable source and capture limits remain honest blockers; R9-03 stays open.
-- Writing now has five complete publicly available Substack essays and fourteen verified LinkedIn posts. Compact visible covers, search/topic/year/order, counts/reset, opt-in embeds and reader improvements. Runtime RSS refresh preserves complete bodies; bounded deep discovery is build-only.
-- Visible project-strip controls, keyboard browsing, reduced motion and native touch scrolling. Public construction/swarm credits remain removed.
+- Correct Learn More links, including Splita; five authentic company logos with separate role provenance.
+- Real project images lead cards/details, with full-size inspection links. New actual NYC Live capture; authentic repository images for SkyView, Campus and Homework; Scanner's executed input/output. Seven GitHub runtime attempts are documented with their limits.
+- Writing has five complete public essays and fourteen verified LinkedIn posts, visible covers, search/topic/year/order filters, counts/reset and an improved reader. Full-body ingestion handles new RSS items and older archive discovery without inventing content.
+- Project-strip keyboard controls, mobile parent-section navigation, safe unhydrated contact fallback, and navigation-intent prefetch. Fixed contrast, print headings, cover cropping and long article-link overflow. Real portrait and existing motion remain; public construction/swarm content remains removed.
 
-## Validation
+## Verified release evidence
 
-Lint, TypeScript,381unit tests, build and180KiB initial-JS gate pass (worst158.2KiB). Full browser suite107pass/3intentionalskips; latest cover and reader wrapping rebuild followed by28focused browser checks all pass. First failure retained at hive/qa/content-proof-first-browser-failure.zip and log: inactive LinkedIn count contrast corrected; exact wrapping-label test locator corrected to semantic combobox. Independent review found/fixed print masthead hiding; manual visual review found/fixed cover-title cropping.
+- Required Linux run **36246279406** passed: 381 unit tests, 125 browser checks / 3 deliberate platform skips, build/lint/types and 180 KiB bundle budget (worst 158.5 KiB). Fixed-five performance 82/95/95/95/95 selects **95/100/100/100**, CLS 0.
+- Exact preview **69faccf** checked in CUA: keyboard navigation, 390 px mobile hero/menu/navigation. Prior same-content preview inspected all routes, themes, source links, media/full-size links and writing/reader geometry. No site console errors; observed errors were Grammarly extension-only.
+- Exact custom-domain merge SHA verified; production full browser suite **125 passed / 3 skipped**. Live Writing visually inspected with 5 essays / 14 posts.
+- Independent production audit **36246677130** published and enforced **99/100/100/100**, LCP 1668 ms, TBT 91 ms, CLS 0. Full performance series **87/99/99/99/98**. Metrics branch contains the exact production SHA and measurement.
+- Final main CI **36246619673** passed; fixed-five **72/95/94/98/96** selects **96/100/100/100**. Slow first runs and every raw report are retained; do not claim variance is eliminated or every run passed performance95.
+- Local final fixed-five 96/97/96/96/96 selects 96. Earlier held Linux head8e847dc scored94; its profile showed eager router requests. Intent prefetch removed observed startup requests without changing thresholds. All failures preserved.
+- Evidence summaries/series under `hive/qa/content-proof-*`; raw workflow artifact archives are retained locally there. Fresh September26link audit:22pages,50external destinations,49HTTP200 plus LinkedIn profile999automation restriction.
 
-Candidate link crawl September26:22canonical pages,50external destinations;49HTTP200,LinkedIn profile999automation restriction. See round9-candidate-links.json. Optimized writing/project images load, scanner files resolve, logos load; internal links and dark/light/reduced-motion checks pass.
+## Remaining runtime blockers — R9-03 remains open
 
-## Next
+SkyView serves and exposes its overview but screenshot capture times out and keyless feeds are not fully verified. Campus requires Supabase configuration; Homework requires Gemini credentials and its pinned rate-limiter version is unavailable. LinkedIn+ is README-only. Java Library launched but native capture timed out again on September26. Terminal capture was denied; Scanner's real transcript remains the evidence. NYC's captured map/alerts are real but some feeds/layers report errors. Never fabricate a fresh screenshot or claim full runtime health. Public Substack archive contains five distinct essays; LinkedIn's fourteen posts are a verified public collection, not an account export.
 
-Fixed-five local performance passed96/100/100/100 (series94/96/96/96/96, all raw reports retained). Manual CUA desktop1440/mobile390 covered writing/filter/theme/experience/media/reader; fixed a long citation URL overflowing the essay and added every-essay regression coverage. PR10 exists; first head6cd3b8f passed Linux run36244692875 at96/100/100/100 and exact preview manual QA. Review follow-up restored role provenance and full-body fetching for new RSS items. A bounded UX review added safe unhydrated contact fallback, mobile parent-section location and full-size screenshot links. Latest local381unit/build/lint/types/bundle pass;115browser checks passed and4new test assertions needed locator-only corrections (scoped status and noscript child), all6focused contact/media tests now pass after correcting assertions and distinguishing legitimate mailto from HTTP data leakage. Commit/push follow-up, wait for fresh required Linux CI, inspect the new exact preview, merge only if gates pass. Verify domain SHA, production browser suite and independent production audit including final main CI. Never describe an unverified deployment as complete. All feature agents frozen; temporary project servers stopped. CUA Chrome is functional for site QA; SkyView capture remains unreliable. Root QA tab45024651.
+## Next bounded round — layout and source navigation
 
-After release, rotate route/element critique for the next bounded visual/UX/motion improvement. Existing daily09:00New York heartbeat continues; no duplicate schedule. Do not fabricate source facts, logos, posts or captures, search secrets, or bypass denied Terminal capture. Preserve other checkout and unrelated analytics PR2.
+1. Frontend: make Now's single latest-writing card span its desktop grid, with title and summary/action internally split above1024px and stacked below. Preserve long-title wrapping at390/768/1440px,65ch copy, missing-post state and server rendering.
+2. Frontend: wrap About's three biography source links with16–24px gaps and44px targets. Verify320/390px wrapping, unobscured focus, unchanged destinations and print.
+3. Motion: critique one next visible interaction for orientation, keyboard/touch and reduced-motion behavior. Implement only a concrete verified UX benefit; preserve startup and bundle budgets.
+4. Research: maintain factual/source integrity and re-attempt project captures only when their required configuration or capture capability is available; do not repeatedly run unchanged blockers.
+5. Root: responsive dark/light/keyboard/print review, meaningful tests and all unchanged release gates; exact preview and production verification before claiming shipment.
 
-## Release hold — September26, final-head Linux performance
-
-PR10 head8e847dc passed381unit and119browser checks/3skips, build/lint/types/bundle, exact preview manual QA including mobile navigation and full-size image. Linux run36245238248 failed the unchanged performance gate: fixed series92/94/95/94/94, selected94/100/100/100, LCP2915ms,TBT99.5ms,CLS0. Slower runner benchmark2435 versus3907 in prior pass. All reports and startup profile retained in workflow artifact and hive/qa/content-proof-linux-review-failure.zip. Production unchanged.
-
-Motion agent now owns narrow IntentLink optimization for Header and three hero links: defer measured seven idle route/metadata prefetches until pointer/focus/touch intent, preserving native anchors and navigation. No scoring workaround, no gate relaxation, no unchanged rerun. Root must build/test, fixed-five, push, recheck requiredLinux/exactpreview before any merge. Other feature agents frozen; no native runtime servers remain.
-
-## Intent-prefetch candidate — September 26
-
-Header links, the three hero links and the desktop-visible Now link now wait for pointer, focus or touch intent before speculative Next route fetching. Current-page links do not initiate prefetch. Native anchors work without JavaScript. The unchanged strict startup-request test caught the Now link during the first run; that failure is retained in `content-proof-intent-first-browser-failure.zip` and its log.
-
-Final local production build, lint, types and bundle pass (worst 158.5 KiB / 180 KiB). Full browser suite: 125 passed, 3 deliberate platform skips. Fixed-five local series 96/97/96/96/96 selects 96/100/100/100, LCP 2704 ms, TBT 12 ms, CLS 0. Reports: `content-proof-intent-{series,summary}.json`; every raw report remains under hive/qa. This reduces observed eager router requests; it does not prove all React startup time came from prefetch or resolve runner variance.
-
-Next: commit/push this real optimization and preserved Linux failure evidence, then wait for fresh required Linux checks and inspect the new exact preview. Merge only after both pass, followed by exact custom-domain SHA, full production browser suite, independent production audit and final main CI. Production is still Round 8.
-
-Next bounded visual review after release: make Now's single latest-writing card span its desktop grid, with a readable internal layout; group About's three biography source links with wrapping and distinct 44 px targets. No extra JavaScript required. Previous preview review found neither to be a release blocker.
+Three existing agents are frozen/idle. Assign ownership before edits; they share this worktree. No project runtime servers remain. CUA Chrome works for website QA; viewport override reset. Existing daily09:00New York heartbeat continues bounded rounds and notifies only on meaningful shipment or changed blockers. Do not duplicate it. No push to main, gate weakening, secret searches, native capture bypass or public build showcase.

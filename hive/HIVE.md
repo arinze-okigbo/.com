@@ -6,9 +6,9 @@ Rebuild arinzeokigbo.com as a visually ambitious, technically credible personal 
 
 ## Current session
 
-Round 9 — content, destinations and authentic project proof. Owner requests Learn More copy, correct links including Splita, official experience logos, running every GitHub project and adding missing screenshots, and a complete improved writing archive. Three agents work in parallel: frontend owns links/logos, motion owns project execution/media, research owns writing ingestion/presentation. Root owns QA, documentation and release. Branch `hive/round-9-content-and-proof` starts from the verified Round 8 checkpoint.
+Round 9 shipped as94a7799 inPR10; exact domain and125production browser checks verified. RequiredLinux36246279406 passed95, productionaudit36246677130 published/enforced99, and finalmain36246619673 passed96 (representative fixed-five performance, all other categories100). Every raw run and previous failure retained. R9-03 remains blocked on missing runtime configuration/source/capture capability; authentic available media shipped with honest provenance.
 
-After these tasks, perform element-by-element visual, UX and motion review with bounded improvements each round. Existing daily 09:00 New York heartbeat now explicitly continues these priorities, keeps public construction content removed, and notifies only on meaningful changes.
+Round10 is scoped on `hive/round-10-layout-review`: Now card composition, About source-link spacing and a bounded interaction critique. Three agents idle; assign ownership before edits. Existing daily09:00New York heartbeat continues; no public construction content.
 
 ## Decisions
 

@@ -210,13 +210,45 @@
   {
     "id": "R9-05",
     "owner": "queen",
-    "status": "in_progress",
-    "acceptance_test": "Independent rendered links, responsive visuals, content/media provenance, build/browser/security/accessibility/performance QA and gated exact preview/production verification."
+    "status": "complete",
+    "acceptance_test": "Independent rendered links, responsive visuals, content/media provenance, build/browser/security/accessibility/performance QA and gated exact preview/production verification.",
+    "completion_evidence": "PR10 production94a7799 verified; requiredLinux36246279406, productionaudit36246677130 and finalmain36246619673 passed;125production browser checks /3skips. All raw measurements retained."
   },
   {
     "id": "R9-06",
     "owner": "queen",
+    "status": "complete",
+    "acceptance_test": "After requested fixes, review each visible element across routes; implement highest-value visual/UX/motion improvements and persist recurring review.",
+    "completion_evidence": "All-route desktop/mobile critique drove contact fallback, nested navigation, full-size media, print/contrast/overflow fixes and intent prefetch. Next bounded Now/About review scoped; recurring daily heartbeat remains active."
+  },
+  {
+    "id": "R10-01",
+    "owner": "frontend_design",
     "status": "pending",
-    "acceptance_test": "After requested fixes, review each visible element across routes; implement highest-value visual/UX/motion improvements and persist recurring review."
+    "acceptance_test": "Now latest-writing card uses the full desktop grid with readable internal columns and stable mobile/missing-post layout; no new JS."
+  },
+  {
+    "id": "R10-02",
+    "owner": "frontend_design",
+    "status": "pending",
+    "acceptance_test": "About biography sources wrap with distinct44px targets, visible keyboard focus and unchanged destinations, including print."
+  },
+  {
+    "id": "R10-03",
+    "owner": "motion_lab",
+    "status": "pending",
+    "acceptance_test": "Review one visible interaction for orientation, keyboard/touch/reduced-motion; implement only a verified UX improvement within startup/bundle budgets."
+  },
+  {
+    "id": "R10-04",
+    "owner": "research_content",
+    "status": "pending",
+    "acceptance_test": "Verify changed copy/source links; only retry prior runtime blockers when configuration or capability changes, preserving genuine evidence."
+  },
+  {
+    "id": "R10-05",
+    "owner": "queen",
+    "status": "pending",
+    "acceptance_test": "Responsive manual review, meaningful tests, unchanged build/browser/bundle/fixed-five gates, exact preview/production and checkpoint."
   }
 ]

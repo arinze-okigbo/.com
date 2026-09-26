@@ -1,6 +1,6 @@
 # Round9 — clearer projects and a fuller writing archive
 
-Status: validated local candidate; production verification pending.
+Status: shipped September26,2026 via PR10; production94a77990e531a23915171cbd3673fadc567055bd verified.
 
 ## Changes
 
@@ -23,3 +23,11 @@ The five-essay count matches the public Substack archive. Fourteen LinkedIn post
 Next: required LinuxCI, exact preview inspection, gated production deployment and independent production audits, then continued bounded visual/UX review.
 
 Performance follow-up: preserve Linux head8e847dc failure (representative94); defer initial navigation prefetch until intent. Local125browser checks pass/3skips, bundle158.5KiB, fixed-five96/97/96/96/96 selects96/100/100/100. Fresh Linux and exact preview verification pending.
+
+## Final release verification
+
+Required Linux36246279406 passed:381unit/125browser checks,3platform skips,158.5KiB initialJS and fixed-five82/95/95/95/95 selecting95/100/100/100. Exact preview69faccf was inspected before merge. Custom domain94a7799 and125production browser checks verified.
+
+Independent production36246677130 published and enforced99/100/100/100 (full series87/99/99/99/98;LCP1668ms,TBT91ms,CLS0). Final main36246619673 passed96/100/100/100 (series72/95/94/98/96). These are representative median results, not claims that every performance run passed. Every raw run, held Linux94 and diagnostic evidence remain available.
+
+Round10 scoped: Now latest-writing composition, About source-link spacing and a bounded interaction review. Runtime-media taskR9-03 remains blocked with exact limits above; all other Round9 tasks complete.
